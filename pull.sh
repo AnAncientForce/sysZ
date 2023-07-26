@@ -19,5 +19,9 @@ else
     echo "Git repository set up. Repository is ready."
 fi
 
+echo "Copying update config files"
+sh shell/cu.sh
+echo "Copy complete"
+
 # Return to the original directory
 cd "$current_dir"
