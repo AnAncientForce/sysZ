@@ -199,8 +199,8 @@ bindsym $mod+l exec betterlockscreen -l dimblur
 set $mode_sysZ lock (l), wallpaper (w), reload (r)
 mode "$mode_sysZ" {
 	bindsym l exec betterlockscreen -l dimblur, mode "default"
-	bindsym w exec alacritty -e sh ~/sysZ/shell/cw.sh, mode "default"
-	bindsym r exec sh ~/sysZ/shell/setup.sh, mode "default"
+	bindsym w exec alacritty -e sh ~/sysZ/main.sh cw, mode "default"
+	bindsym r exec sh ~/sysZ/main.sh setup, mode "default"
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
