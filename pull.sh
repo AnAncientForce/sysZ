@@ -4,6 +4,9 @@
 repo_url="https://github.com/AnAncientForce/sysZ.git"
 folder_name="sysZ"
 
+# Store the current directory
+current_dir=$(pwd)
+
 # Check if the folder exists; if not, clone the repository
 if [ ! -d "$folder_name" ]; then
     git clone "$repo_url" "$folder_name"
@@ -14,3 +17,6 @@ else
     git pull
     echo "Repository updated in $folder_name"
 fi
+
+# Return to the original directory
+cd "$current_dir"
