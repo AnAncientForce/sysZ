@@ -24,17 +24,22 @@ sh shell/cu.sh
 
 echo "Scanning for changes in default applications"
 
-read -p "(b) Install recommended applications if not already installed\n
-(u) Check for system update\n
-(n) Do neither\n
-(b/u/n): " choice
+read -p "(b) Install recommended applications (if not already installed)
+(u) Check for system update
+(s) Skip
+(b/u/s): " choice
 
-if [ "$choice" = "b" ]; then
-    sh shell/basepkg.sh
-elif [ "$choice" = "u" ]; then
-    sudo pacman -Syu
+if [ "$choice" = "b" ] || [ "$choice" = "u" ] || [ "$choice" = "n" ]; then
+    if [ "$choice" = "b" ]; then
+        sh shell/basepkg.sh
+    elif [ "$choice" = "u" ]; then
+        sudo pacman -Syu
+    elif [ "$choice" = "s" ]; then
+        echo "Skipping..."
+    fi
+else
+    echo "Skipping..."
 fi
-
 echo "Rendering lockscreen"
 betterlockscreen ~/sysZ/bg.png
 
