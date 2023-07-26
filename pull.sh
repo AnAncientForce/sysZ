@@ -27,5 +27,9 @@ echo "checing default apps"
 sh shell/basepkg.sh
 echo "apps complete"
 
+echo "Restarting shell"
+sh shell/setup.sh
+echo "all done"
+
 # Return to the original directory
 cd "$current_dir"
