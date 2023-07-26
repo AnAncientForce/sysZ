@@ -1,0 +1,29 @@
+# ~/.config/alacritty/alacritty.yml
+
+# General settings
+font:
+  size: 12.0
+
+# Window settings
+background_opacity: 0.9
+draw_bold_text_with_bright_colors: true
+
+# Scrolling settings
+# Add any scrolling-related settings you want here
+
+# Colorscheme settings
+# Add your desired colorscheme or palette here
+
+# Keybindings
+# Add custom keybindings if needed
+
+# Additional settings
+# Add any other settings you want to customize Alacritty
+
+# Example keybindings (optional)
+# Copy and paste these keybindings in the appropriate section
+# Copy: Ctrl + Shift + C
+# Paste: Ctrl + Shift + V
+key_bindings:
+  - { key: V, mods: Control|Shift, chars: '\x1b[200~' }
+  - { key: C, mods: Control|Shift, chars: '\x1b[201~' }
