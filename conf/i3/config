@@ -196,13 +196,12 @@ gaps outer 6
 focus_follows_mouse no
 bindsym $mod+l exec betterlockscreen -l dimblur
 
-set $mode_sysZ lock (l), wallpaper (w), reload (r), update (u), cd sysZ (c)
+set $mode_sysZ Lock Workstation (l), Change Wallpaper (w), Reload (r), Update (u)
 mode "$mode_sysZ" {
 	bindsym l exec betterlockscreen -l dimblur, mode "default"
 	bindsym w exec alacritty -e sh ~/sysZ/shell/cw.sh, mode "default"
 	bindsym r exec sh ~/sysZ/shell/setup.sh, mode "default"
         bindsym u exec alacritty -e sh ~/sysZ/pull.sh, mode "default"
-        bindsym c exec alacritty -e sh -c "cd ~/sysZ/; $SHELL", mode "default"
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
