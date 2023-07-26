@@ -1,27 +1,37 @@
 #!/bin/bash
 
-# List of pacman packages to install
 pacman_packages=(
     kitty
     alacritty
     git
     thunar
+    gvfs
     polybar
     rofi
     sox
-    # Add more packages as needed
+    feh
+    ttf-font-awesome
 )
 
-# List of yay packages to install
+
 yay_packages=(
+    librewolf
     picom-simpleanims-next-git
 )
 
 # Update package databases and upgrade system packages (optional but recommended)
 sudo pacman -Syu --noconfirm
 
-# Install pacman packages
-sudo pacman -S --noconfirm "${pacman_packages[@]}"
+# Check if pacman packages are installed and install missing ones
+for package in "${pacman_packages[@]}"; do
+    if ! pacman -Qs "$package" >/dev/null; then
+        sudo pacman -S --noconfirm "$package"
+    fi
+done
 
-# Install yay packages from AUR
-yay -S --noconfirm "${yay_packages[@]}"
+# Check if yay packages are installed and install missing ones
+for package in "${yay_packages[@]}"; do
+    if ! yay -Qs "$package" >/dev/null; then
+        yay -S --noconfirm "$package"
+    fi
+done

@@ -19,17 +19,18 @@ else
     echo "Git repository set up. Repository is ready."
 fi
 
-echo "Copying update config files"
+echo "Updating configuration files"
 sh shell/cu.sh
-echo "Copy complete"
 
-echo "checing default apps"
+echo "Scanning for changes in default applications"
 sh shell/basepkg.sh
-echo "apps complete"
+
+echo "Rendering lockscreen"
+betterlockscreen ~/sysZ/bg.png
 
 echo "Restarting shell"
 sh shell/setup.sh
-echo "all done"
+echo "===> All done! :)"
 
 # Return to the original directory
 cd "$current_dir"
