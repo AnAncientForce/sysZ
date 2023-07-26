@@ -25,7 +25,7 @@ sh main.sh cu
 echo "Scanning for changes in default applications"
 read -p "Check if the recommended applications are installed? (And if not, automatically install them) (y/n): " choice
 if [ "$choice" = "y" ]; then
-    sh main.sh basepkg.
+    sh main.sh basepkg
 fi
 
 echo "Rendering lockscreen"

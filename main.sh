@@ -1,4 +1,4 @@
-restart() {
+setup() {
     killall -9 picom polybar
     i3-msg 'exec feh --bg-fill ~/sysZ/bg.*;'
     i3-msg 'exec polybar -c ~/sysZ/conf/polybar/config.ini;'
