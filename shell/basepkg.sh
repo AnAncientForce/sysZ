@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# List of example packages to install
-packages=(
+# List of pacman packages to install
+pacman_packages=(
     kitty
     alacritty
     git
@@ -9,11 +9,20 @@ packages=(
     polybar
     rofi
     picom
+    sox
     # Add more packages as needed
 )
 
-# Update package database and upgrade system packages (optional but recommended)
+# List of yay packages to install
+yay_packages=(
+    picom-simpleanims-next-git
+)
+
+# Update package databases and upgrade system packages (optional but recommended)
 sudo pacman -Syu --noconfirm
 
-# Install the specified packages
-sudo pacman -S --noconfirm "${packages[@]}"
+# Install pacman packages
+sudo pacman -S --noconfirm "${pacman_packages[@]}"
+
+# Install yay packages from AUR
+yay -S --noconfirm "${yay_packages[@]}"
