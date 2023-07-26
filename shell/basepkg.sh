@@ -23,7 +23,7 @@ yay_packages=(
 )
 
 # Update package databases and upgrade system packages (optional but recommended)
-sudo pacman -Syu --noconfirm
+# sudo pacman -Syu --noconfirm
 
 # Check if pacman packages are installed and install missing ones
 for package in "${pacman_packages[@]}"; do

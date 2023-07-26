@@ -23,9 +23,16 @@ echo "Updating configuration files"
 sh shell/cu.sh
 
 echo "Scanning for changes in default applications"
-read -p "Check if the recommended applications are installed? (And if not, automatically install them) (y/n): " choice
-if [ "$choice" = "y" ]; then
+
+read -p "(b) Install recommended applications if not already installed\n
+(u) Check for system update\n
+(n) Do neither\n
+(b/u/n): " choice
+
+if [ "$choice" = "b" ]; then
     sh shell/basepkg.sh
+elif [ "$choice" = "u" ]; then
+    sudo pacman -Syu
 fi
 
 echo "Rendering lockscreen"
