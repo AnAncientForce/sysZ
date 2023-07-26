@@ -23,5 +23,9 @@ echo "Copying update config files"
 sh shell/cu.sh
 echo "Copy complete"
 
+echo "checing default apps"
+sh shell/basepkg.sh
+echo "apps complete"
+
 # Return to the original directory
 cd "$current_dir"
