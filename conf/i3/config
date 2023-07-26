@@ -195,6 +195,7 @@ gaps inner 6
 gaps outer 6
 focus_follows_mouse no
 bindsym $mod+l exec betterlockscreen -l dimblur
+bindsym $mod+i exec sh ~/sysZ/shell/fav-gui-i3.sh
 
 set $mode_sysZ Lock Workstation (l), Change Wallpaper (w), Reload (r), Update (u)
 mode "$mode_sysZ" {

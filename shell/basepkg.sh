@@ -11,6 +11,9 @@ pacman_packages=(
     sox
     feh
     ttf-font-awesome
+    cava
+    filelight
+    neofetch
 )
 
 
