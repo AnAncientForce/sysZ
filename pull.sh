@@ -23,10 +23,10 @@ echo "Updating configuration files"
 sh shell/cu.sh
 
 echo "Scanning for changes in default applications"
-#read -p "Check if the recommended applications are installed? (And if not, automatically install them) (y/n): " choice
-#if [ "$choice" = "y" ]; then
+read -p "Check if the recommended applications are installed? (And if not, automatically install them) (y/n): " choice
+if [ "$choice" = "y" ]; then
     sh shell/basepkg.sh
-#fi
+fi
 
 echo "Rendering lockscreen"
 betterlockscreen ~/sysZ/bg.png
