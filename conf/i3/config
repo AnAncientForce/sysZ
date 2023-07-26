@@ -201,6 +201,8 @@ mode "$mode_sysZ" {
 	bindsym l exec betterlockscreen -l dimblur, mode "default"
 	bindsym w exec alacritty -e sh ~/sysZ/shell/cw.sh, mode "default"
 	bindsym r exec sh ~/sysZ/shell/setup.sh, mode "default"
+        bindsym u exec alacritty -e sh ~/sysZ/pull.sh, mode "default"
+        bindsym c exec alacritty -e sh -c "cd ~/sysZ/; exec $SHELL", mode "default"
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
