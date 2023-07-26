@@ -8,7 +8,6 @@ pacman_packages=(
     thunar
     polybar
     rofi
-    picom
     sox
     # Add more packages as needed
 )
