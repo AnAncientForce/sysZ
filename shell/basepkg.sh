@@ -8,6 +8,7 @@ packages=(
     thunar
     polybar
     rofi
+    picom
     # Add more packages as needed
 )
 
