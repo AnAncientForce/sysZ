@@ -37,3 +37,4 @@ echo "===> All done! :)"
 
 # Return to the original directory
 cd "$current_dir"
+read -p "Press Enter to exit..."
