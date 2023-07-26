@@ -20,19 +20,19 @@ else
 fi
 
 echo "Updating configuration files"
-sh main.sh cu
+sh shell/cu.sh
 
 echo "Scanning for changes in default applications"
 read -p "Check if the recommended applications are installed? (And if not, automatically install them) (y/n): " choice
 if [ "$choice" = "y" ]; then
-    sh main.sh basepkg
+    sh shell/basepkg.sh
 fi
 
 echo "Rendering lockscreen"
 betterlockscreen ~/sysZ/bg.png
 
 echo "Restarting shell"
-sh main.sh setup
+sh shell/setup.sh
 echo "===> All done! :)"
 
 # Return to the original directory
