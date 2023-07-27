@@ -74,7 +74,7 @@ if [ "$choice" = "i" ] || [ "$choice" = "c" ] || [ "$choice" = "b" ] || [ "$choi
         sh shell/basepkg.sh
     elif [ "$choice" = "u" ]; then
         sudo pacman -Syu
-        elif [ "$choice" = "b" ]; then
+    elif [ "$choice" = "b" ]; then
         sudo pacman -Syu
         sh shell/basepkg.sh
     elif [ "$choice" = "s" ]; then
