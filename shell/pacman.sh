@@ -31,7 +31,7 @@ wget
 zip
 python-pip
 tk
-lxapperance
+lxappearance
 qt5ct
 )
 for package in "${pacman_packages[@]}"; do

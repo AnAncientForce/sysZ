@@ -2,6 +2,7 @@ yay_packages=(
     vimix-gtk-themes
     vimix-cursors
     vimix-icon-theme
+    betterlockscreen
     cava-git
     librewolf-bin
     picom-simpleanims-next-git
