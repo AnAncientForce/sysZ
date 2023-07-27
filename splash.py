@@ -46,7 +46,7 @@ def docs(par):
 def execute_shell_script(script_path):
     try:
         expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
-        subprocess.run(["bash", expanded_path], check=True)
+        subprocess.run(["sh", expanded_path], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
 
