@@ -47,40 +47,18 @@ def docs(par):
 def update():
     root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
-    root.title("sysZ | updates")
+    root.title("sysZ | update")
 
     label = ttk.Label(root, text="Updates are underway", font=("Arial", 36), background=root['bg'])
     label.pack(pady=100)
 
     style = ttk.Style()
     style.configure("TProgressbar", thickness=80)
-    progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="determinate", length=600)
+    progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
     progress_bar.pack(pady=50)
 
-    def execute_script():
-        try:
-            execute_shell_script("~/sysZ/pull.sh", "automatic_update")
-        except Exception as e:
-            print(f"An error occurred: {e}")
-            error("pull script has failed")
-
-    def update_progress():
-        progress = 0
-        while progress < 100:
-            progress_bar['value'] = progress
-            progress += 10
-            time.sleep(1)  # Adjust the delay as per your requirement
-
-        progress_bar['value'] = 100
-
-    def start_update():
-        script_thread = threading.Thread(target=execute_script)
-        script_thread.start()
-
-        progress_thread = threading.Thread(target=update_progress)
-        progress_thread.start()
-
-    root.after(100, start_update)
+    root.after(100, lambda: progress_bar.start(10))
+    root.after(3000, stop_loading)
 
 
 
@@ -134,4 +112,6 @@ if len(sys.argv) > 1 and sys.argv[1] == 'docs':
 if len(sys.argv) > 1 and sys.argv[1] == 'update':
     root = tk.Tk()
     update()
+    execute_shell_script("~/sysZ/pull.sh", "automatic_update")
+    root.after(0, stop_loading)
     root.mainloop()
