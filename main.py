@@ -55,7 +55,9 @@ def update():
     progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
     progress_bar.pack(pady=50)
 
-    subprocess.run(["sh", "shell/non_sudo_update.sh"])
+    # subprocess.run(["sh", "shell/non_sudo_update.sh"])
+
+    subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
 
     root.after(100, lambda: progress_bar.start(10))
     root.after(3000, stop_loading)
@@ -76,8 +78,8 @@ def control():
     appearance_button = ttk.Button(root, text="Change Appearance", command=lambda: os.system("qt5ct & lxappearance &"))
     appearance_button.pack(pady=10)
 
-    #update_button = ttk.Button(root, text="Update [sysZ]", command=update)
-    #update_button.pack(pady=10)
+    update_button = ttk.Button(root, text="Update [sysZ]", command=update)
+    update_button.pack(pady=10)
 
     #automatic_setup_button = ttk.Button(root, text="Run Setup Wizard [sysZ]", command=lambda: subprocess.Popen(["sudo", "sh", "/sysZ/shell/setup_wizard.sh"]))
     #automatic_setup_button.pack(pady=10)
