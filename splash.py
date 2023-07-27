@@ -47,13 +47,13 @@ def docs(par):
 def error(issue):
     clear_tk_elements(root)
     label = ttk.Label(root, text="An error has occurred.", font=("Arial", 36), background=root['bg'], foreground="red")
-    label2 = ttk.Label(root, text="Check console for details", font=("Arial", 26), background=root['bg'], foreground="red")
+    problem = ttk.Label(root, text="Check console for details", font=("Arial", 26), background=root['bg'], foreground="red")
     if issue:
-        label2 = ttk.Label(root, text=issue, font=("Arial", 26), background=root['bg'], foreground="red")
+        problem = ttk.Label(root, text=issue, font=("Arial", 26), background=root['bg'], foreground="red")
     else:
-        label2 = ttk.Label(root, text="Check console for details", font=("Arial", 26), background=root['bg'], foreground="red")
+        problem = ttk.Label(root, text="Check console for details", font=("Arial", 26), background=root['bg'], foreground="red")
     label.pack(pady=100)
-    label2.pack(pady=25)
+    problem.pack(pady=25)
 
 def clear_tk_elements(root):
     for child in root.winfo_children():
