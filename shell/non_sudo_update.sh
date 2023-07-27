@@ -1,14 +1,13 @@
 #!/bin/bash
 
-
-cu(){
+cu() {
     echo "Copying new files..."
     cp "/home/$(whoami)/sysZ/conf/i3" "/home/$(whoami)/.config/i3/config"
     cp "/home/$(whoami)/sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
     cp "/home/$(whoami)/sysZ/conf/alacritty.yml" "/home/$(whoami)/.config/"
 }
 
-themes_setup(){
+themes_setup() {
     echo "Installing themes"
     cd
     git clone --depth=1 https://github.com/adi1090x/rofi.git
@@ -17,7 +16,7 @@ themes_setup(){
     ./setup.sh
 }
 
-repo_pull(){
+repo_pull() {
     # Store the current directory
     current_dir=$(pwd)
 
@@ -35,7 +34,7 @@ repo_pull(){
         git fetch origin main
         git checkout -b main --track origin/main
         echo "Git repository set up. Repository is ready."
-fi
+    fi
 }
 
 # Anything that requires sudo should not be included in this script
@@ -46,3 +45,4 @@ cu
 betterlockscreen ~/sysZ/bg.png
 themes_setup
 cd "$current_dir"
+i3-msg 'exec sh ~/sysZ/shell/setup.sh;'
