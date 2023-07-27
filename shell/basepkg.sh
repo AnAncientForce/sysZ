@@ -32,6 +32,7 @@ ttf-font-awesome
 wget
 zip
 python-pip
+tk
 )
 # HEAVY: arduino, gimp
 
