@@ -37,7 +37,7 @@ def docs(par):
 
     text_box = tk.Text(root, font=("Arial", 16), bg=root["bg"])
     text_box.insert("1.0", text_content)
-    text_box.pack(pady=20)
+    text_box.pack(pady=5)
 
     close_button = ttk.Button(root, text="Close", command=stop_loading)
     close_button.pack(pady=10)
@@ -102,5 +102,5 @@ if len(sys.argv) > 1 and sys.argv[1] == 'docs':
 
 if len(sys.argv) > 1 and sys.argv[1] == 'update':
     root = tk.Tk()
-    docs("sysZ | docs")
+    update()
     root.mainloop()

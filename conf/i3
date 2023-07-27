@@ -198,12 +198,13 @@ focus_follows_mouse no
 bindsym $mod+l exec betterlockscreen -l dimblur
 bindsym $mod+i exec sh ~/sysZ/shell/fav-gui-i3.sh
 
-set $mode_sysZ Lock Workstation (l), Change Wallpaper (w), Reload (r), Update (u)
+set $mode_sysZ Lock Workstation (l), Change Wallpaper (w), Reload (r), Update (u), Docs (d)
 mode "$mode_sysZ" {
 	bindsym l exec betterlockscreen -l dimblur, mode "default"
 	bindsym w exec alacritty -e sh ~/sysZ/shell/cw.sh, mode "default"
 	bindsym r exec sh ~/sysZ/shell/setup.sh, mode "default"
         bindsym u exec alacritty -e sh ~/sysZ/pull.sh, mode "default"
+        bindsym d exec python ~/sysZ/splash.py docs, mode "default"
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
