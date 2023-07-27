@@ -54,28 +54,33 @@ def update():
 
     style = ttk.Style()
     style.configure("TProgressbar", thickness=80)
-    progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
+    progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="determinate", length=600)
     progress_bar.pack(pady=50)
 
-    def start_update():
+    def execute_script():
         try:
             execute_shell_script("~/sysZ/pull.sh", "automatic_update")
         except Exception as e:
             print(f"An error occurred: {e}")
             error("pull script has failed")
-            stop_loading()
 
-    def stop_loading():
-        progress_bar.stop()
-        # Add any other cleanup or actions you want to perform after loading is complete
+    def update_progress():
+        progress = 0
+        while progress < 100:
+            progress_bar['value'] = progress
+            progress += 10
+            time.sleep(1)  # Adjust the delay as per your requirement
 
-    progress_bar.start()  # Start the indeterminate progress bar
+        progress_bar['value'] = 100
 
-    # Call the start_update function in the main thread
+    def start_update():
+        script_thread = threading.Thread(target=execute_script)
+        script_thread.start()
+
+        progress_thread = threading.Thread(target=update_progress)
+        progress_thread.start()
+
     root.after(100, start_update)
-
-    # Call the stop_loading function after a certain delay (adjust the delay as per your requirement)
-    root.after(5000, stop_loading)
 
 
 
