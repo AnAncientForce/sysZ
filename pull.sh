@@ -33,14 +33,18 @@ echo "Scanning for changes in default applications"
 read -p "
 (i) Install recommended applications (if not already installed)
 (c) Check for system update
+(b) Both
 (s) Skip
 (i/c/s): " choice
 
 if [ "$choice" = "b" ] || [ "$choice" = "u" ] || [ "$choice" = "n" ]; then
-    if [ "$choice" = "b" ]; then
+    if [ "$choice" = "i" ]; then
         sh shell/basepkg.sh
     elif [ "$choice" = "u" ]; then
         sudo pacman -Syu
+        elif [ "$choice" = "b" ]; then
+        sudo pacman -Syu
+        sh shell/basepkg.sh
     elif [ "$choice" = "s" ]; then
         echo "Skipping..."
     fi
