@@ -17,7 +17,13 @@ themes_setup(){
     ./setup.sh
 }
 repo_pull(){
-# Check if it's a git repository before performing git pull
+    # Store the current directory
+    current_dir=$(pwd)
+
+    # Change directory to sysZ root
+    cd "$(dirname "$0")"
+
+    # Check if it's a git repository before performing git pull
     if [ -d ".git" ] || git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
         git pull origin main
         echo "Repository updated."
@@ -30,6 +36,12 @@ repo_pull(){
         echo "Git repository set up. Repository is ready."
 fi
 }
+automatic_update(){
+    repo_pull
+    cu
+    betterlockscreen ~/sysZ/bg.png
+    i3-msg 'exec python ~/sysZ/splash.py load;'
+}
 
 # Run specific function is specified
 if [ "$1" == "--function" ]; then
@@ -41,11 +53,7 @@ if [ "$1" == "--function" ]; then
     "$function_name"
 fi
 
-# Store the current directory
-current_dir=$(pwd)
 
-# Change directory to sysZ root
-cd "$(dirname "$0")"
 
 repo_pull
 

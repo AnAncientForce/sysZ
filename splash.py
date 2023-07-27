@@ -109,8 +109,8 @@ if len(sys.argv) > 1 and sys.argv[1] == 'update':
     root = tk.Tk()
     update()
     try:
-        execute_shell_script("~/sysZ/shell/main.sh", "repo_pull")
+        execute_shell_script("~/sysZ/pull.sh", "automatic_update")
     except Exception as e:
         print(f"An error occurred: {e}")
-        error("setup script has failed")
+        error("pull script has failed")
     root.mainloop()
