@@ -61,7 +61,8 @@ betterlockscreen ~/sysZ/bg.png
 #python3 -m pip install -r requirements.txt
 
 echo "Restarting shell"
-sh shell/setup.sh
+i3-msg 'exec python ~/sysZ/splash.py load;'
+# sh shell/setup.sh
 echo "===> All done! :)"
 
 # Return to the original directory
