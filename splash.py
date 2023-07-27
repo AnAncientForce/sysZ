@@ -1,4 +1,3 @@
-import threading
 import tkinter as tk
 from tkinter import ttk
 import sys
@@ -43,11 +42,10 @@ def docs(par):
     close_button = ttk.Button(root, text="Close", command=stop_loading)
     close_button.pack(pady=10)
 
-
 def update():
     root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
-    root.title("sysZ | update")
+    root.title("sysZ | updates")
 
     label = ttk.Label(root, text="Updates are underway", font=("Arial", 36), background=root['bg'])
     label.pack(pady=100)
@@ -57,8 +55,8 @@ def update():
     progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
     progress_bar.pack(pady=50)
 
-    root.after(0, lambda: progress_bar.start(10))
-    # root.after(3000, stop_loading)
+    root.after(100, lambda: progress_bar.start(10))
+    root.after(3000, stop_loading)
 
 
 
@@ -78,17 +76,10 @@ def clear_tk_elements(root):
     for child in root.winfo_children():
         child.destroy()
 
-
-def execute_shell_script(script_path, function_name=None):
+def execute_shell_script(script_path):
     try:
-        expanded_path = os.path.expanduser(script_path)
-        command = ["sh", expanded_path]
-
-        if function_name:
-            command.extend(["--function", function_name])
-
-        subprocess.run(command, check=True)
-        root.after(0, stop_loading)  # Call stop_loading() after the shell script finishes
+        expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
+        subprocess.run(["sh", expanded_path], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
         error()
@@ -111,7 +102,5 @@ if len(sys.argv) > 1 and sys.argv[1] == 'docs':
 
 if len(sys.argv) > 1 and sys.argv[1] == 'update':
     root = tk.Tk()
-    update()
-    execute_shell_script("~/sysZ/pull.sh", "automatic_update")
-    root.after(0, stop_loading)
+    docs("sysZ | docs")
     root.mainloop()
