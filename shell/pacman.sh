@@ -1,41 +1,41 @@
 pacman_packages=(
-adobe-source-han-sans-jp-fonts
-adobe-source-han-sans-otc-fonts
-adobe-source-han-serif-otc-fonts
-alacritty
-ark
-brightnessctl
-calcurse
-feh
-filelight
-git
-gvfs
-intel-ucode
-kitty
-kvantum
-lxappearance
-mpv-mpris
-neofetch
-obsidian
-pavucontrol
-piper
-playerctl
-polybar
-ranger
-rofi
-sox
-thunar
-tldr
-ttf-font-awesome
-wget
-zip
-python-pip
-tk
-lxappearance
-qt5ct
+    adobe-source-han-sans-jp-fonts
+    adobe-source-han-sans-otc-fonts
+    adobe-source-han-serif-otc-fonts
+    alacritty
+    ark
+    brightnessctl
+    calcurse
+    feh
+    filelight
+    git
+    gvfs
+    intel-ucode
+    kitty
+    kvantum
+    lxappearance
+    mpv-mpris
+    neofetch
+    obsidian
+    pavucontrol
+    piper
+    playerctl
+    polybar
+    ranger
+    rofi
+    sox
+    thunar
+    tldr
+    ttf-font-awesome
+    wget
+    zip
+    python-pip
+    tk
+    lxappearance
+    qt5ct
 )
 for package in "${pacman_packages[@]}"; do
-        if ! pacman -Qs "$package" >/dev/null; then
-            sudo pacman -S --noconfirm "$package"
-        fi
+    if ! pacman -Qs "$package" >/dev/null; then
+        sudo pacman -S --noconfirm "$package"
+    fi
 done
