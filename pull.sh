@@ -40,7 +40,6 @@ automatic_update(){
     repo_pull
     cu
     betterlockscreen ~/sysZ/bg.png
-    i3-msg 'exec python ~/sysZ/splash.py load;'
 }
 
 # Run specific function is specified
