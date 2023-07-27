@@ -56,7 +56,9 @@ betterlockscreen ~/sysZ/bg.png
 
 
 echo "Checking python setup..."
-pip install -r requirements.txt
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r requirements.txt
 
 echo "Restarting shell"
 sh shell/setup.sh
