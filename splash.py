@@ -46,18 +46,15 @@ def docs(par):
 def execute_shell_script(script_path):
     try:
         expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
-        home_directory = os.path.expanduser("~")  # Get the user's home directory
-        os.chdir(home_directory)  # Change the current working directory to the user's home directory
         subprocess.run(["sh", expanded_path], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
 
 
-
 if len(sys.argv) > 1 and sys.argv[1] == 'load':
     root = tk.Tk()
     load()
-    execute_shell_script("~/shell/setup.sh")
+    execute_shell_script("~/sysZ/shell/setup.sh")
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'docs':
