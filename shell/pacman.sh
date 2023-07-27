@@ -13,7 +13,6 @@ pacman_packages=(
     intel-ucode
     kitty
     kvantum
-    lxappearance
     mpv-mpris
     neofetch
     obsidian

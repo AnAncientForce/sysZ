@@ -25,6 +25,7 @@ def load():
 
 
 def docs(par):
+    clear_tk_elements(root)
     root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
     root.title(par)
@@ -43,9 +44,9 @@ def docs(par):
     close_button.pack(pady=10)
 
 def update():
+    clear_tk_elements(root)
     # subprocess.run(["sh", "shell/non_sudo_update.sh"])
     subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
-    clear_tk_elements(root)
 
     root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
@@ -65,6 +66,7 @@ def update():
 
 
 def control():
+    clear_tk_elements(root)
     # root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
     root.title("sysZ | control")
@@ -95,6 +97,22 @@ def control():
 
     close_button = ttk.Button(root, text="Close", command=stop_loading)
     close_button.pack(pady=10)
+
+
+def home():
+    root.configure(bg="#6495ED")
+    root.title("sysZ | home")
+
+    label = ttk.Label(root, text="sysZ | Home", font=("Arial", 36), background=root['bg'])
+    label.pack(pady=100)
+
+    control_button = ttk.Button(root, text="Control Panel", command=control)
+    control_button.pack(pady=10)
+
+    close_button = ttk.Button(root, text="Close", command=stop_loading)
+    close_button.pack(pady=10)
+
+
 
 
 def error(issue):
@@ -144,6 +162,11 @@ if len(sys.argv) > 1 and sys.argv[1] == 'update':
 if len(sys.argv) > 1 and sys.argv[1] == 'control':
     root = tk.Tk()
     control()
+    root.mainloop()
+
+if len(sys.argv) > 1 and sys.argv[1] == 'home':
+    root = tk.Tk()
+    home()
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'help':
