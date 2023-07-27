@@ -80,19 +80,25 @@ install_missing_packages() {
 
 
 
-pacman(){
+pacman() {
+    if [ "$(id -u)" -ne 0 ]; then
+        echo "Please run this script with sudo or as root."
+        exit 1
+    fi
+
     for package in "${pacman_packages[@]}"; do
-    if ! pacman -Qs "$package" >/dev/null; then
-        sudo pacman -S --noconfirm "$package"
-    fi
-done
+        if ! pacman -Qs "$package" >/dev/null; then
+            sudo pacman -S --noconfirm "$package"
+        fi
+    done
 }
-yay(){
+
+yay() {
     for package in "${yay_packages[@]}"; do
-    if ! yay -Qs "$package" >/dev/null; then
-        yay -S --noconfirm "$package"
-    fi
-done
+        if ! yay -Qs "$package" >/dev/null; then
+            yay -S --noconfirm "$package"
+        fi
+    done
 }
 
 #install_missing_packages "pacman"
