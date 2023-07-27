@@ -53,8 +53,9 @@ def update():
 
     style = ttk.Style()
     style.configure("TProgressbar", thickness=80)
-    progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="determinate", length=600)
+    progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
     progress_bar.pack(pady=50)
+    root.after(100, lambda: progress_bar.start(10))
 
     def start_update():
         try:
@@ -64,19 +65,7 @@ def update():
             error("pull script has failed")
             stop_loading()
 
-    def stop_loading():
-        progress_bar.stop()
-        # Add any other cleanup or actions you want to perform after loading is complete
-
-    def update_progress():
-        progress_bar.step(10)  # Adjust the step size as per your requirement
-        if progress_bar['value'] < progress_bar['maximum']:
-            root.after(100, update_progress)
-        else:
-            stop_loading()
-
-    root.after(100, start_update)
-    root.after(100, update_progress)
+    root.after(150, start_update)
 
 
 
