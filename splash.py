@@ -1,3 +1,4 @@
+import threading
 import tkinter as tk
 from tkinter import ttk
 import sys
@@ -64,6 +65,13 @@ def update():
             print(f"An error occurred: {e}")
             error("pull script has failed")
             stop_loading()
+
+    def bar_thread():
+        root.after(100, lambda: progress_bar.start(10))
+
+    # Create a separate thread for updating the progress bar
+    progress_thread = threading.Thread(target=bar_thread)
+    progress_thread.start()
 
     root.after(150, start_update)
 
