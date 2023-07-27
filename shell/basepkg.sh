@@ -33,10 +33,14 @@ wget
 zip
 python-pip
 tk
+lxapperance
 )
 # HEAVY: arduino, gimp
 
 yay_packages=(
+    vimix-gtk-themes
+    vimix-cursors
+    vimix-icon-theme
     cava-git
     librewolf-bin
     picom-simpleanims-next-git
