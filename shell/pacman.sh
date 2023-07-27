@@ -33,8 +33,15 @@ pacman_packages=(
     lxappearance
     qt5ct
 )
+not_installed=0
+
 for package in "${pacman_packages[@]}"; do
     if ! pacman -Qs "$package" >/dev/null; then
         sudo pacman -S --noconfirm "$package"
+        not_installed=1
     fi
 done
+
+if [ $not_installed -eq 0 ]; then
+    echo "All packages are already installed"
+fi

@@ -80,6 +80,9 @@ def control():
     appearance_button = ttk.Button(root, text="Change Appearance", command=lambda: os.system("qt5ct & lxappearance &"))
     appearance_button.pack(pady=10)
 
+    cw_button = ttk.Button(root, text="Change Wallpaper", command=lambda: subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/cw.sh")]))
+    cw_button.pack(pady=10)
+
     update_button = ttk.Button(root, text="Update [sysZ]", command=update)
     update_button.pack(pady=10)
 
