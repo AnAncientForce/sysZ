@@ -57,8 +57,8 @@ def update():
     progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
     progress_bar.pack(pady=50)
 
-    root.after(100, lambda: progress_bar.start(10))
-    root.after(3000, stop_loading)
+    root.after(0, lambda: progress_bar.start(10))
+    # root.after(3000, stop_loading)
 
 
 
