@@ -208,4 +208,5 @@ mode "$mode_sysZ" {
 }
 
 bindsym $mod+z mode "$mode_sysZ"
-exec_always sh ~/sysZ/shell/setup.sh
+exec_always python ~/sysZ/splash.py load
+#exec_always sh ~/sysZ/shell/setup.sh

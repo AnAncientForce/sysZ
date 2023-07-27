@@ -48,10 +48,12 @@ def execute_shell_script(script_path):
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
 
+
         
 if len(sys.argv) > 1 and sys.argv[1] == 'load':
     root = tk.Tk()
     load()
+    execute_shell_script("~/sysZ/shell/setup.sh")
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'docs':
