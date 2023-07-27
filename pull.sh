@@ -1,5 +1,11 @@
 #!/bin/bash
 
+cw(){
+    cp "conf/i3/config" "/home/$(whoami)/.config/i3/"
+    cp "conf/kitty/kitty.conf" "/home/$(whoami)/.config/kitty/"
+    cp "conf/alacritty.yml" "/home/$(whoami)/.config/"
+}
+
 # Store the current directory
 current_dir=$(pwd)
 
@@ -20,14 +26,15 @@ else
 fi
 
 echo "Updating configuration files"
-sh shell/cu.sh
+cw
 
 echo "Scanning for changes in default applications"
 
-read -p "(b) Install recommended applications (if not already installed)
-(u) Check for system update
+read -p "
+(i) Install recommended applications (if not already installed)
+(c) Check for system update
 (s) Skip
-(b/u/s): " choice
+(i/c/s): " choice
 
 if [ "$choice" = "b" ] || [ "$choice" = "u" ] || [ "$choice" = "n" ]; then
     if [ "$choice" = "b" ]; then
@@ -42,6 +49,10 @@ else
 fi
 echo "Rendering lockscreen"
 betterlockscreen ~/sysZ/bg.png
+
+
+echo "Checking python setup..."
+pip install -r requirements.txt
 
 echo "Restarting shell"
 sh shell/setup.sh
