@@ -42,6 +42,23 @@ def docs(par):
     close_button = ttk.Button(root, text="Close", command=stop_loading)
     close_button.pack(pady=10)
 
+def update():
+    root.attributes('-fullscreen', True) 
+    root.configure(bg="#6495ED")
+    root.title("sysZ | updates")
+
+    label = ttk.Label(root, text="Updates are underway", font=("Arial", 36), background=root['bg'])
+    label.pack(pady=100)
+
+    style = ttk.Style()
+    style.configure("TProgressbar", thickness=80)
+    progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
+    progress_bar.pack(pady=50)
+
+    root.after(100, lambda: progress_bar.start(10))
+    root.after(3000, stop_loading)
+
+
 
 
 def error(issue):
@@ -59,10 +76,15 @@ def clear_tk_elements(root):
     for child in root.winfo_children():
         child.destroy()
 
-def execute_shell_script(script_path):
+def execute_shell_script(script_path, function_name=None):
     try:
-        expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
-        subprocess.run(["sh", expanded_path], check=True)
+        expanded_path = os.path.expanduser(script_path)
+        command = ["sh", expanded_path]
+
+        if function_name:
+            command.extend(["--function", function_name])
+
+        subprocess.run(command, check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
         error()
@@ -81,4 +103,14 @@ if len(sys.argv) > 1 and sys.argv[1] == 'load':
 if len(sys.argv) > 1 and sys.argv[1] == 'docs':
     root = tk.Tk()
     docs("sysZ | docs")
+    root.mainloop()
+
+if len(sys.argv) > 1 and sys.argv[1] == 'update':
+    root = tk.Tk()
+    update()
+    try:
+        execute_shell_script("~/sysZ/shell/main.sh", "repo_pull")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        error("setup script has failed")
     root.mainloop()
