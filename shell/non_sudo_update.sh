@@ -3,9 +3,9 @@
 
 cu(){
     echo "Copying new files..."
-    cp "conf/i3" "/home/$(whoami)/.config/i3/config"
-    cp "conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
-    cp "conf/alacritty.yml" "/home/$(whoami)/.config/"
+    cp "/home/$(whoami)/conf/i3" "/home/$(whoami)/.config/i3/config"
+    cp "/home/$(whoami)/conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
+    cp "/home/$(whoami)/conf/alacritty.yml" "/home/$(whoami)/.config/"
 }
 
 themes_setup(){
