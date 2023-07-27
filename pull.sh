@@ -1,8 +1,9 @@
 #!/bin/bash
 
-cw(){
-    cp "conf/i3/config" "/home/$(whoami)/.config/i3/"
-    cp "conf/kitty/kitty.conf" "/home/$(whoami)/.config/kitty/"
+cu(){
+    echo "Copying new files..."
+    cp "conf/i3" "/home/$(whoami)/.config/i3/config"
+    cp "conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
     cp "conf/alacritty.yml" "/home/$(whoami)/.config/"
 }
 
@@ -26,7 +27,7 @@ else
 fi
 
 echo "Updating configuration files"
-cw
+cu
 
 echo "Scanning for changes in default applications"
 

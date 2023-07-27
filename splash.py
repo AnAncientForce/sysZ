@@ -23,6 +23,7 @@ def load():
     root.after(100, lambda: progress_bar.start(10))
     root.after(3000, stop_loading)
 
+
 def docs(par):
     root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
@@ -43,18 +44,38 @@ def docs(par):
 
 
 
+def error(issue):
+    clear_tk_elements(root)
+    label = ttk.Label(root, text="An error has occurred.", font=("Arial", 36), background=root['bg'], foreground="red")
+    label2 = ttk.Label(root, text="Check console for details", font=("Arial", 26), background=root['bg'], foreground="red")
+    if issue:
+        label2 = ttk.Label(root, text=issue, font=("Arial", 26), background=root['bg'], foreground="red")
+    else:
+        label2 = ttk.Label(root, text="Check console for details", font=("Arial", 26), background=root['bg'], foreground="red")
+    label.pack(pady=100)
+    label2.pack(pady=25)
+
+def clear_tk_elements(root):
+    for child in root.winfo_children():
+        child.destroy()
+
 def execute_shell_script(script_path):
     try:
         expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
         subprocess.run(["sh", expanded_path], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
+        error()
 
 
 if len(sys.argv) > 1 and sys.argv[1] == 'load':
     root = tk.Tk()
     load()
-    execute_shell_script("~/sysZ/shell/setup.sh")
+    try:
+        execute_shell_script("~/sysZ/shell/setup.sh")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        error("setup script has failed")
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'docs':

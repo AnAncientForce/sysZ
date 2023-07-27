@@ -1,10 +1,12 @@
 Arch Linux / i3-gaps / sysZ
 
-Super + Shift + Q       Close Window
-Super + D               Rofi search menu (d menu)
-Super + Shift + E       End session / log out
-Super + Shift 1-9       Move focused window to another workspace
-Super + 1-9             Change workspaces
-Super + Z               Access sysZ helper menu
-Super + L               Lock workstation
-Super + i               Access rofi fav gui menu
+Super + Shift + Q           Close Window
+Super + D                   Rofi search menu (d menu)
+Super + Shift + E           End session / log out
+Super + Shift 1-9           Move focused window to another workspace
+Super + 1-9                 Change workspaces
+Super + Z                   Access sysZ helper menu
+Super + L                   Lock workstation
+Super + i                   Access rofi fav gui menu
+sudo pacman -S firefox      Install an arch linux package
+yay -S librewolf-bin        Install an AUR package
