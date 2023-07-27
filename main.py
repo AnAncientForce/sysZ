@@ -87,7 +87,7 @@ def control():
     logout_button = ttk.Button(root, text="Logout", command=lambda: subprocess.Popen(["i3-msg", "exit"]))
     logout_button.pack(pady=10)
 
-    restart_button = ttk.Button(root, text="Shutdown", command=lambda: subprocess.Popen(["systemctl", "reboot"]))
+    restart_button = ttk.Button(root, text="Restart", command=lambda: subprocess.Popen(["systemctl", "reboot"]))
     restart_button.pack(pady=10)
 
     shutdown_button = ttk.Button(root, text="Shutdown", command=lambda: subprocess.Popen(["systemctl", "poweroff"]))
