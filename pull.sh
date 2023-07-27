@@ -56,6 +56,25 @@ echo "Rendering lockscreen"
 betterlockscreen ~/sysZ/bg.png
 
 
+echo "[CAUTION]: rofi will not function correctly without this due to how the current configuration is setup
+Check if themes are installed? (if not, install them)"
+if [ "$choice" = "y" ]; then
+    themes_setup
+else
+    echo "CAUTION: super + d may not work/function correctly"
+fi
+
+themes_setup(){
+echo "Installing themes"
+cd
+git clone --depth=1 https://github.com/adi1090x/rofi.git
+cd rofi
+chmod +x setup.sh
+./setup.sh
+}
+
+
+
 #echo "Checking python setup..."
 #python3 -m venv .venv
 #source .venv/bin/activate
