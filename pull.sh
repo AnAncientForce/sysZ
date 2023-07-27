@@ -97,6 +97,15 @@ else
 fi
 
 
+read -p "
+Setup dark mode?
+(y/n): " choice
+if [ "$choice" = "y" ]; then
+    echo "Setting up QT_QPA_PLATFORMTHEME in /etc/environment..."
+    echo '(QT_QPA_PLATFORMTHEME="qt5ct")' > ~/etc/environment
+fi
+
+
 
 
 
