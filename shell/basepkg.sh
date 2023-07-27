@@ -52,6 +52,18 @@ yay_packages=(
 # sudo pacman -Syu --noconfirm
 
 
+
+# Run specific function is specified
+if [ "$1" == "--function" ]; then
+    shift  # Shift the arguments to skip the "--function" flag
+    function_name="$1"
+    shift  # Shift again to skip the function name
+
+    # Call the specified function
+    "$function_name"
+fi
+
+
 install_missing_packages() {
     local package_manager=$1
     local packages=()
@@ -82,12 +94,3 @@ wo(){
 #install_missing_packages "pacman"
 #install_missing_packages "yay"
 
-# Run specific function is specified
-if [ "$1" == "--function" ]; then
-    shift  # Shift the arguments to skip the "--function" flag
-    function_name="$1"
-    shift  # Shift again to skip the function name
-
-    # Call the specified function
-    "$function_name"
-fi
