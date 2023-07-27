@@ -55,7 +55,7 @@ def update():
     progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
     progress_bar.pack(pady=50)
 
-    subprocess.run(["sh ~/sysZ/shell/non_sudo_update.sh"])
+    subprocess.run(["sh shell/non_sudo_update.sh"])
 
     root.after(100, lambda: progress_bar.start(10))
     root.after(3000, stop_loading)
