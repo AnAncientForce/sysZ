@@ -124,7 +124,7 @@ fi
 #python3 -m pip install -r requirements.txt
 
 # echo "Restarting shell"
-# i3-msg 'exec python ~/sysZ/splash.py load;'
+# i3-msg 'exec python ~/sysZ/main.py load;'
 # sh shell/setup.sh
 echo "===> All done! :)"
 

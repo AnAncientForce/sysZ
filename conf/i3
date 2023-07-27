@@ -204,11 +204,11 @@ mode "$mode_sysZ" {
 	bindsym w exec alacritty -e sh ~/sysZ/shell/cw.sh, mode "default"
 	bindsym r exec sh ~/sysZ/shell/setup.sh, mode "default"
         bindsym u exec alacritty -e sh ~/sysZ/pull.sh, mode "default"
-        bindsym d exec alacritty -e python ~/sysZ/splash.py docs", mode "default"
+        bindsym d exec alacritty -e python ~/sysZ/main.py docs", mode "default"
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
 
 bindsym $mod+z mode "$mode_sysZ"
-exec_always python ~/sysZ/splash.py load
+exec_always python ~/sysZ/main.py load
 #exec_always sh ~/sysZ/shell/setup.sh

@@ -1,4 +1,6 @@
-Arch Linux / i3-gaps / sysZ
+
+
+--------------- i3
 
 Super + Shift + Q           Close Window
 Super + D                   Rofi search menu (d menu)
@@ -8,5 +10,18 @@ Super + 1-9                 Change workspaces
 Super + Z                   Access sysZ helper menu
 Super + L                   Lock workstation
 Super + i                   Access rofi fav gui menu
+
+
+--------------- Arch Linux
+
 sudo pacman -S firefox      Install an arch linux package
 yay -S librewolf-bin        Install an AUR package
+
+
+--------------- main.py
+
+cd sysZ
+python main.py [docs, control]
+
+docs                        View docs provided by sysZ
+control                     Access the control panel provided by sysZ
