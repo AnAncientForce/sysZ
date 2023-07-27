@@ -63,18 +63,15 @@ cu
 echo "Scanning for changes in default applications"
 
 read -p "
-(i) Install recommended applications (if not already installed) (arch)
-(y) Install recommended applications (if not already installed) (yay)
+(i) Install recommended applications (if not already installed)
 (c) Check for system update
 (b) Both
 (s) Skip
-(i/y/c/b/s): " choice
+(i/c/s): " choice
 
-if [ "$choice" = "i" ] || [ "$choice" = "y" ] || [ "$choice" = "c" ] || [ "$choice" = "b" ] || [ "$choice" = "s" ]; then
+if [ "$choice" = "i" ] || [ "$choice" = "c" ] || [ "$choice" = "b" ] || [ "$choice" = "s" ]; then
     if [ "$choice" = "i" ]; then
-        sh shell/basepkg.sh pacman
-    elif [ "$choice" = "y" ]; then
-        sh shell/basepkg.sh yay
+        sh shell/basepkg.sh
     elif [ "$choice" = "u" ]; then
         sudo pacman -Syu
         elif [ "$choice" = "b" ]; then

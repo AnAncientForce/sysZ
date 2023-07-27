@@ -51,7 +51,8 @@ yay_packages=(
 # Update package databases and upgrade system packages (optional but recommended)
 # sudo pacman -Syu --noconfirm
 
-
+yay
+pacman
 
 # Run specific function is specified
 if [ "$1" == "--function" ]; then
@@ -87,14 +88,14 @@ install_missing_packages() {
 
 
 
-ro(){
+pacman(){
     for package in "${pacman_packages[@]}"; do
     if ! pacman -Qs "$package" >/dev/null; then
         sudo pacman -S --noconfirm "$package"
     fi
 done
 }
-wo(){
+yay(){
     for package in "${yay_packages[@]}"; do
     if ! yay -Qs "$package" >/dev/null; then
         yay -S --noconfirm "$package"
