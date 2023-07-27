@@ -39,7 +39,7 @@ fi
 automatic_update(){
     repo_pull
     cu
-    betterlockscreen ~/sysZ/bg.png
+    exit
 }
 
 # Run specific function is specified
