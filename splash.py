@@ -58,8 +58,8 @@ def update():
     root.after(100, lambda: progress_bar.start(10))
 
     try:
-        execute_shell_script("~/sysZ/pull.sh", "automatic_update")
-        stop_loading
+        root.after(100, execute_shell_script("~/sysZ/pull.sh", "automatic_update"))
+        root.after(100, stop_loading)
     except Exception as e:
         print(f"An error occurred: {e}")
         error("pull script has failed")
