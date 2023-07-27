@@ -6,6 +6,14 @@ cu(){
     cp "conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
     cp "conf/alacritty.yml" "/home/$(whoami)/.config/"
 }
+themes_setup(){
+    echo "Installing themes"
+    cd
+    git clone --depth=1 https://github.com/adi1090x/rofi.git
+    cd rofi
+    chmod +x setup.sh
+    ./setup.sh
+}
 
 # Store the current directory
 current_dir=$(pwd)
@@ -65,14 +73,7 @@ else
     echo "CAUTION: super + d may not work/function correctly"
 fi
 
-themes_setup(){
-echo "Installing themes"
-cd
-git clone --depth=1 https://github.com/adi1090x/rofi.git
-cd rofi
-chmod +x setup.sh
-./setup.sh
-}
+
 
 
 
