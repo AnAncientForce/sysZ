@@ -72,10 +72,10 @@ install_missing_packages() {
     done
 }
 
-pacman(){
+ro(){
     install_missing_packages "pacman"
 }
-yay(){
+wo(){
     install_missing_packages "yay"
 }
 
