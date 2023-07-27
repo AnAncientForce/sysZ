@@ -84,11 +84,22 @@ install_missing_packages() {
     done
 }
 
+
+
+
 ro(){
-    install_missing_packages "pacman"
+    for package in "${pacman_packages[@]}"; do
+    if ! pacman -Qs "$package" >/dev/null; then
+        sudo pacman -S --noconfirm "$package"
+    fi
+done
 }
 wo(){
-    install_missing_packages "yay"
+    for package in "${yay_packages[@]}"; do
+    if ! yay -Qs "$package" >/dev/null; then
+        yay -S --noconfirm "$package"
+    fi
+done
 }
 
 #install_missing_packages "pacman"
