@@ -59,7 +59,6 @@ def update():
     def start_update():
         try:
             execute_shell_script("~/sysZ/pull.sh", "automatic_update")
-            stop_loading()
         except Exception as e:
             print(f"An error occurred: {e}")
             error("pull script has failed")
@@ -89,6 +88,7 @@ def clear_tk_elements(root):
     for child in root.winfo_children():
         child.destroy()
 
+
 def execute_shell_script(script_path, function_name=None):
     try:
         expanded_path = os.path.expanduser(script_path)
@@ -98,6 +98,7 @@ def execute_shell_script(script_path, function_name=None):
             command.extend(["--function", function_name])
 
         subprocess.run(command, check=True)
+        root.after(0, stop_loading)  # Call stop_loading() after the shell script finishes
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
         error()
