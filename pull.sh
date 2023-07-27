@@ -102,7 +102,7 @@ Setup dark mode?
 (y/n): " choice
 if [ "$choice" = "y" ]; then
     echo "Setting up QT_QPA_PLATFORMTHEME in /etc/environment..."
-    echo '(QT_QPA_PLATFORMTHEME="qt5ct")' > ~/etc/environment
+    echo '(QT_QPA_PLATFORMTHEME="qt5ct")' > /etc/environment
 fi
 
 
@@ -114,8 +114,8 @@ fi
 #source .venv/bin/activate
 #python3 -m pip install -r requirements.txt
 
-echo "Restarting shell"
-i3-msg 'exec python ~/sysZ/splash.py load;'
+# echo "Restarting shell"
+# i3-msg 'exec python ~/sysZ/splash.py load;'
 # sh shell/setup.sh
 echo "===> All done! :)"
 
