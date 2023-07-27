@@ -73,7 +73,7 @@ def control():
     terminal_button = ttk.Button(root, text="Open Terminal", command=lambda: subprocess.Popen(["alacritty", "&"], shell=True))
     terminal_button.pack(pady=10)
 
-    appearance_button = ttk.Button(root, text="Change Appearance", command=lambda: subprocess.Popen(["lxappearance", "&", "qt5ct", "&"], shell=True))
+    appearance_button = ttk.Button(root, text="Change Appearance", command=lambda: subprocess.Popen(["lxappearance", "&", "qt5ct"], shell=True))
     appearance_button.pack(pady=10)
 
     update_button = ttk.Button(root, text="Update [sysZ]", command=update)
