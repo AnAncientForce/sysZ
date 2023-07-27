@@ -63,9 +63,9 @@ def update():
 
 
 def control():
-    root.attributes('-fullscreen', True) 
+    # root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
-    root.title("sysZ | updates")
+    root.title("sysZ | control")
 
     label = ttk.Label(root, text="sysZ | Control Panel", font=("Arial", 36), background=root['bg'])
     label.pack(pady=100)
@@ -73,14 +73,14 @@ def control():
     terminal_button = ttk.Button(root, text="Open Terminal", command=lambda: subprocess.Popen(["alacritty", "&"], shell=True))
     terminal_button.pack(pady=10)
 
-    appearance_button = ttk.Button(root, text="Change Appearance", command=lambda: subprocess.Popen(["qt5ct", "&", "lxappearance", "&"], shell=True))
+    appearance_button = ttk.Button(root, text="Change Appearance", command=lambda: os.system("qt5ct & lxappearance &"))
     appearance_button.pack(pady=10)
 
-    update_button = ttk.Button(root, text="Update [sysZ]", command=update)
-    update_button.pack(pady=10)
+    #update_button = ttk.Button(root, text="Update [sysZ]", command=update)
+    #update_button.pack(pady=10)
 
-    automatic_setup_button = ttk.Button(root, text="Run Setup Wizard [sysZ]", command=lambda: subprocess.Popen(["sudo", "sh", "/sysZ/shell/setup_wizard.sh"]))
-    automatic_setup_button.pack(pady=10)
+    #automatic_setup_button = ttk.Button(root, text="Run Setup Wizard [sysZ]", command=lambda: subprocess.Popen(["sudo", "sh", "/sysZ/shell/setup_wizard.sh"]))
+    #automatic_setup_button.pack(pady=10)
 
     logout_button = ttk.Button(root, text="Logout", command=lambda: subprocess.Popen(["i3-msg", "exit"]))
     logout_button.pack(pady=10)
