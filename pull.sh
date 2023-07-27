@@ -107,7 +107,7 @@ if [ "$choice" = "y" ]; then
         exit 1
     fi
     echo "Setting up QT_QPA_PLATFORMTHEME in /etc/environment..."
-    echo '(QT_QPA_PLATFORMTHEME="qt5ct")' > /etc/environment
+    echo 'QT_QPA_PLATFORMTHEME="qt5ct"' > /etc/environment
 fi
 
 
