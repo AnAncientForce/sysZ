@@ -55,7 +55,7 @@ def update():
     progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
     progress_bar.pack(pady=50)
 
-    subprocess.run(["sh shell/non_sudo_update.sh"])
+    subprocess.run(["sh", "shell/non_sudo_update.sh"])
 
     root.after(100, lambda: progress_bar.start(10))
     root.after(3000, stop_loading)
@@ -73,13 +73,13 @@ def control():
     terminal_button = ttk.Button(root, text="Open Terminal", command=lambda: subprocess.Popen(["alacritty", "&"], shell=True))
     terminal_button.pack(pady=10)
 
-    appearance_button = ttk.Button(root, text="Change Appearance", command=lambda: subprocess.Popen(["lxappearance", "&", "qt5ct"], shell=True))
+    appearance_button = ttk.Button(root, text="Change Appearance", command=lambda: subprocess.Popen(["qt5ct", "&", "lxappearance", "&"], shell=True))
     appearance_button.pack(pady=10)
 
     update_button = ttk.Button(root, text="Update [sysZ]", command=update)
     update_button.pack(pady=10)
 
-    automatic_setup_button = ttk.Button(root, text="Run Setup Wizard [sysZ]", command=lambda: subprocess.Popen(["sudo sh ~/sysZ/shell/setup_wizard.sh"]))
+    automatic_setup_button = ttk.Button(root, text="Run Setup Wizard [sysZ]", command=lambda: subprocess.Popen(["sudo", "sh", "/sysZ/shell/setup_wizard.sh"]))
     automatic_setup_button.pack(pady=10)
 
     logout_button = ttk.Button(root, text="Logout", command=lambda: subprocess.Popen(["i3-msg", "exit"]))
