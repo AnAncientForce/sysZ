@@ -39,6 +39,7 @@ fi
 automatic_update(){
     repo_pull
     cu
+    sleep 10
     exit
 }
 

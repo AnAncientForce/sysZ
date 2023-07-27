@@ -56,7 +56,14 @@ def update():
     progress_bar.pack(pady=50)
 
     root.after(100, lambda: progress_bar.start(10))
-    root.after(3000, stop_loading)
+
+    try:
+        execute_shell_script("~/sysZ/pull.sh", "automatic_update")
+        stop_loading
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        error("pull script has failed")
+        root.after(3000, stop_loading)
 
 
 
@@ -108,9 +115,4 @@ if len(sys.argv) > 1 and sys.argv[1] == 'docs':
 if len(sys.argv) > 1 and sys.argv[1] == 'update':
     root = tk.Tk()
     update()
-    try:
-        execute_shell_script("~/sysZ/pull.sh", "automatic_update")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        error("pull script has failed")
     root.mainloop()
