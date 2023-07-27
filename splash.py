@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import sys
 import subprocess
+import os
 
 def stop_loading():
     root.destroy()
@@ -44,16 +45,16 @@ def docs(par):
 
 def execute_shell_script(script_path):
     try:
-        subprocess.run(["bash", script_path], check=True)
+        expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
+        subprocess.run(["bash", expanded_path], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
 
 
-        
 if len(sys.argv) > 1 and sys.argv[1] == 'load':
     root = tk.Tk()
     load()
-    execute_shell_script("shell/setup.sh")
+    execute_shell_script("~/shell/setup.sh")
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'docs':
