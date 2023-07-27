@@ -110,6 +110,8 @@ if [ "$choice" = "y" ]; then
     fi
     echo "Setting up QT_QPA_PLATFORMTHEME in /etc/environment..."
     echo 'QT_QPA_PLATFORMTHEME="qt5ct"' > /etc/environment
+    lxappearance &
+    qt5ct &
 fi
 
 

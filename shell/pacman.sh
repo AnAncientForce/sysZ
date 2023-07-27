@@ -32,6 +32,7 @@ zip
 python-pip
 tk
 lxapperance
+qt5ct
 )
 for package in "${pacman_packages[@]}"; do
         if ! pacman -Qs "$package" >/dev/null; then
