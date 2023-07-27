@@ -71,12 +71,14 @@ read -p "
 
 if [ "$choice" = "i" ] || [ "$choice" = "c" ] || [ "$choice" = "b" ] || [ "$choice" = "s" ]; then
     if [ "$choice" = "i" ]; then
-        sh shell/basepkg.sh
+        sh shell/yay.sh
+        sh shell/pacman.sh
     elif [ "$choice" = "u" ]; then
         sudo pacman -Syu
     elif [ "$choice" = "b" ]; then
         sudo pacman -Syu
-        sh shell/basepkg.sh
+        sh shell/yay.sh
+        sh shell/pacman.sh
     elif [ "$choice" = "s" ]; then
         echo "Skipping..."
     fi
