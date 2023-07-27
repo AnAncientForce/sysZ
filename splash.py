@@ -42,6 +42,7 @@ def docs(par):
     close_button = ttk.Button(root, text="Close", command=stop_loading)
     close_button.pack(pady=10)
 
+
 def update():
     root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
@@ -55,15 +56,20 @@ def update():
     progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
     progress_bar.pack(pady=50)
 
-    root.after(100, lambda: progress_bar.start(10))
+    def start_update():
+        try:
+            execute_shell_script("~/sysZ/pull.sh", "automatic_update")
+            stop_loading()
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            error("pull script has failed")
+            stop_loading()
 
-    try:
-        root.after(150, execute_shell_script("~/sysZ/pull.sh", "automatic_update"))
-        stop_loading
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        error("pull script has failed")
-        root.after(3000, stop_loading)
+    def stop_loading():
+        progress_bar.stop()
+        # Add any other cleanup or actions you want to perform after loading is complete
+
+    root.after(100, start_update)
 
 
 
