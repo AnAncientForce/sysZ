@@ -54,7 +54,7 @@ def update():
 
     style = ttk.Style()
     style.configure("TProgressbar", thickness=80)
-    progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="determinate", length=600)
+    progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
     progress_bar.pack(pady=50)
 
     def start_update():
@@ -65,23 +65,17 @@ def update():
             error("pull script has failed")
             stop_loading()
 
-    def update_progress(value):
-        progress_bar['value'] = value
-        if value < progress_bar['maximum']:
-            root.after(100, update_progress, value + 10)
-        else:
-            stop_loading()
-
     def stop_loading():
         progress_bar.stop()
         # Add any other cleanup or actions you want to perform after loading is complete
 
-    # Set the initial value of the progress bar and start updating the progress
-    progress_bar['value'] = 0
-    root.after(100, update_progress, 10)
+    progress_bar.start()  # Start the indeterminate progress bar
 
     # Call the start_update function in the main thread
     root.after(100, start_update)
+
+    # Call the stop_loading function after a certain delay (adjust the delay as per your requirement)
+    root.after(5000, stop_loading)
 
 
 
