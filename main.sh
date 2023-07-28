@@ -1,4 +1,5 @@
 #!/bin/bash
+killall -9 picom polybar
 
 # Get the directory of the script
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
