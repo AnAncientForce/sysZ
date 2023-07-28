@@ -74,7 +74,7 @@ def setup():
         subprocess.run("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
     else:
         print("Animations are disabled.")
-        subprocess.run("i3-msg", "exec", "picom", "-b", "--blur-background", "--corner-radius", "4", "--vsync")
+        subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--corner-radius", "4", "--vsync"])
     
     subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
 
