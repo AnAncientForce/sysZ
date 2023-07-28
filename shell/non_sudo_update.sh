@@ -25,11 +25,11 @@ repo_pull() {
 
     # Check if it's a git repository before performing git pull
     if [ -d ".git" ] || git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        git reset --hard origin/main
         git pull origin main
         echo "Repository updated."
     else
         echo "Initializing a new git repository..."
-        git reset --hard origin/main
         git init
         git remote add origin https://github.com/AnAncientForce/sysZ.git
         git fetch origin main
