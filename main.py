@@ -133,6 +133,7 @@ def control():
 
     # Function to execute specific code based on the config value
     def execute_code():
+        update_config()
         if config['use_animations']:
             print("Animations enabled")
             
