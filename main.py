@@ -37,15 +37,15 @@ def load():
     # root.after(3000, stop_loading)
 
 
-def docs(par):
+def docs():
     global previous_page
     previous_page = "docs"
     clear_tk_elements(root)
-    root.attributes('-fullscreen', True) 
+    # root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
-    root.title(par)
+    root.title("sysZ | docs")
 
-    label = ttk.Label(root, text=par, font=("Arial", 36), background=root['bg'])
+    label = ttk.Label(root, text="sysZ | docs", font=("Arial", 36), background=root['bg'])
     label.pack(pady=20)
     
     with open("docs.txt", "r") as file:
@@ -253,7 +253,7 @@ def home():
     label = ttk.Label(root, text="sysZ | Home", font=("Arial", 36), background=root['bg'])
     label.pack(pady=100)
 
-    docs_button = ttk.Button(root, text="View docs", command=docs("sysZ | docs"))
+    docs_button = ttk.Button(root, text="View docs", command=docs)
     docs_button.pack(pady=10)
 
     control_button = ttk.Button(root, text="Control Panel", command=control)
@@ -303,7 +303,7 @@ if len(sys.argv) > 1 and sys.argv[1] == 'load':
 
 if len(sys.argv) > 1 and sys.argv[1] == 'docs':
     root = tk.Tk()
-    docs("sysZ | docs")
+    docs()
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'update':
