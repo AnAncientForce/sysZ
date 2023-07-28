@@ -247,6 +247,7 @@ def error(issue):
     problem.pack(pady=25)
 
 def clear_tk_elements(root):
+    root.attributes('-fullscreen', False) 
     for child in root.winfo_children():
         child.destroy()
 
