@@ -26,8 +26,13 @@ def load():
 
     setup()
 
+    if previous_page == "control":
+        root.after(3000, control)
+    else:
+        root.after(3000, stop_loading)
+
     root.after(100, lambda: progress_bar.start(10))
-    root.after(3000, stop_loading)
+    # root.after(3000, stop_loading)
 
 
 def docs(par):
@@ -69,24 +74,23 @@ def update():
     if previous_page == "control":
         root.after(3000, control)
     else:
-        # root.after(3000, stop_loading)
-        root.after(3000, load)
+        root.after(3000, stop_loading)
 
     root.after(100, lambda: progress_bar.start(10))
-    # setup()
+    setup()
 
 
 
 def setup():
     if check_value_from_json('use_background_blur'):
         print("use_background_blur are enabled.")
-        # subprocess.run("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
         call("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
+        # subprocess.run("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
     else:
         print("use_background_blur are disabled.")
+        call("i3-msg 'exec picom -b --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
         # subprocess.Popen(["sh", os.path.expanduser("~/sysZ/main.sh")])
         # run_shell_script_function(os.path.expanduser("~/sysZ/opt.sh"), "picom_without_animations")
-        call("i3-msg 'exec picom -b --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
         # subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--backend", "glx", "--animations", "--animation-for-open-window", "zoom", "--corner-radius", "4", "--vsync"])
         # subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--corner-radius", "4", "--vsync"])
     
@@ -205,6 +209,9 @@ def control():
 
     update_button = ttk.Button(root, text="Update [sysZ]", command=update)
     update_button.pack(pady=10)
+    
+    restartSys = ttk.Button(root, text="Restart [sysZ]", command=load)
+    restartSys.pack(pady=10)
 
     #automatic_setup_button = ttk.Button(root, text="Run Setup Wizard [sysZ]", command=lambda: subprocess.Popen(["sudo", "sh", "/sysZ/shell/setup_wizard.sh"]))
     #automatic_setup_button.pack(pady=10)
