@@ -86,13 +86,25 @@ def setup():
 def run_shell_script_function(shell_script_path, function_name):
     os.system(f"bash -c 'source {shell_script_path}; {function_name}'")
 
+
+
+
+
 def check_value_from_json(key):
-    with open('config.json', 'r') as file:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(script_dir, 'config.json')
+
+    if not os.path.isfile(config_path):
+        return False
+
+    with open(config_path, 'r') as file:
         data = json.load(file)
         if key in data:
             return data[key]
         else:
             return False
+
+
 
 def control():
     clear_tk_elements(root)
