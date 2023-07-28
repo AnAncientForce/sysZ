@@ -38,8 +38,6 @@ def load():
 
 
 def docs():
-    global previous_page
-    previous_page = "docs"
     clear_tk_elements(root)
     # root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
@@ -247,6 +245,7 @@ def control():
 
 
 def home():
+    clear_tk_elements(root)
     root.configure(bg="#6495ED")
     root.title("sysZ | home")
 
