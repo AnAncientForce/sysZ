@@ -12,6 +12,7 @@ def stop_loading():
     root.destroy()
 
 def load():
+    clear_tk_elements(root)
     root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
     root.title("sysZ | splash")
@@ -24,7 +25,7 @@ def load():
     progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
     progress_bar.pack(pady=50)
 
-    setup()
+   
 
     if previous_page == "control":
         root.after(3000, control)
@@ -32,6 +33,7 @@ def load():
         root.after(3000, stop_loading)
 
     root.after(100, lambda: progress_bar.start(10))
+    setup()
     # root.after(3000, stop_loading)
 
 
