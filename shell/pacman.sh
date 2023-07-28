@@ -32,6 +32,7 @@ pacman_packages=(
     tk
     lxappearance
     qt5ct
+    jq
 )
 not_installed=0
 
