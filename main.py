@@ -61,7 +61,7 @@ def docs():
 def update():
     clear_tk_elements(root)
     # subprocess.run(["sh", "shell/non_sudo_update.sh"])
-    
+    subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
 
     root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
@@ -81,7 +81,6 @@ def update():
         root.after(3000, stop_loading)
 
     root.after(100, lambda: progress_bar.start(10))
-    subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
     setup()
 
 
