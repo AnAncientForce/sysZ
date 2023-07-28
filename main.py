@@ -6,6 +6,8 @@ import os
 import json
 from subprocess import call
 
+previous_page = "home"
+
 def stop_loading():
     root.destroy()
 
@@ -64,17 +66,22 @@ def update():
     progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
     progress_bar.pack(pady=50)
 
+    
+    if previous_page == "control":
+        root.after(3000, control)
+    else:
+        root.after(3000, stop_loading)
+
     root.after(100, lambda: progress_bar.start(10))
-    root.after(3000, stop_loading)
 
 
 
 def setup():
-    if check_value_from_json('use_animations'):
-        print("Animations are enabled.")
+    if check_value_from_json('use_background_blur'):
+        print("use_background_blur are enabled.")
         # subprocess.run("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
     else:
-        print("Animations are disabled.")
+        print("use_background_blur are disabled.")
         subprocess.Popen(["sh", os.path.expanduser("~/sysZ/main.sh")])
         # run_shell_script_function(os.path.expanduser("~/sysZ/opt.sh"), "picom_without_animations")
         # call("picom -b --blur-background --corner-radius 4 --vsync", shell=True)
@@ -123,6 +130,8 @@ def set_value_in_json(key, value):
     return True
 
 
+
+
 def control():
     clear_tk_elements(root)
     # root.attributes('-fullscreen', True) 
@@ -138,8 +147,8 @@ def control():
     config_path = os.path.join(script_dir, 'config.json')
     
     def update_config():
-        use_animations_value = use_animations.get()
-        set_value_in_json('use_animations', use_animations_value)
+        use_background_blur_value = use_background_blur.get()
+        set_value_in_json('use_background_blur', use_background_blur_value)
 
         splash_enabled_value = splash_enabled.get()
         set_value_in_json('splashEnabled', splash_enabled_value)
@@ -147,7 +156,7 @@ def control():
     
     # Function to execute specific code based on the config value
     def execute_code():
-        if check_value_from_json('use_animations'):
+        if check_value_from_json('use_background_blur'):
             print("Animations enabled")
             
         else:
@@ -159,19 +168,24 @@ def control():
         config = json.load(file)
 
     
-    use_animations = tk.BooleanVar(value=config.get('use_animations', False))
-    checkbox = tk.Checkbutton(root, text="Use animations", variable=use_animations, command=update_config)
-    checkbox.pack(pady=10)
+    # Create a frame for the checkboxes
+    options_frame = tk.LabelFrame(root, text="Options")
+    options_frame.pack(padx=10, pady=10)
 
-    
+    # Create the "Use background blur" checkbox
+    use_background_blur = tk.BooleanVar(value=config.get('use_background_blur', False))
+    checkbox_background_blur = tk.Checkbutton(options_frame, text="Use background blur", variable=use_background_blur, command=update_config)
+    checkbox_background_blur.pack(pady=10)
+
+    # Create the "Enable Splash" checkbox
     splash_enabled = tk.BooleanVar(value=config.get('splashEnabled', False))
-    checkbox_splash = tk.Checkbutton(root, text="Enable Splash", variable=splash_enabled, command=update_config)
+    checkbox_splash = tk.Checkbutton(options_frame, text="Enable Splash", variable=splash_enabled, command=update_config)
     checkbox_splash.pack(pady=10)
 
     
     execute_button = tk.Button(root, text="Execute Code", command=execute_code)
     execute_button.pack(pady=10)
-    
+
     # --- SETTING END
 
     terminal_button = ttk.Button(root, text="Open Terminal", command=lambda: subprocess.Popen(["alacritty", "&"], shell=True))
@@ -264,6 +278,7 @@ if len(sys.argv) > 1 and sys.argv[1] == 'update':
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'control':
+    previous_page = "control"
     root = tk.Tk()
     control()
     root.mainloop()
