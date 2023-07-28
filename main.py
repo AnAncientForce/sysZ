@@ -6,8 +6,8 @@ import os
 import json
 from subprocess import call
 
-previous_page = "control"
-current_page = "control"
+previous_page = "home"
+current_page = "home"
 
 def stop_loading():
     root.destroy()
