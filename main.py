@@ -119,10 +119,17 @@ def control():
 
     # Function to update the config file
     def update_config():
-        with open('config.json', 'w') as configfile:
-            config['use_animations'] = use_animations.get()
-            config['splashEnabled'] = splash_enabled.get()
-            json.dump(config, configfile)
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        config_path = os.path.join(script_dir, 'config.json')
+
+        with open(config_path, 'r') as file:
+            config = json.load(file)
+        
+        config['use_animations'] = use_animations.get()
+        config['splashEnabled'] = splash_enabled.get()
+    
+        with open(config_path, 'w') as file:
+            json.dump(config, file)
 
     # Function to execute specific code based on the config value
     def execute_code():

@@ -2,6 +2,6 @@ picom-animations-git no longer exists so it has been replaced, it works fine one
 
 To do
 
-- create python config so user can select if they want animations or not
+- create python config so user can select if they want animations or not [DONE]
 
-- attempt to merge most features from shell scripts into python
+- attempt to merge most features from shell scripts into python [SORT OF DONE]
