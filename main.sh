@@ -1,13 +1,9 @@
-# Run specific function is specified
-if [ "$1" == "--function" ]; then
-    shift  # Shift the arguments to skip the "--function" flag
-    function_name="$1"
-    shift  # Shift again to skip the function name
-
-    # Call the specified function
-    "$function_name"
-fi
-
-setup(){
-    sh ~/sysZ/shell/setup.sh
+picom_without_animations() {
+    i3-msg 'exec picom -b --blur-background --corner-radius 4 --vsync;'
+}
+picom_with_animations() {
+    i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
+}
+setup() {
+    sh /home/$(whoami)/sysZ/shell/setup.sh
 }

@@ -72,14 +72,18 @@ def update():
 def setup():
     if check_value_from_json('use_animations'):
         print("Animations are enabled.")
-        subprocess.run("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
+        # subprocess.run("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
     else:
         print("Animations are disabled.")
-        call("picom -b --blur-background --corner-radius 4 --vsync", shell=True)
+        run_shell_script_function(os.path.expanduser("~/sysZ/main.sh"), "picom_without_animations")
+        # call("picom -b --blur-background --corner-radius 4 --vsync", shell=True)
         # subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--corner-radius", "4", "--vsync"])
     
     subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
 
+
+def run_shell_script_function(shell_script_path, function_name):
+    subprocess.run(["sh", "-c", f"{shell_script_path} {function_name}"])
 
 def check_value_from_json(key):
     with open('config.json', 'r') as file:
