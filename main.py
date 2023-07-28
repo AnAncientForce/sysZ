@@ -83,7 +83,7 @@ def setup():
 
 
 def run_shell_script_function(shell_script_path, function_name):
-    subprocess.run(["bash", "-c", f"{shell_script_path} {function_name}"])
+    subprocess.run(["bash", shell_script_path, function_name])
 
 def check_value_from_json(key):
     with open('config.json', 'r') as file:

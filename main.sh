@@ -8,3 +8,4 @@ picom_with_animations() {
 setup() {
     sh /home/$(whoami)/sysZ/shell/setup.sh
 }
+"$@"
