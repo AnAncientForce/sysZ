@@ -106,13 +106,19 @@ def run_shell_script_function(shell_script_path, function_name):
 
 
 
-def check_value_from_json(key):
+def create_config_file():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     config_path = os.path.join(script_dir, 'config.json')
 
     if not os.path.isfile(config_path):
         with open(config_path, 'w') as file:
             json.dump({}, file)  # Create an empty JSON object
+
+def check_value_from_json(key):
+    create_config_file()
+
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(script_dir, 'config.json')
 
     with open(config_path, 'r') as file:
         data = json.load(file)
@@ -121,13 +127,12 @@ def check_value_from_json(key):
         else:
             return False
 
+
 def set_value_in_json(key, value):
+    create_config_file()
+
     script_dir = os.path.dirname(os.path.abspath(__file__))
     config_path = os.path.join(script_dir, 'config.json')
-
-    if not os.path.isfile(config_path):
-        with open(config_path, 'w') as file:
-            json.dump({}, file)  # Create an empty JSON object
 
     with open(config_path, 'r') as file:
         data = json.load(file)
@@ -177,6 +182,7 @@ def control():
     
 
     # Read the configuration file
+    create_config_file()
     with open(config_path, 'r') as file:
         config = json.load(file)
 
