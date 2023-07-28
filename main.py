@@ -40,7 +40,7 @@ def load():
 
 def docs():
     clear_tk_elements(root)
-    # root.attributes('-fullscreen', True) 
+    root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
     root.title("sysZ | docs")
 
