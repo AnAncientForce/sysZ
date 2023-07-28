@@ -6,7 +6,8 @@ import os
 import json
 from subprocess import call
 
-previous_page = "home"
+previous_page = "control"
+current_page = "control"
 
 def stop_loading():
     root.destroy()
@@ -53,8 +54,7 @@ def docs():
     text_box.insert("1.0", text_content)
     text_box.pack(pady=5)
 
-    close_button = ttk.Button(root, text="Close", command=stop_loading)
-    close_button.pack(pady=10)
+    render_back_btn()
 
 def update():
     clear_tk_elements(root)
@@ -145,13 +145,30 @@ def set_value_in_json(key, value):
     return True
 
 
+def render_back_btn():
+    def goBack():
+        global previous_page
+        global current_page
+        if current_page == "control":
+            control()
+        elif current_page == "home":
+            home()
+        previous_page = current_page
+    page_controls = tk.LabelFrame(root, text="<>")
+    page_controls.pack(padx=1, pady=1)
+    #back_button = ttk.Button(page_controls, text="Back", command=goBack)
+    #back_button.pack(pady=1)
+    home_button = ttk.Button(page_controls, text="Home", command=home)
+    home_button.pack(pady=1)
+    close_button = ttk.Button(page_controls, text="Close", command=stop_loading)
+    close_button.pack(pady=1)
 
 
 def control():
     global previous_page
     previous_page = "control"
-    # previous_page = globals().setdefault('previous_page', 'control')
     clear_tk_elements(root)
+    # previous_page = globals().setdefault('previous_page', 'control')
     # root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
     root.title("sysZ | control")
@@ -240,11 +257,14 @@ def control():
     shutdown_button = ttk.Button(power_frame, text="Shutdown", command=lambda: subprocess.Popen(["systemctl", "poweroff"]))
     shutdown_button.pack(pady=gPady)
 
-    close_button = ttk.Button(root, text="Close", command=stop_loading)
-    close_button.pack(pady=gPady)
+    render_back_btn()
+
+    
 
 
 def home():
+    global previous_page
+    previous_page = "home"
     clear_tk_elements(root)
     root.configure(bg="#6495ED")
     root.title("sysZ | home")
@@ -252,14 +272,13 @@ def home():
     label = ttk.Label(root, text="sysZ | Home", font=("Arial", 36), background=root['bg'])
     label.pack(pady=100)
 
-    docs_button = ttk.Button(root, text="View docs", command=docs)
+    docs_button = ttk.Button(root, text="View Documentation", command=docs)
     docs_button.pack(pady=10)
 
     control_button = ttk.Button(root, text="Control Panel", command=control)
     control_button.pack(pady=10)
 
-    close_button = ttk.Button(root, text="Close", command=stop_loading)
-    close_button.pack(pady=10)
+    render_back_btn()
 
 
 
