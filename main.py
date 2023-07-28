@@ -4,6 +4,7 @@ import sys
 import subprocess
 import os
 import json
+from subprocess import call
 
 def stop_loading():
     root.destroy()
@@ -74,7 +75,8 @@ def setup():
         subprocess.run("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
     else:
         print("Animations are disabled.")
-        subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--corner-radius", "4", "--vsync"])
+        call("i3-msg 'exec picom -b --blur-background --corner-radius 4 --vsync;'", shell=True)
+        # subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--corner-radius", "4", "--vsync"])
     
     subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
 
