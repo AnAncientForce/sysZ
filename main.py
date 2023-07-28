@@ -133,6 +133,9 @@ def set_value_in_json(key, value):
 
 
 def control():
+    global previous_page
+    previous_page = "control"
+    # previous_page = globals().setdefault('previous_page', 'control')
     clear_tk_elements(root)
     # root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
@@ -278,7 +281,6 @@ if len(sys.argv) > 1 and sys.argv[1] == 'update':
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'control':
-    previous_page = "control"
     root = tk.Tk()
     control()
     root.mainloop()
