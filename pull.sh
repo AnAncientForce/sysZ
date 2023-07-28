@@ -1,14 +1,12 @@
 #!/bin/bash
 
-
-
-cu(){
+cu() {
     echo "Copying new files..."
     cp "conf/i3" "/home/$(whoami)/.config/i3/config"
     cp "conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
     cp "conf/alacritty.yml" "/home/$(whoami)/.config/"
 }
-themes_setup(){
+themes_setup() {
     echo "Installing themes"
     cd
     git clone --depth=1 https://github.com/adi1090x/rofi.git
@@ -16,7 +14,7 @@ themes_setup(){
     chmod +x setup.sh
     ./setup.sh
 }
-repo_pull(){
+repo_pull() {
     # Store the current directory
     current_dir=$(pwd)
 
@@ -34,9 +32,9 @@ repo_pull(){
         git fetch origin main
         git checkout -b main --track origin/main
         echo "Git repository set up. Repository is ready."
-fi
+    fi
 }
-automatic_update(){
+automatic_update() {
     repo_pull
     cu
     sleep 10
@@ -45,15 +43,13 @@ automatic_update(){
 
 # Run specific function is specified
 if [ "$1" == "--function" ]; then
-    shift  # Shift the arguments to skip the "--function" flag
+    shift # Shift the arguments to skip the "--function" flag
     function_name="$1"
-    shift  # Shift again to skip the function name
+    shift # Shift again to skip the function name
 
     # Call the specified function
     "$function_name"
 fi
-
-
 
 repo_pull
 
@@ -98,7 +94,6 @@ else
     echo "CAUTION: super + d may not work/function correctly"
 fi
 
-
 read -p "
 Setup dark mode?
 (y/n): " choice
@@ -109,14 +104,10 @@ if [ "$choice" = "y" ]; then
         exit 1
     fi
     echo "Setting up QT_QPA_PLATFORMTHEME in /etc/environment..."
-    echo 'QT_QPA_PLATFORMTHEME="qt5ct"' > /etc/environment
+    echo 'QT_QPA_PLATFORMTHEME="qt5ct"' >/etc/environment
     lxappearance &
     qt5ct &
 fi
-
-
-
-
 
 #echo "Checking python setup..."
 #python3 -m venv .venv
@@ -126,6 +117,7 @@ fi
 # echo "Restarting shell"
 # i3-msg 'exec python ~/sysZ/main.py load;'
 # sh shell/setup.sh
+rm /home/$(whoami)/sysZ/config.json
 echo "===> All done! :)"
 
 # Return to the original directory

@@ -44,5 +44,6 @@ cu
 # sh shell/yay.sh
 betterlockscreen ~/sysZ/bg.png
 themes_setup
+rm /home/$(whoami)/sysZ/config.json
 cd "$current_dir"
 i3-msg 'exec sh ~/sysZ/main.sh;'
