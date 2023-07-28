@@ -14,3 +14,6 @@ elif [ "$value" = "false" ]; then
     i3-msg 'exec picom -b --blur-background --corner-radius 4 --vsync;'
     echo "picom_without_animations"
 fi
+
+echo "Setup"
+sh /home/$(whoami)/sysZ/shell/setup.sh

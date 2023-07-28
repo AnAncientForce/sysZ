@@ -80,7 +80,7 @@ def setup():
         # call("picom -b --blur-background --corner-radius 4 --vsync", shell=True)
         # subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--corner-radius", "4", "--vsync"])
     
-    subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
+    # subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
 
 
 def run_shell_script_function(shell_script_path, function_name):
