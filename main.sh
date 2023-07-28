@@ -15,5 +15,6 @@ elif [ "$value" = "false" ]; then
     echo "picom_without_animations"
 fi
 
-echo "Setup"
+echo "refresh"
 sh /home/$(whoami)/sysZ/shell/setup.sh
+ech "refresh complete"
