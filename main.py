@@ -177,10 +177,16 @@ def control():
     with open(config_path, 'r') as file:
         config = json.load(file)
 
-    
+    gPady = 1
     # Create a frame for the checkboxes
     options_frame = tk.LabelFrame(root, text="Options")
     options_frame.pack(padx=10, pady=10)
+
+    buttons_frame = tk.LabelFrame(root, text="Operations")
+    buttons_frame.pack(padx=10, pady=10)
+
+    power_frame = tk.LabelFrame(root, text="System")
+    power_frame.pack(padx=10, pady=10)
 
     # Create the "Use background blur" checkbox
     use_background_blur = tk.BooleanVar(value=config.get('use_background_blur', False))
@@ -190,43 +196,43 @@ def control():
     # Create the "Enable Splash" checkbox
     splash_enabled = tk.BooleanVar(value=config.get('splashEnabled', False))
     checkbox_splash = tk.Checkbutton(options_frame, text="Enable Splash", variable=splash_enabled, command=update_config)
-    checkbox_splash.pack(pady=10)
+    checkbox_splash.pack(pady=gPady)
 
     
-    execute_button = tk.Button(root, text="Execute Code", command=execute_code)
-    execute_button.pack(pady=10)
+    execute_button = tk.Button(buttons_frame, text="Execute Code", command=execute_code)
+    execute_button.pack(pady=gPady)
 
     # --- SETTING END
 
-    terminal_button = ttk.Button(root, text="Open Terminal", command=lambda: subprocess.Popen(["alacritty", "&"], shell=True))
-    terminal_button.pack(pady=10)
+    terminal_button = ttk.Button(buttons_frame, text="Open Terminal", command=lambda: subprocess.Popen(["alacritty", "&"], shell=True))
+    terminal_button.pack(pady=gPady)
 
-    appearance_button = ttk.Button(root, text="Change Appearance", command=lambda: os.system("qt5ct & lxappearance &"))
-    appearance_button.pack(pady=10)
+    appearance_button = ttk.Button(buttons_frame, text="Change Appearance", command=lambda: os.system("qt5ct & lxappearance &"))
+    appearance_button.pack(pady=gPady)
 
-    cw_button = ttk.Button(root, text="Change Wallpaper", command=lambda: subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/cw.sh")]))
-    cw_button.pack(pady=10)
+    cw_button = ttk.Button(buttons_frame, text="Change Wallpaper", command=lambda: subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/cw.sh")]))
+    cw_button.pack(pady=gPady)
 
-    update_button = ttk.Button(root, text="Update [sysZ]", command=update)
-    update_button.pack(pady=10)
+    update_button = ttk.Button(buttons_frame, text="Update [sysZ]", command=update)
+    update_button.pack(pady=gPady)
     
-    restartSys = ttk.Button(root, text="Restart [sysZ]", command=load)
-    restartSys.pack(pady=10)
+    restartSys = ttk.Button(buttons_frame, text="Restart [sysZ]", command=load)
+    restartSys.pack(pady=gPady)
 
     #automatic_setup_button = ttk.Button(root, text="Run Setup Wizard [sysZ]", command=lambda: subprocess.Popen(["sudo", "sh", "/sysZ/shell/setup_wizard.sh"]))
     #automatic_setup_button.pack(pady=10)
 
-    logout_button = ttk.Button(root, text="Logout", command=lambda: subprocess.Popen(["i3-msg", "exit"]))
-    logout_button.pack(pady=10)
+    logout_button = ttk.Button(power_frame, text="Logout", command=lambda: subprocess.Popen(["i3-msg", "exit"]))
+    logout_button.pack(pady=gPady)
 
-    restart_button = ttk.Button(root, text="Restart", command=lambda: subprocess.Popen(["systemctl", "reboot"]))
-    restart_button.pack(pady=10)
+    restart_button = ttk.Button(power_frame, text="Restart", command=lambda: subprocess.Popen(["systemctl", "reboot"]))
+    restart_button.pack(pady=gPady)
 
-    shutdown_button = ttk.Button(root, text="Shutdown", command=lambda: subprocess.Popen(["systemctl", "poweroff"]))
-    shutdown_button.pack(pady=10)
+    shutdown_button = ttk.Button(power_frame, text="Shutdown", command=lambda: subprocess.Popen(["systemctl", "poweroff"]))
+    shutdown_button.pack(pady=gPady)
 
     close_button = ttk.Button(root, text="Close", command=stop_loading)
-    close_button.pack(pady=10)
+    close_button.pack(pady=gPady)
 
 
 def home():
