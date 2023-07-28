@@ -251,6 +251,9 @@ def home():
     label = ttk.Label(root, text="sysZ | Home", font=("Arial", 36), background=root['bg'])
     label.pack(pady=100)
 
+    docs_button = ttk.Button(root, text="View docs", command=docs)
+    docs_button.pack(pady=10)
+
     control_button = ttk.Button(root, text="Control Panel", command=control)
     control_button.pack(pady=10)
 
