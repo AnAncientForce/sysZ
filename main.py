@@ -180,7 +180,7 @@ def control():
         else:
             print("Animations disabled")
     
-
+    # Temp New Change Test
     # Read the configuration file
     create_config_file()
     with open(config_path, 'r') as file:
