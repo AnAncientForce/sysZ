@@ -117,11 +117,11 @@ def control():
 
     # --- SETTINGS
 
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(script_dir, 'config.json')
+    
     # Function to update the config file
     def update_config():
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        config_path = os.path.join(script_dir, 'config.json')
-
         with open(config_path, 'r') as file:
             config = json.load(file)
         
@@ -144,8 +144,8 @@ def control():
     # root = tk.Tk()
 
     # Read the configuration file
-    with open('config.json', 'r') as configfile:
-        config = json.load(configfile)
+    with open(config_path, 'r') as file:
+        config = json.load(file)
 
     # Create a checkbox button for using animations
     use_animations = tk.BooleanVar(value=config.get('use_animations', False))
