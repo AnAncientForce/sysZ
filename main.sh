@@ -1,6 +1,6 @@
 #!/bin/bash
 picom_without_animations() {
-    i3-msg 'exec picom -b --blur-background --corner-radius 4 --vsync;'
+    picom -b --blur-background --corner-radius 4 --vsync
     echo "picom_without_animations"
 }
 picom_with_animations() {
