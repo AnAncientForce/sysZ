@@ -51,6 +51,9 @@ if [ "$1" == "--function" ]; then
     "$function_name"
 fi
 
+if [ -f /home/$(whoami)/sysZ/config.json ]; then
+    rm /home/$(whoami)/sysZ/config.json
+fi
 repo_pull
 
 echo "Updating configuration files"
@@ -117,7 +120,6 @@ fi
 # echo "Restarting shell"
 # i3-msg 'exec python ~/sysZ/main.py load;'
 # sh shell/setup.sh
-rm /home/$(whoami)/sysZ/config.json
 echo "===> All done! :)"
 
 # Return to the original directory
