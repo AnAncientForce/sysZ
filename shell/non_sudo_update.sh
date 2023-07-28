@@ -38,9 +38,6 @@ repo_pull() {
 }
 
 # Anything that requires sudo should not be included in this script
-if [ -f /home/$(whoami)/sysZ/config.json ]; then
-    rm /home/$(whoami)/sysZ/config.json
-fi
 repo_pull
 cu
 # sh shell/yay.sh
