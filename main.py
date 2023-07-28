@@ -38,6 +38,8 @@ def load():
 
 
 def docs(par):
+    global previous_page
+    previous_page = "docs"
     clear_tk_elements(root)
     root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
@@ -251,7 +253,7 @@ def home():
     label = ttk.Label(root, text="sysZ | Home", font=("Arial", 36), background=root['bg'])
     label.pack(pady=100)
 
-    docs_button = ttk.Button(root, text="View docs", command=docs)
+    docs_button = ttk.Button(root, text="View docs", command=docs("sysZ | docs"))
     docs_button.pack(pady=10)
 
     control_button = ttk.Button(root, text="Control Panel", command=control)
