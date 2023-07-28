@@ -47,7 +47,9 @@ def docs():
     label = ttk.Label(root, text="sysZ | docs", font=("Arial", 36), background=root['bg'])
     label.pack(pady=20)
     
-    with open("docs.txt", "r") as file:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(script_dir, 'docs.txt')
+    with open(config_path, "r") as file:
         text_content = file.read()
 
     text_box = tk.Text(root, font=("Arial", 16), bg=root["bg"])
