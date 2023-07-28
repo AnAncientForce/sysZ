@@ -80,14 +80,16 @@ def setup():
     if check_value_from_json('use_background_blur'):
         print("use_background_blur are enabled.")
         # subprocess.run("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
+        call("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
     else:
         print("use_background_blur are disabled.")
-        subprocess.Popen(["sh", os.path.expanduser("~/sysZ/main.sh")])
+        # subprocess.Popen(["sh", os.path.expanduser("~/sysZ/main.sh")])
         # run_shell_script_function(os.path.expanduser("~/sysZ/opt.sh"), "picom_without_animations")
-        # call("picom -b --blur-background --corner-radius 4 --vsync", shell=True)
+        call("i3-msg 'exec picom -b --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
+        # subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--backend", "glx", "--animations", "--animation-for-open-window", "zoom", "--corner-radius", "4", "--vsync"])
         # subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--corner-radius", "4", "--vsync"])
     
-    # subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
+    subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
 
 
 def run_shell_script_function(shell_script_path, function_name):
