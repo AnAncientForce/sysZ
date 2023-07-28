@@ -111,7 +111,8 @@ def check_value_from_json(key):
     config_path = os.path.join(script_dir, 'config.json')
 
     if not os.path.isfile(config_path):
-        return False
+        with open(config_path, 'w') as file:
+            json.dump({}, file)  # Create an empty JSON object
 
     with open(config_path, 'r') as file:
         data = json.load(file)
@@ -120,13 +121,13 @@ def check_value_from_json(key):
         else:
             return False
 
-
 def set_value_in_json(key, value):
     script_dir = os.path.dirname(os.path.abspath(__file__))
     config_path = os.path.join(script_dir, 'config.json')
 
     if not os.path.isfile(config_path):
-        return False
+        with open(config_path, 'w') as file:
+            json.dump({}, file)  # Create an empty JSON object
 
     with open(config_path, 'r') as file:
         data = json.load(file)
