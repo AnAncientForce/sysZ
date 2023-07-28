@@ -105,6 +105,23 @@ def check_value_from_json(key):
             return False
 
 
+def set_value_in_json(key, value):
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(script_dir, 'config.json')
+
+    if not os.path.isfile(config_path):
+        return False
+
+    with open(config_path, 'r') as file:
+        data = json.load(file)
+
+    data[key] = value
+
+    with open(config_path, 'w') as file:
+        json.dump(data, file)
+
+    return True
+
 
 def control():
     clear_tk_elements(root)
@@ -120,17 +137,14 @@ def control():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     config_path = os.path.join(script_dir, 'config.json')
     
-    # Function to update the config file
     def update_config():
-        with open(config_path, 'r') as file:
-            config = json.load(file)
-        
-        config['use_animations'] = use_animations.get()
-        config['splashEnabled'] = splash_enabled.get()
-    
-        with open(config_path, 'w') as file:
-            json.dump(config, file)
+        use_animations_value = use_animations.get()
+        set_value_in_json('use_animations', use_animations_value)
 
+        splash_enabled_value = splash_enabled.get()
+        set_value_in_json('splashEnabled', splash_enabled_value)
+
+    
     # Function to execute specific code based on the config value
     def execute_code():
         if check_value_from_json('use_animations'):
@@ -144,23 +158,20 @@ def control():
     with open(config_path, 'r') as file:
         config = json.load(file)
 
-    # Create a checkbox button for using animations
+    
     use_animations = tk.BooleanVar(value=config.get('use_animations', False))
     checkbox = tk.Checkbutton(root, text="Use animations", variable=use_animations, command=update_config)
     checkbox.pack(pady=10)
 
-    # Create a checkbox button for enabling splash
+    
     splash_enabled = tk.BooleanVar(value=config.get('splashEnabled', False))
     checkbox_splash = tk.Checkbutton(root, text="Enable Splash", variable=splash_enabled, command=update_config)
     checkbox_splash.pack(pady=10)
 
-    # Create a button to execute code based on the config value
+    
     execute_button = tk.Button(root, text="Execute Code", command=execute_code)
     execute_button.pack(pady=10)
-
-    # Run the tkinter event loop
-    # root.mainloop()
-
+    
     # --- SETTING END
 
     terminal_button = ttk.Button(root, text="Open Terminal", command=lambda: subprocess.Popen(["alacritty", "&"], shell=True))
