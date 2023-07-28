@@ -29,6 +29,7 @@ repo_pull() {
         echo "Repository updated."
     else
         echo "Initializing a new git repository..."
+        git reset --hard origin/main
         git init
         git remote add origin https://github.com/AnAncientForce/sysZ.git
         git fetch origin main
