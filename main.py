@@ -133,16 +133,12 @@ def control():
 
     # Function to execute specific code based on the config value
     def execute_code():
-        update_config()
-        if config['use_animations']:
+        if check_value_from_json('use_animations'):
             print("Animations enabled")
             
         else:
             print("Animations disabled")
-            
-
-    # Create the tkinter window
-    # root = tk.Tk()
+    
 
     # Read the configuration file
     with open(config_path, 'r') as file:
