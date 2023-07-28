@@ -211,11 +211,12 @@ def execute_shell_script(script_path):
 if len(sys.argv) > 1 and sys.argv[1] == 'load':
     root = tk.Tk()
     load()
-    try:
-        execute_shell_script("~/sysZ/shell/setup.sh")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        error("setup script has failed")
+
+    #try:
+    #   execute_shell_script("~/sysZ/shell/setup.sh")
+    #except Exception as e:
+    #    print(f"An error occurred: {e}")
+    #    error("setup script has failed")
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'docs':
