@@ -17,4 +17,4 @@ fi
 
 echo "refresh"
 sh /home/$(whoami)/sysZ/shell/setup.sh
-ech "refresh complete"
+echo "refresh complete"
