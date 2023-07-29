@@ -64,17 +64,17 @@ def update():
     root.configure(bg="#6495ED")
     #subprocess.run(["sh", "shell/non_sudo_update.sh"])
     #root.title("sysZ | updates")
-    #label = ttk.Label(root, text="Updates are underway", font=("Arial", 36), background=root['bg'])
-    #label.pack(pady=100)
-    render_title("Updates are underway")
+    label = ttk.Label(root, text="Updates are underway", font=("Arial", 36), background=root['bg'])
+    label.pack(pady=100)
+    #render_title("Updates are underway")
     call("i3-msg 'exec killall -9 picom;'", shell=True)
 
-    main_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove")
-    main_frame.grid(row=1, column=1, padx=10, pady=10, sticky="nsew")
+    #main_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove")
+    #main_frame.grid(row=1, column=1, padx=10, pady=10, sticky="nsew")
 
     style = ttk.Style()
     style.configure("TProgressbar", thickness=80)
-    progress_bar = ttk.Progressbar(main_frame, style="TProgressbar", mode="indeterminate", length=600)
+    progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
     progress_bar.pack(pady=50)
 
 
