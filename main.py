@@ -90,6 +90,19 @@ def update():
         print(f"An error occurred: {e}")
 
     
+def update_confirmation():
+    # subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/background_update_check.sh")])
+    clear_tk_elements(root)
+    root.configure(bg="#6495ED")
+
+    render_title("Update Confirmation")
+    render_back_btn()
+
+    buttons_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove")
+    buttons_frame.grid(row=1, column=1, padx=10, pady=10)
+
+    update_button = ttk.Button(buttons_frame, text="Update sysZ?", command=update)
+    update_button.pack(pady=10)
 
 
 
@@ -364,3 +377,8 @@ if len(sys.argv) > 1 and sys.argv[1] == 'home':
 
 if len(sys.argv) > 1 and sys.argv[1] == 'help':
     print("docs, control")
+
+if len(sys.argv) > 1 and sys.argv[1] == 'update_confirmation':
+    root = tk.Tk()
+    update_confirmation()
+    root.mainloop()
