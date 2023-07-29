@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, scrolledtext
 import sys
 import subprocess
 import os
@@ -40,19 +40,19 @@ def load():
 
 def docs():
     clear_tk_elements(root)
-    root.attributes('-fullscreen', True) 
+    #root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
-    root.title("sysZ | docs")
+    render_title("sysZ | docs")
 
-    label = ttk.Label(root, text="sysZ | docs", font=("Arial", 36), background=root['bg'])
-    label.pack(pady=20)
-    
+    buttons_frame = ttk.LabelFrame(root, text="<>",borderwidth=0, relief="groove")
+    buttons_frame.grid(row=1, column=1, padx=10, pady=10)
+
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    config_path = os.path.join(script_dir, 'docs.txt')
+    config_path = os.path.join(script_dir, 'docs.rtf')
     with open(config_path, "r") as file:
         text_content = file.read()
 
-    text_box = tk.Text(root, font=("Arial", 16), bg=root["bg"])
+    text_box = scrolledtext.ScrolledText(buttons_frame, font=("Arial", 12), bg=root["bg"])
     text_box.insert("1.0", text_content)
     text_box.pack(pady=5)
 
@@ -60,39 +60,47 @@ def docs():
 
 def update():
     clear_tk_elements(root)
-    # subprocess.run(["sh", "shell/non_sudo_update.sh"])
-    subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
-
     root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
-    root.title("sysZ | updates")
+    #subprocess.run(["sh", "shell/non_sudo_update.sh"])
+    #root.title("sysZ | updates")
+    #label = ttk.Label(root, text="Updates are underway", font=("Arial", 36), background=root['bg'])
+    #label.pack(pady=100)
+    render_title("Updates are underway")
+    call("i3-msg 'exec killall -9 picom;'", shell=True)
 
-    label = ttk.Label(root, text="Updates are underway", font=("Arial", 36), background=root['bg'])
-    label.pack(pady=100)
+    main_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove")
+    main_frame.grid(row=1, column=1, padx=10, pady=10, sticky="nsew")
 
     style = ttk.Style()
     style.configure("TProgressbar", thickness=80)
-    progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
+    progress_bar = ttk.Progressbar(main_frame, style="TProgressbar", mode="indeterminate", length=600)
     progress_bar.pack(pady=50)
 
-    if previous_page == "control":
-        root.after(3000, control)
-    else:
-        root.after(3000, stop_loading)
 
-    root.after(100, lambda: progress_bar.start(10))
-    setup()
+    try:
+        subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
+        if previous_page == "control":
+            root.after(3000, control)
+        else:
+            root.after(3000, stop_loading)
+        root.after(100, lambda: progress_bar.start(10))
+        setup()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+    
 
 
 
 def setup():
     if check_value_from_json('use_background_blur'):
-        print("use_background_blur are enabled.")
         call("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
+        # print("use_background_blur are enabled.")
         # subprocess.run("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
     else:
-        print("use_background_blur are disabled.")
         call("i3-msg 'exec picom -b --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
+        # print("use_background_blur are disabled.")
         # subprocess.Popen(["sh", os.path.expanduser("~/sysZ/main.sh")])
         # run_shell_script_function(os.path.expanduser("~/sysZ/opt.sh"), "picom_without_animations")
         # subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--backend", "glx", "--animations", "--animation-for-open-window", "zoom", "--corner-radius", "4", "--vsync"])
@@ -146,6 +154,18 @@ def set_value_in_json(key, value):
 
     return True
 
+def render_title(txt):
+    style = ttk.Style()
+    style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
+    title_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove", style="Title.TLabelframe")
+    title_frame.grid(row=0, column=1, padx=25, pady=25)
+
+    label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=root["bg"])
+    label.grid(row=0, column=1, pady=10)
+
+    root.title(txt)
+
+
 
 def render_back_btn():
     def goBack():
@@ -156,8 +176,11 @@ def render_back_btn():
         elif current_page == "home":
             home()
         previous_page = current_page
-    page_controls = tk.LabelFrame(root, text="<>")
-    page_controls.pack(padx=1, pady=1)
+
+    page_controls = ttk.LabelFrame(root,borderwidth=0, relief="groove")
+    page_controls.grid(row=2, column=2, padx=10, pady=10)
+
+    #page_controls.grid(row=0, column=0, padx=10, pady=10)
     #back_button = ttk.Button(page_controls, text="Back", command=goBack)
     #back_button.pack(pady=1)
     home_button = ttk.Button(page_controls, text="Home", command=home)
@@ -172,11 +195,10 @@ def control():
     clear_tk_elements(root)
     # previous_page = globals().setdefault('previous_page', 'control')
     # root.attributes('-fullscreen', True) 
+    #root.title("sysZ | control")
     root.configure(bg="#6495ED")
-    root.title("sysZ | control")
-
-    label = ttk.Label(root, text="sysZ | Control Panel", font=("Arial", 36), background=root['bg'])
-    label.pack(pady=100)
+    render_title("sysZ | control")
+    render_back_btn()
 
     # --- SETTINGS
 
@@ -187,11 +209,11 @@ def control():
         use_background_blur_value = use_background_blur.get()
         set_value_in_json('use_background_blur', use_background_blur_value)
 
-        splash_enabled_value = splash_enabled.get()
-        set_value_in_json('splashEnabled', splash_enabled_value)
+        #splash_enabled_value = splash_enabled.get()
+        #set_value_in_json('splashEnabled', splash_enabled_value)
 
     
-    # Function to execute specific code based on the config value
+   
     def execute_code():
         if check_value_from_json('use_background_blur'):
             print("Animations enabled")
@@ -205,29 +227,29 @@ def control():
     with open(config_path, 'r') as file:
         config = json.load(file)
 
-    gPady = 1
-    # Create a frame for the checkboxes
-    options_frame = tk.LabelFrame(root, text="Options")
-    options_frame.pack(padx=10, pady=10)
+    gPady = 10
 
-    buttons_frame = tk.LabelFrame(root, text="Operations")
-    buttons_frame.pack(padx=10, pady=10)
+    style = ttk.Style()
+    style.configure("Title.TLabelframe", background=root["bg"])
+   
+    options_frame = ttk.LabelFrame(root, text="Options",borderwidth=0, relief="groove")
+    options_frame.grid(row=1, column=0, padx=10, pady=10)
 
-    power_frame = tk.LabelFrame(root, text="System")
-    power_frame.pack(padx=10, pady=10)
+    buttons_frame = ttk.LabelFrame(root, text="Operations",borderwidth=0, relief="groove")
+    buttons_frame.grid(row=1, column=1, padx=10, pady=10)
 
-    # Create the "Use background blur" checkbox
+    power_frame = ttk.LabelFrame(root, text="System",borderwidth=0, relief="groove")
+    power_frame.grid(row=1, column=2, padx=10, pady=10)
+
     use_background_blur = tk.BooleanVar(value=config.get('use_background_blur', False))
     checkbox_background_blur = tk.Checkbutton(options_frame, text="Use background blur", variable=use_background_blur, command=update_config)
     checkbox_background_blur.pack(pady=10)
 
-    # Create the "Enable Splash" checkbox
-    splash_enabled = tk.BooleanVar(value=config.get('splashEnabled', False))
-    checkbox_splash = tk.Checkbutton(options_frame, text="Enable Splash", variable=splash_enabled, command=update_config)
-    checkbox_splash.pack(pady=gPady)
+    #splash_enabled = tk.BooleanVar(value=config.get('splashEnabled', False))
+    #checkbox_splash = tk.Checkbutton(options_frame, text="Enable Splash", variable=splash_enabled, command=update_config)
+    #checkbox_splash.pack(pady=gPady)
 
-    
-    execute_button = tk.Button(buttons_frame, text="Execute Code", command=execute_code)
+    execute_button = tk.Button(options_frame, text="Execute (Dev)", command=execute_code)
     execute_button.pack(pady=gPady)
 
     # --- SETTING END
@@ -241,14 +263,11 @@ def control():
     cw_button = ttk.Button(buttons_frame, text="Change Wallpaper", command=lambda: subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/cw.sh")]))
     cw_button.pack(pady=gPady)
 
-    update_button = ttk.Button(buttons_frame, text="Update [sysZ]", command=update)
+    update_button = ttk.Button(options_frame, text="Update [sysZ]", command=update)
     update_button.pack(pady=gPady)
     
-    restartSys = ttk.Button(buttons_frame, text="Restart [sysZ]", command=load)
+    restartSys = ttk.Button(options_frame, text="Restart [sysZ]", command=load)
     restartSys.pack(pady=gPady)
-
-    #automatic_setup_button = ttk.Button(root, text="Run Setup Wizard [sysZ]", command=lambda: subprocess.Popen(["sudo", "sh", "/sysZ/shell/setup_wizard.sh"]))
-    #automatic_setup_button.pack(pady=10)
 
     logout_button = ttk.Button(power_frame, text="Logout", command=lambda: subprocess.Popen(["i3-msg", "exit"]))
     logout_button.pack(pady=gPady)
@@ -259,7 +278,7 @@ def control():
     shutdown_button = ttk.Button(power_frame, text="Shutdown", command=lambda: subprocess.Popen(["systemctl", "poweroff"]))
     shutdown_button.pack(pady=gPady)
 
-    render_back_btn()
+    
 
     
 
@@ -269,18 +288,20 @@ def home():
     previous_page = "home"
     clear_tk_elements(root)
     root.configure(bg="#6495ED")
-    root.title("sysZ | home")
 
-    label = ttk.Label(root, text="sysZ | Home", font=("Arial", 36), background=root['bg'])
-    label.pack(pady=100)
+    render_title("sysZ | home")
+    render_back_btn()
 
-    docs_button = ttk.Button(root, text="View Documentation", command=docs)
+    buttons_frame = ttk.LabelFrame(root, text="<>",borderwidth=0, relief="groove")
+    buttons_frame.grid(row=1, column=1, padx=10, pady=10)
+
+    docs_button = ttk.Button(buttons_frame, text="View Documentation", command=docs)
     docs_button.pack(pady=10)
 
-    control_button = ttk.Button(root, text="Control Panel", command=control)
+    control_button = ttk.Button(buttons_frame, text="Control Panel", command=control)
     control_button.pack(pady=10)
 
-    render_back_btn()
+    
 
 
 
