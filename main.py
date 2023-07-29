@@ -387,7 +387,7 @@ if len(sys.argv) > 1 and sys.argv[1] == 'help':
     print("docs, control")
 
 if len(sys.argv) > 1 and sys.argv[1] == 'update_confirmation':
-    if check_value_from_json('ignore_updates'): # ! (if not)
+    if not check_value_from_json('ignore_updates'):
         root = tk.Tk()
         update_confirmation()
         root.mainloop()
