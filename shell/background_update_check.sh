@@ -10,3 +10,4 @@ if [ -d ".git" ] || git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     fi
 fi
 # UPDATE
+# update but no sync
