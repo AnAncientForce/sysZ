@@ -223,8 +223,9 @@ def control():
     
     def update_config():
         use_background_blur_value = use_background_blur.get()
+        ignore_updates_value = ignore_updates.get()
         set_value_in_json('use_background_blur', use_background_blur_value)
-
+        set_value_in_json('ignore_updates', ignore_updates_value)
         #splash_enabled_value = splash_enabled.get()
         #set_value_in_json('splashEnabled', splash_enabled_value)
 
@@ -260,6 +261,10 @@ def control():
     use_background_blur = tk.BooleanVar(value=config.get('use_background_blur', False))
     checkbox_background_blur = tk.Checkbutton(options_frame, text="Use background blur", variable=use_background_blur, command=update_config)
     checkbox_background_blur.pack(pady=10)
+
+    ignore_updates = tk.BooleanVar(value=config.get('ignore_updates', False))
+    checkbox_ignore_updates = tk.Checkbutton(options_frame, text="Ignore updates", variable=ignore_updates, command=update_config)
+    checkbox_ignore_updates.pack(pady=10)
 
     #splash_enabled = tk.BooleanVar(value=config.get('splashEnabled', False))
     #checkbox_splash = tk.Checkbutton(options_frame, text="Enable Splash", variable=splash_enabled, command=update_config)
@@ -382,6 +387,9 @@ if len(sys.argv) > 1 and sys.argv[1] == 'help':
     print("docs, control")
 
 if len(sys.argv) > 1 and sys.argv[1] == 'update_confirmation':
-    root = tk.Tk()
-    update_confirmation()
-    root.mainloop()
+    if check_value_from_json('ignore_updates'): # ! (if not)
+        root = tk.Tk()
+        update_confirmation()
+        root.mainloop()
+    
+    
