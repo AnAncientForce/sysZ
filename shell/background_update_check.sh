@@ -9,3 +9,4 @@ if [ -d ".git" ] || git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
         echo "No updates available."
     fi
 fi
+# UPDATE
