@@ -5,3 +5,5 @@ To do
 - create python config so user can select if they want animations or not [DONE]
 
 - attempt to merge most features from shell scripts into python [SORT OF DONE]
+
+- Add a "Do not notify me about updates" check box in control panel

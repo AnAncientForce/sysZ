@@ -91,18 +91,21 @@ def update():
 
     
 def update_confirmation():
-    # subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/background_update_check.sh")])
+    #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/background_update_check.sh")])
+    #render_title("A new update is now available")
+    #render_back_btn()
     clear_tk_elements(root)
     root.configure(bg="#6495ED")
+    root.title("Update")
 
-    render_title("Update Confirmation")
-    render_back_btn()
+    label = ttk.Label(root, text="A new update is now available!", font=("Arial", 36), background=root['bg'])
+    label.pack(pady=50)
 
-    buttons_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove")
-    buttons_frame.grid(row=1, column=1, padx=10, pady=10)
-
-    update_button = ttk.Button(buttons_frame, text="Update sysZ?", command=update)
+    update_button = ttk.Button(root, text="Update [sysZ]", command=update)
     update_button.pack(pady=10)
+
+    skip_button = ttk.Button(root, text="Skip", command=stop_loading)
+    skip_button.pack(pady=10)
 
 
 
