@@ -276,8 +276,8 @@ def control():
     checkbox_ignore_updates = tk.Checkbutton(options_frame, text="Ignore updates", variable=ignore_updates, command=update_config)
     checkbox_ignore_updates.pack(pady=gPady)
 
-    use_auto_tiling = tk.BooleanVar(value=config.get('ignore_updates', False))
-    checkbox_use_auto_tiling = tk.Checkbutton(options_frame, text="Ignore updates", variable=use_auto_tiling, command=update_config)
+    use_auto_tiling = tk.BooleanVar(value=config.get('use_auto_tiling', False))
+    checkbox_use_auto_tiling = tk.Checkbutton(options_frame, text="Use auto tiling", variable=use_auto_tiling, command=update_config)
     checkbox_use_auto_tiling.pack(pady=gPady)
 
     #splash_enabled = tk.BooleanVar(value=config.get('splashEnabled', False))
