@@ -307,6 +307,10 @@ def control():
     
 
 def ui_test():
+
+    render_title("UI_TEST")
+    render_back_btn()
+
     gPady = 10
 
     style = ttk.Style()
@@ -320,7 +324,7 @@ def ui_test():
 
     power_frame = ttk.LabelFrame(root, text="System",borderwidth=0, relief="groove")
     power_frame.grid(row=1, column=2, padx=10, pady=10)
-    
+
     terminal_button = ttk.Button(buttons_frame, text="Open Terminal", command=lambda: subprocess.Popen(["alacritty", "&"], shell=True))
     terminal_button.pack(pady=gPady)
 
