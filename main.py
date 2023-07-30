@@ -182,7 +182,7 @@ def render_title(txt):
     #style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
 
     main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
-    main_frame.grid(row=1, column=0, padx=5, pady=5)
+    main_frame.grid(row=1, column=0, padx=3, pady=3)
 
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
     title_frame.grid(row=0, column=1, padx=10, pady=10)
@@ -261,19 +261,19 @@ def control():
         print(f"An error occurred: {e}")
     
 
-    gPady = 10
+    gPady = 5
 
     style = ttk.Style()
     style.configure("Title.TLabelframe", background=root["bg"])
    
     options_frame = ttk.LabelFrame(main_frame, text="Options",borderwidth=0, relief="groove")
-    options_frame.grid(row=1, column=0, padx=2, pady=2)
+    options_frame.grid(row=1, column=0, padx=1, pady=1)
 
     buttons_frame = ttk.LabelFrame(main_frame, text="Operations",borderwidth=0, relief="groove")
-    buttons_frame.grid(row=1, column=1, padx=2, pady=2)
+    buttons_frame.grid(row=1, column=1, padx=1, pady=1)
 
     power_frame = ttk.LabelFrame(main_frame, text="System",borderwidth=0, relief="groove")
-    power_frame.grid(row=1, column=2, padx=2, pady=2)
+    power_frame.grid(row=1, column=2, padx=1, pady=1)
 
     use_background_blur = tk.BooleanVar(value=config.get('use_background_blur', False))
     checkbox_background_blur = tk.Checkbutton(options_frame, text="Use background blur", variable=use_background_blur, command=update_config)
