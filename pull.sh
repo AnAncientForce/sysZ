@@ -5,11 +5,20 @@ cu() {
     cp "conf/i3" "/home/$(whoami)/.config/i3/config"
     cp "conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
     cp "conf/alacritty.yml" "/home/$(whoami)/.config/"
-    if [ -f "config.json" ]; then
-        cp "/home/$(whoami)/sysZ/config.json" "/home/$(whoami)/.config/sysZ/"
-        echo "sysZ config copied successfully"
+
+    read -p "
+    Copy default config file?
+    " choice
+    if [ "$choice" = "y" ]; then
+        if [ -f "config.json" ]; then
+            mkdir -p "/home/$(whoami)/.config/sysZ/"
+            cp "/home/$(whoami)/sysZ/config.json" "/home/$(whoami)/.config/sysZ/"
+            echo "sysZ config copied successfully"
+        else
+            echo "sysZ config file dose not exist"
+        fi
     else
-        echo "sysZ config file dose not exist"
+        echo "config.json was not replaced"
     fi
 }
 themes_setup() {

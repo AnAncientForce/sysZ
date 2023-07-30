@@ -5,12 +5,6 @@ cu() {
     cp "/home/$(whoami)/sysZ/conf/i3" "/home/$(whoami)/.config/i3/config"
     cp "/home/$(whoami)/sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
     cp "/home/$(whoami)/sysZ/conf/alacritty.yml" "/home/$(whoami)/.config/"
-    if [ -f "config.json" ]; then
-        cp "/home/$(whoami)/sysZ/config.json" "/home/$(whoami)/.config/sysZ/"
-        echo "sysZ config copied successfully"
-    else
-        echo "sysZ config file dose not exist"
-    fi
 }
 
 themes_setup() {
