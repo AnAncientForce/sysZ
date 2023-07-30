@@ -112,12 +112,10 @@ def update_confirmation():
 def setup():
     call("i3-msg 'exec killall -9 picom;'", shell=True)
     if check_value_from_json('use_background_blur'):
-        print("Using background blur")
         call("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
         # print("use_background_blur are enabled.")
         # subprocess.run("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
     else:
-        print("Not using background blur")
         call("i3-msg 'exec picom -b --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
         # print("use_background_blur are disabled.")
         # subprocess.Popen(["sh", os.path.expanduser("~/sysZ/main.sh")])
