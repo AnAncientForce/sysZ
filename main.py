@@ -14,8 +14,7 @@ def stop_loading():
 
 def load():
     clear_tk_elements(root)
-    root.attributes('-fullscreen', True)
-    root.overrideredirect(False)
+    root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
     root.title("sysZ | splash")
 
@@ -41,7 +40,6 @@ def load():
 
 def docs():
     clear_tk_elements(root)
-    root.overrideredirect(True)
     root.configure(bg="#6495ED")
     main_frame = render_title("sysZ | docs")
 
@@ -62,7 +60,6 @@ def docs():
 def update():
     clear_tk_elements(root)
     root.attributes('-fullscreen', True) 
-    root.overrideredirect(False)
     root.configure(bg="#6495ED")
     label = ttk.Label(root, text="Updates are underway", font=("Arial", 36), background=root['bg'])
     label.pack(pady=100)
@@ -97,7 +94,6 @@ def update_confirmation():
     #render_title("A new update is now available")
     #render_back_btn()
     clear_tk_elements(root)
-    root.overrideredirect(True)
     root.configure(bg="#6495ED")
     root.title("Update")
 
@@ -238,7 +234,6 @@ def control():
     # previous_page = globals().setdefault('previous_page', 'control')
     # root.attributes('-fullscreen', True) 
     # root.title("sysZ | control")
-    root.overrideredirect(True)
     root.configure(bg="#6495ED")
     main_frame = render_title("sysZ | control")
 
@@ -339,7 +334,7 @@ def control():
 
 def ui_test():
     gPady = 10
-    root.overrideredirect(True)
+
     main_frame = render_title("UI_TEST")
 
     style = ttk.Style()
@@ -386,7 +381,6 @@ def home():
     global previous_page
     previous_page = "home"
     clear_tk_elements(root)
-    root.overrideredirect(True)
     root.configure(bg="#6495ED")
 
     main_frame = render_title("sysZ | home")
@@ -477,4 +471,5 @@ if len(sys.argv) > 1 and sys.argv[1] == 'ui_test':
     root = tk.Tk()
     ui_test()
     root.mainloop()
+    
     
