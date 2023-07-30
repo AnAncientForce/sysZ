@@ -178,10 +178,10 @@ def set_value_in_json(key, value):
 
 def render_title(txt):
     root.title(txt)
-    style = ttk.Style()
-    style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
+    #style = ttk.Style()
+    #style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
 
-    main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove", style="Title.TLabelframe")
+    main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
     main_frame.grid(row=1, column=0, padx=10, pady=10)
 
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove", style="Title.TLabelframe")
