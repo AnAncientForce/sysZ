@@ -6,7 +6,7 @@ cu() {
     cp "conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
     cp "conf/alacritty.yml" "/home/$(whoami)/.config/"
     if [ -f "config.json" ]; then
-        cp "config.json" "/home/$(whoami)/.config/sysZ/config.json"
+        cp "/home/$(whoami)/sysZ/config.json" "/home/$(whoami)/.config/sysZ/"
         echo "sysZ config copied successfully"
     else
         echo "sysZ config file dose not exist"
