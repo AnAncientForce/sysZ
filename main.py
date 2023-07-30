@@ -67,7 +67,7 @@ def update():
     label = ttk.Label(root, text="Updates are underway", font=("Arial", 36), background=root['bg'])
     label.pack(pady=100)
     #render_title("Updates are underway")
-    call("i3-msg 'exec killall -9 picom;'", shell=True)
+    #call("i3-msg 'exec killall -9 picom;'", shell=True)
 
     #main_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove")
     #main_frame.grid(row=1, column=1, padx=10, pady=10, sticky="nsew")
@@ -110,6 +110,7 @@ def update_confirmation():
 
 
 def setup():
+    call("i3-msg 'exec killall -9 picom;'", shell=True)
     if check_value_from_json('use_background_blur'):
         print("Using background blur")
         call("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
