@@ -175,16 +175,16 @@ def set_value_in_json(key, value):
     return True
 
 
-def center_frame(frame):
+def center_frame(frame, window):
     frame.update_idletasks()
     width = frame.winfo_reqwidth()
     height = frame.winfo_reqheight()
 
-    screen_width = frame.winfo_screenwidth()
-    screen_height = frame.winfo_screenheight()
+    window_width = window.winfo_width()
+    window_height = window.winfo_height()
 
-    x_offset = (screen_width - width) // 2
-    y_offset = (screen_height - height) // 2
+    x_offset = (window_width - width) // 2
+    y_offset = (window_height - height) // 2
 
     frame.place(x=x_offset, y=y_offset)
 
@@ -206,7 +206,7 @@ def render_title(txt):
     root.grid_columnconfigure(0, weight=1)
     root.grid_columnconfigure(2, weight=1)
 
-    root.after(1000, lambda: center_frame(main_frame))
+    root.after(500, lambda: center_frame(main_frame, root))
 
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
     title_frame.grid(row=0, column=1, padx=10, pady=10)
