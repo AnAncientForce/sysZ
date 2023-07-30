@@ -123,6 +123,9 @@ def setup():
         # subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--backend", "glx", "--animations", "--animation-for-open-window", "zoom", "--corner-radius", "4", "--vsync"])
         # subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--corner-radius", "4", "--vsync"])
     
+    if check_value_from_json('use_auto_tiling'):
+       call("i3-msg 'exec killall -9 autotiling;'", shell=True)
+       call("i3-msg 'exec autotiling;'", shell=True)
     subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
 
 
@@ -225,8 +228,10 @@ def control():
     def update_config():
         use_background_blur_value = use_background_blur.get()
         ignore_updates_value = ignore_updates.get()
+        use_auto_tiling_value = use_auto_tiling.get()
         set_value_in_json('use_background_blur', use_background_blur_value)
         set_value_in_json('ignore_updates', ignore_updates_value)
+        set_value_in_json('use_auto_tiling', use_auto_tiling_value)
         #splash_enabled_value = splash_enabled.get()
         #set_value_in_json('splashEnabled', splash_enabled_value)
 
@@ -270,6 +275,10 @@ def control():
     ignore_updates = tk.BooleanVar(value=config.get('ignore_updates', False))
     checkbox_ignore_updates = tk.Checkbutton(options_frame, text="Ignore updates", variable=ignore_updates, command=update_config)
     checkbox_ignore_updates.pack(pady=gPady)
+
+    use_auto_tiling = tk.BooleanVar(value=config.get('ignore_updates', False))
+    checkbox_use_auto_tiling = tk.Checkbutton(options_frame, text="Ignore updates", variable=use_auto_tiling, command=update_config)
+    checkbox_use_auto_tiling.pack(pady=gPady)
 
     #splash_enabled = tk.BooleanVar(value=config.get('splashEnabled', False))
     #checkbox_splash = tk.Checkbutton(options_frame, text="Enable Splash", variable=splash_enabled, command=update_config)
