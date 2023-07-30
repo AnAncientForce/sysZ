@@ -1,5 +1,5 @@
 #!/bin/bash
-killall -9 polybar autotiling
+killall -9 polybar
 i3-msg 'exec feh --bg-fill ~/sysZ/bg.*;'
 i3-msg 'exec polybar -c ~/sysZ/conf/polybar.ini;'
 i3-msg "exec sh /home/$(whoami)/sysZ/shell/background_update_check.sh;"
