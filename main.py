@@ -51,7 +51,7 @@ def docs():
     with open(config_path, "r") as file:
         text_content = file.read()
 
-    text_box = scrolledtext.ScrolledText(buttons_frame, font=("Arial", 14), bg=root["bg"])
+    text_box = scrolledtext.ScrolledText(buttons_frame, font=("Arial", 14), bg=root["bg"], width=80, height=10)
     text_box.insert("1.0", text_content)
     text_box.pack(pady=5)
 
@@ -375,7 +375,7 @@ def home():
 
     main_frame = render_title("sysZ | home")
 
-    buttons_frame = ttk.LabelFrame(main_frame, text="<>",borderwidth=0, relief="groove")
+    buttons_frame = ttk.LabelFrame(main_frame,borderwidth=0, relief="groove")
     buttons_frame.grid(row=1, column=1, padx=10, pady=10)
 
     docs_button = ttk.Button(buttons_frame, text="View Documentation", command=docs)
