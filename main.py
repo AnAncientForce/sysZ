@@ -40,6 +40,7 @@ def load():
 
 def docs():
     clear_tk_elements(root)
+    root.overrideredirect(True)
     root.configure(bg="#6495ED")
     main_frame = render_title("sysZ | docs")
 
@@ -94,6 +95,7 @@ def update_confirmation():
     #render_title("A new update is now available")
     #render_back_btn()
     clear_tk_elements(root)
+    root.overrideredirect(True)
     root.configure(bg="#6495ED")
     root.title("Update")
 
@@ -178,7 +180,6 @@ def set_value_in_json(key, value):
 
 
 def render_title(txt):
-    root.overrideredirect(True)
     root.title(txt)
     #style = ttk.Style()
     #style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
@@ -235,6 +236,7 @@ def control():
     # previous_page = globals().setdefault('previous_page', 'control')
     # root.attributes('-fullscreen', True) 
     # root.title("sysZ | control")
+    root.overrideredirect(True)
     root.configure(bg="#6495ED")
     main_frame = render_title("sysZ | control")
 
@@ -335,7 +337,7 @@ def control():
 
 def ui_test():
     gPady = 10
-
+    root.overrideredirect(True)
     main_frame = render_title("UI_TEST")
 
     style = ttk.Style()
@@ -382,6 +384,7 @@ def home():
     global previous_page
     previous_page = "home"
     clear_tk_elements(root)
+    root.overrideredirect(True)
     root.configure(bg="#6495ED")
 
     main_frame = render_title("sysZ | home")
