@@ -51,7 +51,7 @@ def docs():
     with open(config_path, "r") as file:
         text_content = file.read()
 
-    text_box = scrolledtext.ScrolledText(buttons_frame, font=("Arial", 14), bg=root["bg"], width=80, height=10)
+    text_box = scrolledtext.ScrolledText(buttons_frame, font=("Arial", 14), bg=root["bg"], width=50, height=30)
     text_box.insert("1.0", text_content)
     text_box.pack(pady=5)
 
