@@ -40,19 +40,18 @@ def load():
 
 def docs():
     clear_tk_elements(root)
-    #root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
     main_frame = render_title("sysZ | docs")
 
-    buttons_frame = ttk.LabelFrame(main_frame, text="<>",borderwidth=0, relief="groove")
-    buttons_frame.grid(row=1, column=1, padx=10, pady=10)
+    buttons_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
+    buttons_frame.grid(row=1, column=1, padx=5, pady=5)
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     config_path = os.path.join(script_dir, 'docs.rtf')
     with open(config_path, "r") as file:
         text_content = file.read()
 
-    text_box = scrolledtext.ScrolledText(buttons_frame, font=("Arial", 12), bg=root["bg"])
+    text_box = scrolledtext.ScrolledText(buttons_frame, font=("Arial", 14), bg=root["bg"])
     text_box.insert("1.0", text_content)
     text_box.pack(pady=5)
 
@@ -182,7 +181,7 @@ def render_title(txt):
     style = ttk.Style()
     style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
 
-    main_frame = ttk.LabelFrame(root, text="Options",borderwidth=0, relief="groove")
+    main_frame = ttk.LabelFrame(root, text="Options",borderwidth=0, relief="groove",background=root["bg"])
     main_frame.grid(row=1, column=0, padx=10, pady=10)
 
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove", style="Title.TLabelframe")
