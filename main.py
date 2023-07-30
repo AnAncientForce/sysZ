@@ -51,7 +51,7 @@ def docs():
     with open(config_path, "r") as file:
         text_content = file.read()
 
-    text_box = scrolledtext.ScrolledText(buttons_frame, font=("Arial", 14), bg=root["bg"], width=55, height=20)
+    text_box = scrolledtext.ScrolledText(buttons_frame, font=("Arial", 14), bg=root["bg"], width=60, height=20)
     text_box.insert("1.0", text_content)
     text_box.pack(pady=5)
 
@@ -176,29 +176,17 @@ def set_value_in_json(key, value):
 
 
 
-def center_frame(frame):
-    frame.update_idletasks()
-    width = frame.winfo_width()
-    height = frame.winfo_height()
-
-    x_offset = (frame.winfo_screenwidth() - width) // 2
-    y_offset = (frame.winfo_screenheight() - height) // 2
-
-    frame.place(x=x_offset, y=y_offset)
-
-
 
 def render_title(txt):
     root.title(txt)
     #style = ttk.Style()
     #style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
-
     #main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
     #main_frame.grid(row=1, column=0, padx=3, pady=3)
-
     # Create the LabelFrame to be centered
+
     main_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove")
-    main_frame.grid(row=1, column=0, padx=3, pady=3)
+    main_frame.grid(row=0, column=0, padx=0, pady=0) #1
 
     # Center the LabelFrame in the middle of the window
     root.grid_rowconfigure(0, weight=1)
