@@ -236,7 +236,7 @@ def render_back_btn(frame):
         current_page=""
          # update, then restart python
         update()
-        root.after(2500, lambda: subprocess.Popen(["python", os.path.expanduser("~/sysZ/main.py")]))
+        root.after(2500, lambda: subprocess.Popen(["python", os.path.expanduser("~/sysZ/main.py control")]))
 
     page_controls = ttk.LabelFrame(frame,borderwidth=0, relief="groove")
     page_controls.grid(row=2, column=2, padx=10, pady=10)
