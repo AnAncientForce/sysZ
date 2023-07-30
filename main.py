@@ -61,10 +61,10 @@ def update():
     clear_tk_elements(root)
     root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
-    #subprocess.run(["sh", "shell/non_sudo_update.sh"])
-    #root.title("sysZ | updates")
     label = ttk.Label(root, text="Updates are underway", font=("Arial", 36), background=root['bg'])
     label.pack(pady=100)
+    #subprocess.run(["sh", "shell/non_sudo_update.sh"])
+    #root.title("sysZ | updates")
     #render_title("Updates are underway")
     #call("i3-msg 'exec killall -9 picom;'", shell=True)
 
@@ -182,10 +182,10 @@ def render_title(txt):
     #style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
 
     main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
-    main_frame.grid(row=1, column=0, padx=10, pady=10)
+    main_frame.grid(row=1, column=0, padx=5, pady=5)
 
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
-    title_frame.grid(row=0, column=1, padx=25, pady=25)
+    title_frame.grid(row=0, column=1, padx=10, pady=10)
 
     label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=root["bg"])
     label.grid(row=0, column=1, pady=10)
@@ -267,13 +267,13 @@ def control():
     style.configure("Title.TLabelframe", background=root["bg"])
    
     options_frame = ttk.LabelFrame(main_frame, text="Options",borderwidth=0, relief="groove")
-    options_frame.grid(row=1, column=0, padx=10, pady=10)
+    options_frame.grid(row=1, column=0, padx=2, pady=2)
 
     buttons_frame = ttk.LabelFrame(main_frame, text="Operations",borderwidth=0, relief="groove")
-    buttons_frame.grid(row=1, column=1, padx=10, pady=10)
+    buttons_frame.grid(row=1, column=1, padx=2, pady=2)
 
     power_frame = ttk.LabelFrame(main_frame, text="System",borderwidth=0, relief="groove")
-    power_frame.grid(row=1, column=2, padx=10, pady=10)
+    power_frame.grid(row=1, column=2, padx=2, pady=2)
 
     use_background_blur = tk.BooleanVar(value=config.get('use_background_blur', False))
     checkbox_background_blur = tk.Checkbutton(options_frame, text="Use background blur", variable=use_background_blur, command=update_config)
