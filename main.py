@@ -14,7 +14,8 @@ def stop_loading():
 
 def load():
     clear_tk_elements(root)
-    root.attributes('-fullscreen', True) 
+    root.attributes('-fullscreen', True)
+    root.overrideredirect(False)
     root.configure(bg="#6495ED")
     root.title("sysZ | splash")
 
@@ -61,6 +62,7 @@ def docs():
 def update():
     clear_tk_elements(root)
     root.attributes('-fullscreen', True) 
+    root.overrideredirect(False)
     root.configure(bg="#6495ED")
     label = ttk.Label(root, text="Updates are underway", font=("Arial", 36), background=root['bg'])
     label.pack(pady=100)
