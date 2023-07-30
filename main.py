@@ -124,7 +124,7 @@ def setup():
         # subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--corner-radius", "4", "--vsync"])
     
     if check_value_from_json('use_auto_tiling'):
-       call("i3-msg 'exec killall -9 autotiling; autotiling;'", shell=True)
+       call("i3-msg 'exec killall -9 autotiling; exec autotiling;'", shell=True)
     subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
 
 
