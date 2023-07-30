@@ -176,13 +176,35 @@ def set_value_in_json(key, value):
 
 
 
+def center_frame(frame):
+    frame.update_idletasks()
+    width = frame.winfo_width()
+    height = frame.winfo_height()
+
+    x_offset = (frame.winfo_screenwidth() - width) // 2
+    y_offset = (frame.winfo_screenheight() - height) // 2
+
+    frame.place(x=x_offset, y=y_offset)
+
+
+
 def render_title(txt):
     root.title(txt)
     #style = ttk.Style()
     #style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
 
-    main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
+    #main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
+    #main_frame.grid(row=1, column=0, padx=3, pady=3)
+
+    # Create the LabelFrame to be centered
+    main_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove")
     main_frame.grid(row=1, column=0, padx=3, pady=3)
+
+    # Center the LabelFrame in the middle of the window
+    root.grid_rowconfigure(0, weight=1)
+    root.grid_rowconfigure(2, weight=1)
+    root.grid_columnconfigure(0, weight=1)
+    root.grid_columnconfigure(2, weight=1)
 
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
     title_frame.grid(row=0, column=1, padx=10, pady=10)
