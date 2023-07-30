@@ -10,9 +10,9 @@ cu() {
     Copy default config file?
     " choice
     if [ "$choice" = "y" ]; then
-        if [ -f "config.json" ]; then
+        if [ -f "conf/config.json" ]; then
             mkdir -p "/home/$(whoami)/.config/sysZ/"
-            cp "/home/$(whoami)/sysZ/config.json" "/home/$(whoami)/.config/sysZ/"
+            cp "/home/$(whoami)/sysZ/conf/config.json" "/home/$(whoami)/.config/sysZ/"
             echo "sysZ config copied successfully"
         else
             echo "sysZ config file dose not exist"
@@ -21,6 +21,7 @@ cu() {
         echo "config.json was not replaced"
     fi
 }
+
 themes_setup() {
     echo "Installing themes"
     cd
@@ -29,6 +30,7 @@ themes_setup() {
     chmod +x setup.sh
     ./setup.sh
 }
+
 repo_pull() {
     # Store the current directory
     current_dir=$(pwd)
@@ -49,28 +51,11 @@ repo_pull() {
         echo "Git repository set up. Repository is ready."
     fi
 }
-automatic_update() {
-    repo_pull
-    cu
-    sleep 10
-    exit
-}
 
-# Run specific function is specified
-if [ "$1" == "--function" ]; then
-    shift # Shift the arguments to skip the "--function" flag
-    function_name="$1"
-    shift # Shift again to skip the function name
-
-    # Call the specified function
-    "$function_name"
-fi
-
+echo "Manual update is starting"
 repo_pull
-
 echo "Updating configuration files"
 cu
-
 echo "Scanning for changes in default applications"
 
 read -p "
