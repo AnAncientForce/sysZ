@@ -195,12 +195,10 @@ def render_title(txt):
     #style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
     #main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
     #main_frame.grid(row=1, column=0, padx=3, pady=3)
-    
-
+   
     main_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove")
     main_frame.grid(row=0, column=0, padx=0, pady=0) #1
 
-    
     root.grid_rowconfigure(0, weight=1)
     root.grid_rowconfigure(2, weight=1)
     root.grid_columnconfigure(0, weight=1)
@@ -234,12 +232,13 @@ def render_back_btn(frame):
         global current_page
         previous_page=""
         current_page=""
+        # eh this function is not working properly
          # update, then restart python
         root.after(2500, lambda: subprocess.Popen(["python", os.path.expanduser("~/sysZ/main.py control")]))
         update()
 
     page_controls = ttk.LabelFrame(frame,borderwidth=0, relief="groove")
-    page_controls.grid(row=2, column=2, padx=10, pady=10)
+    page_controls.grid(row=2, column=1, padx=10, pady=10)
 
     #page_controls.grid(row=0, column=0, padx=10, pady=10)
     #back_button = ttk.Button(page_controls, text="Back", command=goBack)
@@ -411,13 +410,15 @@ def home():
     main_frame = render_title("sysZ | home")
 
     buttons_frame = ttk.LabelFrame(main_frame,borderwidth=0, relief="groove")
-    buttons_frame.grid(row=1, column=1, padx=10, pady=10)
+    buttons_frame.grid(row=1, column=1, padx=0, pady=0)
 
     docs_button = ttk.Button(buttons_frame, text="View Documentation", command=docs)
     docs_button.pack(pady=10)
 
     control_button = ttk.Button(buttons_frame, text="Control Panel", command=control)
     control_button.pack(pady=10)
+
+    
 
     # _tkinter.TclError: cannot use geometry manager pack inside
     # Basically means U cannot use .pack(pad=) in same frame as one using .grid(row=)
