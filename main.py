@@ -195,18 +195,18 @@ def render_title(txt):
     #style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
     #main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
     #main_frame.grid(row=1, column=0, padx=3, pady=3)
-    # Create the LabelFrame to be centered
+    
 
     main_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove")
     main_frame.grid(row=0, column=0, padx=0, pady=0) #1
 
-    # Center the LabelFrame in the middle of the window
+    
     root.grid_rowconfigure(0, weight=1)
     root.grid_rowconfigure(2, weight=1)
     root.grid_columnconfigure(0, weight=1)
     root.grid_columnconfigure(2, weight=1)
 
-    root.after(500, lambda: center_frame(main_frame, root))
+    root.after(250, lambda: center_frame(main_frame, root))
 
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
     title_frame.grid(row=0, column=1, padx=10, pady=10)
@@ -228,7 +228,12 @@ def render_back_btn(frame):
         elif current_page == "home":
             home()
         previous_page = current_page
-
+    
+    def resPy():
+        # update, then restart python
+        update()
+        subprocess.Popen(["python", os.path.expanduser("~/sysZ/main.py")])
+        stop_loading()
     page_controls = ttk.LabelFrame(frame,borderwidth=0, relief="groove")
     page_controls.grid(row=2, column=2, padx=10, pady=10)
 
@@ -239,6 +244,8 @@ def render_back_btn(frame):
     home_button.pack(pady=1)
     close_button = ttk.Button(page_controls, text="Close", command=stop_loading)
     close_button.pack(pady=1)
+    res = ttk.Button(page_controls, text="<dev>", command=resPy)
+    res.pack(pady=1)
 
 
 def control():
