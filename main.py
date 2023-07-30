@@ -42,9 +42,9 @@ def docs():
     clear_tk_elements(root)
     #root.attributes('-fullscreen', True) 
     root.configure(bg="#6495ED")
-    render_title("sysZ | docs")
+    main_frame = render_title("sysZ | docs")
 
-    buttons_frame = ttk.LabelFrame(root, text="<>",borderwidth=0, relief="groove")
+    buttons_frame = ttk.LabelFrame(main_frame, text="<>",borderwidth=0, relief="groove")
     buttons_frame.grid(row=1, column=1, padx=10, pady=10)
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -56,7 +56,7 @@ def docs():
     text_box.insert("1.0", text_content)
     text_box.pack(pady=5)
 
-    render_back_btn()
+    
 
 def update():
     clear_tk_elements(root)
@@ -175,20 +175,28 @@ def set_value_in_json(key, value):
 
     return True
 
+
+
 def render_title(txt):
+    root.title(txt)
     style = ttk.Style()
     style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
-    title_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove", style="Title.TLabelframe")
+
+    main_frame = ttk.LabelFrame(root, text="Options",borderwidth=0, relief="groove")
+    main_frame.grid(row=1, column=0, padx=10, pady=10)
+
+    title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove", style="Title.TLabelframe")
     title_frame.grid(row=0, column=1, padx=25, pady=25)
 
     label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=root["bg"])
     label.grid(row=0, column=1, pady=10)
 
-    root.title(txt)
+    render_back_btn(main_frame)
+    return main_frame
 
 
 
-def render_back_btn():
+def render_back_btn(frame):
     def goBack():
         global previous_page
         global current_page
@@ -198,7 +206,7 @@ def render_back_btn():
             home()
         previous_page = current_page
 
-    page_controls = ttk.LabelFrame(root,borderwidth=0, relief="groove")
+    page_controls = ttk.LabelFrame(frame,borderwidth=0, relief="groove")
     page_controls.grid(row=2, column=2, padx=10, pady=10)
 
     #page_controls.grid(row=0, column=0, padx=10, pady=10)
@@ -216,10 +224,9 @@ def control():
     clear_tk_elements(root)
     # previous_page = globals().setdefault('previous_page', 'control')
     # root.attributes('-fullscreen', True) 
-    #root.title("sysZ | control")
+    # root.title("sysZ | control")
     root.configure(bg="#6495ED")
-    render_title("sysZ | control")
-    render_back_btn()
+    main_frame = render_title("sysZ | control")
 
     # --- SETTINGS
 
@@ -260,13 +267,13 @@ def control():
     style = ttk.Style()
     style.configure("Title.TLabelframe", background=root["bg"])
    
-    options_frame = ttk.LabelFrame(root, text="Options",borderwidth=0, relief="groove")
+    options_frame = ttk.LabelFrame(main_frame, text="Options",borderwidth=0, relief="groove")
     options_frame.grid(row=1, column=0, padx=10, pady=10)
 
-    buttons_frame = ttk.LabelFrame(root, text="Operations",borderwidth=0, relief="groove")
+    buttons_frame = ttk.LabelFrame(main_frame, text="Operations",borderwidth=0, relief="groove")
     buttons_frame.grid(row=1, column=1, padx=10, pady=10)
 
-    power_frame = ttk.LabelFrame(root, text="System",borderwidth=0, relief="groove")
+    power_frame = ttk.LabelFrame(main_frame, text="System",borderwidth=0, relief="groove")
     power_frame.grid(row=1, column=2, padx=10, pady=10)
 
     use_background_blur = tk.BooleanVar(value=config.get('use_background_blur', False))
@@ -317,22 +324,20 @@ def control():
     
 
 def ui_test():
-
-    render_title("UI_TEST")
-    render_back_btn()
-
     gPady = 10
+
+    main_frame = render_title("UI_TEST")
 
     style = ttk.Style()
     style.configure("Title.TLabelframe", background=root["bg"])
-   
-    options_frame = ttk.LabelFrame(root, text="Options",borderwidth=0, relief="groove")
+
+    options_frame = ttk.LabelFrame(main_frame, text="Options",borderwidth=0, relief="groove")
     options_frame.grid(row=1, column=0, padx=10, pady=10)
 
-    buttons_frame = ttk.LabelFrame(root, text="Operations",borderwidth=0, relief="groove")
+    buttons_frame = ttk.LabelFrame(main_frame, text="Operations",borderwidth=0, relief="groove")
     buttons_frame.grid(row=1, column=1, padx=10, pady=10)
 
-    power_frame = ttk.LabelFrame(root, text="System",borderwidth=0, relief="groove")
+    power_frame = ttk.LabelFrame(main_frame, text="System",borderwidth=0, relief="groove")
     power_frame.grid(row=1, column=2, padx=10, pady=10)
 
     terminal_button = ttk.Button(buttons_frame, text="Open Terminal", command=lambda: subprocess.Popen(["alacritty", "&"], shell=True))
@@ -359,6 +364,8 @@ def ui_test():
     shutdown_button = ttk.Button(power_frame, text="Shutdown", command=lambda: subprocess.Popen(["systemctl", "poweroff"]))
     shutdown_button.pack(pady=gPady)
 
+    for widget in main_frame.winfo_children():
+        widget.grid_configure(padx=10, pady=5)
 
 
 def home():
@@ -367,10 +374,9 @@ def home():
     clear_tk_elements(root)
     root.configure(bg="#6495ED")
 
-    render_title("sysZ | home")
-    render_back_btn()
+    main_frame = render_title("sysZ | home")
 
-    buttons_frame = ttk.LabelFrame(root, text="<>",borderwidth=0, relief="groove")
+    buttons_frame = ttk.LabelFrame(main_frame, text="<>",borderwidth=0, relief="groove")
     buttons_frame.grid(row=1, column=1, padx=10, pady=10)
 
     docs_button = ttk.Button(buttons_frame, text="View Documentation", command=docs)
@@ -378,6 +384,9 @@ def home():
 
     control_button = ttk.Button(buttons_frame, text="Control Panel", command=control)
     control_button.pack(pady=10)
+
+    # _tkinter.TclError: cannot use geometry manager pack inside
+    # Basically means U cannot use .pack(pad=) in same frame as one using .grid(row=)
 
     
 
