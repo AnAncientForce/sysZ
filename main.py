@@ -469,7 +469,7 @@ if len(sys.argv) > 1 and sys.argv[1] == 'update_confirmation':
 
 if len(sys.argv) > 1 and sys.argv[1] == 'ui_test':
     root = tk.Tk()
+    root.overrideredirect(True)
     ui_test()
     root.mainloop()
-    
     
