@@ -6,8 +6,6 @@ To do
 
 - attempt to merge most features from shell scripts into python [SORT OF DONE]
 
-- Add a "Do not notify me about updates" check box in control panel
+- Add a "Do not notify me about updates" check box in control panel [DONE]
 
-.
-,,
-,
+- Put sysZ .json config in the home/config folder so it dose not get updated with the repo. This is a much better idea

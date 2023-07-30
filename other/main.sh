@@ -1,49 +1,24 @@
-setup() {
-    killall -9 picom polybar
-    i3-msg 'exec feh --bg-fill ~/sysZ/bg.*;'
-    i3-msg 'exec polybar -c ~/sysZ/conf/polybar/config.ini;'
-    i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
-    i3-msg "exec sox ~/sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
+repo_pull(){
+# Check if it's a git repository before performing git pull
+    if [ -d ".git" ] || git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        git pull origin main
+        echo "Repository updated."
+    else
+        echo "Initializing a new git repository..."
+        git init
+        git remote add origin https://github.com/AnAncientForce/sysZ.git
+        git fetch origin main
+        git checkout -b main --track origin/main
+        echo "Git repository set up. Repository is ready."
+fi
 }
 
-basepkg(){
-    pacman_packages=(
-    kitty
-    alacritty
-    git
-    thunar
-    gvfs
-    polybar
-    rofi
-    sox
-    feh
-    ttf-font-awesome
-)
-yay_packages=(
-    librewolf
-    picom-simpleanims-next-git
-)
-# Update package databases and upgrade system packages (optional but recommended)
-sudo pacman -Syu --noconfirm
+# Run specific function is specified
+if [ "$1" == "--function" ]; then
+    shift  # Shift the arguments to skip the "--function" flag
+    function_name="$1"
+    shift  # Shift again to skip the function name
 
-# Check if pacman packages are installed and install missing ones
-for package in "${pacman_packages[@]}"; do
-    if ! pacman -Qs "$package" >/dev/null; then
-        sudo pacman -S --noconfirm "$package"
-    fi
-done
-
-# Check if yay packages are installed and install missing ones
-for package in "${yay_packages[@]}"; do
-    if ! yay -Qs "$package" >/dev/null; then
-        yay -S --noconfirm "$package"
-    fi
-done
-}
-
-
-cw(){
-    cp "conf/i3/config" "/home/$(whoami)/.config/i3/"
-    cp "conf/kitty/kitty.conf" "/home/$(whoami)/.config/kitty/"
-    cp "conf/alacritty.yml" "/home/$(whoami)/.config/"
-}
+    # Call the specified function
+    "$function_name"
+fi
