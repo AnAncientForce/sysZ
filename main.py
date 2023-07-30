@@ -241,9 +241,13 @@ def control():
     
     # Temp New Change Test
     # Read the configuration file
-    create_config_file()
-    with open(config_path, 'r') as file:
-        config = json.load(file)
+    try:
+        create_config_file()
+        with open(config_path, 'r') as file:
+            config = json.load(file)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    
 
     gPady = 10
 
@@ -302,7 +306,45 @@ def control():
 
     
 
+def ui_test():
+    gPady = 10
+
+    style = ttk.Style()
+    style.configure("Title.TLabelframe", background=root["bg"])
+   
+    options_frame = ttk.LabelFrame(root, text="Options",borderwidth=0, relief="groove")
+    options_frame.grid(row=1, column=0, padx=10, pady=10)
+
+    buttons_frame = ttk.LabelFrame(root, text="Operations",borderwidth=0, relief="groove")
+    buttons_frame.grid(row=1, column=1, padx=10, pady=10)
+
+    power_frame = ttk.LabelFrame(root, text="System",borderwidth=0, relief="groove")
+    power_frame.grid(row=1, column=2, padx=10, pady=10)
     
+    terminal_button = ttk.Button(buttons_frame, text="Open Terminal", command=lambda: subprocess.Popen(["alacritty", "&"], shell=True))
+    terminal_button.pack(pady=gPady)
+
+    appearance_button = ttk.Button(buttons_frame, text="Change Appearance", command=lambda: os.system("qt5ct & lxappearance &"))
+    appearance_button.pack(pady=gPady)
+
+    cw_button = ttk.Button(buttons_frame, text="Change Wallpaper", command=lambda: subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/cw.sh")]))
+    cw_button.pack(pady=gPady)
+
+    update_button = ttk.Button(options_frame, text="Update [sysZ]", command=update)
+    update_button.pack(pady=gPady)
+    
+    restartSys = ttk.Button(options_frame, text="Restart [sysZ]", command=load)
+    restartSys.pack(pady=gPady)
+
+    logout_button = ttk.Button(power_frame, text="Logout", command=lambda: subprocess.Popen(["i3-msg", "exit"]))
+    logout_button.pack(pady=gPady)
+
+    restart_button = ttk.Button(power_frame, text="Restart", command=lambda: subprocess.Popen(["systemctl", "reboot"]))
+    restart_button.pack(pady=gPady)
+
+    shutdown_button = ttk.Button(power_frame, text="Shutdown", command=lambda: subprocess.Popen(["systemctl", "poweroff"]))
+    shutdown_button.pack(pady=gPady)
+
 
 
 def home():
@@ -392,5 +434,10 @@ if len(sys.argv) > 1 and sys.argv[1] == 'update_confirmation':
         root = tk.Tk()
         update_confirmation()
         root.mainloop()
+
+if len(sys.argv) > 1 and sys.argv[1] == 'ui_test':
+    root = tk.Tk()
+    ui_test()
+    root.mainloop()
     
     
