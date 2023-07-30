@@ -134,7 +134,7 @@ def run_shell_script_function(shell_script_path, function_name):
 
 def create_config_file():
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    config_path = os.path.join(script_dir, 'config.json')
+    config_path = os.path.expanduser("~/.config/sysZ/config.json")
 
     if not os.path.isfile(config_path):
         with open(config_path, 'w') as file:
@@ -144,7 +144,7 @@ def check_value_from_json(key):
     create_config_file()
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    config_path = os.path.join(script_dir, 'config.json')
+    config_path = os.path.expanduser("~/.config/sysZ/config.json")
 
     with open(config_path, 'r') as file:
         data = json.load(file)
@@ -158,7 +158,7 @@ def set_value_in_json(key, value):
     create_config_file()
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    config_path = os.path.join(script_dir, 'config.json')
+    config_path = os.path.expanduser("~/.config/sysZ/config.json")
 
     with open(config_path, 'r') as file:
         data = json.load(file)
@@ -219,7 +219,7 @@ def control():
     # --- SETTINGS
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    config_path = os.path.join(script_dir, 'config.json')
+    config_path = os.path.expanduser("~/.config/sysZ/config.json")
     
     def update_config():
         use_background_blur_value = use_background_blur.get()
