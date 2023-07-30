@@ -181,13 +181,13 @@ def render_title(txt):
     style = ttk.Style()
     style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
 
-    main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove")
+    main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove", style="Title.TLabelframe")
     main_frame.grid(row=1, column=0, padx=10, pady=10)
 
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove", style="Title.TLabelframe")
     title_frame.grid(row=0, column=1, padx=25, pady=25)
 
-    label = ttk.Label(title_frame, text=txt, font=("Arial", 26), background=root["bg"])
+    label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=root["bg"])
     label.grid(row=0, column=1, pady=10)
 
     render_back_btn(main_frame)
