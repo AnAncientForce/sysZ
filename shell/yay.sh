@@ -6,6 +6,7 @@ yay_packages=(
     cava-git
     librewolf-bin
     picom-simpleanims-git
+    autotiling
 )
 not_installed=0
 

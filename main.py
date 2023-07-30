@@ -265,11 +265,11 @@ def control():
 
     use_background_blur = tk.BooleanVar(value=config.get('use_background_blur', False))
     checkbox_background_blur = tk.Checkbutton(options_frame, text="Use background blur", variable=use_background_blur, command=update_config)
-    checkbox_background_blur.pack(pady=10)
+    checkbox_background_blur.pack(pady=gPady)
 
     ignore_updates = tk.BooleanVar(value=config.get('ignore_updates', False))
     checkbox_ignore_updates = tk.Checkbutton(options_frame, text="Ignore updates", variable=ignore_updates, command=update_config)
-    checkbox_ignore_updates.pack(pady=10)
+    checkbox_ignore_updates.pack(pady=gPady)
 
     #splash_enabled = tk.BooleanVar(value=config.get('splashEnabled', False))
     #checkbox_splash = tk.Checkbutton(options_frame, text="Enable Splash", variable=splash_enabled, command=update_config)
