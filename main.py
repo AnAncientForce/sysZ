@@ -11,6 +11,7 @@ from PIL import Image, ImageTk
 
 previous_page = "home"
 current_page = "home"
+setup_pending = False
 
 def stop_loading():
     root.destroy()
@@ -84,7 +85,8 @@ def update():
         prepare_image_rotation(root)
         subprocess_thread = threading.Thread(target=lambda: execute_shell_script("sysZ/shell/non_sudo_update.sh"))
         subprocess_thread.start()
-        subprocess_thread.join() # Hold the thread before proceeding...
+        global setup_pending
+        setup_pending = True
         #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
         '''
         if previous_page == "control":
@@ -93,7 +95,7 @@ def update():
             root.after(3000, stop_loading)
         '''
         #root.after(100, lambda: progress_bar.start(10))
-        setup()
+        #setup()
     except Exception as e:
         print(f"An error occurred: {e}")
 
@@ -141,9 +143,13 @@ def execute_shell_script(script_path):
         expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
         print("Script on new thread has started")
         subprocess.run(["sh", expanded_path], check=True)
-        global script_complete, previous_page
+        global script_complete, previous_page, setup_pending
         script_complete = True
         print("script_complete = True")
+
+        if setup_pending:
+            setup_pending = False
+            setup()
 
         if previous_page == "control":
             control()
