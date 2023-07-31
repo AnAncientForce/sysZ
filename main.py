@@ -82,8 +82,8 @@ def update():
 
 
     try:
-        debugTxt("Checking github repository for updates")
         prepare_image_rotation(root)
+        debugTxt("Checking github repository for updates")
         subprocess_thread = threading.Thread(target=lambda: execute_shell_script("sysZ/shell/non_sudo_update.sh"))
         subprocess_thread.start()
         global setup_pending
@@ -170,8 +170,8 @@ def execute_shell_script(script_path):
         error()
 
 def debugTxt(txt):
-    debug = ttk.Label(root, text=txt, font=("Arial", 26), background=root['bg'])
-    debug.pack(pady=100)
+    debug = ttk.Label(root, text=txt, font=("Arial", 26), background=root['bg'], foreground="red")
+    debug.pack(pady=200)
 
 
 def update_confirmation():
