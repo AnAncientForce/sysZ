@@ -128,12 +128,21 @@ def no_grid_test():
     root.configure(bg="#6495ED")
     label = ttk.Label(root, text="No grid test", font=("Arial", 36), background=root['bg'])
     label.pack(pady=100)
-    
+
     global script_complete
     prepare_image_rotation(root)
     root.after(3000, lambda: globals().update({'script_complete': True}))
     
-
+def execute_shell_script(script_path):
+    try:
+        expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
+        print("Script on new thread has started")
+        subprocess.run(["sh", expanded_path], check=True)
+        global script_complete
+        script_complete = True
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing shell script: {e}")
+        error()
 
 
 
@@ -509,15 +518,7 @@ def clear_tk_elements(root):
 
 
 
-def execute_shell_script(script_path):
-    try:
-        expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
-        subprocess.run(["sh", expanded_path], check=True)
-        global script_complete
-        script_complete = True
-    except subprocess.CalledProcessError as e:
-        print(f"Error executing shell script: {e}")
-        error()
+
 
 
 if len(sys.argv) > 1 and sys.argv[1] == 'load':
