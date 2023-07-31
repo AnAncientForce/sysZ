@@ -88,7 +88,7 @@ def update():
         script_directory = os.path.dirname(os.path.abspath(__file__))
         image_path = os.path.join(script_directory, "load.png")
         image = Image.open(image_path)
-        image = image.resize((25, 25), resample=Image.BICUBIC)
+        image = image.resize((50, 50), resample=Image.BICUBIC)
         image = image.convert("RGBA")
         photo = ImageTk.PhotoImage(image)
         label.config(image=photo, background=root["bg"])  # Set a white background to show transparency
@@ -130,11 +130,10 @@ def update_confirmation():
 def rotate_image(angle, label):
     rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=False)
     rotated_photo = ImageTk.PhotoImage(rotated_image)
-    #label.config(image=rotated_photo)
-    label.image = rotated_photo  
+    label.config(image=rotated_photo) 
     if script_complete:  # Check if script execution is complete
         return
-    root.after(100, rotate_image, (angle + 10) % 360, label)  # Rotate every 100 milliseconds
+    root.after(50, rotate_image, (angle + 10) % 360, label)  # Rotate every 100 milliseconds
     
 
 def setup():
