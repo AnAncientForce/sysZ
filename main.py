@@ -261,6 +261,19 @@ def control():
     root.configure(bg="#6495ED")
     main_frame = render_title("sysZ | control")
     gPady = 7
+
+    style = ttk.Style()
+    style.configure("Title.TLabelframe", background=root["bg"])
+   
+    options_frame = ttk.LabelFrame(main_frame, text="sysZ",borderwidth=0, relief="groove")
+    options_frame.grid(row=1, column=0, padx=gPady, pady=gPady)
+
+    buttons_frame = ttk.LabelFrame(main_frame, text="Operations",borderwidth=0, relief="groove")
+    buttons_frame.grid(row=1, column=1, padx=gPady, pady=gPady)
+
+    power_frame = ttk.LabelFrame(main_frame, text="System",borderwidth=0, relief="groove")
+    power_frame.grid(row=1, column=2, padx=gPady, pady=gPady)
+
     
     # --- SETTINGS
 
@@ -313,18 +326,7 @@ def control():
     
     
 
-    style = ttk.Style()
-    style.configure("Title.TLabelframe", background=root["bg"])
-   
-    options_frame = ttk.LabelFrame(main_frame, text="sysZ",borderwidth=0, relief="groove")
-    options_frame.grid(row=1, column=0, padx=gPady, pady=gPady)
-
-    buttons_frame = ttk.LabelFrame(main_frame, text="Operations",borderwidth=0, relief="groove")
-    buttons_frame.grid(row=1, column=1, padx=gPady, pady=gPady)
-
-    power_frame = ttk.LabelFrame(main_frame, text="System",borderwidth=0, relief="groove")
-    power_frame.grid(row=1, column=2, padx=gPady, pady=gPady)
-
+    
     
 
     #splash_enabled = tk.BooleanVar(value=config.get('splashEnabled', False))
