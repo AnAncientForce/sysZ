@@ -289,7 +289,10 @@ def render_title(txt):
     root.grid_columnconfigure(0, weight=1)
     root.grid_columnconfigure(2, weight=1)
 
-    root.after(250, lambda: center_frame(main_frame, root))
+    try:
+        root.after(250, lambda: center_frame(main_frame, root))
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
     title_frame.grid(row=0, column=1, padx=10, pady=10)
