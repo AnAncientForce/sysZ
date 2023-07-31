@@ -31,9 +31,8 @@ def load():
 
     # Load
     global image, photo, script_complete
-    labelA = prepare_image_rotation(root)
-    script_complete = False
-    rotate_image(0, labelA)
+    x = prepare_image_rotation(root)
+    rotate_image(0, x)
     # Load Continue
 
     if previous_page == "control":
@@ -87,11 +86,10 @@ def update():
     try:
         # Load
         global image, photo, script_complete
-        labelA = prepare_image_rotation(root)
+        x = prepare_image_rotation(root)
         subprocess_thread = threading.Thread(target=execute_shell_script("sysZ/shell/non_sudo_update.sh"))
         subprocess_thread.start()
-        script_complete = False
-        rotate_image(0, labelA)
+        rotate_image(0, x)
         # Load End
         #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
         if previous_page == "control":
@@ -108,6 +106,7 @@ def update():
 def prepare_image_rotation(root):
     global image, photo, script_complete
     #label.grid(row=3, column=1)
+    script_complete = False
     script_directory = os.path.dirname(os.path.abspath(__file__))
     image_path = os.path.join(script_directory, "load.png")
     image = Image.open(image_path)
@@ -137,10 +136,9 @@ def no_grid_test():
     label.pack(pady=100)
     
     global image, photo, script_complete
-    labelA = prepare_image_rotation(root)
+    x = prepare_image_rotation(root)
     root.after(3000, lambda: globals().update({'script_complete': True}))
-    script_complete = False
-    rotate_image(0, labelA)
+    rotate_image(0, x)
     
 
 
@@ -189,7 +187,6 @@ def setup():
     global image, photo, script_complete
     subprocess_thread = threading.Thread(target=execute_shell_script("sysZ/shell/setup.sh"))
     subprocess_thread.start()
-    script_complete = False
     print("force script_complete because setup has finished")
 
 
