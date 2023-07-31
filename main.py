@@ -1,3 +1,4 @@
+import threading
 import tkinter as tk
 from tkinter import ttk, scrolledtext
 import sys
@@ -5,6 +6,7 @@ import subprocess
 import os
 import json
 from subprocess import call
+import time
 
 previous_page = "home"
 current_page = "home"
@@ -78,7 +80,10 @@ def update():
 
 
     try:
-        subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
+        subprocess_thread = threading.Thread(target=execute_shell_script("sysZ/shell/non_sudo_update.sh"))
+        subprocess_thread.start()
+        show_loading()
+        #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
         if previous_page == "control":
             root.after(3000, control)
         else:
@@ -247,8 +252,8 @@ def render_back_btn(frame):
     home_button.pack(pady=1)
     close_button = ttk.Button(page_controls, text="Close", command=stop_loading)
     close_button.pack(pady=1)
-    res = ttk.Button(page_controls, text="<dev>", command=resPy)
-    res.pack(pady=1)
+    #res = ttk.Button(page_controls, text="<dev>", command=resPy)
+    #res.pack(pady=1)
 
 
 def control():
@@ -450,10 +455,21 @@ def clear_tk_elements(root):
     for child in root.winfo_children():
         child.destroy()
 
+def show_loading():
+    chars = ["|", "/", "-", "\\"]
+    i = 0
+    while not script_complete:
+        sys.stdout.write("\r" + "Loading " + chars[i])
+        sys.stdout.flush()
+        i = (i + 1) % 4
+        time.sleep(0.1)
+
 def execute_shell_script(script_path):
     try:
         expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
         subprocess.run(["sh", expanded_path], check=True)
+        global script_complete
+        script_complete = True
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
         error()
