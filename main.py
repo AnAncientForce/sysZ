@@ -140,6 +140,7 @@ def execute_shell_script(script_path):
         subprocess.run(["sh", expanded_path], check=True)
         global script_complete
         script_complete = True
+        print("script_complete = True")
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
         error()
@@ -189,7 +190,6 @@ def setup():
     global image, photo, script_complete
     subprocess_thread = threading.Thread(target=execute_shell_script("sysZ/shell/setup.sh"))
     subprocess_thread.start()
-    print("force script_complete because setup has finished")
 
 
 def run_shell_script_function(shell_script_path, function_name):
