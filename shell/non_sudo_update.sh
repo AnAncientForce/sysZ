@@ -45,5 +45,5 @@ cu
 betterlockscreen ~/sysZ/bg.png
 themes_setup
 cd "$current_dir"
-sleep 1500
+sleep 2
 # i3-msg 'exec sh ~/sysZ/shell/setup.sh;'
