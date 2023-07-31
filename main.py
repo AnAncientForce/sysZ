@@ -74,10 +74,10 @@ def update():
     #main_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove")
     #main_frame.grid(row=1, column=1, padx=10, pady=10, sticky="nsew")
 
-    style = ttk.Style()
-    style.configure("TProgressbar", thickness=80)
-    progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
-    progress_bar.pack(pady=50)
+    #style = ttk.Style()
+    #style.configure("TProgressbar", thickness=80)
+    #progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
+    #progress_bar.pack(pady=50)
 
 
     try:
@@ -85,7 +85,9 @@ def update():
         label = tk.Label(root)
         #label.grid(row=3, column=1)
         label.pack(pady=25)
-        image = Image.open("load.png")
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        image_path = os.path.join(script_directory, "load.png")
+        image = Image.open(image_path)
         image = image.resize((100, 100), Image.ANTIALIAS)
         image = image.convert("RGBA")
         photo = ImageTk.PhotoImage(image)
