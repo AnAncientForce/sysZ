@@ -92,11 +92,16 @@ def update():
         image = image.convert("RGBA")
         photo = ImageTk.PhotoImage(image)
         label.config(image=photo, background=root["bg"])  # Set a white background to show transparency
+        
+        # Create the initial rotated photo
+        initial_rotated_image = image.rotate(0, resample=Image.BICUBIC, expand=False)
+        rotated_photo = ImageTk.PhotoImage(initial_rotated_image)
+
         # Execute your shell script here
         subprocess_thread = threading.Thread(target=execute_shell_script("sysZ/shell/non_sudo_update.sh"))
         subprocess_thread.start()
         script_complete = False
-        rotate_image(0, label)
+        rotate_image(0, label, rotated_photo)
         #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
         if previous_page == "control":
             root.after(3000, control)
@@ -127,15 +132,13 @@ def update_confirmation():
 
 
 
-def rotate_image(angle, label):
-    global image, photo, script_complete
+def rotate_image(angle, label, rotated_photo):
     rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=False)
-    rotated_photo = ImageTk.PhotoImage(rotated_image)
+    rotated_photo.paste(rotated_image)
     label.config(image=rotated_photo)
-    label.image = rotated_photo
     if script_complete:
         return
-    root.after(50, rotate_image, (angle + 10) % 360, label)
+    root.after(50, rotate_image, (angle + 10) % 360, label, rotated_photo)
 
 def setup():
     call("i3-msg 'exec killall -9 picom;'", shell=True)
