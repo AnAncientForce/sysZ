@@ -31,12 +31,12 @@ def load():
 
     global script_complete
     prepare_image_rotation(root)
-
+    '''
     if previous_page == "control":
         root.after(3000, control)
     else:
         root.after(3000, stop_loading)
-
+    '''
     #root.after(100, lambda: progress_bar.start(10))
     setup()
 
@@ -86,10 +86,12 @@ def update():
         subprocess_thread.start()
         
         #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
+        '''
         if previous_page == "control":
             root.after(3000, control)
         else:
             root.after(3000, stop_loading)
+        '''
         #root.after(100, lambda: progress_bar.start(10))
         setup()
     except Exception as e:
@@ -139,9 +141,17 @@ def execute_shell_script(script_path):
         expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
         print("Script on new thread has started")
         subprocess.run(["sh", expanded_path], check=True)
-        global script_complete
-        #script_complete = True
+        global script_complete, previous_page
+        script_complete = True
         print("script_complete = True")
+
+        if previous_page == "control":
+            control()
+            #root.after(3000, control)
+        else:
+            stop_loading
+            #root.after(3000, stop_loading)
+
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
         error()
