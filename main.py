@@ -81,8 +81,8 @@ def update():
 
 
     try:
+        global image, photo, script_complete
         labelA = prepare_image_rotation(root)
-        # Execute your shell script here
         subprocess_thread = threading.Thread(target=execute_shell_script("sysZ/shell/non_sudo_update.sh"))
         subprocess_thread.start()
         script_complete = False
@@ -114,7 +114,7 @@ def prepare_image_rotation(root):
     return label
 
 def rotate_image(angle, label):
-    global image, script_complete
+    global image, photo, script_complete
     rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=False)
     label.config(image=ImageTk.PhotoImage(rotated_image))
     if script_complete:
