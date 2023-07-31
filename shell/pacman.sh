@@ -33,6 +33,7 @@ pacman_packages=(
     lxappearance
     qt5ct
     jq
+    python-pillow
 )
 not_installed=0
 
