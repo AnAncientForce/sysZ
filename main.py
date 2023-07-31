@@ -82,6 +82,7 @@ def update():
 
 
     try:
+        debugTxt("Checking github repository for updates")
         prepare_image_rotation(root)
         subprocess_thread = threading.Thread(target=lambda: execute_shell_script("sysZ/shell/non_sudo_update.sh"))
         subprocess_thread.start()
@@ -155,6 +156,7 @@ def execute_shell_script(script_path):
         if setup_pending:
             setup_pending = False
             setup()
+            debugTxt("Shell setup has finished")
 
         if previous_page == "control":
             control()
@@ -167,7 +169,9 @@ def execute_shell_script(script_path):
         print(f"Error executing shell script: {e}")
         error()
 
-
+def debugTxt(txt):
+    debug = ttk.Label(root, text=txt, font=("Arial", 26), background=root['bg'])
+    debug.pack(pady=100)
 
 
 def update_confirmation():
@@ -192,6 +196,7 @@ def update_confirmation():
 
 
 def setup():
+    debugTxt("Running shell setup")
     call("i3-msg 'exec killall -9 picom;'", shell=True)
     if check_value_from_json('use_background_blur'):
         call("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
