@@ -123,6 +123,9 @@ def rotate_image(angle, labelC):
     labelC.config(image=rotated_photo)
     labelC.image = rotated_photo
     if script_complete:
+        # Clean up resources
+        image.close()
+        photo = None
         return
     root.after(50, rotate_image, (angle + 10) % 360, labelC)
     #root.after(50, lambda: rotate_image, (angle + 10) % 360, labelC)
