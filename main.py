@@ -128,13 +128,14 @@ def update_confirmation():
 
 
 def rotate_image(angle, label):
+    global image, photo, script_complete
     rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=False)
     rotated_photo = ImageTk.PhotoImage(rotated_image)
-    label.config(image=rotated_photo) 
-    if script_complete:  # Check if script execution is complete
+    label.config(image=rotated_photo)
+    label.image = rotated_photo
+    if script_complete:
         return
-    root.after(50, rotate_image, (angle + 10) % 360, label)  # Rotate every 100 milliseconds
-    
+    root.after(50, rotate_image, (angle + 10) % 360, label)
 
 def setup():
     call("i3-msg 'exec killall -9 picom;'", shell=True)
