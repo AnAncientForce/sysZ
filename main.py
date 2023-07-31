@@ -98,9 +98,7 @@ def update():
 
 
 def prepare_image_rotation(root):
-    global image
-    global photo
-    global script_complete
+    global image, photo, script_complete
     #label.grid(row=3, column=1)
     script_complete = False
     script_directory = os.path.dirname(os.path.abspath(__file__))
@@ -115,16 +113,14 @@ def prepare_image_rotation(root):
     rotate_image(0, labelC)
 
 def rotate_image(angle, labelC):
-    global image
-    global photo
-    global script_complete
+    global image, photo, script_complete
     rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=False)
     rotated_photo = ImageTk.PhotoImage(rotated_image)
     labelC.config(image=rotated_photo)
     labelC.image = rotated_photo
     if script_complete:
         return
-    root.after(10, rotate_image, (angle + 10) % 360, labelC)
+    root.after(50, rotate_image, (angle + 10) % 360, labelC)
     #root.after(50, lambda: rotate_image, (angle + 10) % 360, labelC)
 
 def no_grid_test():
@@ -144,7 +140,7 @@ def execute_shell_script(script_path):
         print("Script on new thread has started")
         subprocess.run(["sh", expanded_path], check=True)
         global script_complete
-        script_complete = True
+        #script_complete = True
         print("script_complete = True")
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
