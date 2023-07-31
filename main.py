@@ -117,7 +117,7 @@ def prepare_image_rotation(root):
     rotate_image(0, labelC)
 
 def rotate_image(angle, labelC):
-    global image, photo, script_complete
+    global image, photo, script_complete, root
     rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=False)
     rotated_photo = ImageTk.PhotoImage(rotated_image)
     labelC.config(image=rotated_photo)
@@ -127,6 +127,7 @@ def rotate_image(angle, labelC):
         image.close()
         photo = None
         labelC = None
+        clear_tk_elements(root)
         return
     root.after(5, rotate_image, (angle + 10) % 360, labelC)
     #root.after(50, lambda: rotate_image, (angle + 10) % 360, labelC)
