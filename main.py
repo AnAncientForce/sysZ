@@ -260,7 +260,8 @@ def control():
     # root.title("sysZ | control")
     root.configure(bg="#6495ED")
     main_frame = render_title("sysZ | control")
-
+    gPady = 7
+    
     # --- SETTINGS
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -294,21 +295,7 @@ def control():
     except Exception as e:
         print(f"An error occurred: {e}")
     
-
-    gPady = 5
-
-    style = ttk.Style()
-    style.configure("Title.TLabelframe", background=root["bg"])
-   
-    options_frame = ttk.LabelFrame(main_frame, text="Options",borderwidth=0, relief="groove")
-    options_frame.grid(row=1, column=0, padx=1, pady=1)
-
-    buttons_frame = ttk.LabelFrame(main_frame, text="Operations",borderwidth=0, relief="groove")
-    buttons_frame.grid(row=1, column=1, padx=1, pady=1)
-
-    power_frame = ttk.LabelFrame(main_frame, text="System",borderwidth=0, relief="groove")
-    power_frame.grid(row=1, column=2, padx=1, pady=1)
-
+        
     use_background_blur = tk.BooleanVar(value=config.get('use_background_blur', False))
     checkbox_background_blur = tk.Checkbutton(options_frame, text="Use background blur", variable=use_background_blur, command=update_config)
     checkbox_background_blur.pack(pady=gPady)
@@ -321,13 +308,30 @@ def control():
     checkbox_use_auto_tiling = tk.Checkbutton(options_frame, text="Use auto tiling", variable=use_auto_tiling, command=update_config)
     checkbox_use_auto_tiling.pack(pady=gPady)
 
+    execute_button = tk.Button(options_frame, text="Execute (Dev)", command=execute_code)
+    execute_button.pack(pady=gPady)
+    
+    
+
+    style = ttk.Style()
+    style.configure("Title.TLabelframe", background=root["bg"])
+   
+    options_frame = ttk.LabelFrame(main_frame, text="sysZ",borderwidth=0, relief="groove")
+    options_frame.grid(row=1, column=0, padx=gPady, pady=gPady)
+
+    buttons_frame = ttk.LabelFrame(main_frame, text="Operations",borderwidth=0, relief="groove")
+    buttons_frame.grid(row=1, column=1, padx=gPady, pady=gPady)
+
+    power_frame = ttk.LabelFrame(main_frame, text="System",borderwidth=0, relief="groove")
+    power_frame.grid(row=1, column=2, padx=gPady, pady=gPady)
+
+    
+
     #splash_enabled = tk.BooleanVar(value=config.get('splashEnabled', False))
     #checkbox_splash = tk.Checkbutton(options_frame, text="Enable Splash", variable=splash_enabled, command=update_config)
     #checkbox_splash.pack(pady=gPady)
 
-    execute_button = tk.Button(options_frame, text="Execute (Dev)", command=execute_code)
-    execute_button.pack(pady=gPady)
-
+    
     # --- SETTING END
 
     terminal_button = ttk.Button(buttons_frame, text="Open Terminal", command=lambda: subprocess.Popen(["alacritty", "&"], shell=True))
