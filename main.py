@@ -83,7 +83,8 @@ def update():
     try:
         global image, photo, script_complete
         label = tk.Label(root)
-        label.grid(row=3, column=1)
+        #label.grid(row=3, column=1)
+        label.pack(pady=25)
         image = Image.open("load.png")
         image = image.resize((100, 100), Image.ANTIALIAS)
         image = image.convert("RGBA")
