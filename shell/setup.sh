@@ -2,7 +2,7 @@
 sysZ="/home/$(whoami)/sysZ"
 
 killall -9 polybar
-feh --bg-fill /home/$(whoami)/sysZ/bg.* &
+feh --bg-fill /home/$(whoami)/sysZ/bg.*
 polybar -c "$sysZ/conf/polybar.ini" >/dev/null 2>&1 &
 sh "$sysZ/shell/background_update_check.sh"
 sox "$sysZ/sfx/Sys_Camera_SavePicture.flac" -d >/dev/null 2>&1 &
