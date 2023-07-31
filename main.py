@@ -29,11 +29,8 @@ def load():
     #progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
     #progress_bar.pack(pady=50)
 
-    # Load
-    global image, photo, script_complete
-    x = prepare_image_rotation(root)
-    rotate_image(0, x)
-    # Load Continue
+    global script_complete
+    prepare_image_rotation(root)
 
     if previous_page == "control":
         root.after(3000, control)
@@ -84,13 +81,10 @@ def update():
 
 
     try:
-        # Load
-        global image, photo, script_complete
-        x = prepare_image_rotation(root)
+        prepare_image_rotation(root)
         subprocess_thread = threading.Thread(target=execute_shell_script("sysZ/shell/non_sudo_update.sh"))
         subprocess_thread.start()
-        rotate_image(0, x)
-        # Load End
+        
         #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
         if previous_page == "control":
             root.after(3000, control)
@@ -116,7 +110,7 @@ def prepare_image_rotation(root):
     labelC = tk.Label(root)
     labelC.pack(pady=25)
     labelC.config(image=photo, background=root["bg"])
-    return labelC
+    rotate_image(0, labelC)
 
 def rotate_image(angle, label):
     global image, photo, script_complete
@@ -135,10 +129,9 @@ def no_grid_test():
     label = ttk.Label(root, text="No grid test", font=("Arial", 36), background=root['bg'])
     label.pack(pady=100)
     
-    global image, photo, script_complete
-    x = prepare_image_rotation(root)
+    global script_complete
+    prepare_image_rotation(root)
     root.after(3000, lambda: globals().update({'script_complete': True}))
-    rotate_image(0, x)
     
 
 
