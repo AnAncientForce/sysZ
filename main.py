@@ -120,6 +120,7 @@ def prepare_image_rotation(root):
     return labelC
 
 def rotate_image(angle, label):
+    global image, photo, script_complete
     rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=False)
     rotated_photo = ImageTk.PhotoImage(rotated_image)
     label.config(image=rotated_photo)
