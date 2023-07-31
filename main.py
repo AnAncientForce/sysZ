@@ -13,6 +13,7 @@ current_page = "home"
 setup_pending = False
 debug_lbl_created = False
 debug = None
+progress_bar = None
 
 
 def stop_loading():
@@ -82,6 +83,14 @@ def update():
     #progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
     #progress_bar.pack(pady=50)
 
+    ''''
+    global progress_bar
+    style = ttk.Style()
+    style.configure("TProgressbar", thickness=80)
+    progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="determinate", length=600)
+    progress_bar.pack(pady=50)
+    #progress_bar["value"] = 20
+    '''
 
     try:
         prepare_image_rotation(root)
@@ -102,6 +111,10 @@ def update():
     except Exception as e:
         print(f"An error occurred: {e}")
 
+
+def update_progress(amount):
+    global progress_bar
+    progress_bar["value"] = amount
 
 
 def prepare_image_rotation(root):
