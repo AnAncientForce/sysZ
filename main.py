@@ -284,10 +284,10 @@ def render_title(txt):
     main_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove")
     main_frame.grid(row=0, column=0, padx=0, pady=0) #1
 
-    root.grid_rowconfigure(0, weight=1)
-    root.grid_rowconfigure(2, weight=1)
-    root.grid_columnconfigure(0, weight=1)
-    root.grid_columnconfigure(2, weight=1)
+    #root.grid_rowconfigure(0, weight=1)
+    #root.grid_rowconfigure(2, weight=1)
+    #root.grid_columnconfigure(0, weight=1)
+    #root.grid_columnconfigure(2, weight=1)
 
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
     title_frame.grid(row=0, column=1, padx=10, pady=10)
