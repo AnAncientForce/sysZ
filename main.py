@@ -36,7 +36,7 @@ def load():
     subprocess_thread.start()
     script_complete = False
     rotate_image(0, labelA)
-    # Load End
+    # Load Continue
 
     if previous_page == "control":
         root.after(3000, control)
@@ -186,10 +186,11 @@ def setup():
     if check_value_from_json('use_auto_tiling'):
        call("i3-msg 'exec killall -9 autotiling; workspace 9; exec alacritty -e autotiling;'", shell=True)
        root.after(500, lambda: call("i3-msg 'workspace 1'", shell=True))
-       #root.after(500, call("i3-msg 'workspace 1'", shell=True))
-    subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
+    #subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
     global image, photo, script_complete
-    script_complete = True
+    subprocess_thread = threading.Thread(target=execute_shell_script("sysZ/shell/setup.sh"))
+    subprocess_thread.start()
+    script_complete = False
     print("force script_complete because setup has finished")
 
 
