@@ -24,21 +24,27 @@ def load():
     label = ttk.Label(root, text="sysZ", font=("Arial", 36), background=root['bg'])
     label.pack(pady=100)
 
-    style = ttk.Style()
-    style.configure("TProgressbar", thickness=80)
-    progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
-    progress_bar.pack(pady=50)
+    #style = ttk.Style()
+    #style.configure("TProgressbar", thickness=80)
+    #progress_bar = ttk.Progressbar(root, style="TProgressbar", mode="indeterminate", length=600)
+    #progress_bar.pack(pady=50)
 
-   
+    # Load
+    global image, photo, script_complete
+    labelA = prepare_image_rotation(root)
+    subprocess_thread = threading.Thread(target=setup())
+    subprocess_thread.start()
+    script_complete = False
+    rotate_image(0, labelA)
+    # Load End
 
     if previous_page == "control":
         root.after(3000, control)
     else:
         root.after(3000, stop_loading)
 
-    root.after(100, lambda: progress_bar.start(10))
-    setup()
-    # root.after(3000, stop_loading)
+    #root.after(100, lambda: progress_bar.start(10))
+    #setup()
 
 
 def docs():
@@ -81,12 +87,14 @@ def update():
 
 
     try:
+        # Load
         global image, photo, script_complete
         labelA = prepare_image_rotation(root)
         subprocess_thread = threading.Thread(target=execute_shell_script("sysZ/shell/non_sudo_update.sh"))
         subprocess_thread.start()
         script_complete = False
         rotate_image(0, labelA)
+        # Load End
         #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
         if previous_page == "control":
             root.after(3000, control)
@@ -101,26 +109,45 @@ def update():
 
 def prepare_image_rotation(root):
     global image, photo, script_complete
-    label = tk.Label(root)
     #label.grid(row=3, column=1)
-    label.pack(pady=25)
     script_directory = os.path.dirname(os.path.abspath(__file__))
     image_path = os.path.join(script_directory, "load.png")
     image = Image.open(image_path)
     image = image.resize((50, 50), resample=Image.BICUBIC)
     image = image.convert("RGBA")
     photo = ImageTk.PhotoImage(image)
-    label.config(image=photo, background=root["bg"])
-    return label
+    labelC = tk.Label(root)
+    labelC.pack(pady=25)
+    labelC.config(image=photo, background=root["bg"])
+    return labelC
 
 def rotate_image(angle, label):
-    global image, photo, script_complete
     rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=False)
-    label.config(image=ImageTk.PhotoImage(rotated_image))
+    rotated_photo = ImageTk.PhotoImage(rotated_image)
+    label.config(image=rotated_photo)
+    label.image = rotated_photo
     if script_complete:
         return
     root.after(50, rotate_image, (angle + 10) % 360, label)
+
+def no_grid_test():
+    clear_tk_elements(root)
+    root.attributes('-fullscreen', True) 
+    root.configure(bg="#6495ED")
+    label = ttk.Label(root, text="No grid test", font=("Arial", 36), background=root['bg'])
+    label.pack(pady=100)
     
+    global image, photo, script_complete
+    labelA = prepare_image_rotation(root)
+    root.after(3000, lambda: globals().update({'script_complete': True}))
+    script_complete = False
+    rotate_image(0, labelA)
+    
+
+
+
+
+
 def update_confirmation():
     #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/background_update_check.sh")])
     #render_title("A new update is now available")
@@ -161,6 +188,9 @@ def setup():
        root.after(500, lambda: call("i3-msg 'workspace 1'", shell=True))
        #root.after(500, call("i3-msg 'workspace 1'", shell=True))
     subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
+    global image, photo, script_complete
+    script_complete = True
+    print("force script_complete because setup has finished")
 
 
 def run_shell_script_function(shell_script_path, function_name):
@@ -545,4 +575,7 @@ if len(sys.argv) > 1 and sys.argv[1] == 'ui_test':
     ui_test()
     root.mainloop()
     
-    
+if len(sys.argv) > 1 and sys.argv[1] == 'no_grid':
+    root = tk.Tk()
+    no_grid_test()
+    root.mainloop()
