@@ -6,12 +6,13 @@ import subprocess
 import os
 import json
 from subprocess import call
-import time
 from PIL import Image, ImageTk
 
 previous_page = "home"
 current_page = "home"
 setup_pending = False
+debug = None
+
 
 def stop_loading():
     root.destroy()
@@ -172,8 +173,11 @@ def execute_shell_script(script_path):
         error()
 
 def debugTxt(txt):
-    debug = ttk.Label(root, text=txt, font=("Arial", 26), background=root['bg'], foreground="red")
-    debug.pack(pady=100)
+    global debug
+    if debug is None:
+        debug = ttk.Label(root, font=("Arial", 26), background=root['bg'], foreground="red")
+        debug.pack(pady=100)
+    debug.config(text=txt)
 
 
 def update_confirmation():
