@@ -7,6 +7,7 @@ import os
 import json
 from subprocess import call
 import time
+from PIL import Image, ImageTk
 
 previous_page = "home"
 current_page = "home"
@@ -80,9 +81,19 @@ def update():
 
 
     try:
+        global image, photo, script_complete
+        label = tk.Label(root)
+        label.grid(row=3, column=1)
+        image = Image.open("load.png")
+        image = image.resize((100, 100), Image.ANTIALIAS)
+        image = image.convert("RGBA")
+        photo = ImageTk.PhotoImage(image)
+        label.config(image=photo, background=root["bg"])  # Set a white background to show transparency
+        # Execute your shell script here
         subprocess_thread = threading.Thread(target=execute_shell_script("sysZ/shell/non_sudo_update.sh"))
         subprocess_thread.start()
-        show_loading()
+        script_complete = False
+        rotate_image(0, label)
         #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
         if previous_page == "control":
             root.after(3000, control)
@@ -112,6 +123,16 @@ def update_confirmation():
     skip_button.pack(pady=10)
 
 
+
+def rotate_image(angle, label):
+    rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=True)
+    rotated_photo = ImageTk.PhotoImage(rotated_image)
+    label.config(image=rotated_photo)
+    label.image = rotated_photo  
+    if script_complete:  # Check if script execution is complete
+        return
+    root.after(100, rotate_image, (angle + 10) % 360, label)  # Rotate every 100 milliseconds
+    
 
 def setup():
     call("i3-msg 'exec killall -9 picom;'", shell=True)
@@ -434,7 +455,8 @@ def home():
     # _tkinter.TclError: cannot use geometry manager pack inside
     # Basically means U cannot use .pack(pad=) in same frame as one using .grid(row=)
 
-    
+
+
 
 
 
@@ -455,14 +477,9 @@ def clear_tk_elements(root):
     for child in root.winfo_children():
         child.destroy()
 
-def show_loading():
-    chars = ["|", "/", "-", "\\"]
-    i = 0
-    while not script_complete:
-        sys.stdout.write("\r" + "Loading " + chars[i])
-        sys.stdout.flush()
-        i = (i + 1) % 4
-        time.sleep(0.1)
+
+
+
 
 def execute_shell_script(script_path):
     try:
