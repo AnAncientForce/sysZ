@@ -288,9 +288,7 @@ def render_title(txt):
     root.grid_rowconfigure(2, weight=1)
     root.grid_columnconfigure(0, weight=1)
     root.grid_columnconfigure(2, weight=1)
-
-    #root.after(250, lambda: center_frame(main_frame, root))
-
+    
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
     title_frame.grid(row=0, column=1, padx=10, pady=10)
 
@@ -298,6 +296,8 @@ def render_title(txt):
     label.grid(row=0, column=1, pady=10)
 
     render_back_btn(main_frame)
+    center_frame(main_frame, root)
+    #root.after(250, lambda: center_frame(main_frame, root))
     return main_frame
 
 
