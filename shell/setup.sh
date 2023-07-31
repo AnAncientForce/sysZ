@@ -2,11 +2,14 @@
 sysZ="/home/$(whoami)/sysZ"
 
 killall -9 polybar
-feh --bg-fill "$sysZ/bg.*" &
+feh --bg-fill /home/$(whoami)/sysZ/bg.* &
 polybar -c "$sysZ/conf/polybar.ini" >/dev/null 2>&1 &
-sh "$sysZ/shell/background_update_check.sh" &
+sh "$sysZ/shell/background_update_check.sh"
 sox "$sysZ/sfx/Sys_Camera_SavePicture.flac" -d >/dev/null 2>&1 &
 i3-msg "reload"
+
+# & DOSE NOT HOLD UP SHELL
+# >/dev/null 2>&1 & REDIRECTS OUTPUT TO NULL
 
 # i3-msg 'exec feh --bg-fill ~/sysZ/bg.*;' &
 # i3-msg 'exec polybar -c ~/sysZ/conf/polybar.ini;' &
