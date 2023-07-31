@@ -162,6 +162,7 @@ def execute_shell_script(script_path):
             control()
             #root.after(3000, control)
         else:
+            debugTxt("Closing python interface")
             stop_loading()
             #root.after(3000, stop_loading)
 
@@ -171,7 +172,7 @@ def execute_shell_script(script_path):
 
 def debugTxt(txt):
     debug = ttk.Label(root, text=txt, font=("Arial", 26), background=root['bg'], foreground="red")
-    debug.pack(pady=200)
+    debug.pack(pady=100)
 
 
 def update_confirmation():
