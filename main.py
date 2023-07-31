@@ -81,27 +81,12 @@ def update():
 
 
     try:
-        global image, photo, script_complete
-        label = tk.Label(root)
-        #label.grid(row=3, column=1)
-        label.pack(pady=25)
-        script_directory = os.path.dirname(os.path.abspath(__file__))
-        image_path = os.path.join(script_directory, "load.png")
-        image = Image.open(image_path)
-        image = image.resize((50, 50), resample=Image.BICUBIC)
-        image = image.convert("RGBA")
-        photo = ImageTk.PhotoImage(image)
-        label.config(image=photo, background=root["bg"])  # Set a white background to show transparency
-        
-        # Create the initial rotated photo
-        initial_rotated_image = image.rotate(0, resample=Image.BICUBIC, expand=False)
-        rotated_photo = ImageTk.PhotoImage(initial_rotated_image)
-
+        labelA = prepare_image_rotation(root)
         # Execute your shell script here
         subprocess_thread = threading.Thread(target=execute_shell_script("sysZ/shell/non_sudo_update.sh"))
         subprocess_thread.start()
         script_complete = False
-        rotate_image(0, label, rotated_photo)
+        rotate_image(0, labelA)
         #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
         if previous_page == "control":
             root.after(3000, control)
@@ -112,6 +97,29 @@ def update():
     except Exception as e:
         print(f"An error occurred: {e}")
 
+
+
+def prepare_image_rotation(root):
+    global image, photo, script_complete
+    label = tk.Label(root)
+    #label.grid(row=3, column=1)
+    label.pack(pady=25)
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+    image_path = os.path.join(script_directory, "load.png")
+    image = Image.open(image_path)
+    image = image.resize((50, 50), resample=Image.BICUBIC)
+    image = image.convert("RGBA")
+    photo = ImageTk.PhotoImage(image)
+    label.config(image=photo, background=root["bg"])
+    return label
+
+def rotate_image(angle, label):
+    global image, script_complete
+    rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=False)
+    label.config(image=ImageTk.PhotoImage(rotated_image))
+    if script_complete:
+        return
+    root.after(50, rotate_image, (angle + 10) % 360, label)
     
 def update_confirmation():
     #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/background_update_check.sh")])
@@ -132,13 +140,7 @@ def update_confirmation():
 
 
 
-def rotate_image(angle, label, rotated_photo):
-    rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=False)
-    rotated_photo.paste(rotated_image)
-    label.config(image=rotated_photo)
-    if script_complete:
-        return
-    root.after(50, rotate_image, (angle + 10) % 360, label, rotated_photo)
+
 
 def setup():
     call("i3-msg 'exec killall -9 picom;'", shell=True)
