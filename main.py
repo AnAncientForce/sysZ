@@ -148,11 +148,12 @@ def execute_shell_script(script_path):
     try:
         expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
         print("Script on new thread has started")
+        debugTxt("Started new thread, updater has started")
         subprocess.run(["sh", expanded_path], check=True)
         global script_complete, previous_page, setup_pending
         script_complete = True
         print("script_complete = True")
-
+        debugTxt("script_complete = True")
         if setup_pending:
             setup_pending = False
             setup()
