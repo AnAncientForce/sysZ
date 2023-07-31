@@ -88,7 +88,7 @@ def update():
         script_directory = os.path.dirname(os.path.abspath(__file__))
         image_path = os.path.join(script_directory, "load.png")
         image = Image.open(image_path)
-        image = image.resize((100, 100), Image.ANTIALIAS)
+        image = image.resize((25, 25), resample=Image.BICUBIC)
         image = image.convert("RGBA")
         photo = ImageTk.PhotoImage(image)
         label.config(image=photo, background=root["bg"])  # Set a white background to show transparency
@@ -102,7 +102,7 @@ def update():
             root.after(3000, control)
         else:
             root.after(3000, stop_loading)
-        root.after(100, lambda: progress_bar.start(10))
+        #root.after(100, lambda: progress_bar.start(10))
         setup()
     except Exception as e:
         print(f"An error occurred: {e}")
