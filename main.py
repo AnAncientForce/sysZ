@@ -84,7 +84,7 @@ def update():
         prepare_image_rotation(root)
         subprocess_thread = threading.Thread(target=lambda: execute_shell_script("sysZ/shell/non_sudo_update.sh"))
         subprocess_thread.start()
-        
+        subprocess_thread.join() # Hold the thread before proceeding...
         #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
         '''
         if previous_page == "control":
@@ -199,7 +199,7 @@ def setup():
        root.after(500, lambda: call("i3-msg 'workspace 1'", shell=True))
     #subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
     global image, photo, script_complete
-    subprocess_thread = threading.Thread(target=execute_shell_script("sysZ/shell/setup.sh"))
+    subprocess_thread = threading.Thread(target=lambda: execute_shell_script("sysZ/shell/setup.sh"))
     subprocess_thread.start()
 
 
