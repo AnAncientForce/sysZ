@@ -20,3 +20,5 @@ i3-msg "reload"
 # i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
 # polybar -c ~/.config/polybar/config.ini
 # picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 10 --config ~/.config/picom/conf --vsync
+
+#.
