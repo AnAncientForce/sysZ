@@ -32,8 +32,6 @@ def load():
     # Load
     global image, photo, script_complete
     labelA = prepare_image_rotation(root)
-    subprocess_thread = threading.Thread(target=setup())
-    subprocess_thread.start()
     script_complete = False
     rotate_image(0, labelA)
     # Load Continue
@@ -44,7 +42,7 @@ def load():
         root.after(3000, stop_loading)
 
     #root.after(100, lambda: progress_bar.start(10))
-    #setup()
+    setup()
 
 
 def docs():
