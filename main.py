@@ -127,7 +127,7 @@ def rotate_image(angle, labelC):
         image.close()
         photo = None
         return
-    root.after(50, rotate_image, (angle + 10) % 360, labelC)
+    root.after(5, rotate_image, (angle + 10) % 360, labelC)
     #root.after(50, lambda: rotate_image, (angle + 10) % 360, labelC)
 
 def no_grid_test():
