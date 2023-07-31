@@ -175,7 +175,6 @@ def execute_shell_script(script_path):
 def debugTxt(txt):
     global debug_lbl_created
     if not debug_lbl_created:
-        global debug_lbl_created
         debug_lbl_created = True
         debug = ttk.Label(root, font=("Arial", 26), background=root['bg'], foreground="red")
         debug.pack(pady=100)
