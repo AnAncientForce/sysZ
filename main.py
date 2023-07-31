@@ -11,7 +11,7 @@ from PIL import Image, ImageTk
 previous_page = "home"
 current_page = "home"
 setup_pending = False
-debug = None
+debug_lbl_created = False
 
 
 def stop_loading():
@@ -173,8 +173,8 @@ def execute_shell_script(script_path):
         error()
 
 def debugTxt(txt):
-    global debug
-    if debug is None:
+    global debug_lbl_created
+    if not debug_lbl_created:
         debug = ttk.Label(root, font=("Arial", 26), background=root['bg'], foreground="red")
         debug.pack(pady=100)
     debug.config(text=txt)
@@ -542,6 +542,8 @@ def error(issue):
     problem.pack(pady=25)
 
 def clear_tk_elements(root):
+    global debug_lbl_created
+    debug_lbl_created = False
     root.attributes('-fullscreen', False) 
     for child in root.winfo_children():
         child.destroy()
