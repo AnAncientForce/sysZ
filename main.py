@@ -221,7 +221,7 @@ def setup():
        root.after(500, lambda: call("i3-msg 'workspace 1'", shell=True))
     #subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
     global image, photo, script_complete
-    subprocess_thread = threading.Thread(target=lambda: execute_shell_script("sysZ/shell/setup.sh"))
+    subprocess_thread = threading.Thread(target=lambda: execute_shell_script("~/sysZ/shell/setup.sh"))
     subprocess_thread.start()
 
 
