@@ -177,8 +177,10 @@ def debugTxt(txt):
     if not debug_lbl_created:
         debug_lbl_created = True
         debug = ttk.Label(root, font=("Arial", 26), background=root['bg'], foreground="red")
-        debug.pack(pady=100)
-    debug.config(text=txt)
+        if debug:
+            debug.pack(pady=100)
+    if debug:
+        debug.config(text=txt)
 
 
 def update_confirmation():
