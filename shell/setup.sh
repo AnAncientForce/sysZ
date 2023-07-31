@@ -4,7 +4,7 @@ sysZ="/home/$(whoami)/sysZ"
 killall -9 polybar
 feh --bg-fill /home/$(whoami)/sysZ/bg.*
 polybar -c "$sysZ/conf/polybar.ini" >/dev/null 2>&1 &
-sh "$sysZ/shell/background_update_check.sh"
+sh "$sysZ/shell/background_update_check.sh" & # & Because if there is an update, the setup screen will never go away
 sox "$sysZ/sfx/Sys_Camera_SavePicture.flac" -d >/dev/null 2>&1 &
 i3-msg "reload"
 
