@@ -128,9 +128,9 @@ def update_confirmation():
 
 
 def rotate_image(angle, label):
-    rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=True)
+    rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=False)
     rotated_photo = ImageTk.PhotoImage(rotated_image)
-    label.config(image=rotated_photo)
+    #label.config(image=rotated_photo)
     label.image = rotated_photo  
     if script_complete:  # Check if script execution is complete
         return
