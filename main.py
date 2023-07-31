@@ -117,7 +117,7 @@ def prepare_image_rotation(root):
     rotate_image(0, labelC)
 
 def rotate_image(angle, labelC):
-    global image, photo, script_complete, root
+    global image, photo, script_complete
     rotated_image = image.rotate(angle, resample=Image.BICUBIC, expand=False)
     rotated_photo = ImageTk.PhotoImage(rotated_image)
     labelC.config(image=rotated_photo)
@@ -127,7 +127,7 @@ def rotate_image(angle, labelC):
         image.close()
         photo = None
         labelC = None
-        clear_tk_elements(root)
+        #clear_tk_elements(root)
         return
     root.after(5, rotate_image, (angle + 10) % 360, labelC)
     #root.after(50, lambda: rotate_image, (angle + 10) % 360, labelC)
@@ -160,7 +160,7 @@ def execute_shell_script(script_path):
             control()
             #root.after(3000, control)
         else:
-            stop_loading
+            stop_loading()
             #root.after(3000, stop_loading)
 
     except subprocess.CalledProcessError as e:
