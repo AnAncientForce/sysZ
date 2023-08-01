@@ -302,14 +302,10 @@ def center_frame(frame, window):
 
 def render_title(txt):
     root.title(txt)
-    #style = ttk.Style()
-    #style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
-    #main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
-    #main_frame.grid(row=1, column=0, padx=3, pady=3)
-   
+
     style = ttk.Style()
     frame_color = "#333333"  # Color of the frame
-    button_color = "#4C554F" # Lighter shade of black
+    button_color = "#4C554F"  # Lighter shade of black
 
     # Configure the style for the frame
     style.configure("Custom.TLabelframe", background=frame_color, borderwidth=0, relief="flat")
@@ -319,9 +315,9 @@ def render_title(txt):
     style.configure("Custom.TButton",
                     background=button_color,
                     foreground="white",
-                    font=("Arial", 16, "bold"),
+                    font=("Arial", 12, "bold"),
                     width=20,
-                    padding=10)
+                    padding=5)
 
     main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
     main_frame.grid(row=0, column=0, padx=0, pady=0)
@@ -330,28 +326,19 @@ def render_title(txt):
         for child in frame.winfo_children():
             if isinstance(child, ttk.Button):
                 child.configure(style="Custom.TButton")  # Apply custom style to buttons
+            elif isinstance(child, ttk.Checkbutton):
+                child_style = ttk.Style()
+                child_style.configure("Custom.TCheckbutton",
+                                    background=frame_color,
+                                    foreground="white",
+                                    font=("Arial", 12, "bold"),
+                                    padding=5)
+                child.configure(style="Custom.TCheckbutton")  # Apply custom style to checkbuttons
             elif isinstance(child, ttk.LabelFrame):
                 child.configure(style="Custom.TLabelframe")  # Apply custom style to child frames
-                child_style = ttk.Style()
-                child_style.configure("Child.TButton",
-                                    background=button_color,
-                                    foreground="white",
-                                    font=("Arial", 16, "bold"),
-                                    width=20,
-                                    padding=10)
-                for grandchild in child.winfo_children():
-                    if isinstance(grandchild, ttk.Button):
-                        grandchild.configure(style="Child.TButton")  # Apply custom style to buttons within child frames
-                    elif isinstance(grandchild, ttk.Frame):
-                        colouring(grandchild)  # Recursively process frames within child frames
+                colouring(child)  # Recursively process frames within child frames
 
-
-    #colouring(main_frame)
-    #root.grid_rowconfigure(0, weight=1)
-    #root.grid_rowconfigure(2, weight=1)
-    #root.grid_columnconfigure(0, weight=1)
-    #root.grid_columnconfigure(2, weight=1)
-
+    
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
     title_frame.grid(row=0, column=1, padx=10, pady=10)
 
@@ -362,6 +349,7 @@ def render_title(txt):
     root.after(100, lambda: center_frame(main_frame, root))
     root.after(100, lambda: colouring(main_frame))
     return main_frame
+
 
 
 
