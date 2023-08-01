@@ -344,8 +344,10 @@ def hint(title, desc):
     desc_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
 
     # Add "Continue" button to close the popup
-    ok_button = ttk.Button(main_frame, text="Continue", command=main_frame.destroy, style="TButton")
+    ok_button = ttk.Button(main_frame, text="CONTINUE", command=main_frame.destroy, style="TButton")
     ok_button.grid(row=2, column=0, padx=10, pady=10)
+
+    center_frame(main_frame, root)
 
     
 
