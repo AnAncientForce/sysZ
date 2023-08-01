@@ -10,6 +10,7 @@ yay_packages=(
 )
 not_installed=0
 
+echo "Checking AUR"
 for package in "${yay_packages[@]}"; do
     if ! yay -Qs "$package" >/dev/null; then
         yay -S --noconfirm "$package"

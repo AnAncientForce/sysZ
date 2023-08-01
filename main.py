@@ -321,7 +321,7 @@ def render_title(txt):
     style = ttk.Style()
     frame_color = "#333333"
     button_color = "#4C554F"
-    font_size = 12
+    font_size = 10
     button_width = 17.5
 
     # Configure the style for the frame
@@ -336,7 +336,7 @@ def render_title(txt):
                     width=button_width,
                     padding=5)
 
-    style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, foreground="white")
+    style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, borderwidth=5, relief="flat", bordercolor="silver", foreground="white")
     
 
     main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
@@ -513,7 +513,7 @@ def control():
     arch_pkg.pack(pady=gPady)
     yay_pkg = ttk.Button(buttons_frame, text="AUR PKG", command=lambda: subprocess.Popen("sh " + os.path.expanduser("~/sysZ/shell/yay.sh"), shell=True))
     yay_pkg.pack(pady=gPady)
-    sys_update = ttk.Button(buttons_frame, text="System Update", command=lambda: call("sudo pacman -Syu", shell=True))
+    sys_update = ttk.Button(buttons_frame, text="System Update", command=lambda: call("echo 'PROCEED WITH THE UPDATE FROM HERE' ; sudo pacman -Syu", shell=True))
     sys_update.pack(pady=gPady)
 
 

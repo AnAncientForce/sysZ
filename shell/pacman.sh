@@ -10,17 +10,12 @@ pacman_packages=(
     filelight
     git
     gvfs
-    intel-ucode
     kitty
     kvantum
     mpv-mpris
     neofetch
-    obsidian
     pavucontrol
-    piper
-    playerctl
     polybar
-    ranger
     rofi
     sox
     thunar
@@ -35,8 +30,10 @@ pacman_packages=(
     jq
     python-pillow
 )
+# ttf-font-awesome, ranger, playerctl, piper, obsidian, intel-ucode
 not_installed=0
 
+echo "Checking Arch"
 for package in "${pacman_packages[@]}"; do
     if ! pacman -Qs "$package" >/dev/null; then
         sudo pacman -S --noconfirm "$package"
