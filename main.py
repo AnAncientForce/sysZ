@@ -374,7 +374,7 @@ def render_title(txt):
 
     label = None
     if not (previous_page == "control" or previous_page == "home" or previous_page == "docs"):
-    label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=root["bg"])
+        label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=root["bg"])
     else:
         label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=frame_color, foreground="white")
     label.grid(row=0, column=1, pady=10)
