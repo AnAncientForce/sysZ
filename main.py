@@ -565,8 +565,8 @@ def control():
     yay_pkg = ttk.Button(updates_frame, text="AUR PKG", command=lambda: subprocess.Popen("sh " + os.path.expanduser("~/sysZ/shell/yay.sh"), shell=True))
     yay_pkg.pack(pady=gPady)
     def sysUpd():
-        root.after(100, lambda:hint("Use Terminal", "Please proceed in the terminal. The terminal should be the window next to this."))
-        call("echo 'PROCEED WITH THE UPDATE FROM HERE' ; sudo pacman -Syu", shell=True)
+        root.after(10, lambda: hint("Use Terminal", "Please proceed in the terminal. The terminal should be the window next to this."))
+        root.after(100, lambda: call("echo 'PROCEED WITH THE UPDATE FROM HERE' ; sudo pacman -Syu", shell=True))
 
     sys_update = ttk.Button(updates_frame, text="System Update", command=sysUpd)
     sys_update.pack(pady=gPady)
