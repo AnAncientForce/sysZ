@@ -319,27 +319,33 @@ def render_title(txt):
                     width=20,
                     padding=5)
 
+    # Configure the style for the checkbuttons
+    style.configure("Custom.TCheckbutton",
+                    background=button_color,
+                    foreground="white",
+                    font=("Arial", 12, "bold"),
+                    padding=5)
+
     main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
     main_frame.grid(row=0, column=0, padx=0, pady=0)
 
     def colouring(frame):
         for child in frame.winfo_children():
-            if isinstance(child, (ttk.Button, ttk.Checkbutton)):
+            if isinstance(child, ttk.Button):
                 child_style = ttk.Style()
                 child_style.configure("Custom.TButton",
-                                    background=button_color,
-                                    foreground="white",
-                                    font=("Arial", 12, "bold"),
-                                    width=10,
-                                    padding=5)
-                child.configure(style="Custom.TButton")  # Apply custom style to ttk.Buttons and ttk.Checkbuttons
+                                      background=button_color,
+                                      foreground="white",
+                                      font=("Arial", 12, "bold"),
+                                      width=10,
+                                      padding=5)
+                child.configure(style="Custom.TButton")  # Apply custom style to ttk.Buttons
+            elif isinstance(child, ttk.Checkbutton):
+                child.configure(style="Custom.TCheckbutton")  # Apply custom style to ttk.Checkbuttons
             elif isinstance(child, ttk.LabelFrame):
                 child.configure(style="Custom.TLabelframe")  # Apply custom style to child frames
                 colouring(child)  # Recursively process frames within child frames
 
-
-
-    
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
     title_frame.grid(row=0, column=1, padx=10, pady=10)
 
@@ -350,6 +356,7 @@ def render_title(txt):
     root.after(100, lambda: center_frame(main_frame, root))
     root.after(100, lambda: colouring(main_frame))
     return main_frame
+
 
 
 
