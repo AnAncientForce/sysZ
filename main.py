@@ -333,16 +333,16 @@ def hint(title, desc):
     style.configure("TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white", background=frame_color)
 
     main_frame = ttk.LabelFrame(root, style="TLabelframe")
-    main_frame.grid(row=0, column=0, padx=10, pady=10)
+    main_frame.pack(fill="both", padx=10, pady=10, expand=True)
 
     title_label = ttk.Label(main_frame, text=title, style="TLabelframe.Label")
-    title_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
+    title_label.pack(padx=10, pady=10)
 
     desc_label = ttk.Label(main_frame, text=desc, style="TLabel")
-    desc_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
+    desc_label.pack(padx=10, pady=10, anchor="w")
 
     ok_button = ttk.Button(main_frame, text="CONTINUE", command=main_frame.destroy, style="TButton")
-    ok_button.grid(row=2, column=0, padx=10, pady=10)
+    ok_button.pack(padx=10, pady=10)
 
     root.after(10, lambda: center_frame(main_frame, root))
 
