@@ -329,25 +329,22 @@ def hint(title, desc):
                     font=("Arial", font_size, "bold"),
                     width=button_width,
                     padding=5)
-    style.configure("TLabel", font=("Arial", font_size), background=frame_color)
+    style.configure("TLabel", font=("Arial", font_size), background=frame_color, foreground="white")
     style.configure("TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white", background=frame_color)
 
     main_frame = ttk.LabelFrame(root, style="TLabelframe")
     main_frame.grid(row=0, column=0, padx=10, pady=10)
 
-    # Add label to display title
     title_label = ttk.Label(main_frame, text=title, style="TLabelframe.Label")
     title_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
 
-    # Add label to display description
     desc_label = ttk.Label(main_frame, text=desc, style="TLabel")
     desc_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
 
-    # Add "Continue" button to close the popup
     ok_button = ttk.Button(main_frame, text="CONTINUE", command=main_frame.destroy, style="TButton")
     ok_button.grid(row=2, column=0, padx=10, pady=10)
 
-    center_frame(main_frame, root)
+    root.after(10, lambda: center_frame(main_frame, root))
 
     
 
@@ -512,7 +509,7 @@ def control():
     
    
     def execute_code():
-        hint("Use Terminal", "The terminal should be the window next to this. Please proceed in the terminal.")
+        hint("Use Terminal", "The terminal should be the window next to this. Please proceed in the terminal.\nPress CTRL+C to cancel")
         if check_value_from_json('use_background_blur'):
             print("Animations enabled")
             
