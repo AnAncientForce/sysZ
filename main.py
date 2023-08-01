@@ -310,16 +310,16 @@ def adjust_button_width_to_text(parent_frame):
             # Adjust the width of the existing button based on the text length
             child.configure(width=len(text))
 
-
+style = None
 frame_color = "#808080"
 button_color = "#4C554F"
 font_size = 12
 button_width = 17.5
 title_font_size = 16
-
+styles_not_setup = True
 
 def setup_styles():
-    global frame_color, button_color, font_size, button_width, title_font_size
+    global style, frame_color, button_color, font_size, button_width, title_font_size
 
     style = ttk.Style()
     style.configure("TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
@@ -349,7 +349,7 @@ def setup_styles():
     '''
 
 def hint(title, desc):
-    global frame_color, button_color, font_size, button_width, title_font_size
+    global style, frame_color, button_color, font_size, button_width, title_font_size
 
     main_frame = ttk.LabelFrame(root, style="TLabelframe")
     main_frame.pack(fill="both", padx=10, pady=10, expand=True)
@@ -373,8 +373,13 @@ def hint(title, desc):
 
 
 def render_title(txt):
-    global frame_color, button_color, font_size, button_width, title_font_size
+    global style, frame_color, button_color, font_size, button_width, title_font_size, styles_not_setup
+    
     root.title(txt)
+
+    if styles_not_setup:
+        styles_not_setup = False
+        setup_styles()
     #style = ttk.Style()
     #style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
     #main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
