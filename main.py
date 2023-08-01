@@ -331,22 +331,23 @@ def hint(title, desc):
                     font=("Arial", font_size, "bold"),
                     width=button_width,
                     padding=5)
-    style.configure("Custom.TLabelframe.Label", font=("Arial", title_font_size, "bold"), background=frame_color, borderwidth=5, relief="flat", bordercolor="silver", foreground="white")
+    style.configure("Custom.TLabel", font=("Arial", font_size))
+    style.configure("Custom.TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white")
     
     main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
-    main_frame.grid(row=0, column=0, padx=0, pady=0)
+    main_frame.grid(row=0, column=0, padx=10, pady=10)
 
     # Add label to display title
-    title_label = tk.Label(popup, text=title, font=("Arial", title_font_size, "bold"))
-    title_label.pack()
+    title_label = ttk.Label(main_frame, text=title, style="Custom.TLabelframe.Label")
+    title_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
 
     # Add label to display description
-    desc_label = tk.Label(popup, text=desc, font=("Arial", font_size))
-    desc_label.pack()
+    desc_label = ttk.Label(main_frame, text=desc, style="Custom.TLabel")
+    desc_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
 
     # Add "Ok!" button to close the popup
-    ok_button = tk.Button(popup, text="Ok!", command=popup.destroy)
-    ok_button.pack()
+    ok_button = ttk.Button(main_frame, text="Ok!", command=popup.destroy, style="Custom.TButton")
+    ok_button.grid(row=2, column=0, padx=10, pady=10)
 
     # Adjust the position and animation of the popup window
     popup.geometry("400x200+500+300")
@@ -358,6 +359,7 @@ def hint(title, desc):
         popup.attributes("-alpha", opacity)
         popup.update()
         popup.after(100)  # Time delay for each step in the animation
+
 
 
 
