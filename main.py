@@ -355,7 +355,7 @@ def render_title(txt):
     style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, foreground="white")
     
 
-    main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe", borderwidth=20)
+    main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe", borderwidth=0)
     main_frame.grid(row=0, column=0, padx=0, pady=0)
 
     def colouring(frame):
@@ -417,7 +417,7 @@ def render_back_btn(frame):
         root.after(2500, lambda: subprocess.Popen(["python", os.path.expanduser("~/sysZ/main.py control")]))
         update()
 
-    page_controls = ttk.LabelFrame(frame)
+    page_controls = ttk.LabelFrame(frame, text="Page")
     page_controls.grid(row=2, column=1, padx=10, pady=10)
 
     
