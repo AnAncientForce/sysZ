@@ -320,15 +320,28 @@ def hint(title, desc):
     style = ttk.Style()
     frame_color = "#333333"
     button_color = "#4C554F"
-    font_size = 10
+    font_size = 12
     button_width = 17.5
+    title_font_size = 16
+    
     style.configure("Custom.TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
-
+    style.configure("Custom.TButton",
+                    background=button_color,
+                    foreground="white",
+                    font=("Arial", font_size, "bold"),
+                    width=button_width,
+                    padding=5)
+    style.configure("Custom.TLabelframe.Label", font=("Arial", title_font_size, "bold"), background=frame_color, borderwidth=5, relief="flat", bordercolor="silver", foreground="white")
+    
     main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
     main_frame.grid(row=0, column=0, padx=0, pady=0)
 
+    # Add label to display title
+    title_label = tk.Label(popup, text=title, font=("Arial", title_font_size, "bold"))
+    title_label.pack()
+
     # Add label to display description
-    desc_label = tk.Label(popup, text=desc)
+    desc_label = tk.Label(popup, text=desc, font=("Arial", font_size))
     desc_label.pack()
 
     # Add "Ok!" button to close the popup
