@@ -311,7 +311,7 @@ def render_title(txt):
     style = ttk.Style()
     frame_color = "#333333"  # Color of the frame
     button_color = "#4C554F" # Lighter shade of black
-    dark_grey = "#333333"   # Dark grey color
+    dark_grey = "#1E1E1E"    # Very dark grey color
 
     # Configure the style for the frame
     style.configure("Custom.TLabelframe", background=frame_color, borderwidth=0, relief="flat")
