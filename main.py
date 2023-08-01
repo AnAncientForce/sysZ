@@ -332,7 +332,7 @@ def setup_styles():
     style.configure("TLabel", font=("Arial", font_size), background=frame_color, foreground="white")
     style.configure("TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white", background=frame_color)
 
-    '''
+    
     # render_title
     style.configure("Custom.TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
     #style.map("Custom.TLabelframe", background=[("active", frame_color)])
@@ -346,7 +346,7 @@ def setup_styles():
                     padding=5)
 
     style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, borderwidth=5, relief="flat", bordercolor="silver", foreground="white")
-    '''
+    
 
 def hint(title, desc):
     global style, frame_color, button_color, font_size, button_width, title_font_size
