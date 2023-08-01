@@ -312,17 +312,17 @@ def hint(title, desc):
 
     frame_color = "#808080"
     button_color = "#4C554F"
-    font_size = 12
+    font_size = 14
     button_width = 17.5
     title_font_size = 16
-
+    button_padding = 5
     
     style.configure("TLabelframe", background=frame_color)
-    style.configure("TButton", background=button_color, foreground="white", font=("Arial", font_size, "bold"), width=button_width, padding=5)
+    style.configure("TButton", background=button_color, foreground="white", font=("Arial", font_size, "bold"), width=button_width, padding=button_padding)
     style.configure("TLabel", font=("Arial", font_size), background=frame_color, foreground="white")
     style.configure("TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white", background=frame_color)
 
-    main_frame = ttk.LabelFrame(root, style="TLabelframe")
+    main_frame = ttk.LabelFrame(root, style="TLabelframe", borderwidth=0)
     main_frame.pack(fill="both", padx=10, pady=10, expand=True)
 
     title_label = ttk.Label(main_frame, text=title, style="TLabelframe.Label")
@@ -417,7 +417,7 @@ def render_back_btn(frame):
         root.after(2500, lambda: subprocess.Popen(["python", os.path.expanduser("~/sysZ/main.py control")]))
         update()
 
-    page_controls = ttk.LabelFrame(frame, text="Page")
+    page_controls = ttk.LabelFrame(frame, text="<>")
     page_controls.grid(row=2, column=1, padx=10, pady=10)
 
     
