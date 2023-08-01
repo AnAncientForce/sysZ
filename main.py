@@ -315,6 +315,17 @@ def adjust_button_width_to_text(parent_frame):
 def hint(title, desc):
     popup = tk.Toplevel()
     popup.title(title)
+    popup.transient(root)  # Make the popup window appear within the main window
+
+    style = ttk.Style()
+    frame_color = "#333333"
+    button_color = "#4C554F"
+    font_size = 10
+    button_width = 17.5
+    style.configure("Custom.TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
+
+    main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
+    main_frame.grid(row=0, column=0, padx=0, pady=0)
 
     # Add label to display description
     desc_label = tk.Label(popup, text=desc)
