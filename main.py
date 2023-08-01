@@ -318,7 +318,7 @@ def hint(title, desc):
     #popup.transient(root)  # Make the popup window appear within the main window
 
     style = ttk.Style()
-    frame_color = "#333333"
+    frame_color = "#808080"
     button_color = "#4C554F"
     font_size = 12
     button_width = 17.5
@@ -564,8 +564,12 @@ def control():
     arch_pkg.pack(pady=gPady)
     yay_pkg = ttk.Button(updates_frame, text="AUR PKG", command=lambda: subprocess.Popen("sh " + os.path.expanduser("~/sysZ/shell/yay.sh"), shell=True))
     yay_pkg.pack(pady=gPady)
-    sys_update = ttk.Button(updates_frame, text="System Update", command=lambda: call("echo 'PROCEED WITH THE UPDATE FROM HERE' ; sudo pacman -Syu", shell=True))
+    sys_update = ttk.Button(updates_frame, text="System Update", command=lambda: sysUpd)
     sys_update.pack(pady=gPady)
+
+    def sysUpd():
+        hint("Use Terminal", "Please proceed in the terminal. The terminal should be the window next to this.")
+        call("echo 'PROCEED WITH THE UPDATE FROM HERE' ; sudo pacman -Syu", shell=True)
 
 
     update_button = ttk.Button(options_frame, text="Update [sysZ]", command=update)
