@@ -509,6 +509,14 @@ def control():
     cw_button = ttk.Button(buttons_frame, text="Change Wallpaper", command=lambda: subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/cw.sh")]))
     cw_button.pack(pady=gPady)
 
+    arch_pkg = ttk.Button(buttons_frame, text="Arch PKG", command=lambda: subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/pacman.sh")]))
+    arch_pkg.pack(pady=gPady)
+    yay_pkg = ttk.Button(buttons_frame, text="AUR PKG", command=lambda: subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/yay.sh")]))
+    yay_pkg.pack(pady=gPady)
+    sys_update = ttk.Button(buttons_frame, text="System Update", command=lambda: call("alacritty -e sudo pacman -Syu"))
+    sys_update.pack(pady=gPady)
+
+
     update_button = ttk.Button(options_frame, text="Update [sysZ]", command=update)
     update_button.pack(pady=gPady)
     
