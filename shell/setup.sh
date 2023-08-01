@@ -7,7 +7,8 @@ killall -9 polybar
 #sh "$sysZ/shell/background_update_check.sh" & # & Because if there is an update, the setup screen will never go away
 #sox "$sysZ/sfx/Sys_Camera_SavePicture.flac" -d >/dev/null 2>&1 &
 
-i3-msg "exec feh --bg-fill $sysZ/bg.*;"
+# bg.*
+i3-msg "exec feh --bg-fill $sysZ/bg;"
 i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
 i3-msg "exec sh $sysZ/shell/background_update_check.sh;"
 i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
