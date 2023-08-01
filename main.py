@@ -314,38 +314,37 @@ def adjust_button_width_to_text(parent_frame):
 
 def hint(title, desc):
     style = ttk.Style()
-    style.theme_create("CustomTheme", parent="default")  # Create a custom theme based on the default theme
-    style.theme_use("CustomTheme")  # Use the custom theme
 
     frame_color = "#808080"
     button_color = "#4C554F"
     font_size = 12
     button_width = 17.5
     title_font_size = 16
-    
-    style.configure("CustomTheme.TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
-    style.configure("CustomTheme.TButton",
+
+    # Modify the existing theme instead of creating a new one
+    style.configure("TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
+    style.configure("TButton",
                     background=button_color,
                     foreground="white",
                     font=("Arial", font_size, "bold"),
                     width=button_width,
                     padding=5)
-    style.configure("CustomTheme.TLabel", font=("Arial", font_size))
-    style.configure("CustomTheme.TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white")
-    
-    main_frame = ttk.LabelFrame(root, style="CustomTheme.TLabelframe")
+    style.configure("TLabel", font=("Arial", font_size))
+    style.configure("TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white")
+
+    main_frame = ttk.LabelFrame(root, style="TLabelframe")
     main_frame.grid(row=0, column=0, padx=10, pady=10)
 
     # Add label to display title
-    title_label = ttk.Label(main_frame, text=title, style="CustomTheme.TLabelframe.Label")
+    title_label = ttk.Label(main_frame, text=title, style="TLabelframe.Label")
     title_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
 
     # Add label to display description
-    desc_label = ttk.Label(main_frame, text=desc, style="CustomTheme.TLabel")
+    desc_label = ttk.Label(main_frame, text=desc, style="TLabel")
     desc_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
 
     # Add "Continue" button to close the popup
-    ok_button = ttk.Button(main_frame, text="Continue", command=main_frame.destroy, style="CustomTheme.TButton")
+    ok_button = ttk.Button(main_frame, text="Continue", command=main_frame.destroy, style="TButton")
     ok_button.grid(row=2, column=0, padx=10, pady=10)
 
     
