@@ -509,7 +509,7 @@ def control():
     
    
     def execute_code():
-        hint("Use Terminal", "The terminal should be the window next to this. Please proceed in the terminal.\nPress CTRL+C to cancel")
+        hint("Use Terminal", "The terminal should be the window next to this. Please proceed in the terminal. Press CTRL+C to cancel")
         if check_value_from_json('use_background_blur'):
             print("Animations enabled")
             
@@ -562,7 +562,7 @@ def control():
     yay_pkg = ttk.Button(updates_frame, text="AUR PKG", command=lambda: subprocess.Popen("sh " + os.path.expanduser("~/sysZ/shell/yay.sh"), shell=True))
     yay_pkg.pack(pady=gPady)
     def sysUpd():
-        root.after(10, lambda: hint("Use Terminal", "Please proceed in the terminal. The terminal should be the window next to this."))
+        root.after(10, lambda: hint("Use Terminal", "Please proceed in the terminal. The terminal should be the window next to this.\nPress CTRL+C to cancel"))
         root.after(100, lambda: call("echo 'PROCEED WITH THE UPDATE FROM HERE' ; sudo pacman -Syu", shell=True))
 
     sys_update = ttk.Button(updates_frame, text="System Update", command=sysUpd)
