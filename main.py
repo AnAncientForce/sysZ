@@ -354,7 +354,7 @@ def render_title(txt):
     style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, foreground="white")
     
 
-    main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
+    main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe", borderwidth=5)
     main_frame.grid(row=0, column=0, padx=0, pady=0)
 
     def colouring(frame):
