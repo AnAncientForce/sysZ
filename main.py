@@ -318,6 +318,8 @@ def fade_screen(root):
         root.attributes('-alpha', new_transparency)
         if new_transparency != 1.0 and new_transparency != 0.0:
             root.after(100, change_transparency)
+        elif new_transparency == 0.0:
+            root.attributes('-alpha', 1.0)  # Set transparency back to 1 for fade-in
 
     change_transparency()
 
