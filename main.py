@@ -164,7 +164,14 @@ def execute_shell_script(script_path):
         expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
         print("Script on new thread has started")
         debugTxt("Started new thread, updater has started")
-        subprocess.run(["sh", expanded_path], check=True)
+        
+        # Run the shell script and capture the output
+        process = subprocess.Popen(["sh", expanded_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+        stdout, stderr = process.communicate()
+
+        # Print the captured output
+        debugTxt(stdout)
+
         global script_complete, previous_page, setup_pending
         script_complete = True
         print("script_complete = True")
