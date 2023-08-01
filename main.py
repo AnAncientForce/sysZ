@@ -45,16 +45,16 @@ def load():
     setup()
 
 
-def docs():
+def docs(title, file):
     clear_tk_elements(root)
     root.configure(bg="#6495ED")
-    main_frame = render_title("sysZ | docs")
+    main_frame = render_title(title)
 
     buttons_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
     buttons_frame.grid(row=1, column=1, padx=5, pady=5)
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    config_path = os.path.join(script_dir, 'docs.rtf')
+    config_path = os.path.join(script_dir, file)
     with open(config_path, "r") as file:
         text_content = file.read()
 
@@ -585,11 +585,14 @@ def home():
     buttons_frame = ttk.LabelFrame(main_frame,borderwidth=0, relief="groove")
     buttons_frame.grid(row=1, column=1, padx=0, pady=0)
 
-    docs_button = ttk.Button(buttons_frame, text="View Documentation", command=docs)
+    docs_button = ttk.Button(buttons_frame, text="View Documentation", command=lambda: docs("sysZ | Docs", "docs.rtf"))
     docs_button.pack(pady=10)
 
     control_button = ttk.Button(buttons_frame, text="Control Panel", command=control)
     control_button.pack(pady=10)
+
+    logs_button = ttk.Button(buttons_frame, text="Change Logs", command=lambda: docs("sysZ | Changes Logs", "todo.rtf"))
+    logs_button.pack(pady=10)
 
     
 
@@ -640,7 +643,7 @@ if len(sys.argv) > 1 and sys.argv[1] == 'load':
 
 if len(sys.argv) > 1 and sys.argv[1] == 'docs':
     root = tk.Tk()
-    docs()
+    docs("sysZ | Docs", "docs.rtf")
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'update':
