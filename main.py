@@ -306,27 +306,6 @@ def adjust_button_width_to_text(parent_frame):
             child.configure(width=len(text))
 
 
-def fade_screen(root):
-    root.attributes('-alpha', 1.0)  # Set initial transparency to 1
-
-    def change_transparency():
-        current_transparency = root.attributes('-alpha')
-        if current_transparency > 0.0:
-            new_transparency = current_transparency - 0.05  # Smaller increment for smoother transition
-        else:
-            new_transparency = current_transparency + 0.05  # Smaller increment for smoother transition
-        root.attributes('-alpha', new_transparency)
-        if new_transparency != 1.0 and new_transparency != 0.0:
-            root.after(50, change_transparency)  # Reduced delay for faster transition
-        elif new_transparency == 0.0:
-            root.attributes('-alpha', 1.0)  # Set transparency back to 1 for fade-in
-
-    change_transparency()
-
-
-
-
-
 
 def hint(title, desc):
     style = ttk.Style()
@@ -363,7 +342,6 @@ def hint(title, desc):
 
 def render_title(txt):
     root.title(txt)
-    fade_screen(root)
     
     style = ttk.Style()
     frame_color = "#333333"
