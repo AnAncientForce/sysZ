@@ -320,10 +320,9 @@ styles_not_setup = True
 
 def setup_styles():
     global style, frame_color, button_color, font_size, button_width, title_font_size
-
+    style = ttk.Style()
     '''
     
-    style = ttk.Style()
     style.configure("TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
     style.configure("TButton",
                     background=button_color,
