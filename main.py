@@ -440,8 +440,13 @@ def control():
     buttons_frame = ttk.LabelFrame(main_frame, text="Operations",borderwidth=0, relief="groove")
     buttons_frame.grid(row=1, column=1, padx=gPady, pady=gPady)
 
+    updates_frame = ttk.LabelFrame(main_frame, text="Updates",borderwidth=0, relief="groove")
+    updates_frame.grid(row=1, column=3, padx=gPady, pady=gPady)
+
     power_frame = ttk.LabelFrame(main_frame, text="System",borderwidth=0, relief="groove")
-    power_frame.grid(row=1, column=2, padx=gPady, pady=gPady)
+    power_frame.grid(row=2, column=0, padx=gPady, pady=gPady)
+
+    
 
     
     # --- SETTINGS
@@ -509,15 +514,15 @@ def control():
     cw_button = ttk.Button(buttons_frame, text="Change Wallpaper", command=lambda: subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/cw.sh")]))
     cw_button.pack(pady=gPady)
 
-    arch_pkg = ttk.Button(buttons_frame, text="Arch PKG", command=lambda: subprocess.Popen("sh " + os.path.expanduser("~/sysZ/shell/pacman.sh"), shell=True))
+    arch_pkg = ttk.Button(updates_frame, text="Arch PKG", command=lambda: subprocess.Popen("sh " + os.path.expanduser("~/sysZ/shell/pacman.sh"), shell=True))
     arch_pkg.pack(pady=gPady)
-    yay_pkg = ttk.Button(buttons_frame, text="AUR PKG", command=lambda: subprocess.Popen("sh " + os.path.expanduser("~/sysZ/shell/yay.sh"), shell=True))
+    yay_pkg = ttk.Button(updates_frame, text="AUR PKG", command=lambda: subprocess.Popen("sh " + os.path.expanduser("~/sysZ/shell/yay.sh"), shell=True))
     yay_pkg.pack(pady=gPady)
-    sys_update = ttk.Button(buttons_frame, text="System Update", command=lambda: call("echo 'PROCEED WITH THE UPDATE FROM HERE' ; sudo pacman -Syu", shell=True))
+    sys_update = ttk.Button(updates_frame, text="System Update", command=lambda: call("echo 'PROCEED WITH THE UPDATE FROM HERE' ; sudo pacman -Syu", shell=True))
     sys_update.pack(pady=gPady)
 
 
-    update_button = ttk.Button(options_frame, text="Update [sysZ]", command=update)
+    update_button = ttk.Button(updates_frame, text="Update [sysZ]", command=update)
     update_button.pack(pady=gPady)
     
     restartSys = ttk.Button(options_frame, text="Restart [sysZ]", command=load)
