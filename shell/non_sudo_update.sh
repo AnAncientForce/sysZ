@@ -42,7 +42,8 @@ repo_pull() {
 repo_pull
 cu
 # sh shell/yay.sh
-betterlockscreen ~/sysZ/bg.png
+betterlockscreen ~/sysZ/bg
+# .png
 themes_setup
 cd "$current_dir"
 # i3-msg 'exec sh ~/sysZ/shell/setup.sh;'

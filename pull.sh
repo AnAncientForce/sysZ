@@ -82,7 +82,8 @@ else
     echo "Skipping..."
 fi
 echo "Rendering lockscreen"
-betterlockscreen ~/sysZ/bg.png
+betterlockscreen ~/sysZ/bg
+# .png
 
 read -p "
 [CAUTION]: rofi will not function correctly without this due to how the current configuration is setup
