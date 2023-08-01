@@ -333,7 +333,7 @@ def hint(title, desc):
     style.configure("CustomTheme.TLabel", font=("Arial", font_size))
     style.configure("CustomTheme.TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white")
     
-    main_frame = ttk.LabelFrame(popup, style="CustomTheme.TLabelframe")
+    main_frame = ttk.LabelFrame(root, style="CustomTheme.TLabelframe")
     main_frame.grid(row=0, column=0, padx=10, pady=10)
 
     # Add label to display title
