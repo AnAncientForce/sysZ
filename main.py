@@ -315,9 +315,9 @@ def hint(title, desc):
     font_size = 14
     button_width = 17.5
     title_font_size = 16
-    button_padding = 5
+    button_padding = 10
     
-    style.configure("TLabelframe", background=frame_color, padding=button_padding)
+    style.configure("TLabelframe", background=frame_color)
     style.configure("TButton", background=button_color, foreground="white", font=("Arial", font_size, "bold"), width=button_width, padding=button_padding)
     style.configure("TLabel", font=("Arial", font_size), background=frame_color, foreground="white")
     style.configure("TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white", background=frame_color)
