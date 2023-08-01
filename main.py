@@ -333,7 +333,7 @@ def render_title(txt):
                     background=button_color,
                     foreground="white",
                     font=("Arial", font_size, "bold"),
-                    width=20,
+                    width=button_width,
                     padding=5)
 
     style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, foreground="white")
@@ -355,7 +355,7 @@ def render_title(txt):
                                     font=("Arial", font_size, "bold"),
                                     width=button_width,
                                     padding=5)
-                adjust_button_width_to_text(child)
+                #adjust_button_width_to_text(child)
                 for grandchild in child.winfo_children():
                     if isinstance(grandchild, ttk.Button):
                         grandchild.configure(style="Child.TButton")  # Apply custom style to buttons within child frames
@@ -373,8 +373,8 @@ def render_title(txt):
     title_frame.grid(row=0, column=1, padx=10, pady=10)
 
     label = None
-    if not previous_page == "control" or not previous_page == "home" or not previous_page == "docs":
-        label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=root["bg"])
+    if not (previous_page == "control" or previous_page == "home" or previous_page == "docs"):
+    label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=root["bg"])
     else:
         label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=frame_color, foreground="white")
     label.grid(row=0, column=1, pady=10)
