@@ -313,9 +313,9 @@ def adjust_button_width_to_text(parent_frame):
 
 
 def hint(title, desc):
-    popup = tk.Toplevel()
-    popup.title(title)
-    popup.transient(root)  # Make the popup window appear within the main window
+    #popup = tk.Toplevel()
+    #popup.title(title)
+    #popup.transient(root)  # Make the popup window appear within the main window
 
     style = ttk.Style()
     frame_color = "#333333"
@@ -346,19 +346,10 @@ def hint(title, desc):
     desc_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
 
     # Add "Ok!" button to close the popup
-    ok_button = ttk.Button(main_frame, text="Ok!", command=popup.destroy, style="Custom.TButton")
+    ok_button = ttk.Button(main_frame, text="Ok!", command=main_frame.destroy, style="Custom.TButton")
     ok_button.grid(row=2, column=0, padx=10, pady=10)
 
-    # Adjust the position and animation of the popup window
-    popup.geometry("400x200+500+300")
-    popup.attributes("-alpha", 0.0)  # Set initial transparency to 0
-
-    # Animate the popup window by gradually increasing the transparency
-    for i in range(10):
-        opacity = 0.1 * (i + 1)
-        popup.attributes("-alpha", opacity)
-        popup.update()
-        popup.after(100)  # Time delay for each step in the animation
+    center_frame(main_frame, root)
 
 
 
