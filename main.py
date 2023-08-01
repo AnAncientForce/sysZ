@@ -301,6 +301,16 @@ def center_frame(frame, window):
     root.after(2500, lambda: center_frame(frame, window))
 
 
+def adjust_button_width_to_text(parent_frame):
+    for child in parent_frame.winfo_children():
+        if isinstance(child, ttk.Button):
+            # Get the text from the existing button
+            text = child["text"]
+
+            # Adjust the width of the existing button based on the text length
+            child.configure(width=len(text))
+
+
 def render_title(txt):
     root.title(txt)
     #style = ttk.Style()
@@ -334,6 +344,7 @@ def render_title(txt):
         for child in frame.winfo_children():
             if isinstance(child, ttk.Button):
                 child.configure(style="Custom.TButton")  # Apply custom style to buttons
+                adjust_button_width_to_text(child)
             elif isinstance(child, ttk.LabelFrame):
                 child.configure(style="Custom.TLabelframe")  # Apply custom style to child frames
                 child_style = ttk.Style()
@@ -346,6 +357,7 @@ def render_title(txt):
                 for grandchild in child.winfo_children():
                     if isinstance(grandchild, ttk.Button):
                         grandchild.configure(style="Child.TButton")  # Apply custom style to buttons within child frames
+                        adjust_button_width_to_text(grandchild)
                     elif isinstance(grandchild, ttk.Frame):
                         colouring(grandchild)  # Recursively process frames within child frames
 
