@@ -325,7 +325,7 @@ def render_title(txt):
     def colouring(frame):
         for child in frame.winfo_children():
             if isinstance(child, ttk.Button):
-                child.configure(style="Custom.TButton")  # Apply custom style to buttons
+                child.configure(style="Custom.TButton")  # Apply custom style to ttk.Buttons
             elif isinstance(child, ttk.Checkbutton):
                 child_style = ttk.Style()
                 child_style.configure("Custom.TCheckbutton",
@@ -333,10 +333,19 @@ def render_title(txt):
                                     foreground="white",
                                     font=("Arial", 12, "bold"),
                                     padding=5)
-                child.configure(style="Custom.TCheckbutton")  # Apply custom style to checkbuttons
+                child.configure(style="Custom.TCheckbutton")  # Apply custom style to ttk.Checkbuttons
+            elif isinstance(child, tk.Checkbutton):
+                child_style = ttk.Style()
+                child_style.configure("Custom.TkCheckbutton",
+                                    background=frame_color,
+                                    foreground="white",
+                                    font=("Arial", 12, "bold"),
+                                    padding=5)
+                child.configure(style="Custom.TkCheckbutton")  # Apply custom style to tk.Checkbuttons
             elif isinstance(child, ttk.LabelFrame):
                 child.configure(style="Custom.TLabelframe")  # Apply custom style to child frames
                 colouring(child)  # Recursively process frames within child frames
+
 
     
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
