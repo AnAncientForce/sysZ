@@ -311,7 +311,6 @@ def render_title(txt):
     style = ttk.Style()
     frame_color = "#333333"  # Color of the frame
     button_color = "#4C554F" # Lighter shade of black
-    dark_grey = "#1E1E1E"    # Very dark grey color
 
     # Configure the style for the frame
     style.configure("Custom.TLabelframe", background=frame_color, borderwidth=0, relief="flat")
@@ -325,10 +324,8 @@ def render_title(txt):
                     width=20,
                     padding=10)
 
-    # Configure the button style for the active (hover) state to dark grey
-    style.map("Custom.TButton", background=[("active", dark_grey)])
-
     style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, foreground="white")
+    
 
     main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
     main_frame.grid(row=0, column=0, padx=0, pady=0)
@@ -336,27 +333,7 @@ def render_title(txt):
     def colouring(frame):
         for child in frame.winfo_children():
             if isinstance(child, ttk.Button):
-                child_style = ttk.Style()
-                child_style.configure("Custom.TButton",
-                                    background=button_color,
-                                    foreground="white",
-                                    font=("Arial", font_size, "bold"),
-                                    width=20,
-                                    padding=10)
                 child.configure(style="Custom.TButton")  # Apply custom style to buttons
-
-                # Function to handle hover enter event
-                def on_hover_enter(event, button=child):
-                    button.configure(background=dark_grey)
-
-                # Function to handle hover leave event
-                def on_hover_leave(event, button=child):
-                    button.configure(background=button_color)
-
-                # Bind the hover events to the button
-                child.bind("<Enter>", on_hover_enter)
-                child.bind("<Leave>", on_hover_leave)
-
             elif isinstance(child, ttk.LabelFrame):
                 child.configure(style="Custom.TLabelframe")  # Apply custom style to child frames
                 child_style = ttk.Style()
@@ -369,33 +346,8 @@ def render_title(txt):
                 for grandchild in child.winfo_children():
                     if isinstance(grandchild, ttk.Button):
                         grandchild.configure(style="Child.TButton")  # Apply custom style to buttons within child frames
-
-                        # Function to handle hover enter event for grandchild buttons
-                        def on_hover_enter(event, button=grandchild):
-                            button.configure(background=dark_grey)
-
-                        # Function to handle hover leave event for grandchild buttons
-                        def on_hover_leave(event, button=grandchild):
-                            button.configure(background=button_color)
-
-                        # Bind the hover events to the grandchild button
-                        grandchild.bind("<Enter>", on_hover_enter)
-                        grandchild.bind("<Leave>", on_hover_leave)
-
-                    elif isinstance(grandchild, ttk.Checkbutton):
-                        grandchild_style = ttk.Style()
-                        grandchild_style.configure("Custom.TCheckbutton",
-                                                    background=button_color,
-                                                    foreground="white",
-                                                    font=("Arial", font_size, "bold"),
-                                                    padding=5)
-                        grandchild.configure(style="Custom.TCheckbutton")  # Apply custom style to check buttons
-
                     elif isinstance(grandchild, ttk.Frame):
                         colouring(grandchild)  # Recursively process frames within child frames
-
-
-
 
 
     #colouring(main_frame)
@@ -418,7 +370,6 @@ def render_title(txt):
     root.after(100, lambda: center_frame(main_frame, root))
     root.after(100, lambda: colouring(main_frame))
     return main_frame
-
 
 
 
