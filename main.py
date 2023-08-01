@@ -319,11 +319,11 @@ def render_title(txt):
     style.configure("Custom.TButton",
                     background=button_color,
                     foreground="white",
-                    font=("Arial", 16, "bold"),
+                    font=("Arial", font_size, "bold"),
                     width=20,
                     padding=10)
 
-    style.configure("Custom.TLabelframe.Label", font=("Arial", 24, "bold"), background=frame_color, foreground="white")
+    style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, foreground="white")
 
     main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
     main_frame.grid(row=0, column=0, padx=0, pady=0)
@@ -338,7 +338,7 @@ def render_title(txt):
                 child_style.configure("Child.TButton",
                                     background=button_color,
                                     foreground="white",
-                                    font=("Arial", 16, "bold"),
+                                    font=("Arial", font_size, "bold"),
                                     width=20,
                                     padding=10)
                 for grandchild in child.winfo_children():
