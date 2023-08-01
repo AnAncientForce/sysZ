@@ -345,9 +345,9 @@ def render_title(txt):
     font_size = 12
     button_width = 17.5
     
-    style.configure("Custom.TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver", highlightthickness=1)
+    style.configure("Custom.TLabelframe", background=frame_color, borderwidth=5, relief="flat", highlightbackground="silver", highlightthickness=1)
     style.configure("Custom.TButton", background=button_color, foreground="white", font=("Arial", font_size, "bold"), width=button_width, padding=5)
-    style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, borderwidth=5, relief="flat", bordercolor="silver", foreground="white")
+    style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, borderwidth=5, relief="flat", highlightbackground="silver", foreground="white")
     
 
     main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
