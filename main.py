@@ -348,13 +348,14 @@ def render_title(txt):
     button_color = "#4C554F"
     font_size = 12
     button_width = 17.5
+    button_padding = 5
     
     style.configure("Custom.TLabelframe", background=frame_color)
-    style.configure("Custom.TButton", background=button_color, foreground="white", font=("Arial", font_size, "bold"), width=button_width, padding=5)
+    style.configure("Custom.TButton", background=button_color, foreground="white", font=("Arial", font_size, "bold"), width=button_width, padding=button_padding, borderwidth=0)
     style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, foreground="white")
     
 
-    main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe", borderwidth=5)
+    main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe", borderwidth=20)
     main_frame.grid(row=0, column=0, padx=0, pady=0)
 
     def colouring(frame):
@@ -369,7 +370,7 @@ def render_title(txt):
                                     foreground="white",
                                     font=("Arial", font_size, "bold"),
                                     width=button_width,
-                                    padding=5)
+                                    padding=button_padding)
                 #adjust_button_width_to_text(child)
                 for grandchild in child.winfo_children():
                     if isinstance(grandchild, ttk.Button):
