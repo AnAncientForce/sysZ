@@ -321,6 +321,8 @@ styles_not_setup = True
 def setup_styles():
     global style, frame_color, button_color, font_size, button_width, title_font_size
 
+    '''
+    
     style = ttk.Style()
     style.configure("TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
     style.configure("TButton",
@@ -331,7 +333,7 @@ def setup_styles():
                     padding=5)
     style.configure("TLabel", font=("Arial", font_size), background=frame_color, foreground="white")
     style.configure("TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white", background=frame_color)
-
+    '''
     
     # render_title
     style.configure("Custom.TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
