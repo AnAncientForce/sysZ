@@ -311,6 +311,34 @@ def adjust_button_width_to_text(parent_frame):
             child.configure(width=len(text))
 
 
+
+def hint(title, desc):
+    popup = tk.Toplevel()
+    popup.title(title)
+
+    # Add label to display description
+    desc_label = tk.Label(popup, text=desc)
+    desc_label.pack()
+
+    # Add "Ok!" button to close the popup
+    ok_button = tk.Button(popup, text="Ok!", command=popup.destroy)
+    ok_button.pack()
+
+    # Adjust the position and animation of the popup window
+    popup.geometry("400x200+500+300")
+    popup.attributes("-alpha", 0.0)  # Set initial transparency to 0
+
+    # Animate the popup window by gradually increasing the transparency
+    for i in range(10):
+        opacity = 0.1 * (i + 1)
+        popup.attributes("-alpha", opacity)
+        popup.update()
+        popup.after(100)  # Time delay for each step in the animation
+
+
+
+
+
 def render_title(txt):
     root.title(txt)
     #style = ttk.Style()
@@ -467,6 +495,7 @@ def control():
     
    
     def execute_code():
+        hint("Use Terminal", "The terminal should be the window next to this. Please proceed in the terminal.")
         if check_value_from_json('use_background_blur'):
             print("Animations enabled")
             
