@@ -654,6 +654,9 @@ def home():
     logs_button = ttk.Button(buttons_frame, text="Change Logs", command=lambda: docs("sysZ | Changes Logs", "todo.rtf"))
     logs_button.pack(pady=10)
 
+    about_button = ttk.Button(buttons_frame, text="About", command=lambda: hint("About", "sysZ\n\nA preconfigured customization of the i3 window manager\n\nSee more on the repository: https://github.com/AnAncientForce/sysZ"))
+    about_button.pack(pady=10)
+
     
 
     # _tkinter.TclError: cannot use geometry manager pack inside
