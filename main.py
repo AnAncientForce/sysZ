@@ -292,7 +292,7 @@ def center_frame(frame, window):
         frame.place(x=x_offset, y=y_offset)
         root.after(500, lambda: center_frame(frame, window))
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"This cannot be fixed (p.1) An error occurred: {e}")
     
 
 
