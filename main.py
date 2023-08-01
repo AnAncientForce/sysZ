@@ -306,7 +306,7 @@ def adjust_button_width_to_text(parent_frame):
             child.configure(width=len(text))
 
 
-def fade_screen():
+def fade_screen(root):
     root.attributes('-alpha', 1.0)  # Set initial transparency to 1
 
     def change_transparency():
@@ -360,7 +360,7 @@ def hint(title, desc):
 
 def render_title(txt):
     root.title(txt)
-    fade_screen()
+    fade_screen(root)
     
     style = ttk.Style()
     frame_color = "#333333"
