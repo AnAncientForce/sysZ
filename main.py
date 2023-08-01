@@ -315,7 +315,6 @@ def render_title(txt):
 
     # Configure the style for the frame
     style.configure("Custom.TLabelframe", background=frame_color, borderwidth=0, relief="flat")
-    style.map("Custom.TLabelframe", background=[("active", frame_color)])
 
     # Configure the style for the buttons
     style.configure("Custom.TButton",
@@ -324,9 +323,6 @@ def render_title(txt):
                     font=("Arial", font_size, "bold"),
                     width=20,
                     padding=10)
-
-    # Configure the button style for the active (hover) state to dark grey
-    style.map("Custom.TButton", background=[("active", dark_grey)])
 
     style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, foreground="white")
 
@@ -370,9 +366,23 @@ def render_title(txt):
     label.grid(row=0, column=1, pady=10)
 
     render_back_btn(main_frame)
+
+    # Bind the hover event to change the background color to dark grey
+    def on_hover_enter(event):
+        event.widget.configure(background=dark_grey)
+
+    def on_hover_leave(event):
+        event.widget.configure(background=button_color)
+
+    for child in main_frame.winfo_children():
+        if isinstance(child, ttk.Button):
+            child.bind("<Enter>", on_hover_enter)
+            child.bind("<Leave>", on_hover_leave)
+
     root.after(100, lambda: center_frame(main_frame, root))
     root.after(100, lambda: colouring(main_frame))
     return main_frame
+
 
 
 
