@@ -436,11 +436,10 @@ def control():
     root.configure(bg="#6495ED")
     main_frame = render_title("sysZ | control")
     gPady = 7
-    frame_padding = 5
 
     style = ttk.Style()
     style.configure("Title.TLabelframe", background=root["bg"])
-    style.configure("TLabelframe", padding=10)
+    style.configure("TLabelframe", padding=5)
    
     options_frame = ttk.LabelFrame(main_frame, text="sysZ")
     options_frame.grid(row=1, column=0, padx=gPady, pady=gPady)
