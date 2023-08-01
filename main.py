@@ -439,16 +439,16 @@ def control():
     style = ttk.Style()
     style.configure("Title.TLabelframe", background=root["bg"])
    
-    options_frame = ttk.LabelFrame(main_frame, text="sysZ",borderwidth=0, relief="groove")
+    options_frame = ttk.LabelFrame(main_frame, text="sysZ")
     options_frame.grid(row=1, column=0, padx=gPady, pady=gPady)
 
-    buttons_frame = ttk.LabelFrame(main_frame, text="Operations",borderwidth=0, relief="groove")
+    buttons_frame = ttk.LabelFrame(main_frame, text="Operations")
     buttons_frame.grid(row=1, column=1, padx=gPady, pady=gPady)
 
-    updates_frame = ttk.LabelFrame(main_frame, text="Updates",borderwidth=0, relief="groove")
+    updates_frame = ttk.LabelFrame(main_frame, text="Updates")
     updates_frame.grid(row=1, column=3, padx=gPady, pady=gPady)
 
-    power_frame = ttk.LabelFrame(main_frame, text="System",borderwidth=0, relief="groove")
+    power_frame = ttk.LabelFrame(main_frame, text="System")
     power_frame.grid(row=2, column=0, padx=gPady, pady=gPady)
 
     
