@@ -568,7 +568,7 @@ def control():
         hint("Use Terminal", "Please proceed in the terminal. The terminal should be the window next to this.")
         call("echo 'PROCEED WITH THE UPDATE FROM HERE' ; sudo pacman -Syu", shell=True)
 
-    sys_update = ttk.Button(updates_frame, text="System Update", command=sysUpd)
+    sys_update = ttk.Button(updates_frame, text="System Update", command=lambda: sysUpd)
     sys_update.pack(pady=gPady)
 
 
