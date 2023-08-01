@@ -317,14 +317,16 @@ def render_title(txt):
     #style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
     #main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
     #main_frame.grid(row=1, column=0, padx=3, pady=3)
-    font_size = 12
+    
     style = ttk.Style()
-    frame_color = "#333333"  # Color of the frame
-    button_color = "#4C554F" # Lighter shade of black
+    frame_color = "#333333"
+    button_color = "#4C554F"
+    font_size = 12
+    button_width = 17.5
 
     # Configure the style for the frame
-    style.configure("Custom.TLabelframe", background=frame_color, borderwidth=0, relief="flat")
-    style.map("Custom.TLabelframe", background=[("active", frame_color)])
+    style.configure("Custom.TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
+    #style.map("Custom.TLabelframe", background=[("active", frame_color)])
 
     # Configure the style for the buttons
     style.configure("Custom.TButton",
@@ -351,8 +353,8 @@ def render_title(txt):
                                     background=button_color,
                                     foreground="white",
                                     font=("Arial", font_size, "bold"),
-                                    width=20,
-                                    padding=10)
+                                    width=button_width,
+                                    padding=5)
                 adjust_button_width_to_text(child)
                 for grandchild in child.winfo_children():
                     if isinstance(grandchild, ttk.Button):
@@ -371,7 +373,7 @@ def render_title(txt):
     title_frame.grid(row=0, column=1, padx=10, pady=10)
 
     label = None
-    if not previous_page == "control":
+    if not previous_page == "control" or not previous_page == "home" or not previous_page == "docs":
         label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=root["bg"])
     else:
         label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=frame_color, foreground="white")
