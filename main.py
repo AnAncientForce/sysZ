@@ -358,7 +358,7 @@ def render_title(txt):
     title_frame.grid(row=0, column=1, padx=10, pady=10)
 
     label = None
-    if previous_page == "control":
+    if not previous_page == "control":
         label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=root["bg"])
     else:
         label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=frame_color, foreground="white")
