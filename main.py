@@ -307,7 +307,6 @@ def adjust_button_width_to_text(parent_frame):
 
 
 def fade_screen():
-    root = tk.Tk()
     root.attributes('-alpha', 1.0)  # Set initial transparency to 1
 
     def change_transparency():
