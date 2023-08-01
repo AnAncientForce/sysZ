@@ -522,7 +522,7 @@ def control():
     sys_update.pack(pady=gPady)
 
 
-    update_button = ttk.Button(updates_frame, text="Update [sysZ]", command=update)
+    update_button = ttk.Button(options_frame, text="Update [sysZ]", command=update)
     update_button.pack(pady=gPady)
     
     restartSys = ttk.Button(options_frame, text="Restart [sysZ]", command=load)

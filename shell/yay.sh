@@ -9,8 +9,8 @@ yay_packages=(
     autotiling
 )
 not_installed=0
-
-echo "Checking AUR"
+key="AUR"
+echo "Checking $key"
 for package in "${yay_packages[@]}"; do
     if ! yay -Qs "$package" >/dev/null; then
         yay -S --noconfirm "$package"
@@ -19,5 +19,5 @@ for package in "${yay_packages[@]}"; do
 done
 
 if [ $not_installed -eq 0 ]; then
-    echo "All packages are already installed"
+    echo "$key packages are already installed"
 fi

@@ -33,7 +33,8 @@ pacman_packages=(
 # ttf-font-awesome, ranger, playerctl, piper, obsidian, intel-ucode
 not_installed=0
 
-echo "Checking Arch"
+key="Arch"
+echo "Checking $key"
 for package in "${pacman_packages[@]}"; do
     if ! pacman -Qs "$package" >/dev/null; then
         sudo pacman -S --noconfirm "$package"
@@ -42,5 +43,5 @@ for package in "${pacman_packages[@]}"; do
 done
 
 if [ $not_installed -eq 0 ]; then
-    echo "All packages are already installed"
+    echo "$key packages are already installed"
 fi
