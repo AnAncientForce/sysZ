@@ -494,7 +494,7 @@ def control():
     restartSys = ttk.Button(options_frame, text="Restart [sysZ]", command=load)
     restartSys.pack(pady=gPady)
 
-    lock_button = ttk.Button(power_frame, text="Lock", command=lambda: call("betterlockscreen -l"), shell=True)
+    lock_button = ttk.Button(power_frame, text="Lock", command=lambda: call("i3-msg 'exec betterlockscreen -l;'", shell=True))
     lock_button.pack(pady=gPady)
 
     logout_button = ttk.Button(power_frame, text="Logout", command=lambda: subprocess.Popen(["i3-msg", "exit"]))
