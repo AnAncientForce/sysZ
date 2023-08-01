@@ -1,6 +1,14 @@
-Possible issues
+[sysZ / To do]
+
+Present issues:
+
+- Better thread handling or an alternative approach needs to be used so there are no tk errors
+
+Solved issues:
 
 - picom-animations-git no longer exists so it has been replaced, it works fine one one laptop but very slow on the other
+
+* replaced with picom-simpleanims-git
 
 To do
 
@@ -13,3 +21,13 @@ To do
 - Put sysZ .json config in the home/config folder so it dose not get updated with the repo. This is a much better idea [DONE]
 
 - Make tk interface look more polished/nicer [IN_PROGRESS]
+
+* hard because on MacOS, everything just looks better by default
+* centered the main_frame depending on window size upon first 0.1 secs from launch
+
+- Replace progress bar with loading wheel [DONE]
+
+* is now thread based, meaning the loading/waiting times are dependant on how long the shell scripts take to execute
+* warning: non-crashing tk issues occuring
+
+- Code clean up, remove old comments [IN_PROGRESS]

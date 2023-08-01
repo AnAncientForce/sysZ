@@ -188,12 +188,10 @@ def execute_shell_script(script_path):
 
 def debugTxt(txt):
     global debug, debug_lbl_created
-
     if not debug_lbl_created:
         debug_lbl_created = True
         debug = ttk.Label(root, font=("Arial", 26), background=root['bg'], foreground="red")
         debug.pack(pady=100)
-    
     debug.config(text=txt)
 
 
@@ -309,9 +307,46 @@ def render_title(txt):
     #main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
     #main_frame.grid(row=1, column=0, padx=3, pady=3)
    
-    main_frame = ttk.LabelFrame(root, borderwidth=0, relief="groove")
-    main_frame.grid(row=0, column=0, padx=0, pady=0) #1
+    style = ttk.Style()
+    frame_color = "#333333"  # Color of the frame
+    button_color = "#4C554F" # Lighter shade of black
 
+    # Configure the style for the frame
+    style.configure("Custom.TLabelframe", background=frame_color, borderwidth=0, relief="flat")
+    style.map("Custom.TLabelframe", background=[("active", frame_color)])
+
+    # Configure the style for the buttons
+    style.configure("Custom.TButton",
+                    background=button_color,
+                    foreground="white",
+                    font=("Arial", 16, "bold"),
+                    width=20,
+                    padding=10)
+
+    main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
+    main_frame.grid(row=0, column=0, padx=0, pady=0)
+
+    def colouring(frame):
+        for child in frame.winfo_children():
+            if isinstance(child, ttk.Button):
+                child.configure(style="Custom.TButton")  # Apply custom style to buttons
+            elif isinstance(child, ttk.LabelFrame):
+                child.configure(style="Custom.TLabelframe")  # Apply custom style to child frames
+                child_style = ttk.Style()
+                child_style.configure("Child.TButton",
+                                    background=button_color,
+                                    foreground="white",
+                                    font=("Arial", 16, "bold"),
+                                    width=20,
+                                    padding=10)
+                for grandchild in child.winfo_children():
+                    if isinstance(grandchild, ttk.Button):
+                        grandchild.configure(style="Child.TButton")  # Apply custom style to buttons within child frames
+                    elif isinstance(grandchild, ttk.Frame):
+                        colouring(grandchild)  # Recursively process frames within child frames
+
+
+    #colouring(main_frame)
     #root.grid_rowconfigure(0, weight=1)
     #root.grid_rowconfigure(2, weight=1)
     #root.grid_columnconfigure(0, weight=1)
@@ -325,6 +360,7 @@ def render_title(txt):
 
     render_back_btn(main_frame)
     root.after(100, lambda: center_frame(main_frame, root))
+    root.after(100, lambda: colouring(main_frame))
     return main_frame
 
 
@@ -435,11 +471,6 @@ def control():
 
     execute_button = tk.Button(options_frame, text="Execute (Dev)", command=execute_code)
     execute_button.pack(pady=gPady)
-    
-    
-
-    
-    
 
     #splash_enabled = tk.BooleanVar(value=config.get('splashEnabled', False))
     #checkbox_splash = tk.Checkbutton(options_frame, text="Enable Splash", variable=splash_enabled, command=update_config)
@@ -462,6 +493,9 @@ def control():
     
     restartSys = ttk.Button(options_frame, text="Restart [sysZ]", command=load)
     restartSys.pack(pady=gPady)
+
+    lock_button = ttk.Button(power_frame, text="Lock", command=lambda: call("betterlockscreen -l"), shell=True)
+    lock_button.pack(pady=gPady)
 
     logout_button = ttk.Button(power_frame, text="Logout", command=lambda: subprocess.Popen(["i3-msg", "exit"]))
     logout_button.pack(pady=gPady)
