@@ -312,16 +312,17 @@ def fade_screen(root):
     def change_transparency():
         current_transparency = root.attributes('-alpha')
         if current_transparency > 0.0:
-            new_transparency = current_transparency - 0.1
+            new_transparency = current_transparency - 0.05  # Smaller increment for smoother transition
         else:
-            new_transparency = current_transparency + 0.1
+            new_transparency = current_transparency + 0.05  # Smaller increment for smoother transition
         root.attributes('-alpha', new_transparency)
         if new_transparency != 1.0 and new_transparency != 0.0:
-            root.after(100, change_transparency)
+            root.after(50, change_transparency)  # Reduced delay for faster transition
         elif new_transparency == 0.0:
             root.attributes('-alpha', 1.0)  # Set transparency back to 1 for fade-in
 
     change_transparency()
+
 
 
 
