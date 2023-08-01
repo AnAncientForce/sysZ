@@ -58,7 +58,7 @@ def docs(title, file):
     with open(config_path, "r") as file:
         text_content = file.read()
 
-    text_box = scrolledtext.ScrolledText(buttons_frame, font=("Arial", 14), bg=root["bg"], width=60, height=20)
+    text_box = scrolledtext.ScrolledText(buttons_frame, font=("Arial", 14), bg=root["bg"], fg="white", width=60, height=20)
     text_box.insert("1.0", text_content)
     text_box.pack(pady=5)
 
@@ -342,7 +342,7 @@ def render_title(txt):
     style = ttk.Style()
     frame_color = "#333333"
     button_color = "#4C554F"
-    font_size = 10
+    font_size = 12
     button_width = 17.5
     
     style.configure("Custom.TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
@@ -497,11 +497,11 @@ def control():
     checkbox_use_auto_tiling = tk.Checkbutton(options_frame, text="Use auto tiling", variable=use_auto_tiling, command=update_config)
     checkbox_use_auto_tiling.pack(pady=gPady)
 
-    execute_button = tk.Button(options_frame, text="Execute (Dev)", command=execute_code)
-    execute_button.pack(pady=gPady)
-
     
     # --- SETTING END
+
+    execute_button = tk.Button(options_frame, text="Execute (Dev)", command=execute_code)
+    execute_button.pack(pady=gPady)
 
     terminal_button = ttk.Button(buttons_frame, text="Open Terminal", command=lambda: subprocess.Popen(["alacritty", "&"], shell=True))
     terminal_button.pack(pady=gPady)
