@@ -322,7 +322,7 @@ def render_title(txt):
                     foreground="white",
                     font=("Arial", font_size, "bold"),
                     width=20,
-                    padding=10)
+                    padding=5)
 
     style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, foreground="white")
     
