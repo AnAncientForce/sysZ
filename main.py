@@ -382,6 +382,7 @@ def render_title(txt):
         label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=root["bg"])
     else:
         label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=frame_color, foreground="white")
+        root.configure(bg=frame_color)
     label.grid(row=0, column=1, pady=10)
 
     render_back_btn(main_frame)
