@@ -313,7 +313,7 @@ def hint(title, desc):
     title_font_size = 16
 
     
-    style.configure("TLabelframe", background=frame_color, borderwidth=5, relief="flat", highlightbackground="silver", highlightthickness=1)
+    style.configure("TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
     style.configure("TButton", background=button_color, foreground="white", font=("Arial", font_size, "bold"), width=button_width, padding=5)
     style.configure("TLabel", font=("Arial", font_size), background=frame_color, foreground="white")
     style.configure("TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white", background=frame_color)
@@ -345,9 +345,9 @@ def render_title(txt):
     font_size = 12
     button_width = 17.5
     
-    style.configure("Custom.TLabelframe", background=frame_color, borderwidth=5, relief="flat", highlightbackground="silver", highlightthickness=1)
+    style.configure("Custom.TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
     style.configure("Custom.TButton", background=button_color, foreground="white", font=("Arial", font_size, "bold"), width=button_width, padding=5)
-    style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, borderwidth=5, relief="flat", highlightbackground="silver", foreground="white")
+    style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, borderwidth=5, relief="flat", bordercolor="silver", foreground="white")
     
 
     main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
