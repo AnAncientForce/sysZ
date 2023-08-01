@@ -196,9 +196,6 @@ def debugTxt(txt):
 
 
 def update_confirmation():
-    #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/background_update_check.sh")])
-    #render_title("A new update is now available")
-    #render_back_btn()
     clear_tk_elements(root)
     root.configure(bg="#6495ED")
     root.title("Update")
@@ -221,15 +218,9 @@ def setup():
     call("i3-msg 'exec killall -9 picom;'", shell=True)
     if check_value_from_json('use_background_blur'):
         call("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
-        # print("use_background_blur are enabled.")
-        # subprocess.run("i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
     else:
         call("i3-msg 'exec picom -b --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'", shell=True)
-        # print("use_background_blur are disabled.")
-        # subprocess.Popen(["sh", os.path.expanduser("~/sysZ/main.sh")])
-        # run_shell_script_function(os.path.expanduser("~/sysZ/opt.sh"), "picom_without_animations")
-        # subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--backend", "glx", "--animations", "--animation-for-open-window", "zoom", "--corner-radius", "4", "--vsync"])
-        # subprocess.run(["i3-msg", "exec", "picom", "-b", "--blur-background", "--corner-radius", "4", "--vsync"])
+        
     
     if check_value_from_json('use_auto_tiling'):
        call("i3-msg 'exec killall -9 autotiling; workspace 9; exec alacritty -e autotiling;'", shell=True)
@@ -341,19 +332,12 @@ def hint(title, desc):
 
     root.after(10, lambda: center_frame(main_frame, root))
 
-    
-
-
 
 
 
 
 def render_title(txt):
     root.title(txt)
-    #style = ttk.Style()
-    #style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
-    #main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
-    #main_frame.grid(row=1, column=0, padx=3, pady=3)
     
     style = ttk.Style()
     frame_color = "#333333"
@@ -362,7 +346,6 @@ def render_title(txt):
     button_width = 17.5
     
     style.configure("Custom.TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
-    #style.map("Custom.TLabelframe", background=[("active", frame_color)])
     style.configure("Custom.TButton", background=button_color, foreground="white", font=("Arial", font_size, "bold"), width=button_width, padding=5)
     style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, borderwidth=5, relief="flat", bordercolor="silver", foreground="white")
     
@@ -390,12 +373,6 @@ def render_title(txt):
                     elif isinstance(grandchild, ttk.Frame):
                         colouring(grandchild)  # Recursively process frames within child frames
 
-
-    #colouring(main_frame)
-    #root.grid_rowconfigure(0, weight=1)
-    #root.grid_rowconfigure(2, weight=1)
-    #root.grid_columnconfigure(0, weight=1)
-    #root.grid_columnconfigure(2, weight=1)
 
     title_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
     title_frame.grid(row=0, column=1, padx=10, pady=10)
@@ -437,24 +414,19 @@ def render_back_btn(frame):
     page_controls = ttk.LabelFrame(frame,borderwidth=0, relief="groove")
     page_controls.grid(row=2, column=1, padx=10, pady=10)
 
-    #page_controls.grid(row=0, column=0, padx=10, pady=10)
-    #back_button = ttk.Button(page_controls, text="Back", command=goBack)
-    #back_button.pack(pady=1)
+    
     home_button = ttk.Button(page_controls, text="Home", command=home)
     home_button.pack(pady=1)
     close_button = ttk.Button(page_controls, text="Close", command=stop_loading)
     close_button.pack(pady=1)
-    #res = ttk.Button(page_controls, text="<dev>", command=resPy)
-    #res.pack(pady=1)
+    
 
 
 def control():
     global previous_page
     previous_page = "control"
     clear_tk_elements(root)
-    # previous_page = globals().setdefault('previous_page', 'control')
-    # root.attributes('-fullscreen', True) 
-    # root.title("sysZ | control")
+    
     root.configure(bg="#6495ED")
     main_frame = render_title("sysZ | control")
     gPady = 7
@@ -495,7 +467,7 @@ def control():
     
    
     def execute_code():
-        hint("Use Terminal", "The terminal should be the window next to this. Please proceed in the terminal. Press CTRL+C to cancel")
+        hint("Hint", "Test Test Test Test Test Test Test Test Test Test Test Test\nTest Test Test Test Test Test Test Test Test Test \nTest Test Test Test Test Test Test Test")
         if check_value_from_json('use_background_blur'):
             print("Animations enabled")
             
@@ -526,10 +498,6 @@ def control():
 
     execute_button = tk.Button(options_frame, text="Execute (Dev)", command=execute_code)
     execute_button.pack(pady=gPady)
-
-    #splash_enabled = tk.BooleanVar(value=config.get('splashEnabled', False))
-    #checkbox_splash = tk.Checkbutton(options_frame, text="Enable Splash", variable=splash_enabled, command=update_config)
-    #checkbox_splash.pack(pady=gPady)
 
     
     # --- SETTING END
@@ -682,12 +650,6 @@ def clear_tk_elements(root):
 if len(sys.argv) > 1 and sys.argv[1] == 'load':
     root = tk.Tk()
     load()
-
-    #try:
-    #   execute_shell_script("~/sysZ/shell/setup.sh")
-    #except Exception as e:
-    #    print(f"An error occurred: {e}")
-    #    error("setup script has failed")
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'docs':
