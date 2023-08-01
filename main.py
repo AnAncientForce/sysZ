@@ -278,18 +278,22 @@ def set_value_in_json(key, value):
 
 
 def center_frame(frame, window):
-    frame.update_idletasks()
-    width = frame.winfo_reqwidth()
-    height = frame.winfo_reqheight()
+    try:
+        frame.update_idletasks()
+        width = frame.winfo_reqwidth()
+        height = frame.winfo_reqheight()
 
-    window_width = window.winfo_width()
-    window_height = window.winfo_height()
+        window_width = window.winfo_width()
+        window_height = window.winfo_height()
 
-    x_offset = (window_width - width) // 2
-    y_offset = (window_height - height) // 2
+        x_offset = (window_width - width) // 2
+        y_offset = (window_height - height) // 2
 
-    frame.place(x=x_offset, y=y_offset)
-    root.after(500, lambda: center_frame(frame, window))
+        frame.place(x=x_offset, y=y_offset)
+        root.after(500, lambda: center_frame(frame, window))
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    
 
 
 def adjust_button_width_to_text(parent_frame):
