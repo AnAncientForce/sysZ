@@ -318,7 +318,7 @@ button_width = 17.5
 title_font_size = 16
 styles_not_setup = True
 
-def setup_styles():
+def refresh_styles():
     global style, frame_color, button_color, font_size, button_width, title_font_size
     style = ttk.Style()
     '''
@@ -374,19 +374,22 @@ def hint(title, desc):
 
 
 def render_title(txt):
-    global style, frame_color, button_color, font_size, button_width, title_font_size, styles_not_setup
+    
     
     root.title(txt)
 
-    if styles_not_setup:
-        styles_not_setup = False
-        setup_styles()
+   
     #style = ttk.Style()
     #style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
     #main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
     #main_frame.grid(row=1, column=0, padx=3, pady=3)
     
-    
+    global style, frame_color, button_color, font_size, button_width, title_font_size, styles_not_setup
+    frame_color = "#333333"
+    button_color = "#4C554F"
+    font_size = 10
+    button_width = 17.5
+    refresh_styles()
 
     main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
     main_frame.grid(row=0, column=0, padx=0, pady=0)
