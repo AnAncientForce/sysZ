@@ -289,7 +289,7 @@ def center_frame(frame, window):
     y_offset = (window_height - height) // 2
 
     frame.place(x=x_offset, y=y_offset)
-    root.after(2500, lambda: center_frame(frame, window))
+    root.after(500, lambda: center_frame(frame, window))
 
 
 def adjust_button_width_to_text(parent_frame):
