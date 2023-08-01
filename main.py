@@ -170,6 +170,7 @@ def execute_shell_script(script_path):
         stdout, stderr = process.communicate()
 
         # Print the captured output
+        print(stdout)
         debugTxt(stdout)
 
         global script_complete, previous_page, setup_pending

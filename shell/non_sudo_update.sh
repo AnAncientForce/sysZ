@@ -46,3 +46,4 @@ betterlockscreen ~/sysZ/bg.png
 themes_setup
 cd "$current_dir"
 # i3-msg 'exec sh ~/sysZ/shell/setup.sh;'
+echo "non_sudo_update has finished"
