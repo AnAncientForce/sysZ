@@ -313,43 +313,42 @@ def adjust_button_width_to_text(parent_frame):
 
 
 def hint(title, desc):
-    #popup = tk.Toplevel()
-    #popup.title(title)
-    #popup.transient(root)  # Make the popup window appear within the main window
-
     style = ttk.Style()
+    style.theme_create("CustomTheme", parent="default")  # Create a custom theme based on the default theme
+    style.theme_use("CustomTheme")  # Use the custom theme
+
     frame_color = "#808080"
     button_color = "#4C554F"
     font_size = 12
     button_width = 17.5
     title_font_size = 16
     
-    style.configure("Custom.TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
-    style.configure("Custom.TButton",
+    style.configure("CustomTheme.TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
+    style.configure("CustomTheme.TButton",
                     background=button_color,
                     foreground="white",
                     font=("Arial", font_size, "bold"),
                     width=button_width,
                     padding=5)
-    style.configure("Custom.TLabel", font=("Arial", font_size))
-    style.configure("Custom.TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white")
+    style.configure("CustomTheme.TLabel", font=("Arial", font_size))
+    style.configure("CustomTheme.TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white")
     
-    main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
+    main_frame = ttk.LabelFrame(popup, style="CustomTheme.TLabelframe")
     main_frame.grid(row=0, column=0, padx=10, pady=10)
 
     # Add label to display title
-    title_label = ttk.Label(main_frame, text=title, style="Custom.TLabelframe.Label")
+    title_label = ttk.Label(main_frame, text=title, style="CustomTheme.TLabelframe.Label")
     title_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
 
     # Add label to display description
-    desc_label = ttk.Label(main_frame, text=desc, style="Custom.TLabel")
+    desc_label = ttk.Label(main_frame, text=desc, style="CustomTheme.TLabel")
     desc_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
 
-    # Add "Ok!" button to close the popup
-    ok_button = ttk.Button(main_frame, text="Ok!", command=main_frame.destroy, style="Custom.TButton")
+    # Add "Continue" button to close the popup
+    ok_button = ttk.Button(main_frame, text="Continue", command=main_frame.destroy, style="CustomTheme.TButton")
     ok_button.grid(row=2, column=0, padx=10, pady=10)
 
-    center_frame(main_frame, root)
+    
 
 
 
@@ -564,12 +563,12 @@ def control():
     arch_pkg.pack(pady=gPady)
     yay_pkg = ttk.Button(updates_frame, text="AUR PKG", command=lambda: subprocess.Popen("sh " + os.path.expanduser("~/sysZ/shell/yay.sh"), shell=True))
     yay_pkg.pack(pady=gPady)
-    sys_update = ttk.Button(updates_frame, text="System Update", command=lambda: sysUpd)
-    sys_update.pack(pady=gPady)
-
     def sysUpd():
         hint("Use Terminal", "Please proceed in the terminal. The terminal should be the window next to this.")
         call("echo 'PROCEED WITH THE UPDATE FROM HERE' ; sudo pacman -Syu", shell=True)
+
+    sys_update = ttk.Button(updates_frame, text="System Update", command=sysUpd)
+    sys_update.pack(pady=gPady)
 
 
     update_button = ttk.Button(options_frame, text="Update [sysZ]", command=update)
