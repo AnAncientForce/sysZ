@@ -298,8 +298,7 @@ def center_frame(frame, window):
     y_offset = (window_height - height) // 2
 
     frame.place(x=x_offset, y=y_offset)
-    root.after(5000, center_frame(frame, window))
-    #root.after(5000, lambda: center_frame(frame, window))
+    root.after(5000, lambda: center_frame(frame, window))
 
 
 def render_title(txt):
