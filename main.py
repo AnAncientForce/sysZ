@@ -344,7 +344,6 @@ def render_title(txt):
         for child in frame.winfo_children():
             if isinstance(child, ttk.Button):
                 child.configure(style="Custom.TButton")  # Apply custom style to buttons
-                adjust_button_width_to_text(child)
             elif isinstance(child, ttk.LabelFrame):
                 child.configure(style="Custom.TLabelframe")  # Apply custom style to child frames
                 child_style = ttk.Style()
@@ -354,10 +353,10 @@ def render_title(txt):
                                     font=("Arial", font_size, "bold"),
                                     width=20,
                                     padding=10)
+                adjust_button_width_to_text(child)
                 for grandchild in child.winfo_children():
                     if isinstance(grandchild, ttk.Button):
                         grandchild.configure(style="Child.TButton")  # Apply custom style to buttons within child frames
-                        adjust_button_width_to_text(grandchild)
                     elif isinstance(grandchild, ttk.Frame):
                         colouring(grandchild)  # Recursively process frames within child frames
 
