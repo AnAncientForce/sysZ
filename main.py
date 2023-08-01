@@ -329,8 +329,8 @@ def hint(title, desc):
                     font=("Arial", font_size, "bold"),
                     width=button_width,
                     padding=5)
-    style.configure("TLabel", font=("Arial", font_size))
-    style.configure("TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white")
+    style.configure("TLabel", font=("Arial", font_size), background=frame_color)
+    style.configure("TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white", background=frame_color)
 
     main_frame = ttk.LabelFrame(root, style="TLabelframe")
     main_frame.grid(row=0, column=0, padx=10, pady=10)
