@@ -311,17 +311,17 @@ def adjust_button_width_to_text(parent_frame):
             child.configure(width=len(text))
 
 
+frame_color = "#808080"
+button_color = "#4C554F"
+font_size = 12
+button_width = 17.5
+title_font_size = 16
 
-def hint(title, desc):
+
+def setup_styles():
+    global frame_color, button_color, font_size, button_width, title_font_size
+
     style = ttk.Style()
-
-    frame_color = "#808080"
-    button_color = "#4C554F"
-    font_size = 12
-    button_width = 17.5
-    title_font_size = 16
-
-    # Modify the existing theme instead of creating a new one
     style.configure("TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
     style.configure("TButton",
                     background=button_color,
@@ -331,6 +331,25 @@ def hint(title, desc):
                     padding=5)
     style.configure("TLabel", font=("Arial", font_size), background=frame_color, foreground="white")
     style.configure("TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white", background=frame_color)
+
+    '''
+    # render_title
+    style.configure("Custom.TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
+    #style.map("Custom.TLabelframe", background=[("active", frame_color)])
+
+    # Configure the style for the buttons
+    style.configure("Custom.TButton",
+                    background=button_color,
+                    foreground="white",
+                    font=("Arial", font_size, "bold"),
+                    width=button_width,
+                    padding=5)
+
+    style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, borderwidth=5, relief="flat", bordercolor="silver", foreground="white")
+    '''
+
+def hint(title, desc):
+    global frame_color, button_color, font_size, button_width, title_font_size
 
     main_frame = ttk.LabelFrame(root, style="TLabelframe")
     main_frame.pack(fill="both", padx=10, pady=10, expand=True)
@@ -354,31 +373,13 @@ def hint(title, desc):
 
 
 def render_title(txt):
+    global frame_color, button_color, font_size, button_width, title_font_size
     root.title(txt)
     #style = ttk.Style()
     #style.configure("Title.TLabelframe", background=root["bg"], relief="flat")
     #main_frame = ttk.LabelFrame(root,borderwidth=0, relief="groove") # style="Title.TLabelframe"
     #main_frame.grid(row=1, column=0, padx=3, pady=3)
     
-    style = ttk.Style()
-    frame_color = "#333333"
-    button_color = "#4C554F"
-    font_size = 10
-    button_width = 17.5
-
-    # Configure the style for the frame
-    style.configure("Custom.TLabelframe", background=frame_color, borderwidth=5, relief="flat", bordercolor="silver")
-    #style.map("Custom.TLabelframe", background=[("active", frame_color)])
-
-    # Configure the style for the buttons
-    style.configure("Custom.TButton",
-                    background=button_color,
-                    foreground="white",
-                    font=("Arial", font_size, "bold"),
-                    width=button_width,
-                    padding=5)
-
-    style.configure("Custom.TLabelframe.Label", font=("Arial", font_size, "bold"), background=frame_color, borderwidth=5, relief="flat", bordercolor="silver", foreground="white")
     
 
     main_frame = ttk.LabelFrame(root, style="Custom.TLabelframe")
