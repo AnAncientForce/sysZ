@@ -75,7 +75,7 @@ def docs(title, file):
         
 
 def openBrowser():
-    subprocess.run(["xdg-open", "https://localhost:631"])
+    call("xdg-open https://localhost:631")
 
 def update():
     clear_tk_elements(root)
@@ -353,11 +353,11 @@ def hint(title, desc, shortcut_func=None):
         no_button = ttk.Button(main_frame, text="CANCEL", command=main_frame.destroy, style="TButton")
         no_button.grid(row=2, column=0, padx=5, pady=5)
         
-        shortcut_button = ttk.Button(main_frame, text="PROCEED", command=shortcut_func, style="TButton")
+        shortcut_button = ttk.Button(main_frame, text="PROCEED", command=lambda: [shortcut_func(), main_frame.destroy()], style="TButton")
         shortcut_button.grid(row=3, column=0, padx=5, pady=5)
     else:
-        ok_button = ttk.Button(main_frame, text="PROCEED", command=main_frame.destroy, style="TButton")
-    ok_button.grid(row=2, column=0, padx=5, pady=5)
+        ok_button = ttk.Button(main_frame, text="DISMISS", command=main_frame.destroy, style="TButton")
+        ok_button.grid(row=2, column=0, padx=5, pady=5)
     root.after(100, lambda: center_frame(main_frame, root))
 
 
