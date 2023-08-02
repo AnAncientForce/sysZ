@@ -7,7 +7,7 @@ import os
 import json
 from subprocess import call
 from PIL import Image, ImageTk
-from ttkthemes import ThemedTk
+#from ttkthemes import ThemedTk
 
 root = None
 previous_page = "home"
@@ -19,7 +19,8 @@ progress_bar = None
 
 def createRoot():
     global root
-    root = ThemedTk(theme="Adapta")
+    #root = ThemedTk(theme="Adapta")
+    root = tk.Tk()
 
 def stop_loading():
     root.destroy()
