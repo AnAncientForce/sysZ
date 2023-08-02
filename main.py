@@ -667,8 +667,8 @@ def docsOverview():
     pkg_btn = ttk.Button(buttons_frame, text="Packages & Updates", command=lambda: docs("How to install packages", "docs/pkgs.txt"))
     pkg_btn.pack(pady=10)
 
-    old_button = ttk.Button(buttons_frame, text="Original Documentation", command=lambda: docs("sysZ | Docs", "docs.rtf"))
-    old_button.pack(pady=10)
+    i3_btn = ttk.Button(buttons_frame, text="i3-wm Shortcuts", command=lambda: docs("i3-wm keybinds", "docs/i3.txt"))
+    i3_btn.pack(pady=10)
 
 
 
