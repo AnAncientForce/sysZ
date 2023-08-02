@@ -350,7 +350,18 @@ def hint(title, desc):
 
 def render_title(txt):
     root.title(txt)
-    
+    '''
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+    image_path = os.path.join(script_directory, "line.png")
+    image = Image.open(image_path)
+    image = image.resize((400, 400), resample=Image.BICUBIC)
+    image = image.convert("RGBA")
+    photo = ImageTk.PhotoImage(image)
+    c = tk.Label(root)
+    c.pack(pady=25)
+    c.config(image=photo, background=root["bg"])
+    c.place(x=0, y=0, relwidth=1, relheight=1)
+    '''
     style = ttk.Style()
     style.theme_use("clam")
     frame_color = "#333333"

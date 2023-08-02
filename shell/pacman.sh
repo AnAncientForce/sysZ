@@ -29,6 +29,7 @@ pacman_packages=(
     qt5ct
     jq
     python-pillow
+    breeze
 )
 # ttf-font-awesome, ranger, playerctl, piper, obsidian, intel-ucode
 not_installed=0
