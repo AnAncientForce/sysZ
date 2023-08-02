@@ -17,6 +17,7 @@ devices
 
 pair DC:F4:CA:CB:93:A1
 trust DC:F4:CA:CB:93:A1
+* Replace the code with your own device's code
 
 Troubleshooting:
 1. to set as default output, check the "tick" box next to AirPods in pavucontrol
