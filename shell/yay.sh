@@ -7,6 +7,7 @@ yay_packages=(
     librewolf-bin
     picom-simpleanims-git
     autotiling
+    ttf-font-awesome-4
 )
 not_installed=0
 key="AUR"

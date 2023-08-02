@@ -20,7 +20,6 @@ pacman_packages=(
     sox
     thunar
     tldr
-    ttf-font-awesome
     wget
     zip
     python-pip
