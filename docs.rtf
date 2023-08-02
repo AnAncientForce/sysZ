@@ -24,3 +24,27 @@ python main.py [docs, control]
 
 docs                        View docs provided by sysZ
 control                     Access the control panel provided by sysZ
+
+// Bluetooth
+
+sudo pacman -S bluez bluez-utils
+
+lsmod | grep btusb
+
+sudo systemctl start bluetooth.service
+sudo systemctl enable bluetooth.service
+
+bluetoothctl
+
+power on
+agent on
+default-agent
+scan on
+devices
+
+pair DC:F4:CA:CB:93:A1
+trust DC:F4:CA:CB:93:A1
+
+to set as default output, check the "tick" box next to AirPods in pavucontrol
+
+##### If the device is already paired and not connecting, use the remove command and re-pair.

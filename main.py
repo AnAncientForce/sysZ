@@ -440,6 +440,11 @@ def render_back_btn(frame):
     page_controls = ttk.LabelFrame(frame, text="<>")
     page_controls.grid(row=2, column=1, padx=10, pady=10)
 
+    def checkHomeLoc():
+        if previous_page == "docsOverview":
+            docsOverview()
+        else:
+            home()
     
     home_button = ttk.Button(page_controls, text="Home", command=home)
     home_button.pack(pady=1)
@@ -628,7 +633,7 @@ def home():
     buttons_frame = ttk.LabelFrame(main_frame,borderwidth=0, relief="groove")
     buttons_frame.grid(row=1, column=1, padx=0, pady=0)
 
-    docs_button = ttk.Button(buttons_frame, text="View Documentation", command=lambda: docs("sysZ | Docs", "docs.rtf"))
+    docs_button = ttk.Button(buttons_frame, text="View Documentation", command=docsOverview)
     docs_button.pack(pady=10)
 
     control_button = ttk.Button(buttons_frame, text="Control Panel", command=control)
@@ -647,6 +652,23 @@ def home():
 
 
 
+def docsOverview():
+    global previous_page
+    previous_page = "docsOverview"
+    clear_tk_elements(root)
+    main_frame = render_title("Guide")
+
+    buttons_frame = ttk.LabelFrame(main_frame, padding=5)
+    buttons_frame.grid(row=1, column=1, padx=5, pady=5)
+
+    bluetooth_btn = ttk.Button(buttons_frame, text="Bluetooth", command=lambda: docs("How to use bluetooth", "docs/bluetooth.txt"))
+    bluetooth_btn.pack(pady=10)
+
+    pkg_btn = ttk.Button(buttons_frame, text="Packages & Updates", command=lambda: docs("How to install packages", "docs/pkgs.txt"))
+    pkg_btn.pack(pady=10)
+
+    old_button = ttk.Button(buttons_frame, text="Original Documentation", command=lambda: docs("sysZ | Docs", "docs.rtf"))
+    old_button.pack(pady=10)
 
 
 
@@ -679,7 +701,8 @@ if len(sys.argv) > 1 and sys.argv[1] == 'load':
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'docs':
-    docs("sysZ | Docs", "docs.rtf")
+    docsOverview()
+    # docs("sysZ | Docs", "docs.rtf")
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'update':

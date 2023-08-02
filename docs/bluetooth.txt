@@ -1,0 +1,23 @@
+Open a terminal and run these commands in order
+
+sudo pacman -S bluez bluez-utils
+
+lsmod | grep btusb
+
+sudo systemctl start bluetooth.service
+sudo systemctl enable bluetooth.service
+
+bluetoothctl
+
+power on
+agent on
+default-agent
+scan on
+devices
+
+pair DC:F4:CA:CB:93:A1
+trust DC:F4:CA:CB:93:A1
+
+Troubleshooting:
+1. to set as default output, check the "tick" box next to AirPods in pavucontrol
+2. if the device is already paired and not connecting, use the remove command and re-pair.
