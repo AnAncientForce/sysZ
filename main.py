@@ -75,7 +75,7 @@ def docs(title, file):
         
 
 def openBrowser():
-    call("xdg-open https://localhost:631")
+    call("i3-msg 'exec xdg-open https://localhost:631;'", shell=True)
 
 def update():
     clear_tk_elements(root)
