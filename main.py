@@ -75,7 +75,7 @@ def docs(title, file):
         
 
 def openBrowser():
-    subprocess.run(["open", "https://localhost:631"])
+    subprocess.run(["xdg-open", "https://localhost:631"])
 
 def update():
     clear_tk_elements(root)
