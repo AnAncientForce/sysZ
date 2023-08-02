@@ -70,7 +70,12 @@ def docs(title, file):
     text_box.insert("1.0", text_content)
     text_box.pack(pady=5)
 
-    
+    if title == "Printer Setup":
+        hint("Shortcut", "Open localhost?", openBrowser)
+        
+
+def openBrowser():
+    subprocess.run(["open", "https://localhost:631"])
 
 def update():
     clear_tk_elements(root)
@@ -315,7 +320,7 @@ def adjust_button_width_to_text(parent_frame):
 
 
 
-def hint(title, desc):
+def hint(title, desc, shortcut_func=None):
     style = ttk.Style()
 
     frame_color = "#808080"
@@ -331,18 +336,29 @@ def hint(title, desc):
     style.configure("TLabelframe.Label", font=("Arial", title_font_size, "bold"), foreground="white", background=frame_color)
 
     main_frame = ttk.LabelFrame(root, style="TLabelframe", borderwidth=0)
-    main_frame.pack(fill="both", padx=10, pady=10, expand=True)
+    main_frame.grid(row=1, column=1, padx=0, pady=0)
+
+    root.grid_columnconfigure(1, weight=1)
+    root.grid_rowconfigure(1, weight=1)
+    main_frame.grid_columnconfigure(0, weight=1)
+    main_frame.grid_rowconfigure(0, weight=1)
 
     title_label = ttk.Label(main_frame, text=title, style="TLabelframe.Label")
-    title_label.pack(padx=10, pady=10)
+    title_label.grid(row=0, column=0, padx=5, pady=5)
 
     desc_label = ttk.Label(main_frame, text=desc, style="TLabel")
-    desc_label.pack(padx=10, pady=10, anchor="w")
+    desc_label.grid(row=1, column=0, padx=5, pady=5)
 
-    ok_button = ttk.Button(main_frame, text="CONTINUE", command=main_frame.destroy, style="TButton")
-    ok_button.pack(padx=10, pady=10)
-
-    root.after(10, lambda: center_frame(main_frame, root))
+    if shortcut_func:
+        no_button = ttk.Button(main_frame, text="CANCEL", command=main_frame.destroy, style="TButton")
+        no_button.grid(row=2, column=0, padx=5, pady=5)
+        
+        shortcut_button = ttk.Button(main_frame, text="PROCEED", command=shortcut_func, style="TButton")
+        shortcut_button.grid(row=3, column=0, padx=5, pady=5)
+    else:
+        ok_button = ttk.Button(main_frame, text="PROCEED", command=main_frame.destroy, style="TButton")
+    ok_button.grid(row=2, column=0, padx=5, pady=5)
+    root.after(100, lambda: center_frame(main_frame, root))
 
 
 
