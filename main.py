@@ -55,7 +55,7 @@ def load():
 
 def docs(title, file):
     clear_tk_elements(root)
-    root.configure(bg="#6495ED")
+    #root.configure(bg="#6495ED")
     main_frame = render_title(title)
 
     buttons_frame = ttk.LabelFrame(main_frame, borderwidth=0, relief="groove")
@@ -298,7 +298,7 @@ def center_frame(frame, window):
         y_offset = (window_height - height) // 2
 
         frame.place(x=x_offset, y=y_offset)
-        root.after(500, lambda: center_frame(frame, window))
+        root.after(100, lambda: center_frame(frame, window))
     except Exception as e:
         print(f"This cannot be fixed (p.1) An error occurred: {e}")
     
@@ -403,7 +403,7 @@ def render_title(txt):
     title_frame.grid(row=0, column=1, padx=10, pady=10)
 
     label = None
-    if not (previous_page == "control" or previous_page == "home" or previous_page == "docs"):
+    if not (previous_page == "control" or previous_page == "home" or previous_page == "docs" or previous_page == "docsOverview"):
         label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=root["bg"])
     else:
         label = ttk.Label(title_frame, text=txt, font=("Arial", 36), background=frame_color, foreground="white")
@@ -667,7 +667,7 @@ def docsOverview():
     pkg_btn = ttk.Button(buttons_frame, text="Packages & Updates", command=lambda: docs("How to install packages", "docs/pkgs.txt"))
     pkg_btn.pack(pady=10)
 
-    print_btn = ttk.Button(buttons_frame, text="Printing", command=lambda: docs("How to print", "docs/print.txt"))
+    print_btn = ttk.Button(buttons_frame, text="Printing", command=lambda: docs("Printer Setup", "docs/print.txt"))
     print_btn.pack(pady=10)
 
     i3_btn = ttk.Button(buttons_frame, text="i3-wm Shortcuts", command=lambda: docs("i3-wm keybinds", "docs/i3.txt"))
