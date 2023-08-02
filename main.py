@@ -7,7 +7,9 @@ import os
 import json
 from subprocess import call
 from PIL import Image, ImageTk
+from ttkthemes import ThemedTk
 
+root = None
 previous_page = "home"
 current_page = "home"
 setup_pending = False
@@ -15,9 +17,14 @@ debug_lbl_created = False
 debug = None
 progress_bar = None
 
+def createRoot():
+    global root
+    root = ThemedTk(theme="Adapta")
 
 def stop_loading():
     root.destroy()
+
+createRoot()
 
 def load():
     clear_tk_elements(root)
@@ -344,6 +351,7 @@ def render_title(txt):
     root.title(txt)
     
     style = ttk.Style()
+    style.theme_use("clam")
     frame_color = "#333333"
     button_color = "#4C554F"
     font_size = 12
@@ -654,30 +662,23 @@ def clear_tk_elements(root):
 
 
 
-
-
 if len(sys.argv) > 1 and sys.argv[1] == 'load':
-    root = tk.Tk()
     load()
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'docs':
-    root = tk.Tk()
     docs("sysZ | Docs", "docs.rtf")
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'update':
-    root = tk.Tk()
     update()
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'control':
-    root = tk.Tk()
     control()
     root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'home':
-    root = tk.Tk()
     home()
     root.mainloop()
 
@@ -686,16 +687,13 @@ if len(sys.argv) > 1 and sys.argv[1] == 'help':
 
 if len(sys.argv) > 1 and sys.argv[1] == 'update_confirmation':
     if not check_value_from_json('ignore_updates'):
-        root = tk.Tk()
         update_confirmation()
         root.mainloop()
 
 if len(sys.argv) > 1 and sys.argv[1] == 'ui_test':
-    root = tk.Tk()
     ui_test()
     root.mainloop()
     
 if len(sys.argv) > 1 and sys.argv[1] == 'no_grid':
-    root = tk.Tk()
     no_grid_test()
     root.mainloop()
