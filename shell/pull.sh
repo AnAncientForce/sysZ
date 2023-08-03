@@ -67,7 +67,7 @@ install_pacman=false
 install_yay=false
 wm_setup=false
 update_sysZ=false
-first-setup=false
+first_setup=false
 
 checkJson() {
     json_file="/home/$(whoami)/.config/sysZ/config.json"
