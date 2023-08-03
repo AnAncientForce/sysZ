@@ -31,6 +31,9 @@ createRoot()
 def select_wallpaper():
     clear_tk_elements(root)
     root.title("Select wallpaper")
+    label = ttk.Label(root, text="Change Wallpaper", font=("Arial", 26), background=root['bg'], foreground="white")
+    label.pack(pady=50)
+    
     grid_frame = tk.Frame(root)
     grid_frame.pack()
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -44,9 +47,6 @@ def select_wallpaper():
         dest_path = os.path.join(script_dir, "bg")
         call(f"cp -v {wallpaper_path} {dest_path}", shell=True)
         call(f"feh --bg-fill {wallpaper_path}", shell=True)
-    
-    label = ttk.Label(root, text="Change Wallpaper", font=("Arial", 36), background=root['bg'])
-    label.pack(pady=50)
 
     # Always use "BICUBIC" instead of "ANTIALIAS"
     for i, wallpaper in enumerate(wallpapers):
@@ -58,7 +58,7 @@ def select_wallpaper():
         button = tk.Button(grid_frame, image=img_tk, command=lambda wallpaper=wallpaper: wallpaper_selected(wallpaper))
         button.grid(row=i // 3, column=i % 3, padx=10, pady=10)
         button.image = img_tk
-        
+
     skip_button = ttk.Button(root, text="Home", command=home)
     skip_button.pack(pady=10)
 
