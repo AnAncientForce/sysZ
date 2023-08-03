@@ -4,4 +4,4 @@
 
 # Dependencies
 * [Arch Packages](https://github.com/AnAncientForce/sysZ/blob/main/shell/pacman.sh)
-* [AUR Packages]([https://github.com/AnAncientForce/sysZ/blob/main/shell/yay.sh)
+* [AUR Packages](https://github.com/AnAncientForce/sysZ/blob/main/shell/yay.sh)
