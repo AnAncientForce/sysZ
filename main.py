@@ -48,7 +48,7 @@ def select_wallpaper():
     def wallpaper_selected(wallpaper):
         print("Selected wallpaper:", wallpaper)
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        wallpaper_path = os.path.join(script_dir, wallpaper)
+        wallpaper_path = os.path.join(script_dir, "wallpapers", wallpaper)
         dest_path = os.path.join(script_dir, "wallpapers", "bg")
         subprocess.call(f"cp -v {wallpaper_path} {dest_path}", shell=True)
         print("Wallpaper copied successfully!")
