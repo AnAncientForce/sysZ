@@ -1,36 +1,5 @@
 #!/bin/bash
 
-cu() {
-    echo "Copying new files..."
-    cp "conf/i3" "/home/$(whoami)/.config/i3/config"
-    cp "conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
-    cp "conf/alacritty.yml" "/home/$(whoami)/.config/"
-
-    read -p "
-    Copy default config file?
-    " choice
-    if [ "$choice" = "y" ]; then
-        if [ -f "conf/config.json" ]; then
-            mkdir -p "/home/$(whoami)/.config/sysZ/"
-            cp "/home/$(whoami)/sysZ/conf/config.json" "/home/$(whoami)/.config/sysZ/"
-            echo "sysZ config copied successfully"
-        else
-            echo "sysZ config file dose not exist"
-        fi
-    else
-        echo "config.json was not replaced"
-    fi
-}
-
-themes_setup() {
-    echo "Installing themes"
-    cd
-    git clone --depth=1 https://github.com/adi1090x/rofi.git
-    cd rofi
-    chmod +x setup.sh
-    ./setup.sh
-}
-
 repo_pull() {
     # Store the current directory
     current_dir=$(pwd)
@@ -55,9 +24,32 @@ repo_pull() {
 echo "Manual update is starting"
 repo_pull
 echo "Updating configuration files"
-cu
+
+# configuration files
+echo "Copying configuration files..."
+cp "conf/i3" "/home/$(whoami)/.config/i3/config"
+cp "conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
+cp "conf/alacritty.yml" "/home/$(whoami)/.config/"
+
+# sysZ / config.json
+read -p "
+    Copy default sysZ config file?
+    " choice
+if [ "$choice" = "y" ]; then
+    if [ -f "conf/config.json" ]; then
+        mkdir -p "/home/$(whoami)/.config/sysZ/"
+        cp "/home/$(whoami)/sysZ/conf/config.json" "/home/$(whoami)/.config/sysZ/"
+        echo "sysZ config copied successfully"
+    else
+        echo "sysZ config file dose not exist"
+    fi
+else
+    echo "config.json was not replaced"
+fi
+
 echo "Scanning for changes in default applications"
 
+# install yay
 read -p "
 Install yay?
 (y/n): " choice
@@ -72,33 +64,43 @@ if [ "$choice" = "y" ]; then
     yay --version
 fi
 
-read -p "
-(i) Install AUR Packages (if not already installed)
-(s) Skip
-(i/c/s): " choice
-
-if [ "$choice" = "i" ] || [ "$choice" = "c" ] || [ "$choice" = "b" ] || [ "$choice" = "s" ]; then
-    if [ "$choice" = "i" ]; then
-        sh /home/$(whoami)/sysZ/shell/yay.sh
-    elif [ "$choice" = "s" ]; then
-        echo "Skipping..."
-    fi
-else
-    echo "Skipping..."
-fi
-
+# rofi
 read -p "
 [CAUTION]: rofi will not function correctly without this due to how the current configuration is setup
 Check if themes are installed? (if not, install them)
 (y/n): " choice
 if [ "$choice" = "y" ]; then
-    themes_setup
+    echo "Installing themes"
+    cd
+    git clone --depth=1 https://github.com/adi1090x/rofi.git
+    cd rofi
+    chmod +x setup.sh
+    ./setup.sh
 else
     echo "CAUTION: super + d may not work/function correctly"
 fi
 
+# packages & update
+read -p "
+(y) Install yay packages
+(p) Install pacman packages
+(u) System Update
+" choice
+
+if [ "$choice" = "y" ]; then
+    sh /home/$(whoami)/sysZ/shell/yay.sh
+elif [ "$choice" = "p" ]; then
+    sh /home/$(whoami)/sysZ/shell/pacman.sh
+elif [ "$choice" = "u" ]; then
+    sudo pacman -Syu
+else
+    echo "Skipping..."
+fi
+
+# render lockscreen
 echo "Rendering lockscreen"
 betterlockscreen ~/sysZ/bg
+
 # .png
 # echo "Checking python setup..."
 # python3 -m venv .venv
@@ -109,5 +111,6 @@ betterlockscreen ~/sysZ/bg
 # sh shell/setup.sh
 # Return to the original directory
 
+# end
 echo "===> All done! :)"
 cd "$current_dir"

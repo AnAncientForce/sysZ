@@ -203,7 +203,7 @@ mode "$mode_sysZ" {
 	bindsym l exec betterlockscreen -l dimblur, mode "default"
 	bindsym w exec alacritty -e sh ~/sysZ/shell/cw.sh, mode "default"
 	bindsym r exec sh ~/sysZ/shell/setup.sh, mode "default"
-        bindsym u exec alacritty -e sh ~/sysZ/pull.sh, mode "default"
+        bindsym u exec alacritty -e sh ~/sysZ/shell/pull.sh, mode "default"
         bindsym d exec alacritty -e python ~/sysZ/main.py docs", mode "default"
         bindsym Return mode "default"
         bindsym Escape mode "default"

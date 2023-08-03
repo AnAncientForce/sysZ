@@ -4,13 +4,13 @@ yay_packages=(
     "vimix-gtk-themes"
     "vimix-cursors"
     "vimix-icon-theme"
-    "betterlockscreen"
     "cava-git"
     "librewolf-bin"
     "picom-simpleanims-git"
     "autotiling"
     "ttf-font-awesome-4"
 )
+# betterlockscreen must be installed manually
 
 not_installed=0
 key="AUR"
