@@ -102,11 +102,9 @@ def select_wallpaper():
     content_frame = tk.Frame(root, background=root['bg'])
     content_frame.pack(fill=tk.BOTH, expand=True)
 
-    # Pack the grid frame and the skip button inside the content frame
     grid_frame.pack(pady=20, padx=20, fill=tk.BOTH, expand=True)
-    skip_button = ttk.Button(content_frame, text="Home", command=home)
+    skip_button = ttk.Button(root, text="Home", command=home)
     skip_button.pack(pady=10)
-    skip_button.place(relx=0.5, rely=1.0, anchor=tk.CENTER)
 
 
 
