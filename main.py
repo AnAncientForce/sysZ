@@ -184,8 +184,10 @@ def update():
     try:
         prepare_image_rotation(root)
         debugTxt("Checking github repository for updates")
-        subprocess_thread = threading.Thread(target=lambda: execute_shell_script("~/sysZ/shell/pull.sh", automatic_flag=True))
+        subprocess_thread = threading.Thread(target=lambda: execute_shell_script("~/sysZ/shell/pull.sh --automatic"))
         subprocess_thread.start()
+        #subprocess_thread = threading.Thread(target=lambda: execute_shell_script("~/sysZ/shell/pull.sh", automatic_flag=True))
+        #subprocess_thread.start()
         global setup_pending
         setup_pending = True
         #subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/non_sudo_update.sh")])
@@ -257,40 +259,32 @@ def execute_shell_script(script_path, automatic_flag=False):
         debugTxt("Started new thread, updater has started")
 
         # Build the subprocess command based on the automatic_flag value
-        command = ["sh", expanded_path]
         if automatic_flag:
-            command.extend(["--automatic"])
-
-        # Use subprocess.Popen instead of subprocess.run
-        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        stdout, stderr = process.communicate()
-
-        # Check if the process returned a non-zero exit status
-        if process.returncode != 0:
-            print(f"Error executing shell script: {stderr.decode('utf-8').strip()}")
-            error()
+            command = ["sh", expanded_path, "--automatic"]
         else:
-            global script_complete, previous_page, setup_pending
-            script_complete = True
-            print("script_complete = True")
-            debugTxt("script_complete = True")
-            if setup_pending:
-                setup_pending = False
-                setup()
-                debugTxt("Shell setup has finished")
+            command = ["sh", expanded_path]
 
-            if previous_page == "control":
-                control()
-                # root.after(3000, control)
-            else:
-                debugTxt("Closing python interface")
-                stop_loading()
-                # root.after(3000, stop_loading)
+        subprocess.run(command, check=True)
+        global script_complete, previous_page, setup_pending
+        script_complete = True
+        print("script_complete = True")
+        debugTxt("script_complete = True")
+        if setup_pending:
+            setup_pending = False
+            setup()
+            debugTxt("Shell setup has finished")
 
-    except Exception as e:
+        if previous_page == "control":
+            control()
+            # root.after(3000, control)
+        else:
+            debugTxt("Closing python interface")
+            stop_loading()
+            # root.after(3000, stop_loading)
+
+    except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
         error()
-
 
 
 
