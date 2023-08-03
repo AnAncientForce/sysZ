@@ -102,9 +102,9 @@ def select_wallpaper():
     canvas.bind("<Configure>", on_canvas_resized)
 
     skip_button = ttk.Button(root, text="Home", command=home)
-    skip_button.pack(side=tk.BOTTOM, pady=10)
+    skip_button.pack(side=tk.BOTTOM, fill=tk.X, pady=10)
 
-# The rest of your code...
+
 
 
 def load():
