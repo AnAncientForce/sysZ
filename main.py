@@ -31,6 +31,12 @@ createRoot()
 def select_wallpaper():
     clear_tk_elements(root)
     root.title("Select wallpaper")
+
+    # Function to update the canvas size and grid layout
+    def update_canvas_size(event):
+        canvas.config(scrollregion=canvas.bbox(tk.ALL))
+        canvas.itemconfig(frame_id, width=event.width - scrollbar.winfo_width())
+
     label = ttk.Label(root, text="Change Wallpaper", font=("Arial", 26), background=root['bg'], foreground="white")
     label.pack(pady=50)
 
@@ -47,7 +53,10 @@ def select_wallpaper():
 
     # Create a frame inside the canvas for the grid
     grid_frame = tk.Frame(canvas, background=root['bg'])
-    canvas.create_window((0, 0), window=grid_frame, anchor=tk.NW)
+    frame_id = canvas.create_window((0, 0), window=grid_frame, anchor=tk.NW)
+
+    # Bind the canvas to the window resizing event
+    root.bind("<Configure>", update_canvas_size)
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     wallpaper_dir = os.path.join(script_dir, "wallpapers")
@@ -61,23 +70,42 @@ def select_wallpaper():
         call(f"cp -v {wallpaper_path} {dest_path}", shell=True)
         call(f"feh --bg-fill {wallpaper_path}", shell=True)
 
-    for i, wallpaper in enumerate(wallpapers):
-        img = Image.open(os.path.join(wallpaper_dir, wallpaper))
-        img.thumbnail(target_size, Image.BICUBIC)
-        bordered_img = Image.new("RGB", target_size, "black")
-        bordered_img.paste(img, ((target_size[0] - img.size[0]) // 2, (target_size[1] - img.size[1]) // 2))
-        img_tk = ImageTk.PhotoImage(bordered_img)
-        button = tk.Button(grid_frame, image=img_tk, command=lambda wallpaper=wallpaper: wallpaper_selected(wallpaper))
-        button.grid(row=i // 3, column=i % 3, padx=10, pady=10)
-        button.image = img_tk
+    # Function to update the grid layout
+    def update_grid_layout():
+        # Calculate the number of columns based on the available width
+        num_columns = max(1, canvas.winfo_width() // (target_size[0] + 20))
+        # Clear the existing grid
+        for widget in grid_frame.winfo_children():
+            widget.destroy()
+        # Repopulate the grid with updated images and buttons
+        for i, wallpaper in enumerate(wallpapers):
+            img = Image.open(os.path.join(wallpaper_dir, wallpaper))
+            img.thumbnail(target_size, Image.BICUBIC)
+            bordered_img = Image.new("RGB", target_size, "black")
+            bordered_img.paste(img, ((target_size[0] - img.size[0]) // 2, (target_size[1] - img.size[1]) // 2))
+            img_tk = ImageTk.PhotoImage(bordered_img)
+            button = tk.Button(grid_frame, image=img_tk, command=lambda wallpaper=wallpaper: wallpaper_selected(wallpaper))
+            button.grid(row=i // num_columns, column=i % num_columns, padx=10, pady=10)
+            button.image = img_tk
 
-    # Update the canvas scroll region
-    grid_frame.update_idletasks()
-    canvas.configure(scrollregion=canvas.bbox(tk.ALL))
+    # Update the grid layout initially
+    update_grid_layout()
+
+    # Function to handle canvas resizing events
+    def on_canvas_resized(event):
+        canvas.itemconfig(frame_id, width=event.width - scrollbar.winfo_width())
+
+        # Update the grid layout whenever the canvas size changes
+        update_grid_layout()
+
+    # Bind the canvas to the canvas resize event
+    canvas.bind("<Configure>", on_canvas_resized)
 
     skip_button = ttk.Button(root, text="Home", command=home)
     skip_button.pack(side=tk.BOTTOM, pady=10)
-    #skip_button.pack(pady=10)
+
+# The rest of your code...
+
 
 def load():
     clear_tk_elements(root)
