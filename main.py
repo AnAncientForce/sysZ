@@ -35,13 +35,17 @@ def select_wallpaper():
     label = ttk.Label(root, text="Change Wallpaper", font=("Arial", 26), background=root['bg'], foreground="white")
     label.pack(pady=50)
 
+    # Create a frame to hold the canvas and scrollbar
+    canvas_frame = tk.Frame(root, background=root['bg'])
+    canvas_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
     # Create a canvas widget
-    canvas = tk.Canvas(root, background=root['bg'])
-    canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+    canvas = tk.Canvas(canvas_frame, background=root['bg'])
+    canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
     # Add a scrollbar to the canvas
-    scrollbar = tk.Scrollbar(root, command=canvas.yview)
-    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+    scrollbar = tk.Scrollbar(canvas_frame, command=canvas.yview, orient=tk.VERTICAL)
+    scrollbar.pack(side=tk.RIGHT, fill='y')
 
     # Configure the canvas to use the scrollbar
     canvas.configure(yscrollcommand=scrollbar.set)
@@ -89,6 +93,7 @@ def select_wallpaper():
     skip_button.pack(side=tk.BOTTOM, pady=10)
 
 # Rest of your code...
+
 
 
 def load():
