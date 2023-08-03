@@ -1,24 +1,23 @@
 #!/bin/bash
-# Anything that requires root perms will be here
-# Anything that dose not require room perms will not be here
 
 if [ "$(id -u)" -ne 0 ]; then
-    echo "Please run this script with sudo or as root."
+    echo "[!] - Run as sudo or as root"
     exit 1
 fi
 
 echo "Root setup has started"
 
 read -p "
-Install pacman packages & check for updates?
+Install pacman packages & system update?
 (y/n): " choice
 
 if [ "$choice" = "y" ]; then
+    sudo pacman -Syu
     sudo -u $SUDO_USER sh /home/$SUDO_USER/sysZ/shell/pacman.sh
 fi
 
 read -p "
-Setup dark mode?
+Setup QT_QPA_PLATFORMTHEME?
 (y/n): " choice
 
 if [ "$choice" = "y" ]; then

@@ -6,7 +6,8 @@ cu() {
     cp "conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
     cp "conf/alacritty.yml" "/home/$(whoami)/.config/"
 
-    read -p "Copy default config file?
+    read -p "
+    Copy default config file?
     " choice
     if [ "$choice" = "y" ]; then
         if [ -f "conf/config.json" ]; then
@@ -62,6 +63,9 @@ Install yay?
 (y/n): " choice
 
 if [ "$choice" = "y" ]; then
+    if [ -d "yay" ]; then
+        rm -rf "yay"
+    fi
     git clone https://aur.archlinux.org/yay.git
     cd yay
     makepkg -si
@@ -82,9 +86,6 @@ if [ "$choice" = "i" ] || [ "$choice" = "c" ] || [ "$choice" = "b" ] || [ "$choi
 else
     echo "Skipping..."
 fi
-echo "Rendering lockscreen"
-betterlockscreen ~/sysZ/bg
-# .png
 
 read -p "
 [CAUTION]: rofi will not function correctly without this due to how the current configuration is setup
@@ -96,15 +97,17 @@ else
     echo "CAUTION: super + d may not work/function correctly"
 fi
 
-#echo "Checking python setup..."
-#python3 -m venv .venv
-#source .venv/bin/activate
-#python3 -m pip install -r requirements.txt
-
+echo "Rendering lockscreen"
+betterlockscreen ~/sysZ/bg
+# .png
+# echo "Checking python setup..."
+# python3 -m venv .venv
+# source .venv/bin/activate
+# python3 -m pip install -r requirements.txt
 # echo "Restarting shell"
 # i3-msg 'exec python ~/sysZ/main.py load;'
 # sh shell/setup.sh
-echo "===> All done! :)"
-
 # Return to the original directory
+
+echo "===> All done! :)"
 cd "$current_dir"
