@@ -33,9 +33,22 @@ def select_wallpaper():
     root.title("Select wallpaper")
     label = ttk.Label(root, text="Change Wallpaper", font=("Arial", 26), background=root['bg'], foreground="white")
     label.pack(pady=50)
-    
-    grid_frame = tk.Frame(root)
-    grid_frame.pack()
+
+    # Create a canvas widget
+    canvas = tk.Canvas(root)
+    canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+    # Add a scrollbar to the canvas
+    scrollbar = tk.Scrollbar(root, command=canvas.yview)
+    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+    # Configure the canvas to use the scrollbar
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    # Create a frame inside the canvas for the grid
+    grid_frame = tk.Frame(canvas, background=root['bg'])
+    canvas.create_window((0, 0), window=grid_frame, anchor=tk.NW)
+
     script_dir = os.path.dirname(os.path.abspath(__file__))
     wallpaper_dir = os.path.join(script_dir, "wallpapers")
     wallpapers = os.listdir(wallpaper_dir)
@@ -48,7 +61,6 @@ def select_wallpaper():
         call(f"cp -v {wallpaper_path} {dest_path}", shell=True)
         call(f"feh --bg-fill {wallpaper_path}", shell=True)
 
-    # Always use "BICUBIC" instead of "ANTIALIAS"
     for i, wallpaper in enumerate(wallpapers):
         img = Image.open(os.path.join(wallpaper_dir, wallpaper))
         img.thumbnail(target_size, Image.BICUBIC)
@@ -58,6 +70,10 @@ def select_wallpaper():
         button = tk.Button(grid_frame, image=img_tk, command=lambda wallpaper=wallpaper: wallpaper_selected(wallpaper))
         button.grid(row=i // 3, column=i % 3, padx=10, pady=10)
         button.image = img_tk
+
+    # Update the canvas scroll region
+    grid_frame.update_idletasks()
+    canvas.configure(scrollregion=canvas.bbox(tk.ALL))
 
     skip_button = ttk.Button(root, text="Home", command=home)
     skip_button.pack(pady=10)
