@@ -53,12 +53,17 @@ yay_packages=(
     "ttf-font-awesome-4"
 )
 
+Color_Off='\033[0m'
+BBlack='\033[1;30m' BRed='\033[1;31m' BGreen='\033[1;32m' BYellow='\033[1;33m'
+BBlue='\033[1;34m' BPurple='\033[1;35m' BCyan='\033[1;36m' BWhite='\033[1;37m'
+
 # flag bools
 automatic=false
 run_as_root=false
 update_check=false
 install_pacman=false
 install_yay=false
+wm_setup=false
 valid_flag=false
 
 root_cmd() {
@@ -267,8 +272,19 @@ install_rec_yay() {
     fi
 }
 
+wm_setup_func() {
+    killall -9 polybar copyq
+    i3-msg "exec feh --bg-fill $sysZ/bg;"
+    i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
+    i3-msg "exec sh $sysZ/shell/pull.sh --update-check;"
+    i3-msg "exec copyq;"
+    i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
+    i3-msg "reload"
+}
+
 function trap_ctrlc() {
-    echo "The update operation has been stopped."
+    echo -e ${BRed}"[!] The current operation has been stopped.\n" ${Color_Off}
+    #echo -e ${BGreen}"[*] Successfully Installed.\n" ${Color_Off}
     exit 2
 }
 trap "trap_ctrlc" 2
@@ -291,6 +307,10 @@ for arg in "$@"; do
         ;;
     --yay)
         install_yay=true
+        valid_flag=true
+        ;;
+    --setup)
+        wm_setup=true
         valid_flag=true
         ;;
     --update-check)
@@ -316,11 +336,14 @@ elif [ "$run_as_root" = true ]; then
 elif [ "$update_check" = true ]; then
     check_updates
 
-elif [ "$update_check" = true ]; then
+elif [ "$install_pacman" = true ]; then
     install_rec_pacman
 
-elif [ "$update_check" = true ]; then
+elif [ "$install_yay" = true ]; then
     install_rec_yay
+
+elif [ "$wm_setup" = true ]; then
+    wm_setup_func
 
 else
     manual
