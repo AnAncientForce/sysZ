@@ -59,36 +59,24 @@ cu
 echo "Scanning for changes in default applications"
 
 read -p "
-Setup yay?
+Install yay?
 (y/n): " choice
 
 if [ "$choice" = "y" ]; then
-    echo "Installing yay package manager"
-    sudo pacman -S --needed base-devel git
     git clone https://aur.archlinux.org/yay.git
     cd yay
     makepkg -si
     yay --version
-    echo "Finished installing yay"
 fi
 
 read -p "
-(i) Install recommended applications (if not already installed)
-(c) Check for system update
-(b) Both
+(i) Install AUR Packages (if not already installed)
 (s) Skip
 (i/c/s): " choice
 
 if [ "$choice" = "i" ] || [ "$choice" = "c" ] || [ "$choice" = "b" ] || [ "$choice" = "s" ]; then
     if [ "$choice" = "i" ]; then
         sh shell/yay.sh
-        sh shell/pacman.sh
-    elif [ "$choice" = "u" ]; then
-        sudo pacman -Syu
-    elif [ "$choice" = "b" ]; then
-        sudo pacman -Syu
-        sh shell/yay.sh
-        sh shell/pacman.sh
     elif [ "$choice" = "s" ]; then
         echo "Skipping..."
     fi

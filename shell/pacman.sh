@@ -31,6 +31,8 @@ pacman_packages=(
     "jq"
     "python-pillow"
     "breeze"
+    "base-devel"
+    "git"
 )
 
 # ttf-font-awesome, ranger, playerctl, piper, obsidian, intel-ucode
