@@ -99,8 +99,9 @@ fi
 
 # render lockscreen
 echo "Rendering lockscreen"
-betterlockscreen ~/sysZ/bg
+betterlockscreen -u /home/$(whoami)/sysZ/bg
 
+# betterlockscreen ~/sysZ/bg
 # .png
 # echo "Checking python setup..."
 # python3 -m venv .venv
