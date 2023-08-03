@@ -84,12 +84,16 @@ fi
 read -p "
 (y) Install yay packages
 (p) Install pacman packages
+(b) Install both packages
 (u) System Update
 " choice
 
 if [ "$choice" = "y" ]; then
     sh /home/$(whoami)/sysZ/shell/yay.sh
 elif [ "$choice" = "p" ]; then
+    sh /home/$(whoami)/sysZ/shell/pacman.sh
+elif [ "$choice" = "b" ]; then
+    sh /home/$(whoami)/sysZ/shell/yay.sh
     sh /home/$(whoami)/sysZ/shell/pacman.sh
 elif [ "$choice" = "u" ]; then
     sudo pacman -Syu
