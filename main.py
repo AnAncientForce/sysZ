@@ -410,6 +410,7 @@ def hint(title, desc, shortcut_func=None):
 
 
 
+
 def render_title(txt):
     root.title(txt)
     '''
@@ -662,7 +663,8 @@ def ui_test():
     appearance_button = ttk.Button(buttons_frame, text="Change Appearance", command=lambda: os.system("qt5ct & lxappearance &"))
     appearance_button.pack(pady=gPady)
 
-    cw_button = ttk.Button(buttons_frame, text="Change Wallpaper", command=lambda: subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/cw.sh")]))
+    #cw_button = ttk.Button(buttons_frame, text="Change Wallpaper", command=lambda: subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/cw.sh")]))
+    cw_button = ttk.Button(buttons_frame, text="Change Wallpaper", command=select_wallpaper)
     cw_button.pack(pady=gPady)
 
     update_button = ttk.Button(options_frame, text="Update [sysZ]", command=update)
