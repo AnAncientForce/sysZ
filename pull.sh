@@ -6,8 +6,7 @@ cu() {
     cp "conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
     cp "conf/alacritty.yml" "/home/$(whoami)/.config/"
 
-    read -p "
-    Copy default config file?
+    read -p "Copy default config file?
     " choice
     if [ "$choice" = "y" ]; then
         if [ -f "conf/config.json" ]; then
@@ -76,7 +75,7 @@ read -p "
 
 if [ "$choice" = "i" ] || [ "$choice" = "c" ] || [ "$choice" = "b" ] || [ "$choice" = "s" ]; then
     if [ "$choice" = "i" ]; then
-        sh shell/yay.sh
+        sh /home/$(whoami)/sysZ/shell/yay.sh
     elif [ "$choice" = "s" ]; then
         echo "Skipping..."
     fi
