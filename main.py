@@ -27,6 +27,52 @@ def stop_loading():
 
 createRoot()
 
+
+def select_wallpaper():
+    clear_tk_elements(root)
+    root.title("Select wallpaper")
+    #main_frame = render_title("sysZ | wallpaper")
+
+    # Create a grid to display the wallpapers
+    grid_frame = tk.Frame(root)
+    grid_frame.pack()
+
+    # Get the list of images in the "wallpapers" folder
+    wallpaper_dir = "wallpapers"
+    wallpapers = os.listdir(wallpaper_dir)
+
+    # Calculate the target size for the images
+    target_size = (200, 200)
+
+    # Function to execute when a wallpaper is selected
+    def wallpaper_selected(wallpaper):
+        print("Selected wallpaper:", wallpaper)
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        wallpaper_path = os.path.join(script_dir, wallpaper)
+        dest_path = os.path.join(script_dir, "wallpapers", "bg")
+        subprocess.call(f"cp -v {wallpaper_path} {dest_path}", shell=True)
+        print("Wallpaper copied successfully!")
+        
+    for i, wallpaper in enumerate(wallpapers):
+        img = Image.open(os.path.join(wallpaper_dir, wallpaper))
+
+        # Resize the image while maintaining aspect ratio
+        img.thumbnail(target_size, Image.ANTIALIAS)
+
+        # Create a new image with black borders
+        bordered_img = Image.new("RGB", target_size, "black")
+        bordered_img.paste(img, ((target_size[0] - img.size[0]) // 2, (target_size[1] - img.size[1]) // 2))
+
+        # Convert the image to Tkinter-compatible format
+        img_tk = ImageTk.PhotoImage(bordered_img)
+
+        button = tk.Button(grid_frame, image=img_tk, command=lambda wallpaper=wallpaper: wallpaper_selected(wallpaper))
+        button.grid(row=i // 3, column=i % 3, padx=10, pady=10)
+
+        # Keep a reference to the image to prevent garbage collection
+        button.image = img_tk
+
+
 def load():
     clear_tk_elements(root)
     root.attributes('-fullscreen', True) 
@@ -750,4 +796,8 @@ if len(sys.argv) > 1 and sys.argv[1] == 'ui_test':
     
 if len(sys.argv) > 1 and sys.argv[1] == 'no_grid':
     no_grid_test()
+    root.mainloop()
+
+if len(sys.argv) > 1 and sys.argv[1] == 'wall':
+    select_wallpaper()
     root.mainloop()

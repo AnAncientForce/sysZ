@@ -59,6 +59,24 @@ cu
 echo "Scanning for changes in default applications"
 
 read -p "
+Setup yay?
+(y/n): " choice
+
+if [ "$choice" = "y" ]; then
+    if [ "$(id -u)" -ne 0 ]; then
+        echo "Please run this script with sudo or as root."
+        exit 1
+    fi
+    echo "Installing yay package manager"
+    sudo pacman -S --needed base-devel git
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
+    yay --version
+    echo "Finished installing yay"
+fi
+
+read -p "
 (i) Install recommended applications (if not already installed)
 (c) Check for system update
 (b) Both
