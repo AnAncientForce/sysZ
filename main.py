@@ -257,10 +257,9 @@ def execute_shell_script(script_path, automatic_flag=False):
         debugTxt("Started new thread, updater has started")
 
         # Build the subprocess command based on the automatic_flag value
+        command = ["sh", expanded_path]
         if automatic_flag:
-            command = ["sh", expanded_path, "--automatic"]
-        else:
-            command = ["sh", expanded_path]
+            command.append("--automatic")
 
         subprocess.run(command, check=True)
         global script_complete, previous_page, setup_pending
@@ -283,6 +282,7 @@ def execute_shell_script(script_path, automatic_flag=False):
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
         error()
+
 
 
 
