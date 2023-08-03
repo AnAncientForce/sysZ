@@ -30,11 +30,23 @@ cu() {
     cp "$sysZ/conf/alacritty.yml" "/home/$(whoami)/.config/"
 }
 
+ex() {
+    echo "Making shell scripts executable"
+    for file in "$sysZ/shell"/*.sh; do
+        if [ -f "$file" ] && [ ! -x "$file" ]; then
+            chmod +x "$file"
+        fi
+    done
+}
+
 echo "Manual update is starting"
 repo_pull
 
 # configuration files
 cu
+
+# make files executable
+ex
 
 # sysZ / config.json
 read -p "
