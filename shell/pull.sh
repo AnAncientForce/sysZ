@@ -267,11 +267,6 @@ install_rec_yay() {
     fi
 }
 
-if ! $valid_flag; then
-    echo "Incorrect or misspelled flag"
-    exit 1
-fi
-
 function trap_ctrlc() {
     echo "The update operation has been stopped."
     exit 2
@@ -307,6 +302,10 @@ for arg in "$@"; do
         ;;
     esac
 done
+if ! $valid_flag; then
+    echo "Incorrect or misspelled flag"
+    exit 1
+fi
 
 if [ "$automatic" = true ]; then
     repo_pull
