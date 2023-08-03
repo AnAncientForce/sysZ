@@ -1,35 +1,38 @@
+#!/bin/bash
+
 pacman_packages=(
-    adobe-source-han-sans-jp-fonts
-    adobe-source-han-sans-otc-fonts
-    adobe-source-han-serif-otc-fonts
-    alacritty
-    ark
-    brightnessctl
-    calcurse
-    feh
-    filelight
-    git
-    gvfs
-    kitty
-    kvantum
-    mpv-mpris
-    neofetch
-    pavucontrol
-    polybar
-    rofi
-    sox
-    thunar
-    tldr
-    wget
-    zip
-    python-pip
-    tk
-    lxappearance
-    qt5ct
-    jq
-    python-pillow
-    breeze
+    "adobe-source-han-sans-jp-fonts"
+    "adobe-source-han-sans-otc-fonts"
+    "adobe-source-han-serif-otc-fonts"
+    "alacritty"
+    "ark"
+    "brightnessctl"
+    "calcurse"
+    "feh"
+    "filelight"
+    "git"
+    "gvfs"
+    "kitty"
+    "kvantum"
+    "mpv-mpris"
+    "neofetch"
+    "pavucontrol"
+    "polybar"
+    "rofi"
+    "sox"
+    "thunar"
+    "tldr"
+    "wget"
+    "zip"
+    "python-pip"
+    "tk"
+    "lxappearance"
+    "qt5ct"
+    "jq"
+    "python-pillow"
+    "breeze"
 )
+
 # ttf-font-awesome, ranger, playerctl, piper, obsidian, intel-ucode
 not_installed=0
 
