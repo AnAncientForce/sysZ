@@ -248,12 +248,21 @@ def no_grid_test():
     prepare_image_rotation(root)
     root.after(3000, lambda: globals().update({'script_complete': True}))
     
-def execute_shell_script(script_path):
+
+
+def execute_shell_script(script_path, automatic_flag=False):
     try:
         expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
         print("Script on new thread has started")
         debugTxt("Started new thread, updater has started")
-        subprocess.run(["sh", expanded_path], check=True)
+
+        # Build the subprocess command based on the automatic_flag value
+        if automatic_flag:
+            command = ["sh", expanded_path, "--automatic"]
+        else:
+            command = ["sh", expanded_path]
+
+        subprocess.run(command, check=True)
         global script_complete, previous_page, setup_pending
         script_complete = True
         print("script_complete = True")
@@ -265,15 +274,18 @@ def execute_shell_script(script_path):
 
         if previous_page == "control":
             control()
-            #root.after(3000, control)
+            # root.after(3000, control)
         else:
             debugTxt("Closing python interface")
             stop_loading()
-            #root.after(3000, stop_loading)
+            # root.after(3000, stop_loading)
 
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
         error()
+
+
+
 
 def debugTxt(txt):
     global debug, debug_lbl_created
@@ -314,9 +326,11 @@ def setup():
     if check_value_from_json('use_auto_tiling'):
        call("i3-msg 'exec killall -9 autotiling; workspace 9; exec alacritty -e autotiling;'", shell=True)
        root.after(500, lambda: call("i3-msg 'workspace 1'", shell=True))
-    #subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
+    # subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
     global image, photo, script_complete
-    subprocess_thread = threading.Thread(target=lambda: execute_shell_script("~/sysZ/shell/setup.sh"))
+    # subprocess_thread = threading.Thread(target=lambda: execute_shell_script("~/sysZ/shell/setup.sh"))
+    # subprocess_thread.start()
+    subprocess_thread = threading.Thread(target=lambda: execute_shell_script("~/sysZ/shell/pull.sh", automatic_flag=True))
     subprocess_thread.start()
 
 
