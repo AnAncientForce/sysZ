@@ -106,20 +106,18 @@ root_cmd() {
         sudo -u $SUDO_USER sh /home/$SUDO_USER/sysZ/shell/pacman.sh
     fi
 
-    read -p "
+    read -p "${BPurple}
     Setup QT_QPA_PLATFORMTHEME?
-    (y/n): " choice
+    (y/n): ${Color_Off}" choice
 
     if [ "$choice" = "y" ]; then
-        echo "Setting up QT_QPA_PLATFORMTHEME in /etc/environment..."
+        echo -e "${BRed}[*] Setting up QT_QPA_PLATFORMTHEME in /etc/environment...${Color_Off}"
         echo 'QT_QPA_PLATFORMTHEME="qt5ct"' >/etc/environment
     fi
-
-    echo "Root setup has finished =D"
 }
 
 repo_pull() {
-    echo "Checking for repository changes"
+    echo -e ${BPurple}"[*] Checking for repository changes\n" ${Color_Off}
     # Store the current directory
     current_dir=$(pwd)
 
@@ -141,7 +139,7 @@ repo_pull() {
 }
 
 cu() {
-    echo "Copying configuration files"
+    echo -e ${BPurple}"[*] Updating configuration files\n" ${Color_Off}
     mkdir -p "/home/$(whoami)/.config/kitty"
     cp "$sysZ/conf/i3" "/home/$(whoami)/.config/i3/config"
     cp "$sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty"
@@ -149,7 +147,7 @@ cu() {
 }
 
 ex() {
-    echo "Making shell scripts executable"
+    echo -e ${BPurple}"[*] Making shell scripts executable\n" ${Color_Off}
     for file in "$sysZ/shell"/*.sh; do
         if [ -f "$file" ] && [ ! -x "$file" ]; then
             chmod +x "$file"
@@ -251,7 +249,8 @@ manual() {
     betterlockscreen -u $sysZ/bg
 
     # end
-    echo "===> All done! :)"
+    # echo "===> All done! :)"
+    echo -e ${BGreen}"[*] Setup has finished\n" ${Color_Off}
     cd "$current_dir"
 }
 
@@ -275,6 +274,7 @@ install_rec_pacman() {
     not_installed=0
     key="Arch"
     echo "Checking $key"
+    echo -e ${BRed}"[*] Attention Required\n" ${Color_Off}
     for package in "${pacman_packages[@]}"; do
         if ! pacman -Qi "$package" >/dev/null 2>&1; then
             sudo pacman -S --noconfirm "$package"
@@ -359,7 +359,7 @@ if [ "$1" = "--h" ]; then
     echo "--yay          : Installs recommended Arch User Repository packages"
     echo "--setup        : Reloads sysZ's integration of the window manager"
     echo "--update-check : Checks for repository updates. Returns true or false (dose not update anything)"
-    echo -e ${BGreen}"   : Recommended flags\n" ${Color_Off}
+    echo -e ${BGreen}"   : \nRecommended flags\n" ${Color_Off}
     echo "--first-setup  : Runs the first time setup installer (customization)"
     echo "--automatic    : Updates sysZ & updates arch linux & installs any new recommended packages"
     echo "--update-sysZ  : Updates sysZ"
@@ -406,7 +406,7 @@ for arg in "$@"; do
     esac
 done
 
-echo -e ${BPurple}"[*] sysZ\n\n" ${Color_Off}
+echo -e ${BPurple}"[*] sysZ\n" ${Color_Off}
 
 if [ "$automatic" = true ]; then
     automatic_setup_func
