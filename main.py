@@ -35,7 +35,7 @@ def select_wallpaper():
     label.pack(pady=50)
 
     # Create a canvas widget
-    canvas = tk.Canvas(root)
+    canvas = tk.Canvas(root, background=root['bg'])
     canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
     # Add a scrollbar to the canvas
@@ -76,7 +76,8 @@ def select_wallpaper():
     canvas.configure(scrollregion=canvas.bbox(tk.ALL))
 
     skip_button = ttk.Button(root, text="Home", command=home)
-    skip_button.pack(pady=10)
+    skip_button.pack(side=tk.BOTTOM, pady=10)
+    #skip_button.pack(pady=10)
 
 def load():
     clear_tk_elements(root)
