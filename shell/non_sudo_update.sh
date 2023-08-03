@@ -1,21 +1,5 @@
 #!/bin/bash
 
-cu() {
-    echo "Copying new files..."
-    cp "/home/$(whoami)/sysZ/conf/i3" "/home/$(whoami)/.config/i3/config"
-    cp "/home/$(whoami)/sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
-    cp "/home/$(whoami)/sysZ/conf/alacritty.yml" "/home/$(whoami)/.config/"
-}
-
-themes_setup() {
-    echo "Installing themes"
-    cd
-    git clone --depth=1 https://github.com/adi1090x/rofi.git
-    cd rofi
-    chmod +x setup.sh
-    ./setup.sh
-}
-
 repo_pull() {
     # Store the current directory
     current_dir=$(pwd)
@@ -37,13 +21,12 @@ repo_pull() {
         echo "Git repository set up. Repository is ready."
     fi
 }
-
-# Anything that requires sudo should not be included in this script
+sysZ="/home/$(whoami)/sysZ"
 repo_pull
-cu
-# sh shell/yay.sh
-betterlockscreen ~/sysZ/bg
-# .png
-themes_setup
+echo "Copying configuration files"
+cp "$sysZ/conf/i3" "/home/$(whoami)/.config/i3/config"
+cp "$sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
+cp "$sysZ/conf/alacritty.yml" "/home/$(whoami)/.config/"
+echo "Rendering lockscreen"
+betterlockscreen -u /home/$(whoami)/sysZ/bg
 cd "$current_dir"
-# i3-msg 'exec sh ~/sysZ/shell/setup.sh;'
