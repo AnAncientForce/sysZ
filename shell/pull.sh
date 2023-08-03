@@ -21,15 +21,20 @@ repo_pull() {
     fi
 }
 
+cu() {
+    echo "Copying configuration files"
+    mkdir -p "/home/$(whoami)/.config/kitty/"
+    cp "$sysZ/conf/i3" "/home/$(whoami)/.config/i3/config"
+    cp "$sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
+    cp "$sysZ/conf/alacritty.yml" "/home/$(whoami)/.config/"
+}
+
 echo "Manual update is starting"
 repo_pull
 echo "Updating configuration files"
 
 # configuration files
-echo "Copying configuration files..."
-cp "/home/$(whoami)/sysZ/conf/i3" "/home/$(whoami)/.config/i3/config"
-cp "/home/$(whoami)/sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
-cp "/home/$(whoami)/sysZ/conf/alacritty.yml" "/home/$(whoami)/.config/"
+cu
 
 # sysZ / config.json
 read -p "

@@ -1,4 +1,5 @@
 #!/bin/bash
+sysZ="/home/$(whoami)/sysZ"
 
 repo_pull() {
     # Store the current directory
@@ -21,12 +22,17 @@ repo_pull() {
         echo "Git repository set up. Repository is ready."
     fi
 }
-sysZ="/home/$(whoami)/sysZ"
+
+cu() {
+    echo "Copying configuration files"
+    mkdir -p "/home/$(whoami)/.config/kitty/"
+    cp "$sysZ/conf/i3" "/home/$(whoami)/.config/i3/config"
+    cp "$sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
+    cp "$sysZ/conf/alacritty.yml" "/home/$(whoami)/.config/"
+}
+
 repo_pull
-echo "Copying configuration files"
-cp "$sysZ/conf/i3" "/home/$(whoami)/.config/i3/config"
-cp "$sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
-cp "$sysZ/conf/alacritty.yml" "/home/$(whoami)/.config/"
+cu
 echo "Rendering lockscreen"
 betterlockscreen -u /home/$(whoami)/sysZ/bg
 cd "$current_dir"
