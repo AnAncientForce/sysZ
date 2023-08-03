@@ -45,6 +45,8 @@ for package in "${pacman_packages[@]}"; do
     fi
 done
 
-if [ $not_installed -eq 0 ]; then
-    echo "$key packages are already installed"
+if [ $not_installed -eq 1 ]; then
+    echo "Some $key packages were installed."
+else
+    echo "$key packages are already installed."
 fi
