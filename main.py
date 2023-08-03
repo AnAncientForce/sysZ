@@ -31,9 +31,6 @@ createRoot()
 def select_wallpaper():
     clear_tk_elements(root)
     root.title("Select wallpaper")
-    #main_frame = render_title("sysZ | wallpaper")
-
-    # Create a grid to display the wallpapers
     grid_frame = tk.Frame(root)
     grid_frame.pack()
 
@@ -46,7 +43,7 @@ def select_wallpaper():
     # Calculate the target size for the images
     target_size = (200, 200)
 
-    # Function to execute when a wallpaper is selected
+    
     def wallpaper_selected(wallpaper):
         print("Selected wallpaper:", wallpaper)
         script_dir = os.path.dirname(os.path.abspath(__file__))
