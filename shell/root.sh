@@ -13,7 +13,7 @@ Install pacman packages & check for updates?
 (y/n): " choice
 
 if [ "$choice" = "y" ]; then
-    sh pacman.sh
+    sh /home/$(whoami)/sysZ/shell/pacman.sh
 fi
 
 read -p "
