@@ -7,7 +7,6 @@ import os
 import json
 from subprocess import call
 from PIL import Image, ImageTk
-import shlex
 
 root = None
 previous_page = "home"
@@ -651,8 +650,7 @@ def control():
     cw_button = ttk.Button(buttons_frame, text="Change Wallpaper", command=select_wallpaper)
     cw_button.pack(pady=gPady)
 
-    command = "sh " + os.path.expanduser("~/sysZ/shell/pull.sh --pacman")
-    arch_pkg = ttk.Button(updates_frame, text="Arch PKG", command=lambda: subprocess.run(shlex.split(command)))
+    arch_pkg = ttk.Button(updates_frame, text="Arch PKG", command=lambda: subprocess.Popen("sh " + os.path.expanduser("~/sysZ/shell/pacman.sh"), shell=True))
     arch_pkg.pack(pady=gPady)
     yay_pkg = ttk.Button(updates_frame, text="AUR PKG", command=lambda: subprocess.Popen("sh " + os.path.expanduser("~/sysZ/shell/yay.sh"), shell=True))
     yay_pkg.pack(pady=gPady)
