@@ -1,4 +1,5 @@
 #!/bin/bash
+# Github > @AnAncientForce > sysZ
 sysZ="/home/$(whoami)/sysZ"
 
 # installable packages
@@ -66,6 +67,26 @@ install_yay=false
 wm_setup=false
 valid_flag=false
 
+checkJson() {
+    json_file="/home/$(whoami)/.config/sysZ/config.json"
+
+    # Check if the file exists
+    if [ -f "$json_file" ]; then
+        # Use jq to read the JSON content and extract the value of the provided key
+        value=$(jq -r ".$1" "$json_file")
+
+        # Check if the value is true or false and return accordingly
+        if [ "$value" = "true" ]; then
+            return 0 # true
+        else
+            return 1 # false
+        fi
+    else
+        echo "JSON file not found: $json_file"
+        return 2 # File not found
+    fi
+}
+
 root_cmd() {
     if [ "$(id -u)" -ne 0 ]; then
         echo "[!] - Run as sudo or as root"
@@ -96,6 +117,7 @@ root_cmd() {
 }
 
 repo_pull() {
+    echo "Checking for repository changes"
     # Store the current directory
     current_dir=$(pwd)
 
@@ -133,8 +155,28 @@ ex() {
     done
 }
 
+git_install_rofi() {
+    echo "Installing > https://github.com/adi1090x/rofi.git"
+    cd ~
+    git clone --depth=1 https://github.com/adi1090x/rofi.git
+    cd rofi
+    chmod +x setup.sh
+    ./setup.sh
+}
+git_install_yay() {
+    echo "Installing > https://aur.archlinux.org/yay.git"
+    cd ~
+    if [ -d "yay" ]; then
+        rm -rf "yay"
+    fi
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
+    yay --version
+}
+
 manual() {
-    echo "Manual update is starting"
+    echo -e ${BBlue}"\n[*] Manual update is starting..." ${Color_Off}
     repo_pull
 
     # configuration files
@@ -167,13 +209,7 @@ manual() {
     (y/n): " choice
 
     if [ "$choice" = "y" ]; then
-        if [ -d "yay" ]; then
-            rm -rf "yay"
-        fi
-        git clone https://aur.archlinux.org/yay.git
-        cd yay
-        makepkg -si
-        yay --version
+        git_install_yay
     fi
 
     # rofi
@@ -182,12 +218,7 @@ manual() {
     Check if themes are installed? (if not, install them)
     (y/n): " choice
     if [ "$choice" = "y" ]; then
-        echo "Installing themes"
-        cd
-        git clone --depth=1 https://github.com/adi1090x/rofi.git
-        cd rofi
-        chmod +x setup.sh
-        ./setup.sh
+        git_install_rofi
     else
         echo "CAUTION: super + d may not work/function correctly"
     fi
@@ -274,22 +305,43 @@ install_rec_yay() {
 
 wm_setup_func() {
     killall -9 polybar copyq
+    echo -e ${BBlue}"\n[*] Setup is starting..." ${Color_Off}
     i3-msg "exec feh --bg-fill $sysZ/bg;"
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
     i3-msg "exec sh $sysZ/shell/pull.sh --update-check;"
     i3-msg "exec copyq;"
     i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
     i3-msg "reload"
+    if checkJson "use_background_blur"; then
+        i3-msg 'exec killall -9 autotiling; workspace 9; exec alacritty -e autotiling;'
+    fi
 }
 
 function trap_ctrlc() {
     echo -e ${BRed}"[!] The current operation has been stopped.\n" ${Color_Off}
-    #echo -e ${BGreen}"[*] Successfully Installed.\n" ${Color_Off}
     exit 2
 }
 trap "trap_ctrlc" 2
 
+# echo -e ${BBlue}"\n[*] A" ${Color_Off}
+# echo -e ${BYellow}"[*] B\n" ${Color_Off}
+# echo -e ${BPurple}"[*] C" ${Color_Off}
+# echo -e ${BBlue}"[*] D" ${Color_Off}
+# echo -e ${BGreen}"[*] E\n" ${Color_Off}
+# echo -e ${BRed}"[!] F\n" ${Color_Off}
+
 # ----------------------------- Flag Logic
+
+if [ "$1" = "--h" ]; then
+    echo "Available flags:"
+    echo "--automatic    :"
+    echo "--root         :"
+    echo "--pacman       :"
+    echo "--yay          :"
+    echo "--setup        :"
+    echo "--update-check :"
+    exit 0
+fi
 
 for arg in "$@"; do
     case "$arg" in
