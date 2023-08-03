@@ -3,32 +3,7 @@ sysZ="/home/$(whoami)/sysZ"
 automatic=false
 run_as_root=false
 
-for arg in "$@"; do
-    case "$arg" in
-    --automatic)
-        automatic=true
-        ;;
-    --root)
-        run_as_root=true
-        ;;
-    *)
-        # Handle other arguments as needed
-        ;;
-    esac
-done
-
-if [ "$automatic" = true ]; then
-    repo_pull
-    cu
-    echo "Rendering lockscreen"
-    betterlockscreen -u /home/$(whoami)/sysZ/bg
-    cd "$current_dir"
-
-else
-    manual
-fi
-
-if [ "$run_as_root" = true ]; then
+root_cmd() {
     if [ "$(id -u)" -ne 0 ]; then
         echo "[!] - Run as sudo or as root"
         exit 1
@@ -55,8 +30,7 @@ if [ "$run_as_root" = true ]; then
     fi
 
     echo "Root setup has finished =D"
-
-fi
+}
 
 repo_pull() {
     # Store the current directory
@@ -184,3 +158,34 @@ manual() {
     echo "===> All done! :)"
     cd "$current_dir"
 }
+
+# ----------------------------- Flag Logic
+
+for arg in "$@"; do
+    case "$arg" in
+    --automatic)
+        automatic=true
+        ;;
+    --root)
+        run_as_root=true
+        ;;
+    *)
+        # Handle other arguments as needed
+        ;;
+    esac
+done
+
+if [ "$automatic" = true ]; then
+    repo_pull
+    cu
+    echo "Rendering lockscreen"
+    betterlockscreen -u /home/$(whoami)/sysZ/bg
+    cd "$current_dir"
+
+else
+    manual
+fi
+
+if [ "$run_as_root" = true ]; then
+    root_cmd
+fi
