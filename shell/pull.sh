@@ -302,10 +302,6 @@ for arg in "$@"; do
         ;;
     esac
 done
-if ! $valid_flag; then
-    echo "Incorrect or misspelled flag"
-    exit 1
-fi
 
 if [ "$automatic" = true ]; then
     repo_pull
