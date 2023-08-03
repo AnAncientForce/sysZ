@@ -63,10 +63,6 @@ Setup yay?
 (y/n): " choice
 
 if [ "$choice" = "y" ]; then
-    if [ "$(id -u)" -ne 0 ]; then
-        echo "Please run this script with sudo or as root."
-        exit 1
-    fi
     echo "Installing yay package manager"
     sudo pacman -S --needed base-devel git
     git clone https://aur.archlinux.org/yay.git
@@ -111,21 +107,6 @@ if [ "$choice" = "y" ]; then
     themes_setup
 else
     echo "CAUTION: super + d may not work/function correctly"
-fi
-
-read -p "
-Setup dark mode?
-(y/n): " choice
-
-if [ "$choice" = "y" ]; then
-    if [ "$(id -u)" -ne 0 ]; then
-        echo "Please run this script with sudo or as root."
-        exit 1
-    fi
-    echo "Setting up QT_QPA_PLATFORMTHEME in /etc/environment..."
-    echo 'QT_QPA_PLATFORMTHEME="qt5ct"' >/etc/environment
-    lxappearance &
-    qt5ct &
 fi
 
 #echo "Checking python setup..."
