@@ -52,7 +52,8 @@ def select_wallpaper():
         script_dir = os.path.dirname(os.path.abspath(__file__))
         wallpaper_path = os.path.join(script_dir, "wallpapers", wallpaper)
         dest_path = os.path.join(script_dir, "bg")
-        subprocess.call(f"cp -v {wallpaper_path} {dest_path}", shell=True)
+        call(f"cp -v {wallpaper_path} {dest_path}", shell=True)
+        call(f"feh --bg-fill {wallpaper_path}", shell=True)
         print("Wallpaper copied successfully!")
         
     for i, wallpaper in enumerate(wallpapers):
