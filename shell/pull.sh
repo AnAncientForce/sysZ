@@ -1,8 +1,65 @@
 #!/bin/bash
 sysZ="/home/$(whoami)/sysZ"
+
+# installable packages
+pacman_packages=(
+    "adobe-source-han-sans-jp-fonts"
+    "adobe-source-han-sans-otc-fonts"
+    "adobe-source-han-serif-otc-fonts"
+    "alacritty"
+    "ark"
+    "brightnessctl"
+    "calcurse"
+    "feh"
+    "filelight"
+    "git"
+    "gvfs"
+    "kitty"
+    "kvantum"
+    "mpv-mpris"
+    "neofetch"
+    "pavucontrol"
+    "polybar"
+    "rofi"
+    "sox"
+    "thunar"
+    "tldr"
+    "wget"
+    "zip"
+    "python-pip"
+    "tk"
+    "lxappearance"
+    "qt5ct"
+    "jq"
+    "python-pillow"
+    "breeze"
+    "base-devel"
+    "git"
+    "xfce4-screenshooter"
+    "copyq"
+    "plasma-systemmonitor"
+    "ntfs-3g"
+    "fuse"
+    "thunar-volman"
+)
+yay_packages=(
+    "vimix-gtk-themes"
+    "vimix-cursors"
+    "vimix-icon-theme"
+    "cava-git"
+    "librewolf-bin"
+    "picom-simpleanims-git"
+    "autotiling"
+    "ttf-font-awesome-4"
+)
+
+# flag bools
 automatic=false
 run_as_root=false
 update_check=false
+install_pacman=false
+install_yay=false
+valid_flag=false
 
 root_cmd() {
     if [ "$(id -u)" -ne 0 ]; then
@@ -174,6 +231,47 @@ check_updates() {
     fi
 }
 
+# PACMAN & AUR INSTALL FUNCTIONS >
+
+install_rec_pacman() {
+    not_installed=0
+    key="Arch"
+    echo "Checking $key"
+    for package in "${pacman_packages[@]}"; do
+        if ! pacman -Qi "$package" >/dev/null 2>&1; then
+            sudo pacman -S --noconfirm "$package"
+            not_installed=1
+        fi
+    done
+    if [ $not_installed -eq 1 ]; then
+        echo "Some $key packages were installed."
+    else
+        echo "$key packages are already installed."
+    fi
+}
+
+install_rec_yay() {
+    not_installed=0
+    key="AUR"
+    echo "Checking $key"
+    for package in "${yay_packages[@]}"; do
+        if ! yay -Qs "$package" >/dev/null; then
+            yay -S --noconfirm "$package"
+            not_installed=1
+        fi
+    done
+    if [ $not_installed -eq 1 ]; then
+        echo "Some $key packages were installed."
+    else
+        echo "$key packages are already installed."
+    fi
+}
+
+if ! $valid_flag; then
+    echo "Incorrect or misspelled flag"
+    exit 1
+fi
+
 function trap_ctrlc() {
     echo "The update operation has been stopped."
     exit 2
@@ -186,12 +284,23 @@ for arg in "$@"; do
     case "$arg" in
     --automatic)
         automatic=true
+        valid_flag=true
         ;;
     --root)
         run_as_root=true
+        valid_flag=true
+        ;;
+    --pacman)
+        install_pacman=true
+        valid_flag=true
+        ;;
+    --yay)
+        install_yay=true
+        valid_flag=true
         ;;
     --update-check)
         update_check=true
+        valid_flag=true
         ;;
     *)
         # Handle other arguments as needed
@@ -211,6 +320,12 @@ elif [ "$run_as_root" = true ]; then
 
 elif [ "$update_check" = true ]; then
     check_updates
+
+elif [ "$update_check" = true ]; then
+    install_rec_pacman
+
+elif [ "$update_check" = true ]; then
+    install_rec_yay
 
 else
     manual
