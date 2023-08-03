@@ -184,7 +184,7 @@ def update():
     try:
         prepare_image_rotation(root)
         debugTxt("Checking github repository for updates")
-        subprocess_thread = threading.Thread(target=lambda: execute_shell_script("~/sysZ/shell/pull.sh --automatic"))
+        subprocess_thread = threading.Thread(target=lambda: execute_shell_script("~/sysZ/shell/pull.sh", automatic_flag=True))
         subprocess_thread.start()
         global setup_pending
         setup_pending = True
@@ -326,11 +326,9 @@ def setup():
     if check_value_from_json('use_auto_tiling'):
        call("i3-msg 'exec killall -9 autotiling; workspace 9; exec alacritty -e autotiling;'", shell=True)
        root.after(500, lambda: call("i3-msg 'workspace 1'", shell=True))
-    # subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
+    #subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/setup.sh")])
     global image, photo, script_complete
-    # subprocess_thread = threading.Thread(target=lambda: execute_shell_script("~/sysZ/shell/setup.sh"))
-    # subprocess_thread.start()
-    subprocess_thread = threading.Thread(target=lambda: execute_shell_script("~/sysZ/shell/pull.sh", automatic_flag=True))
+    subprocess_thread = threading.Thread(target=lambda: execute_shell_script("~/sysZ/shell/setup.sh"))
     subprocess_thread.start()
 
 

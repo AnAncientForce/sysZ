@@ -159,6 +159,12 @@ manual() {
     cd "$current_dir"
 }
 
+function trap_ctrlc() {
+    echo "The update operation has been stopped."
+    exit 2
+}
+trap "trap_ctrlc" 2
+
 # ----------------------------- Flag Logic
 
 for arg in "$@"; do
