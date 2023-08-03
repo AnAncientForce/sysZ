@@ -33,49 +33,33 @@ def select_wallpaper():
     root.title("Select wallpaper")
     grid_frame = tk.Frame(root)
     grid_frame.pack()
-
-    # Get the absolute path to the "wallpapers" folder
     script_dir = os.path.dirname(os.path.abspath(__file__))
     wallpaper_dir = os.path.join(script_dir, "wallpapers")
-    # Get the list of images in the "wallpapers" folder
     wallpapers = os.listdir(wallpaper_dir)
-
-    # Calculate the target size for the images
     target_size = (200, 200)
 
-    
     def wallpaper_selected(wallpaper):
-        print("Selected wallpaper:", wallpaper)
         script_dir = os.path.dirname(os.path.abspath(__file__))
         wallpaper_path = os.path.join(script_dir, "wallpapers", wallpaper)
         dest_path = os.path.join(script_dir, "bg")
         call(f"cp -v {wallpaper_path} {dest_path}", shell=True)
         call(f"feh --bg-fill {wallpaper_path}", shell=True)
-        print("Wallpaper copied successfully!")
-        
-    for i, wallpaper in enumerate(wallpapers):
-        img = Image.open(os.path.join(wallpaper_dir, wallpaper))
-
-        # Resize the image while maintaining aspect ratio
-        img.thumbnail(target_size, Image.BICUBIC)
-
-        # Create a new image with black borders
-        bordered_img = Image.new("RGB", target_size, "black")
-        bordered_img.paste(img, ((target_size[0] - img.size[0]) // 2, (target_size[1] - img.size[1]) // 2))
-
-        # Convert the image to Tkinter-compatible format
-        img_tk = ImageTk.PhotoImage(bordered_img)
-
-        button = tk.Button(grid_frame, image=img_tk, command=lambda wallpaper=wallpaper: wallpaper_selected(wallpaper))
-        button.grid(row=i // 3, column=i % 3, padx=10, pady=10)
-
-        # Keep a reference to the image to prevent garbage collection
-        button.image = img_tk
-
+    
     label = ttk.Label(root, text="Change Wallpaper", font=("Arial", 36), background=root['bg'])
     label.pack(pady=50)
 
-    skip_button = ttk.Button(root, text="Exit", command=home)
+    # Always use "BICUBIC" instead of "ANTIALIAS"
+    for i, wallpaper in enumerate(wallpapers):
+        img = Image.open(os.path.join(wallpaper_dir, wallpaper))
+        img.thumbnail(target_size, Image.BICUBIC)
+        bordered_img = Image.new("RGB", target_size, "black")
+        bordered_img.paste(img, ((target_size[0] - img.size[0]) // 2, (target_size[1] - img.size[1]) // 2))
+        img_tk = ImageTk.PhotoImage(bordered_img)
+        button = tk.Button(grid_frame, image=img_tk, command=lambda wallpaper=wallpaper: wallpaper_selected(wallpaper))
+        button.grid(row=i // 3, column=i % 3, padx=10, pady=10)
+        button.image = img_tk
+        
+    skip_button = ttk.Button(root, text="Home", command=home)
     skip_button.pack(pady=10)
 
 def load():
