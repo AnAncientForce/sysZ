@@ -39,7 +39,7 @@ not_installed=0
 key="Arch"
 echo "Checking $key"
 for package in "${pacman_packages[@]}"; do
-    if ! pacman -Qs "$package" >/dev/null; then
+    if ! pacman -Qi "$package" >/dev/null 2>&1; then
         sudo pacman -S --noconfirm "$package"
         not_installed=1
     fi
