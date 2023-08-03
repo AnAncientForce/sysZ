@@ -294,6 +294,7 @@ def execute_shell_script(script_path, automatic_flag=False):
 
 
 
+
 def debugTxt(txt):
     global debug, debug_lbl_created
     if not debug_lbl_created:
