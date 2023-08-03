@@ -55,21 +55,6 @@ def select_wallpaper():
     grid_frame = tk.Frame(canvas, background=root['bg'])
     frame_id = canvas.create_window((0, 0), window=grid_frame, anchor=tk.NW)
 
-    # Bind the canvas to the window resizing event
-    root.bind("<Configure>", update_canvas_size)
-
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    wallpaper_dir = os.path.join(script_dir, "wallpapers")
-    wallpapers = os.listdir(wallpaper_dir)
-    target_size = (200, 200)
-
-    def wallpaper_selected(wallpaper):
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        wallpaper_path = os.path.join(script_dir, "wallpapers", wallpaper)
-        dest_path = os.path.join(script_dir, "bg")
-        call(f"cp -v {wallpaper_path} {dest_path}", shell=True)
-        call(f"feh --bg-fill {wallpaper_path}", shell=True)
-
     # Function to update the grid layout
     def update_grid_layout():
         # Calculate the number of columns based on the available width
@@ -88,9 +73,6 @@ def select_wallpaper():
             button.grid(row=i // num_columns, column=i % num_columns, padx=10, pady=10)
             button.image = img_tk
 
-    # Update the grid layout initially
-    update_grid_layout()
-
     # Function to handle canvas resizing events
     def on_canvas_resized(event):
         canvas.itemconfig(frame_id, width=event.width - scrollbar.winfo_width())
@@ -101,8 +83,31 @@ def select_wallpaper():
     # Bind the canvas to the canvas resize event
     canvas.bind("<Configure>", on_canvas_resized)
 
-    skip_button = ttk.Button(root, text="Home", command=home)
-    skip_button.pack(side=tk.BOTTOM, fill=tk.X, pady=10)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    wallpaper_dir = os.path.join(script_dir, "wallpapers")
+    wallpapers = os.listdir(wallpaper_dir)
+    target_size = (200, 200)
+
+    def wallpaper_selected(wallpaper):
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        wallpaper_path = os.path.join(script_dir, "wallpapers", wallpaper)
+        dest_path = os.path.join(script_dir, "bg")
+        call(f"cp -v {wallpaper_path} {dest_path}", shell=True)
+        call(f"feh --bg-fill {wallpaper_path}", shell=True)
+
+    # Update the grid layout initially
+    update_grid_layout()
+
+    # Create a new frame to hold the grid frame and the skip button
+    content_frame = tk.Frame(root, background=root['bg'])
+    content_frame.pack(fill=tk.BOTH, expand=True)
+
+    # Pack the grid frame and the skip button inside the content frame
+    grid_frame.pack(pady=20, padx=20, fill=tk.BOTH, expand=True)
+    skip_button = ttk.Button(content_frame, text="Home", command=home)
+    skip_button.pack(pady=10)
+    skip_button.place(relx=0.5, rely=1.0, anchor=tk.CENTER)
+
 
 
 
