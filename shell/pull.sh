@@ -2,6 +2,7 @@
 sysZ="/home/$(whoami)/sysZ"
 automatic=false
 run_as_root=false
+update_check=false
 
 root_cmd() {
     if [ "$(id -u)" -ne 0 ]; then
@@ -175,6 +176,9 @@ for arg in "$@"; do
     --root)
         run_as_root=true
         ;;
+    --update-check)
+        update_check=true
+        ;;
     *)
         # Handle other arguments as needed
         ;;
@@ -194,4 +198,18 @@ fi
 
 if [ "$run_as_root" = true ]; then
     root_cmd
+fi
+
+if [ "$update_check" = true ]; then
+    current_dir=$(pwd)
+    cd "/home/$(whoami)/sysZ"
+
+    if [ -d ".git" ] || git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        git remote update >/dev/null 2>&1
+        if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
+            python /home/$(whoami)/sysZ/main.py update_confirmation
+        else
+            echo "No updates available."
+        fi
+    fi
 fi
