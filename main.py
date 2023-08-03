@@ -249,7 +249,6 @@ def no_grid_test():
     root.after(3000, lambda: globals().update({'script_complete': True}))
     
 
-
 def execute_shell_script(script_path, automatic_flag=False):
     try:
         expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
@@ -259,7 +258,7 @@ def execute_shell_script(script_path, automatic_flag=False):
         # Build the subprocess command based on the automatic_flag value
         command = ["sh", expanded_path]
         if automatic_flag:
-            command.append("--automatic")
+            command.extend(["--automatic"])
 
         subprocess.run(command, check=True)
         global script_complete, previous_page, setup_pending
@@ -282,8 +281,6 @@ def execute_shell_script(script_path, automatic_flag=False):
     except subprocess.CalledProcessError as e:
         print(f"Error executing shell script: {e}")
         error()
-
-
 
 
 
