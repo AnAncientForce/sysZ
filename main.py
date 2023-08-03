@@ -72,6 +72,11 @@ def select_wallpaper():
         # Keep a reference to the image to prevent garbage collection
         button.image = img_tk
 
+    label = ttk.Label(root, text="Change Wallpaper", font=("Arial", 36), background=root['bg'])
+    label.pack(pady=50)
+
+    skip_button = ttk.Button(root, text="Exit", command=home)
+    skip_button.pack(pady=10)
 
 def load():
     clear_tk_elements(root)
@@ -605,7 +610,7 @@ def control():
     appearance_button = ttk.Button(buttons_frame, text="Change Appearance", command=lambda: os.system("qt5ct & lxappearance &"))
     appearance_button.pack(pady=gPady)
 
-    cw_button = ttk.Button(buttons_frame, text="Change Wallpaper", command=lambda: subprocess.Popen(["sh", os.path.expanduser("~/sysZ/shell/cw.sh")]))
+    cw_button = ttk.Button(buttons_frame, text="Change Wallpaper", command=select_wallpaper)
     cw_button.pack(pady=gPady)
 
     arch_pkg = ttk.Button(updates_frame, text="Arch PKG", command=lambda: subprocess.Popen("sh " + os.path.expanduser("~/sysZ/shell/pacman.sh"), shell=True))
