@@ -184,7 +184,7 @@ def update():
     try:
         prepare_image_rotation(root)
         debugTxt("Checking github repository for updates")
-        subprocess_thread = threading.Thread(target=lambda: execute_shell_script("~/sysZ/shell/non_sudo_update.sh"))
+        subprocess_thread = threading.Thread(target=lambda: execute_shell_script("~/sysZ/shell/pull.sh --automatic"))
         subprocess_thread.start()
         global setup_pending
         setup_pending = True
