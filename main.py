@@ -37,8 +37,10 @@ def select_wallpaper():
     grid_frame = tk.Frame(root)
     grid_frame.pack()
 
+    # Get the absolute path to the "wallpapers" folder
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    wallpaper_dir = os.path.join(script_dir, "wallpapers")
     # Get the list of images in the "wallpapers" folder
-    wallpaper_dir = "wallpapers"
     wallpapers = os.listdir(wallpaper_dir)
 
     # Calculate the target size for the images
@@ -49,7 +51,7 @@ def select_wallpaper():
         print("Selected wallpaper:", wallpaper)
         script_dir = os.path.dirname(os.path.abspath(__file__))
         wallpaper_path = os.path.join(script_dir, "wallpapers", wallpaper)
-        dest_path = os.path.join(script_dir, "wallpapers", "bg")
+        dest_path = os.path.join(script_dir, "bg")
         subprocess.call(f"cp -v {wallpaper_path} {dest_path}", shell=True)
         print("Wallpaper copied successfully!")
         
