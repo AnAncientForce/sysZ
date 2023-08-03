@@ -249,6 +249,7 @@ def no_grid_test():
     root.after(3000, lambda: globals().update({'script_complete': True}))
     
 
+
 def execute_shell_script(script_path, automatic_flag=False):
     try:
         expanded_path = os.path.expanduser(script_path)  # Expand the ~ in the path
@@ -260,27 +261,36 @@ def execute_shell_script(script_path, automatic_flag=False):
         if automatic_flag:
             command.extend(["--automatic"])
 
-        subprocess.run(command, check=True)
-        global script_complete, previous_page, setup_pending
-        script_complete = True
-        print("script_complete = True")
-        debugTxt("script_complete = True")
-        if setup_pending:
-            setup_pending = False
-            setup()
-            debugTxt("Shell setup has finished")
+        # Use subprocess.Popen instead of subprocess.run
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
 
-        if previous_page == "control":
-            control()
-            # root.after(3000, control)
+        # Check if the process returned a non-zero exit status
+        if process.returncode != 0:
+            print(f"Error executing shell script: {stderr.decode('utf-8').strip()}")
+            error()
         else:
-            debugTxt("Closing python interface")
-            stop_loading()
-            # root.after(3000, stop_loading)
+            global script_complete, previous_page, setup_pending
+            script_complete = True
+            print("script_complete = True")
+            debugTxt("script_complete = True")
+            if setup_pending:
+                setup_pending = False
+                setup()
+                debugTxt("Shell setup has finished")
 
-    except subprocess.CalledProcessError as e:
+            if previous_page == "control":
+                control()
+                # root.after(3000, control)
+            else:
+                debugTxt("Closing python interface")
+                stop_loading()
+                # root.after(3000, stop_loading)
+
+    except Exception as e:
         print(f"Error executing shell script: {e}")
         error()
+
 
 
 
