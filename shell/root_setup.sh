@@ -2,7 +2,7 @@
 # Anything that dose not require room perms will not be here
 
 echo "Root setup has started"
-./pacman.sh
+sh pacman.sh
 
 read -p "
 Setup dark mode?
