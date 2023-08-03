@@ -35,6 +35,7 @@ pacman_packages=(
     "git"
     "xfce4-screenshooter"
     "copyq"
+    "plasma-systemmonitor"
 )
 
 # ttf-font-awesome, ranger, playerctl, piper, obsidian, intel-ucode
