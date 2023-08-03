@@ -303,6 +303,15 @@ install_rec_yay() {
     fi
 }
 
+automatic_setup_func() {
+    echo -e ${BGreen}"[*] Automatic Setup is starting...\n" ${Color_Off}
+    repo_pull
+    cu
+    echo "Rendering lockscreen"
+    betterlockscreen -u /home/$(whoami)/sysZ/bg
+    cd "$current_dir"
+}
+
 wm_setup_func() {
     killall -9 polybar copyq
     echo -e ${BBlue}"\n[*] Setup is starting..." ${Color_Off}
@@ -315,6 +324,8 @@ wm_setup_func() {
     if checkJson "use_background_blur"; then
         i3-msg 'exec killall -9 autotiling; workspace 9; exec alacritty -e autotiling;'
     fi
+    echo -e "${BRed}[!] Please manually refresh (CTRL+SHIFT+R)\n${Color_Off}"
+    read -p "Press [Enter] to continue..."
 }
 
 function trap_ctrlc() {
@@ -376,11 +387,7 @@ for arg in "$@"; do
 done
 
 if [ "$automatic" = true ]; then
-    repo_pull
-    cu
-    echo "Rendering lockscreen"
-    betterlockscreen -u /home/$(whoami)/sysZ/bg
-    cd "$current_dir"
+    automatic_setup_func
 
 elif [ "$run_as_root" = true ]; then
     root_cmd
