@@ -59,13 +59,15 @@ BBlack='\033[1;30m' BRed='\033[1;31m' BGreen='\033[1;32m' BYellow='\033[1;33m'
 BBlue='\033[1;34m' BPurple='\033[1;35m' BCyan='\033[1;36m' BWhite='\033[1;37m'
 
 # flag bools
+valid_flag=false
 automatic=false
 run_as_root=false
 update_check=false
 install_pacman=false
 install_yay=false
 wm_setup=false
-valid_flag=false
+update_sysZ=false
+first-setup=false
 
 checkJson() {
     json_file="/home/$(whoami)/.config/sysZ/config.json"
@@ -307,6 +309,8 @@ automatic_setup_func() {
     echo -e ${BGreen}"[*] Automatic Setup is starting...\n" ${Color_Off}
     repo_pull
     cu
+    install_rec_yay
+    install_rec_pacman
     echo "Rendering lockscreen"
     betterlockscreen -u /home/$(whoami)/sysZ/bg
     cd "$current_dir"
@@ -341,25 +345,29 @@ trap "trap_ctrlc" 2
 # echo -e ${BGreen}"[*] E\n" ${Color_Off}
 # echo -e ${BRed}"[!] F\n" ${Color_Off}
 
+# first time setup, first time setup for sysZ (asks questions)
+# regular setup, includes repo updates & system updates & new recommended package downloads
+# sysZ-update, gets github updates
+
 # ----------------------------- Flag Logic
 
 if [ "$1" = "--h" ]; then
     echo "Available flags:"
-    echo "--automatic    :"
-    echo "--root         :"
-    echo "--pacman       :"
-    echo "--yay          :"
-    echo "--setup        :"
-    echo "--update-check :"
+    echo "--automatic    : Checks repository for updates & automatically installs them"
+    echo "--root         : Manual setup with root privileges"
+    echo "--pacman       : Installs recommended Arch Linux packages"
+    echo "--yay          : Installs recommended Arch User Repository packages"
+    echo "--setup        : Reloads sysZ's integration of the window manager"
+    echo "--update-check : Checks for repository updates. Returns true or false (dose not update anything)"
+    echo -e ${BGreen}"   : Recommended flags\n" ${Color_Off}
+    echo "--first-setup  : Runs the first time setup installer (customization)"
+    echo "--automatic    : Updates sysZ & updates arch linux & installs any new recommended packages"
+    echo "--update-sysZ  : Updates sysZ"
     exit 0
 fi
 
 for arg in "$@"; do
     case "$arg" in
-    --automatic)
-        automatic=true
-        valid_flag=true
-        ;;
     --root)
         run_as_root=true
         valid_flag=true
@@ -380,11 +388,25 @@ for arg in "$@"; do
         update_check=true
         valid_flag=true
         ;;
+    --first-setup)
+        first_setup=true
+        valid_flag=true
+        ;;
+    --automatic)
+        automatic=true
+        valid_flag=true
+        ;;
+    --update-sysZ)
+        update_sysZ=true
+        valid_flag=true
+        ;;
     *)
         # Handle other arguments as needed
         ;;
     esac
 done
+
+echo -e ${BPurple}"[*] sysZ\n\n" ${Color_Off}
 
 if [ "$automatic" = true ]; then
     automatic_setup_func
@@ -402,6 +424,13 @@ elif [ "$install_yay" = true ]; then
     install_rec_yay
 
 elif [ "$wm_setup" = true ]; then
+    wm_setup_func
+
+elif [ "$first_setup" = true ]; then
+    manual
+
+elif [ "$update_sysZ" = true ]; then
+    repo_pull
     wm_setup_func
 
 else
