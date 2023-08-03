@@ -1,5 +1,5 @@
 #!/bin/bash
-sysZ="/home/$(whoami)/sysZ/"
+sysZ="/home/$(whoami)/sysZ"
 
 repo_pull() {
     # Store the current directory
