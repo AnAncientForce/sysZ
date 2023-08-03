@@ -27,9 +27,9 @@ echo "Updating configuration files"
 
 # configuration files
 echo "Copying configuration files..."
-cp "conf/i3" "/home/$(whoami)/.config/i3/config"
-cp "conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
-cp "conf/alacritty.yml" "/home/$(whoami)/.config/"
+cp "/home/$(whoami)/sysZ/conf/i3" "/home/$(whoami)/.config/i3/config"
+cp "/home/$(whoami)/sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
+cp "/home/$(whoami)/sysZ/conf/alacritty.yml" "/home/$(whoami)/.config/"
 
 # sysZ / config.json
 read -p "
