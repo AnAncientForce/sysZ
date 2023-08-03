@@ -59,7 +59,7 @@ def select_wallpaper():
         img = Image.open(os.path.join(wallpaper_dir, wallpaper))
 
         # Resize the image while maintaining aspect ratio
-        img.thumbnail(target_size, Image.ANTIALIAS)
+        img.thumbnail(target_size, Image.BICUBIC)
 
         # Create a new image with black borders
         bordered_img = Image.new("RGB", target_size, "black")
