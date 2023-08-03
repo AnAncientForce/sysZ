@@ -650,7 +650,8 @@ def control():
     cw_button = ttk.Button(buttons_frame, text="Change Wallpaper", command=select_wallpaper)
     cw_button.pack(pady=gPady)
 
-    arch_pkg = ttk.Button(updates_frame, text="Arch PKG", command=lambda: subprocess.run(["sh", os.path.expanduser("~/sysZ/shell/pull.sh"), "--pacman"], shell=True))
+    command = ["sh", os.path.expanduser("~/sysZ/shell/pull.sh"), "--pacman"]
+    arch_pkg = ttk.Button(updates_frame, text="Arch PKG", command=lambda: subprocess.Popen(command))
     arch_pkg.pack(pady=gPady)
     yay_pkg = ttk.Button(updates_frame, text="AUR PKG", command=lambda: subprocess.Popen("sh " + os.path.expanduser("~/sysZ/shell/yay.sh"), shell=True))
     yay_pkg.pack(pady=gPady)
