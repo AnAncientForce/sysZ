@@ -24,10 +24,10 @@ repo_pull() {
 
 cu() {
     echo "Copying configuration files"
-    mkdir -p "/home/$(whoami)/.config/kitty/"
+    mkdir -p "/home/$(whoami)/.config/kitty"
     cp "$sysZ/conf/i3" "/home/$(whoami)/.config/i3/config"
-    cp "$sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
-    cp "$sysZ/conf/alacritty.yml" "/home/$(whoami)/.config/"
+    cp "$sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty"
+    cp "$sysZ/conf/alacritty.yml" "/home/$(whoami)/.config"
 }
 
 ex() {
@@ -120,18 +120,7 @@ fi
 
 # render lockscreen
 echo "Rendering lockscreen"
-betterlockscreen -u /home/$(whoami)/sysZ/bg
-
-# betterlockscreen ~/sysZ/bg
-# .png
-# echo "Checking python setup..."
-# python3 -m venv .venv
-# source .venv/bin/activate
-# python3 -m pip install -r requirements.txt
-# echo "Restarting shell"
-# i3-msg 'exec python ~/sysZ/main.py load;'
-# sh shell/setup.sh
-# Return to the original directory
+betterlockscreen -u $sysZ/bg
 
 # end
 echo "===> All done! :)"

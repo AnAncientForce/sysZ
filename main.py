@@ -7,7 +7,6 @@ import os
 import json
 from subprocess import call
 from PIL import Image, ImageTk
-#from ttkthemes import ThemedTk
 
 root = None
 previous_page = "home"

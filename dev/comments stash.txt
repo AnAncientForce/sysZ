@@ -34,3 +34,43 @@
  #splash_enabled = tk.BooleanVar(value=config.get('splashEnabled', False))
     #checkbox_splash = tk.Checkbutton(options_frame, text="Enable Splash", variable=splash_enabled, command=update_config)
     #checkbox_splash.pack(pady=gPady)
+
+
+
+# & DOSE NOT HOLD UP SHELL
+# >/dev/null 2>&1 & REDIRECTS OUTPUT TO NULL
+
+# i3-msg 'exec feh --bg-fill ~/sysZ/bg.*;' &
+# i3-msg 'exec polybar -c ~/sysZ/conf/polybar.ini;' &
+# i3-msg "exec sh /home/$(whoami)/sysZ/shell/background_update_check.sh;" &
+# i3-msg "exec sox ~/sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
+
+# i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
+# i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
+# polybar -c ~/.config/polybar/config.ini
+# picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 10 --config ~/.config/picom/conf --vsync
+
+#.......
+
+
+
+#feh --bg-fill /home/$(whoami)/sysZ/bg.*
+#polybar -c "$sysZ/conf/polybar.ini" >/dev/null 2>&1 &
+#sh "$sysZ/shell/background_update_check.sh" & # & Because if there is an update, the setup screen will never go away
+#sox "$sysZ/sfx/Sys_Camera_SavePicture.flac" -d >/dev/null 2>&1 &
+
+# bg.*
+
+
+
+
+# betterlockscreen ~/sysZ/bg
+# .png
+# echo "Checking python setup..."
+# python3 -m venv .venv
+# source .venv/bin/activate
+# python3 -m pip install -r requirements.txt
+# echo "Restarting shell"
+# i3-msg 'exec python ~/sysZ/main.py load;'
+# sh shell/setup.sh
+# Return to the original directory

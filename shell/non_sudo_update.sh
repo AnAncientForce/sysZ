@@ -25,12 +25,13 @@ repo_pull() {
 
 cu() {
     echo "Copying configuration files"
-    mkdir -p "/home/$(whoami)/.config/kitty/"
+    mkdir -p "/home/$(whoami)/.config/kitty"
     cp "$sysZ/conf/i3" "/home/$(whoami)/.config/i3/config"
-    cp "$sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty/"
-    cp "$sysZ/conf/alacritty.yml" "/home/$(whoami)/.config/"
+    cp "$sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty"
+    cp "$sysZ/conf/alacritty.yml" "/home/$(whoami)/.config"
 }
 
+# Automatic
 repo_pull
 cu
 echo "Rendering lockscreen"
