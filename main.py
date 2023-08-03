@@ -83,16 +83,24 @@ def select_wallpaper():
             button.grid(row=i // num_columns, column=i % num_columns, padx=10, pady=10)
             button.image = img_tk
 
+        # Update the canvas scroll region
+        canvas.update_idletasks()
+        canvas.config(scrollregion=canvas.bbox(tk.ALL))
+
     # Update the grid layout initially
     update_grid_layout()
 
     # Bind the canvas to the canvas resize event
     canvas.bind("<Configure>", update_grid_layout)
 
+    # Bind the mouse wheel event to the canvas for scrolling
+    canvas.bind_all("<MouseWheel>", lambda event: canvas.yview_scroll(-1*(event.delta//120), "units"))
+
     skip_button = ttk.Button(root, text="Home", command=home)
     skip_button.pack(side=tk.BOTTOM, pady=10)
 
 # Rest of your code...
+
 
 
 
