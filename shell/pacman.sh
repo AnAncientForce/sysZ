@@ -33,6 +33,8 @@ pacman_packages=(
     "breeze"
     "base-devel"
     "git"
+    "xfce4-screenshooter"
+    "copyq"
 )
 
 # ttf-font-awesome, ranger, playerctl, piper, obsidian, intel-ucode

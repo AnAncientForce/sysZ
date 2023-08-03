@@ -1,7 +1,7 @@
 #!/bin/bash
 sysZ="/home/$(whoami)/sysZ"
 
-killall -9 polybar
+killall -9 polybar copyq
 #feh --bg-fill /home/$(whoami)/sysZ/bg.*
 #polybar -c "$sysZ/conf/polybar.ini" >/dev/null 2>&1 &
 #sh "$sysZ/shell/background_update_check.sh" & # & Because if there is an update, the setup screen will never go away
@@ -11,6 +11,7 @@ killall -9 polybar
 i3-msg "exec feh --bg-fill $sysZ/bg;"
 i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
 i3-msg "exec sh $sysZ/shell/background_update_check.sh;"
+i3-msg "exec copyq;"
 i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
 i3-msg "reload"
 
