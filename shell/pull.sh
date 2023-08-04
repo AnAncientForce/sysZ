@@ -396,25 +396,25 @@ continue_setup_func() {
 view_docs_func() {
     if [ -z "$2" ]; then
         echo -e "${BRed}\n[!] Please provide a valid [doc] name.\n${Color_Off}"
-        return 1
+        exit 2
     fi
     doc_name="$2"
     case "$doc_name" in
     "bluetooth")
-        cat "$sysZ/bluetooth.txt"
+        cat "$sysZ/docs/bluetooth.txt"
         ;;
     "i3")
-        cat "$sysZ/i3.txt"
+        cat "$sysZ/docs/i3.txt"
         ;;
     "pkgs")
-        cat "$sysZ/pkgs.txt"
+        cat "$sysZ/docs/pkgs.txt"
         ;;
     "print")
-        cat "$sysZ/print.txt"
+        cat "$sysZ/docs/print.txt"
         ;;
     *)
         echo -e "${BRed}\n[!] Invalid document\n${Color_Off}"
-        return 1
+        exit 2
         ;;
     esac
 }
