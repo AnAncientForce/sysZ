@@ -288,13 +288,13 @@ manual() {
 check_updates() {
     if ! checkJson "ignore_updates"; then
         current_dir=$(pwd)
-        cd "/home/$(whoami)/sysZ"
+        cd $sysZ
 
         if [ -d ".git" ] || git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
             git remote update >/dev/null 2>&1
             if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
                 # python /home/$(whoami)/sysZ/main.py update_confirmation
-                alacritty -e sh $sysZ/pull.sh --update_confirm &
+                alacritty -e sh $sysZ/pull.sh --update_confirm
             else
                 echo "No updates available."
             fi
