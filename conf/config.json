@@ -1,1 +1,5 @@
-{ "use_background_blur": false, "ignore_updates": false }
+{
+  "use_background_blur": false,
+  "ignore_updates": false,
+  "render_lockscreen": false
+}

@@ -399,8 +399,10 @@ automatic_setup_func() {
 }
 
 continue_setup_func() {
-    echo -e "${BPurple}[*] Rendering lockscreen...${Color_Off}"
-    betterlockscreen -u $sysZ/bg
+    if checkJson "render_lockscreen"; then
+        echo -e "${BPurple}[*] Rendering lockscreen...${Color_Off}"
+        betterlockscreen -u $sysZ/bg
+    fi
 }
 
 view_docs_func() {
