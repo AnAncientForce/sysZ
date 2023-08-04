@@ -585,7 +585,7 @@ done
 if ! $valid_flag; then
     # echo -e ${BRed}"\n[!] Incorrect or misspelled flag.\n\nProceeding with default...\n" ${Color_Off}
     echo -e ${BRed}"\n[!] Incorrect or misspelled flag.\n" ${Color_Off}
-    help
+    echo -e ${BBlue}"\n[?] Usage: sysz -h\n" ${Color_Off}
 fi
 
 if [ "$automatic" = true ]; then
@@ -620,9 +620,6 @@ elif [ "$update_confirm" = true ]; then
 
 elif [ "$view_docs" = true ]; then
     view_docs_func "$@"
-
-else
-    help
 fi
 echo -e ${BGreen}"[*] Setup has finished\n" ${Color_Off}
 #.
