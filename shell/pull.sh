@@ -134,7 +134,9 @@ repo_pull() {
 
     # Check if it's a git repository before performing git pull
     if [ -d ".git" ] || git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-        git pull origin main
+        # Reset to the remote branch forcefully
+        git fetch origin main
+        git reset --hard origin/main
         echo "Repository updated."
     else
         echo "Initializing a new git repository..."
