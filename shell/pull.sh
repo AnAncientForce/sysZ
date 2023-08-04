@@ -99,6 +99,11 @@ checkJson() {
     fi
 }
 
+function is_package_installed() {
+    local package_name="$1"
+    yay -Qs "$package_name" &>/dev/null
+}
+
 root_cmd() {
     if [ "$(id -u)" -ne 0 ]; then
         echo -e "${BPurple}[!] Must be running as sudo or root${Color_Off}"
@@ -222,6 +227,7 @@ manual() {
     (p) Install Pacman packages
     (b) Install Both packages (yay & pacman)
     (u) System Update
+    (a) All
     (s) Skip
     " choice
 
@@ -239,6 +245,12 @@ manual() {
         echo -e "${BRed}[*] Attention Required\nAbout to perform a system update...${Color_Off}"
         sudo pacman -Syu
 
+    elif [ "$choice" = "u" ]; then
+        install_rec_yay
+        echo -e "${BRed}[*] Attention Required${Color_Off}"
+        install_rec_pacman
+        sudo pacman -Syu
+
     elif [ "$choice" = "s" ]; then
         echo -e "${BPurple}[*] Skipping...${Color_Off}"
 
@@ -247,8 +259,7 @@ manual() {
     fi
 
     # render lockscreen
-    echo -e "${BPurple}[*] Rendering lockscreen...${Color_Off}"
-    betterlockscreen -u $sysZ/bg
+    continue_setup_func
 
     # end
     # echo "===> All done! :)"
@@ -276,15 +287,20 @@ install_rec_pacman() {
     not_installed=0
     key="Arch"
     echo "Checking $key"
-    echo -e ${BRed}"[*] Attention Required\n" ${Color_Off}
+    # Check before warning prompt
     for package in "${pacman_packages[@]}"; do
         if ! pacman -Qi "$package" >/dev/null 2>&1; then
-            sudo pacman -S --noconfirm "$package"
             not_installed=1
         fi
     done
     if [ $not_installed -eq 1 ]; then
-        echo "Some $key packages were installed."
+        # Now for the real install
+        echo -e ${BRed}"[*] Attention Required\n" ${Color_Off}
+        for package in "${pacman_packages[@]}"; do
+            if ! pacman -Qi "$package" >/dev/null 2>&1; then
+                sudo pacman -S --noconfirm "$package"
+            fi
+        done
     else
         echo "$key packages are already installed."
     fi
@@ -305,6 +321,11 @@ install_rec_yay() {
     else
         echo "$key packages are already installed."
     fi
+
+    echo -e "${BRed}[!] It is recommended to install the following packages manually${Color_Off}"
+    if is_package_installed "betterlockscreen"; then
+        echo -e "${BRed}[*] yay -S betterlockscreen${Color_Off}"
+    fi
 }
 
 automatic_setup_func() {
@@ -314,8 +335,13 @@ automatic_setup_func() {
     install_rec_yay
     install_rec_pacman
     echo "Rendering lockscreen"
-    betterlockscreen -u /home/$(whoami)/sysZ/bg
+    continue_setup_func
     cd "$current_dir"
+}
+
+continue_setup_func() {
+    echo -e "${BPurple}[*] Rendering lockscreen...${Color_Off}"
+    betterlockscreen -u $sysZ/bg
 }
 
 wm_setup_func() {
@@ -330,8 +356,8 @@ wm_setup_func() {
     if checkJson "use_background_blur"; then
         i3-msg 'exec killall -9 autotiling; workspace 9; exec alacritty -e autotiling;'
     fi
-    echo -e "${BRed}[!] Please manually refresh (CTRL+SHIFT+R)\n${Color_Off}"
-    read -p "Press [Enter] to continue..."
+    # echo -e "${BRed}[!] Please manually refresh (CTRL+SHIFT+R)\n${Color_Off}"
+    # read -p "Press [Enter] to continue..."
 }
 
 function trap_ctrlc() {
@@ -351,20 +377,22 @@ trap "trap_ctrlc" 2
 # regular setup, includes repo updates & system updates & new recommended package downloads
 # sysZ-update, gets github updates
 
+# echo "Available flags:"
+# echo "--automatic    : Checks repository for updates & automatically installs them"
+# echo "--root         : Manual setup with root privileges"
+# echo "--pacman       : Installs recommended Arch Linux packages"
+# echo "--yay          : Installs recommended Arch User Repository packages"
+# echo "--setup        : Reloads sysZ's integration of the window manager"
+# echo "--update-check : Checks for repository updates. Returns true or false (dose not update anything)"
+
 # ----------------------------- Flag Logic
 
 if [ "$1" = "--h" ]; then
-    echo "Available flags:"
-    echo "--automatic    : Checks repository for updates & automatically installs them"
-    echo "--root         : Manual setup with root privileges"
-    echo "--pacman       : Installs recommended Arch Linux packages"
-    echo "--yay          : Installs recommended Arch User Repository packages"
-    echo "--setup        : Reloads sysZ's integration of the window manager"
-    echo "--update-check : Checks for repository updates. Returns true or false (dose not update anything)"
-    echo -e ${BGreen}"   : \nRecommended flags\n" ${Color_Off}
-    echo "--first-setup  : Runs the first time setup installer (customization)"
-    echo "--automatic    : Updates sysZ & updates arch linux & installs any new recommended packages"
-    echo "--update-sysZ  : Updates sysZ"
+    echo -e ${BPurple}"Available flags\n" ${Color_Off}
+    echo -e ${BGreen}"[*] --h           : (this)" ${Color_Off}
+    echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
+    echo -e ${BGreen}"[*] --automatic   : Updates sysZ & updates arch linux & installs any new recommended packages" ${Color_Off}
+    echo -e ${BGreen}"[*] --update-sysZ : Updates sysZ" ${Color_Off}
     exit 0
 fi
 
