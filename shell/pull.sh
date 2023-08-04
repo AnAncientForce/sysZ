@@ -295,7 +295,8 @@ check_updates() {
             if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
                 # python /home/$(whoami)/sysZ/main.py update_confirmation
                 #........
-                alacritty -e sh -c "cd $sysZ/shell; pull.sh --update-confirm; $SHELL"
+                # alacritty -e sh -c "cd $sysZ/shell; pull.sh --update-confirm; $SHELL"
+                alacritty -e bash -c "cd $sysZ/shell && ./pull.sh --update-confirm; $SHELL"
                 exit 0
             else
                 echo "No updates available."
