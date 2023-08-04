@@ -585,7 +585,7 @@ done
 if ! $valid_flag; then
     # echo -e ${BRed}"\n[!] Incorrect or misspelled flag.\n\nProceeding with default...\n" ${Color_Off}
     echo -e ${BRed}"[!] Incorrect or misspelled flag.\n" ${Color_Off}
-    echo -e ${BBlue}"[?] Usage: sysz -h\n" ${Color_Off}
+    echo -e ${BBlue}"[?] Usage: sysz -h" ${Color_Off}
     exit 2
 fi
 
