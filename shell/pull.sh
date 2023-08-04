@@ -73,6 +73,7 @@ update_sysZ=false
 first_setup=false
 change_wallpaper=false
 view_docs=false
+update_confirm=false
 user_home=""
 json_file=""
 sysZ=""
@@ -285,15 +286,18 @@ manual() {
 }
 
 check_updates() {
-    current_dir=$(pwd)
-    cd "/home/$(whoami)/sysZ"
+    if ! checkJson "ignore_updates"; then
+        current_dir=$(pwd)
+        cd "/home/$(whoami)/sysZ"
 
-    if [ -d ".git" ] || git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-        git remote update >/dev/null 2>&1
-        if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
-            python /home/$(whoami)/sysZ/main.py update_confirmation
-        else
-            echo "No updates available."
+        if [ -d ".git" ] || git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+            git remote update >/dev/null 2>&1
+            if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
+                # python /home/$(whoami)/sysZ/main.py update_confirmation
+                alacritty -e sh $sysZ/pull.sh --update_confirm &
+            else
+                echo "No updates available."
+            fi
         fi
     fi
 }
@@ -441,8 +445,27 @@ view_docs_func() {
     exit 0
 }
 
+update_confirm_func() {
+    echo -e ${BGreen}"\nA new update is now available!\n" ${Color_Off}
+    read -p "Proceed & Update?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        update_sysZ_func
+    else
+        echo -e ${BRed}"\nUpdate did not proceed\n" ${Color_Off}
+    fi
+}
+
+update_sysZ_func() {
+    repo_pull
+    cu
+    ex
+    wm_setup_func
+}
+
 wm_setup_func() {
     killall -9 polybar copyq
+    sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     i3-msg "exec feh --bg-fill $sysZ/bg;"
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
@@ -528,6 +551,10 @@ for arg in "$@"; do
         automatic=true
         valid_flag=true
         ;;
+    --update_confirm)
+        update_confirm=true
+        valid_flag=true
+        ;;
     -u)
         update_sysZ=true
         valid_flag=true
@@ -584,13 +611,13 @@ elif [ "$first_setup" = true ]; then
     manual
 
 elif [ "$update_sysZ" = true ]; then
-    repo_pull
-    cu
-    ex
-    wm_setup_func
+    update_sysZ_func
 
 elif [ "$change_wallpaper" = true ]; then
     change_wallpaper_func
+
+elif [ "$update_confirm" = true ]; then
+    update_confirm_func
 
 elif [ "$view_docs" = true ]; then
     view_docs_func "$@"
