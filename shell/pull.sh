@@ -294,7 +294,7 @@ check_updates() {
             git remote update >/dev/null 2>&1
             if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
                 # python /home/$(whoami)/sysZ/main.py update_confirmation
-                #..
+                #...
                 i3-msg "exec alacritty -e sh $sysZ/shell/pull.sh --update-confirm;"
                 exit 0
             else
