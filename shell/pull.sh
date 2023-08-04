@@ -116,7 +116,6 @@ root_cmd() {
         echo -e "${BRed}[*] Setting up QT_QPA_PLATFORMTHEME in /etc/environment...${Color_Off}"
         echo 'QT_QPA_PLATFORMTHEME="qt5ct"' >/etc/environment
     fi
-    echo -e "${BPurple}[*] Finished\n${Color_Off}"
 }
 
 repo_pull() {
@@ -264,7 +263,7 @@ manual() {
 
     # end
     # echo "===> All done! :)"
-    echo -e ${BGreen}"[*] Setup has finished\n" ${Color_Off}
+    # echo -e ${BGreen}"[*] Setup has finished\n" ${Color_Off}
     cd "$current_dir"
 }
 
@@ -323,9 +322,9 @@ install_rec_yay() {
         echo "$key packages are already installed."
     fi
 
-    echo -e "${BRed}[!] It is recommended to install the following packages manually${Color_Off}"
-    if is_package_installed "betterlockscreen"; then
-        echo -e "${BRed}[*] yay -S betterlockscreen${Color_Off}"
+    if ! is_package_installed "betterlockscreen"; then
+        echo -e "${BRed}[!] Attention Required${Color_Off}"
+        yay -S betterlockscreen
     fi
 }
 
@@ -466,3 +465,4 @@ elif [ "$update_sysZ" = true ]; then
 else
     manual
 fi
+echo -e ${BGreen}"[*] Setup has finished\n" ${Color_Off}
