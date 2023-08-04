@@ -638,7 +638,7 @@ elif [ "$dev_mode" = true ]; then
     read -p "Run live wallpaper?
     (y/n): " choice
     if [ "$choice" = "y" ]; then
-        xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv -wid WID --loop --no-audio /mnt/veracrypt1/Videos/output.mp4
+        xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv -wid WID --loop --no-audio $user_home/w.mp4
     else
         echo -e ${BRed}"\nStop\n" ${Color_Off}
     fi
