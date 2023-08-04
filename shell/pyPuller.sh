@@ -495,7 +495,8 @@ trap "trap_ctrlc" 2
 
 # ----------------------------- Flag Logic
 
-help() {
+echo -e ${BPurple}"[*] sysZ\n" ${Color_Off}
+if [ "$1" = "-h" ]; then
     echo -e ${BPurple}"Usage\n" ${Color_Off}
     echo -e ${BBlue}"[*] chmod +x pull.sh" ${Color_Off}
     echo -e ${BBlue}"[*] ./pull.sh -h" ${Color_Off}
@@ -511,11 +512,6 @@ help() {
     echo -e ${BGreen}"[*] --ca          : Change Appearance" ${Color_Off}
     echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print, tools]" ${Color_Off}
     exit 0
-}
-
-echo -e ${BPurple}"[*] sysZ\n" ${Color_Off}
-if [ "$1" = "-h" ]; then
-    help
 fi
 
 for arg in "$@"; do
@@ -583,9 +579,7 @@ for arg in "$@"; do
     esac
 done
 if ! $valid_flag; then
-    # echo -e ${BRed}"\n[!] Incorrect or misspelled flag.\n\nProceeding with default...\n" ${Color_Off}
-    echo -e ${BRed}"\n[!] Incorrect or misspelled flag.\n" ${Color_Off}
-    help
+    echo -e ${BRed}"\n[!] Incorrect or misspelled flag.\n\nProceeding with default...\n" ${Color_Off}
 fi
 
 if [ "$automatic" = true ]; then
@@ -622,7 +616,7 @@ elif [ "$view_docs" = true ]; then
     view_docs_func "$@"
 
 else
-    help
+    manual
 fi
 echo -e ${BGreen}"[*] Setup has finished\n" ${Color_Off}
 #.
