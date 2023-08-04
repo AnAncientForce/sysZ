@@ -422,29 +422,15 @@ view_docs_func() {
         exit 2
     fi
     doc_name="$2"
-    case "$doc_name" in
-    "bluetooth")
-        cat "$sysZ/docs/bluetooth.txt"
-        ;;
-    "i3")
-        cat "$sysZ/docs/i3.txt"
-        ;;
-    "pkgs")
-        cat "$sysZ/docs/pkgs.txt"
-        ;;
-    "print")
-        cat "$sysZ/docs/print.txt"
-        ;;
-    "tools")
-        cat "$sysZ/docs/tools.txt"
-        ;;
-    *)
+    docs_path="$sysZ/docs/$doc_name.txt"
+    if [ -f "$docs_path" ]; then
+        cat "$docs_path"
+        exit 0
+    else
         echo -e "${BRed}\n[!] Invalid document\n${Color_Off}"
         echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print, tools]" ${Color_Off}
         exit 2
-        ;;
-    esac
-    exit 0
+    fi
 }
 
 update_confirm_func() {
