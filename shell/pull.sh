@@ -303,7 +303,7 @@ install_rec_pacman() {
             fi
         done
     else
-        echo "$key packages are already installed."
+        echo -e "${BGreen}[*] $key packages are already installed\n${Color_Off}"
     fi
 }
 
@@ -320,7 +320,7 @@ install_rec_yay() {
     if [ $not_installed -eq 1 ]; then
         echo "Some $key packages were installed."
     else
-        echo "$key packages are already installed."
+        echo -e "${BGreen}[*] $key packages are already installed\n${Color_Off}"
     fi
 
     if ! is_package_installed "betterlockscreen"; then
@@ -386,6 +386,7 @@ trap "trap_ctrlc" 2
 
 # ----------------------------- Flag Logic
 
+echo -e ${BPurple}"[*] sysZ\n" ${Color_Off}
 if [ "$1" = "--h" ]; then
     echo -e ${BPurple}"\nAvailable flags\n" ${Color_Off}
     echo -e ${BGreen}"[*] --h           : Lists all available flagss" ${Color_Off}
@@ -435,7 +436,6 @@ for arg in "$@"; do
         ;;
     esac
 done
-echo -e ${BPurple}"[*] sysZ\n" ${Color_Off}
 if ! $valid_flag; then
     echo -e ${BRed}"\n[!] Incorrect or misspelled flag.\n\nProceeding with default...\n" ${Color_Off}
 fi
