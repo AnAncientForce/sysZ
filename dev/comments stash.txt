@@ -74,3 +74,16 @@
 # i3-msg 'exec python ~/sysZ/main.py load;'
 # sh shell/setup.sh
 # Return to the original directory
+
+
+
+echo "Root setup has started"
+
+    read -p "
+    Install pacman packages & system update?
+    (y/n): " choice
+
+    if [ "$choice" = "y" ]; then
+        sudo pacman -Syu
+        sudo -u $SUDO_USER sh /home/$SUDO_USER/sysZ/shell/pacman.sh
+    fi

@@ -91,27 +91,14 @@ checkJson() {
 
 root_cmd() {
     if [ "$(id -u)" -ne 0 ]; then
-        echo "[!] - Run as sudo or as root"
+        echo -e "${BPurple}[!] Must be running as sudo or root${Color_Off}"
         exit 1
     fi
-
-    echo "Root setup has started"
-
-    read -p "
-    Install pacman packages & system update?
+    read -p "Setup QT_QPA_PLATFORMTHEME?
     (y/n): " choice
 
     if [ "$choice" = "y" ]; then
-        sudo pacman -Syu
-        sudo -u $SUDO_USER sh /home/$SUDO_USER/sysZ/shell/pacman.sh
-    fi
-
-    read -p "${BPurple}
-    Setup QT_QPA_PLATFORMTHEME?
-    (y/n): ${Color_Off}" choice
-
-    if [ "$choice" = "y" ]; then
-        echo -e "${BRed}[*] Setting up QT_QPA_PLATFORMTHEME in /etc/environment...${Color_Off}"
+        echo -e "${BPurple}[*] Setting up QT_QPA_PLATFORMTHEME in /etc/environment...${Color_Off}"
         echo 'QT_QPA_PLATFORMTHEME="qt5ct"' >/etc/environment
     fi
 }
@@ -156,7 +143,6 @@ ex() {
 }
 
 git_install_rofi() {
-    echo "Installing > https://github.com/adi1090x/rofi.git"
     cd ~
     git clone --depth=1 https://github.com/adi1090x/rofi.git
     cd rofi
@@ -164,7 +150,6 @@ git_install_rofi() {
     ./setup.sh
 }
 git_install_yay() {
-    echo "Installing > https://aur.archlinux.org/yay.git"
     cd ~
     if [ -d "yay" ]; then
         rm -rf "yay"
@@ -204,48 +189,55 @@ manual() {
     echo "Scanning for changes in default applications"
 
     # install yay
-    read -p "
-    Install yay?
+    read -p "Install Yay?
     (y/n): " choice
-
     if [ "$choice" = "y" ]; then
         git_install_yay
     fi
 
     # rofi
-    read -p "
-    [CAUTION]: rofi will not function correctly without this due to how the current configuration is setup
+    read -p "[CAUTION]: rofi will not function correctly without this due to how the current configuration is setup
     Check if themes are installed? (if not, install them)
     (y/n): " choice
     if [ "$choice" = "y" ]; then
         git_install_rofi
     else
-        echo "CAUTION: super + d may not work/function correctly"
+        echo "CAUTION: super + d may not work/function correctly (if not installed)"
     fi
 
     # packages & update
+    echo -e "${BPurple}[*] System Upgrade${Color_Off}"
     read -p "
-    (y) Install yay packages
-    (p) Install pacman packages
-    (b) Install both packages
+    (y) Install Yay packages
+    (p) Install Pacman packages
+    (b) Install Both packages (yay & pacman)
     (u) System Update
+    (s) Skip
     " choice
 
     if [ "$choice" = "y" ]; then
-        sh /home/$(whoami)/sysZ/shell/yay.sh
+        install_rec_yay
+
     elif [ "$choice" = "p" ]; then
-        sh /home/$(whoami)/sysZ/shell/pacman.sh
+        install_rec_pacman
+
     elif [ "$choice" = "b" ]; then
-        sh /home/$(whoami)/sysZ/shell/yay.sh
-        sh /home/$(whoami)/sysZ/shell/pacman.sh
+        install_rec_yay
+        install_rec_pacman
+
     elif [ "$choice" = "u" ]; then
+        echo -e "${BRed}[*] Attention Required\nAbout to perform a system update...${Color_Off}"
         sudo pacman -Syu
+
+    elif [ "$choice" = "s" ]; then
+        echo -e "${BPurple}[*] Skipping...${Color_Off}"
+
     else
         echo "Skipping..."
     fi
 
     # render lockscreen
-    echo "Rendering lockscreen"
+    echo -e "${BPurple}[*] Rendering lockscreen...${Color_Off}"
     betterlockscreen -u $sysZ/bg
 
     # end
