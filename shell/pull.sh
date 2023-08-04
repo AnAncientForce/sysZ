@@ -435,8 +435,10 @@ for arg in "$@"; do
         ;;
     esac
 done
-
 echo -e ${BPurple}"[*] sysZ\n" ${Color_Off}
+if ! $valid_flag; then
+    echo -e ${BRed}"\n[!] Incorrect or misspelled flag.\n\nProceeding with default...\n" ${Color_Off}
+fi
 
 if [ "$automatic" = true ]; then
     automatic_setup_func
