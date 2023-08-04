@@ -479,13 +479,13 @@ echo -e ${BPurple}"[*] sysZ\n" ${Color_Off}
 if [ "$1" = "-h" ]; then
     echo -e ${BPurple}"\nAvailable flags\n" ${Color_Off}
     echo -e ${BGreen}"[*] -h            : Lists all available flags" ${Color_Off}
+    echo -e ${BGreen}"[*] -u            : Updates sysZ" ${Color_Off}
+    echo -e ${BGreen}"[*] -l            : Lock Workstation" ${Color_Off}
     echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
     echo -e ${BGreen}"[*] --automatic   : Updates sysZ & updates arch linux & installs any new recommended packages" ${Color_Off}
-    echo -e ${BGreen}"[*] --update-sysZ : Updates sysZ" ${Color_Off}
     echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
     echo -e ${BGreen}"[*] --cw          : Change Wallpaper" ${Color_Off}
     echo -e ${BGreen}"[*] --ca          : Change Appearance" ${Color_Off}
-    echo -e ${BGreen}"[*] -l            : Lock Workstation" ${Color_Off}
     echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print]" ${Color_Off}
     exit 0
 fi
@@ -520,7 +520,7 @@ for arg in "$@"; do
         automatic=true
         valid_flag=true
         ;;
-    --update-sysZ)
+    -u)
         update_sysZ=true
         valid_flag=true
         ;;
