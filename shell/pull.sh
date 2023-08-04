@@ -68,6 +68,7 @@ wm_setup=false
 update_sysZ=false
 first_setup=false
 change_wallpaper=false
+view_docs=false
 user_home=""
 json_file=""
 sysZ=""
@@ -392,6 +393,32 @@ continue_setup_func() {
     betterlockscreen -u $sysZ/bg
 }
 
+view_docs_func() {
+    if [ -z "$2" ]; then
+        echo -e "${BRed}\n[!] Please provide a valid [doc] name.\n${Color_Off}"
+        return 1
+    fi
+    doc_name="$2"
+    case "$doc_name" in
+    "bluetooth")
+        cat "$sysZ/bluetooth.txt"
+        ;;
+    "i3")
+        cat "$sysZ/i3.txt"
+        ;;
+    "pkgs")
+        cat "$sysZ/pkgs.txt"
+        ;;
+    "print")
+        cat "$sysZ/print.txt"
+        ;;
+    *)
+        echo -e "${BRed}\n[!] Invalid document\n${Color_Off}"
+        return 1
+        ;;
+    esac
+}
+
 wm_setup_func() {
     killall -9 polybar copyq
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
@@ -435,14 +462,17 @@ trap "trap_ctrlc" 2
 # ----------------------------- Flag Logic
 
 echo -e ${BPurple}"[*] sysZ\n" ${Color_Off}
-if [ "$1" = "--h" ]; then
+if [ "$1" = "-h" ]; then
     echo -e ${BPurple}"\nAvailable flags\n" ${Color_Off}
-    echo -e ${BGreen}"[*] --h           : Lists all available flags" ${Color_Off}
+    echo -e ${BGreen}"[*] -h            : Lists all available flags" ${Color_Off}
     echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
     echo -e ${BGreen}"[*] --automatic   : Updates sysZ & updates arch linux & installs any new recommended packages" ${Color_Off}
     echo -e ${BGreen}"[*] --update-sysZ : Updates sysZ" ${Color_Off}
     echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
     echo -e ${BGreen}"[*] --cw          : Change Wallpaper" ${Color_Off}
+    echo -e ${BGreen}"[*] --ca          : Change Appearance" ${Color_Off}
+    echo -e ${BGreen}"[*] -l            : Lock Workstation" ${Color_Off}
+    echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print]" ${Color_Off}
     exit 0
 fi
 
@@ -489,6 +519,18 @@ for arg in "$@"; do
         echo -e ${BGreen}"\nDirectory Changed\n" ${Color_Off}
         exit 0
         ;;
+    --ca)
+        i3-msg 'exec qt5ct; exec lxappearance;'
+        exit 0
+        ;;
+    -l)
+        i3-msg 'exec betterlockscreen -l;'
+        exit 0
+        ;;
+    --docs)
+        view_docs=true
+        valid_flag=true
+        ;;
     *)
         # Handle other arguments as needed
         ;;
@@ -525,6 +567,9 @@ elif [ "$update_sysZ" = true ]; then
 
 elif [ "$change_wallpaper" = true ]; then
     change_wallpaper_func
+
+elif [ "$view_docs" = true ]; then
+    view_docs_func "$@"
 
 else
     manual
