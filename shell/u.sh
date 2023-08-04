@@ -23,5 +23,5 @@ else
     echo "Git repository set up. Repository is ready."
 fi
 
-chmod +x pull.sh
+chmod +x $sysZ/pull.sh
 cd $sysZ/shell
