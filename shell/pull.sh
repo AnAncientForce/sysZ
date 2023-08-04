@@ -374,6 +374,7 @@ change_wallpaper_func() {
             esac # 'esac' end case statement
         done
     done
+    exit 0
 }
 
 automatic_setup_func() {
