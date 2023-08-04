@@ -635,6 +635,18 @@ elif [ "$view_docs" = true ]; then
     view_docs_func "$@"
 
 elif [ "$dev_mode" = true ]; then
+    read -p "Install ujjwal96/xwinwrap?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        git clone https://github.com/ujjwal96/xwinwrap.git
+        cd xwinwrap
+        make
+        sudo make install
+        make clean
+    else
+        echo -e ${BRed}"\nStop\n" ${Color_Off}
+    fi
+
     read -p "Run live wallpaper?
     (y/n): " choice
     if [ "$choice" = "y" ]; then
