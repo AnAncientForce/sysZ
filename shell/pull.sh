@@ -106,16 +106,17 @@ function is_package_installed() {
 
 root_cmd() {
     if [ "$(id -u)" -ne 0 ]; then
-        echo -e "${BPurple}[!] Must be running as sudo or root${Color_Off}"
+        echo -e "${BRed}[!] Must be running as sudo or root${Color_Off}"
         exit 1
     fi
     read -p "Setup QT_QPA_PLATFORMTHEME?
     (y/n): " choice
 
     if [ "$choice" = "y" ]; then
-        echo -e "${BPurple}[*] Setting up QT_QPA_PLATFORMTHEME in /etc/environment...${Color_Off}"
+        echo -e "${BRed}[*] Setting up QT_QPA_PLATFORMTHEME in /etc/environment...${Color_Off}"
         echo 'QT_QPA_PLATFORMTHEME="qt5ct"' >/etc/environment
     fi
+    echo -e "${BPurple}[*] Finished\n${Color_Off}"
 }
 
 repo_pull() {
@@ -334,7 +335,6 @@ automatic_setup_func() {
     cu
     install_rec_yay
     install_rec_pacman
-    echo "Rendering lockscreen"
     continue_setup_func
     cd "$current_dir"
 }
@@ -346,10 +346,9 @@ continue_setup_func() {
 
 wm_setup_func() {
     killall -9 polybar copyq
-    echo -e ${BBlue}"\n[*] Setup is starting..." ${Color_Off}
+    echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     i3-msg "exec feh --bg-fill $sysZ/bg;"
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
-    i3-msg "exec sh $sysZ/shell/pull.sh --update-check;"
     i3-msg "exec copyq;"
     i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
     i3-msg "reload"
@@ -361,7 +360,7 @@ wm_setup_func() {
 }
 
 function trap_ctrlc() {
-    echo -e ${BRed}"[!] The current operation has been stopped.\n" ${Color_Off}
+    echo -e ${BRed}"\n[!] The current operation has been stopped.\n" ${Color_Off}
     exit 2
 }
 trap "trap_ctrlc" 2
@@ -393,6 +392,7 @@ if [ "$1" = "--h" ]; then
     echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
     echo -e ${BGreen}"[*] --automatic   : Updates sysZ & updates arch linux & installs any new recommended packages" ${Color_Off}
     echo -e ${BGreen}"[*] --update-sysZ : Updates sysZ" ${Color_Off}
+    echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
     exit 0
 fi
 
