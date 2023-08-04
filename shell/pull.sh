@@ -55,6 +55,7 @@ yay_packages=(
     "ttf-font-awesome-4"
     "tty-clock"
     "pipes.sh"
+    "shantz-xwinwrap-bzr"
 )
 
 Color_Off='\033[0m'
@@ -74,6 +75,7 @@ first_setup=false
 change_wallpaper=false
 view_docs=false
 update_confirm=false
+dev_mode=true
 user_home=""
 json_file=""
 sysZ=""
@@ -579,6 +581,10 @@ for arg in "$@"; do
         view_docs=true
         valid_flag=true
         ;;
+    --dev)
+        dev_mode=true
+        valid_flag=true
+        ;;
     *)
         # Handle other arguments as needed...
         ;;
@@ -627,6 +633,16 @@ elif [ "$update_confirm" = true ]; then
 
 elif [ "$view_docs" = true ]; then
     view_docs_func "$@"
+
+elif [ "$dev_mode" = true ]; then
+    read -p "Run live wallpaper?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv -wid WID --loop --no-audio /mnt/veracrypt1/Videos/output.mp4
+    else
+        echo -e ${BRed}"\nStop\n" ${Color_Off}
+    fi
+    exit 0
 fi
 echo -e ${BGreen}"[*] Setup has finished\n" ${Color_Off}
 #..
