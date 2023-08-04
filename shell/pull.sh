@@ -291,6 +291,7 @@ install_rec_pacman() {
     for package in "${pacman_packages[@]}"; do
         if ! pacman -Qi "$package" >/dev/null 2>&1; then
             not_installed=1
+            break # Break out of the loop as soon as we find a package that needs installation
         fi
     done
     if [ $not_installed -eq 1 ]; then
