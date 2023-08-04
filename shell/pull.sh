@@ -424,6 +424,7 @@ view_docs_func() {
         ;;
     *)
         echo -e "${BRed}\n[!] Invalid document\n${Color_Off}"
+        echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print]" ${Color_Off}
         exit 2
         ;;
     esac
