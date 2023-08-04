@@ -67,6 +67,7 @@ install_yay=false
 wm_setup=false
 update_sysZ=false
 first_setup=false
+change_wallpaper=false
 user_home=""
 json_file=""
 sysZ=""
@@ -329,6 +330,52 @@ install_rec_yay() {
     fi
 }
 
+change_wallpaper_func() {
+    local x='.*'
+    local FILES=$sysZ/wallpapers/*
+    local index=0
+    local max=0
+    while true; do
+        let "max=0"
+        let "index=0"
+        for f in $FILES; do
+            let "max=max+1"
+        done
+        # --------------------------
+
+        for f in $FILES; do
+            echo $f
+            let "index=index+1"
+            feh --bg-fill $f
+            read -p "($index/$max) Set this wallpaper? : " yn
+            case $yn in
+            [Yy]*)
+                echo "The wallpaper $name has been set"
+                cp -v $f $sysZ/bg
+                exit 2
+                # v logging
+                # f Do not prompt for confirmation before overwriting existing files
+                break
+                ;;
+            [Bb]*)
+                echo "nevermind Reversed Index"
+                ;;
+            [Nn]*) ;;
+            *) ;; # echo "Please answer y or n";;
+            esac
+        done
+
+        while true; do
+            read -p "Loop through the wallpapers again? : " yn
+            case $yn in
+            [Yy]*) break ;;
+            [Nn]*) exit ;;
+            *) echo "Please answer y or n" ;;
+            esac # 'esac' end case statement
+        done
+    done
+}
+
 automatic_setup_func() {
     echo -e ${BGreen}"[*] Automatic Setup is starting...\n" ${Color_Off}
     repo_pull
@@ -394,6 +441,7 @@ if [ "$1" = "--h" ]; then
     echo -e ${BGreen}"[*] --automatic   : Updates sysZ & updates arch linux & installs any new recommended packages" ${Color_Off}
     echo -e ${BGreen}"[*] --update-sysZ : Updates sysZ" ${Color_Off}
     echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
+    echo -e ${BGreen}"[*] --cw          : Change Wallpaper" ${Color_Off}
     exit 0
 fi
 
@@ -431,6 +479,10 @@ for arg in "$@"; do
         update_sysZ=true
         valid_flag=true
         ;;
+    --cw)
+        change_wallpaper=true
+        valid_flag=true
+        ;;
     *)
         # Handle other arguments as needed
         ;;
@@ -464,6 +516,9 @@ elif [ "$first_setup" = true ]; then
 elif [ "$update_sysZ" = true ]; then
     repo_pull
     wm_setup_func
+
+elif [ "$change_wallpaper" = true ]; then
+    change_wallpaper_func
 
 else
     manual
