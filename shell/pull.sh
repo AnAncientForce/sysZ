@@ -628,4 +628,4 @@ elif [ "$view_docs" = true ]; then
     view_docs_func "$@"
 fi
 echo -e ${BGreen}"[*] Setup has finished\n" ${Color_Off}
-#.
+#..
