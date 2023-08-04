@@ -293,8 +293,8 @@ check_updates() {
         if [ -d ".git" ] || git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
             git remote update >/dev/null 2>&1
             if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
-                # python /home/$(whoami)/sysZ/main.py update_confirmation
                 #.........
+                # python /home/$(whoami)/sysZ/main.py update_confirmation
                 # alacritty -e sh -c "cd $sysZ/shell; pull.sh --update-confirm; $SHELL"
                 alacritty -e bash -c "cd $sysZ/shell && ./pull.sh --update-confirm; $SHELL"
                 exit 0
@@ -497,6 +497,8 @@ trap "trap_ctrlc" 2
 
 echo -e ${BPurple}"[*] sysZ\n" ${Color_Off}
 if [ "$1" = "-h" ]; then
+    echo -e ${BPurple}"\nUsage\n" ${Color_Off}
+    echo -e ${BPurple}"\n[*] sysz -h\n" ${Color_Off}
     echo -e ${BPurple}"\nAvailable flags\n" ${Color_Off}
     echo -e ${BGreen}"[*] -h            : Lists all available flags" ${Color_Off}
     echo -e ${BGreen}"[*] -u            : Updates sysZ" ${Color_Off}
