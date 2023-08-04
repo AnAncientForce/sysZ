@@ -245,7 +245,7 @@ manual() {
         echo -e "${BRed}[*] Attention Required\nAbout to perform a system update...${Color_Off}"
         sudo pacman -Syu
 
-    elif [ "$choice" = "u" ]; then
+    elif [ "$choice" = "a" ]; then
         install_rec_yay
         echo -e "${BRed}[*] Attention Required${Color_Off}"
         install_rec_pacman
@@ -388,8 +388,8 @@ trap "trap_ctrlc" 2
 # ----------------------------- Flag Logic
 
 if [ "$1" = "--h" ]; then
-    echo -e ${BPurple}"Available flags\n" ${Color_Off}
-    echo -e ${BGreen}"[*] --h           : (this)" ${Color_Off}
+    echo -e ${BPurple}"\nAvailable flags\n" ${Color_Off}
+    echo -e ${BGreen}"[*] --h           : Lists all available flagss" ${Color_Off}
     echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
     echo -e ${BGreen}"[*] --automatic   : Updates sysZ & updates arch linux & installs any new recommended packages" ${Color_Off}
     echo -e ${BGreen}"[*] --update-sysZ : Updates sysZ" ${Color_Off}
