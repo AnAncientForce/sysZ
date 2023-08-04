@@ -486,6 +486,8 @@ for arg in "$@"; do
         ;;
     --cd)
         cd "$sysZ/shell"
+        echo -e ${BGreen}"\nDirectory Changed\n" ${Color_Off}
+        exit 0
         ;;
     *)
         # Handle other arguments as needed
