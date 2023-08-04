@@ -70,7 +70,11 @@ update_sysZ=false
 first_setup=false
 
 checkJson() {
-    json_file="/home/$(whoami)/.config/sysZ/config.json"
+    if [ "$EUID" -eq 0 ]; then
+        json_file="/home/$SUDO_USER/.config/sysZ/config.json"
+    else
+        json_file="/home/$(whoami)/.config/sysZ/config.json"
+    fi
 
     # Check if the file exists
     if [ -f "$json_file" ]; then
