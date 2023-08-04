@@ -295,7 +295,8 @@ check_updates() {
             if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
                 # python /home/$(whoami)/sysZ/main.py update_confirmation
                 #.
-                alacritty -e sh $sysZ/pull.sh --update_confirm
+                i3-msg "exec alacritty -e sh $sysZ/pull.sh --update-confirm;"
+                exit 0
             else
                 echo "No updates available."
             fi
@@ -552,7 +553,7 @@ for arg in "$@"; do
         automatic=true
         valid_flag=true
         ;;
-    --update_confirm)
+    --update-confirm)
         update_confirm=true
         valid_flag=true
         ;;
