@@ -438,8 +438,7 @@ view_docs_func() {
 
 update_confirm_func() {
     echo -e ${BGreen}"\nA new update is now available!\n" ${Color_Off}
-    read -p "Proceed & Update?
-    (y/n): " choice
+    read -p "Proceed & Update?\n(y/n): " choice
     if [ "$choice" = "y" ]; then
         update_sysZ_func
     else
