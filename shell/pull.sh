@@ -498,7 +498,8 @@ trap "trap_ctrlc" 2
 echo -e ${BPurple}"[*] sysZ\n" ${Color_Off}
 if [ "$1" = "-h" ]; then
     echo -e ${BPurple}"\nUsage\n" ${Color_Off}
-    echo -e ${BPurple}"\n[*] sysz -h\n" ${Color_Off}
+    echo -e ${BBlue}"\n[*] chmod +x pull.sh\n" ${Color_Off}
+    echo -e ${BBlue}"\n[*] ./pull.sh -h\n" ${Color_Off}
     echo -e ${BPurple}"\nAvailable flags\n" ${Color_Off}
     echo -e ${BGreen}"[*] -h            : Lists all available flags" ${Color_Off}
     echo -e ${BGreen}"[*] -u            : Updates sysZ" ${Color_Off}
