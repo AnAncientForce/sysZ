@@ -34,3 +34,4 @@ fi
 repo_pull
 chmod +x $sysZ/shell/pull.sh
 cd $sysZ/shell
+sh $sysZ/shell/pull.sh -u
