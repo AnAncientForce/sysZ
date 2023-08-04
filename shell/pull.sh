@@ -42,6 +42,7 @@ pacman_packages=(
     "fuse"
     "thunar-volman"
     "curl"
+    "cmatrix"
 )
 yay_packages=(
     "vimix-gtk-themes"
@@ -52,6 +53,8 @@ yay_packages=(
     "picom-simpleanims-git"
     "autotiling"
     "ttf-font-awesome-4"
+    "tty-clock"
+    "pipes.sh"
 )
 
 Color_Off='\033[0m'
@@ -424,9 +427,12 @@ view_docs_func() {
     "print")
         cat "$sysZ/docs/print.txt"
         ;;
+    "tools")
+        cat "$sysZ/docs/tools.txt"
+        ;;
     *)
         echo -e "${BRed}\n[!] Invalid document\n${Color_Off}"
-        echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print]" ${Color_Off}
+        echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print, tools]" ${Color_Off}
         exit 2
         ;;
     esac
@@ -486,7 +492,7 @@ if [ "$1" = "-h" ]; then
     echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
     echo -e ${BGreen}"[*] --cw          : Change Wallpaper" ${Color_Off}
     echo -e ${BGreen}"[*] --ca          : Change Appearance" ${Color_Off}
-    echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print]" ${Color_Off}
+    echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print, tools]" ${Color_Off}
     exit 0
 fi
 
