@@ -417,6 +417,7 @@ view_docs_func() {
         exit 2
         ;;
     esac
+    exit 0
 }
 
 wm_setup_func() {
@@ -563,6 +564,8 @@ elif [ "$first_setup" = true ]; then
 
 elif [ "$update_sysZ" = true ]; then
     repo_pull
+    cu
+    ex
     wm_setup_func
 
 elif [ "$change_wallpaper" = true ]; then
