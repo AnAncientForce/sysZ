@@ -554,7 +554,7 @@ for arg in "$@"; do
         valid_flag=true
         ;;
     *)
-        # Handle other arguments as needed..
+        # Handle other arguments as needed...
         ;;
     esac
 done
