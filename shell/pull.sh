@@ -147,6 +147,7 @@ repo_pull() {
         git checkout -b main --track origin/main
         echo "Git repository set up. Repository is ready."
     fi
+    chmod +x $sysZ/shell/pull.sh
 }
 
 cu() {
@@ -584,7 +585,11 @@ for arg in "$@"; do
 done
 if ! $valid_flag; then
     # echo -e ${BRed}"\n[!] Incorrect or misspelled flag.\n\nProceeding with default...\n" ${Color_Off}
-    echo -e ${BRed}"[!] Incorrect or misspelled flag.\n" ${Color_Off}
+    if [ $# -eq 0 ]; then
+        echo -e "${BRed}[!] No flags were supplied.\n${Color_Off}"
+    else
+        echo -e ${BRed}"[!] Incorrect or misspelled flag.\n" ${Color_Off}
+    fi
     echo -e ${BBlue}"[?] Usage: sysz -h" ${Color_Off}
     exit 2
 fi
