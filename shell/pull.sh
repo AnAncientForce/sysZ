@@ -68,6 +68,13 @@ install_yay=false
 wm_setup=false
 update_sysZ=false
 first_setup=false
+user_home=""
+
+if [ "$EUID" -eq 0 ]; then
+    user_home="/home/$SUDO_USER"
+else
+    user_home="/home/$(whoami)"
+fi
 
 checkJson() {
     if [ "$EUID" -eq 0 ]; then
@@ -130,11 +137,11 @@ repo_pull() {
 }
 
 cu() {
-    echo -e ${BPurple}"[*] Updating configuration files\n" ${Color_Off}
-    mkdir -p "/home/$(whoami)/.config/kitty"
-    cp "$sysZ/conf/i3" "/home/$(whoami)/.config/i3/config"
-    cp "$sysZ/conf/kitty.conf" "/home/$(whoami)/.config/kitty"
-    cp "$sysZ/conf/alacritty.yml" "/home/$(whoami)/.config"
+    echo -e "${BPurple}[*] Updating configuration files${Color_Off}"
+    mkdir -p "$user_home/.config/kitty"
+    cp "$sysZ/conf/i3" "$user_home/.config/i3/config"
+    cp "$sysZ/conf/kitty.conf" "$user_home/.config/kitty"
+    cp "$sysZ/conf/alacritty.yml" "$user_home/.config"
 }
 
 ex() {
