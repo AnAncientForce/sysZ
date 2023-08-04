@@ -5,9 +5,7 @@ if [ "$EUID" -eq 0 ]; then
 else
     sysZ="/home/$(whoami)/sysZ"
 fi
-if [ -f "$sysZ/shell/pull.sh" ]; then
-    rm "$sysZ/shell/pull.sh"
-fi
+rm -f "$sysZ/shell/pull.sh"
 git pull
 chmod +x pull.sh
 cd $sysZ/shell
