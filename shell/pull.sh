@@ -437,7 +437,7 @@ trap "trap_ctrlc" 2
 echo -e ${BPurple}"[*] sysZ\n" ${Color_Off}
 if [ "$1" = "--h" ]; then
     echo -e ${BPurple}"\nAvailable flags\n" ${Color_Off}
-    echo -e ${BGreen}"[*] --h           : Lists all available flagss" ${Color_Off}
+    echo -e ${BGreen}"[*] --h           : Lists all available flags" ${Color_Off}
     echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
     echo -e ${BGreen}"[*] --automatic   : Updates sysZ & updates arch linux & installs any new recommended packages" ${Color_Off}
     echo -e ${BGreen}"[*] --update-sysZ : Updates sysZ" ${Color_Off}
@@ -483,6 +483,9 @@ for arg in "$@"; do
     --cw)
         change_wallpaper=true
         valid_flag=true
+        ;;
+    --cd)
+        cd "$sysZ/shell"
         ;;
     *)
         # Handle other arguments as needed
