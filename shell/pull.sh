@@ -405,6 +405,7 @@ automatic_setup_func() {
     echo -e ${BGreen}"[*] Automatic Setup is starting...\n" ${Color_Off}
     repo_pull
     cu
+    ex
     install_rec_yay
     install_rec_pacman
     continue_setup_func
