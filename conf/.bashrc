@@ -7,5 +7,5 @@
 
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
-neofetch --color_blocks off
+# neofetch --color_blocks off
 eval "$(starship init bash)"
