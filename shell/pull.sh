@@ -145,6 +145,7 @@ repo_pull() {
 
 cu() {
     echo -e "${BPurple}[*] Updating configuration files${Color_Off}"
+    mkdir -p "$user_home/.config/sysZ"
     mkdir -p "$user_home/.config/kitty"
     cp "$sysZ/conf/i3" "$user_home/.config/i3/config"
     cp "$sysZ/conf/kitty.conf" "$user_home/.config/kitty"
@@ -194,9 +195,8 @@ manual() {
     Copy default sysZ config file?
     " choice
     if [ "$choice" = "y" ]; then
-        if [ -f "conf/config.json" ]; then
-            mkdir -p "/home/$(whoami)/.config/sysZ/"
-            cp "/home/$(whoami)/sysZ/conf/config.json" "/home/$(whoami)/.config/sysZ/"
+        if [ -f "$user_home/.config/sysZ/config.json" ]; then
+            cp "$user_home/sysZ/conf/config.json" "$user_home/.config/sysZ"
             echo "sysZ config copied successfully"
         else
             echo "sysZ config file dose not exist"
