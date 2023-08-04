@@ -41,6 +41,7 @@ pacman_packages=(
     "ntfs-3g"
     "fuse"
     "thunar-volman"
+    "curl"
 )
 yay_packages=(
     "vimix-gtk-themes"
@@ -148,6 +149,7 @@ cu() {
     cp "$sysZ/conf/i3" "$user_home/.config/i3/config"
     cp "$sysZ/conf/kitty.conf" "$user_home/.config/kitty"
     cp "$sysZ/conf/alacritty.yml" "$user_home/.config"
+    cp "$sysZ/conf/.bashrc" "$user_home"
 }
 
 ex() {
@@ -210,6 +212,14 @@ manual() {
     (y/n): " choice
     if [ "$choice" = "y" ]; then
         git_install_yay
+    fi
+
+    # install starship
+    read -p "[Required] Install starship?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        cd ~
+        curl -sS https://starship.rs/install.sh | sh
     fi
 
     # rofi
