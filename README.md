@@ -9,4 +9,4 @@
 - [FontAwesome](https://github.com/FortAwesome/Font-Awesome)
 - xfce4-screenshooter
 - neofetch
-- + [Many many more](https://github.com/AnAncientForce/sysZ/blob/main/shell/pull.sh)
+- [Many many more](https://github.com/AnAncientForce/sysZ/blob/main/shell/pull.sh)
