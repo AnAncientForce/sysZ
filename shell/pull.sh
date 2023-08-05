@@ -214,6 +214,7 @@ change_live_wallpaper_func() {
                 echo "The wallpaper $name has been set"
                 cp -v $f $sysZ/vid.mp4
                 saveJson "live_wallpaper" "true"
+                set_live_wallpaper
                 # cp -v $f $sysZ/bg
                 exit 2
                 break
