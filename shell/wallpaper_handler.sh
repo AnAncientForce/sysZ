@@ -12,6 +12,7 @@ send_pause_command() {
     echo '{"command": ["cycle", "pause"]}' | socat - /tmp/mpvsocket
 }
 
+sleep 2
 while true; do
     if is_alacritty_focused; then
         echo "Good"
