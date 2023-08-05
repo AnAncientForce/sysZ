@@ -9,10 +9,10 @@ is_alacritty_focused() {
     [[ $active_window_title == "$(whoami)@$HOSTNAME:"* ]]
 }
 
-# Function to check if a blank workspace is in focus
+# Function to check if there are any active windows (blank i3 workspace)
 is_blank_workspace_focused() {
-    local focused_container=$(i3-msg -t get_workspaces | grep -o '"name":"[^"]*"' | cut -d'"' -f4)
-    [[ -z $focused_container ]]
+    local window_list=$(xdotool search --all --onlyvisible "" 2>/dev/null)
+    [[ -z "$window_list" ]]
 }
 
 # Function to send the pause command to mpv via socat
