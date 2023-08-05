@@ -19,13 +19,13 @@ done
 # Main loop to monitor focus changes
 while true; do
     if is_alacritty_focused; then
-        # echo "Alacritty is in focus."
+        echo "Alacritty is in focus."
         playerctl -p mpv status | grep -q "Playing"
         if [[ $? -ne 0 ]]; then
             send_pause_command
         fi
     else
-        # echo "Alacritty is not in focus."
+        echo "Alacritty is not in focus."
         playerctl -p mpv status | grep -q "Paused"
         if [[ $? -ne 0 ]]; then
             send_pause_command
