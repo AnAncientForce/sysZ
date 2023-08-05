@@ -1,5 +1,20 @@
 #!/bin/bash
 
+# Function to check if a window name contains a specific string
+contains_window() {
+    xprop -root | grep -q -i "$1"
+}
+
+# Function to check if mpv is running and playing an .mp4 video
+is_mpv_playing() {
+    playerctl status | grep -q "Playing"
+}
+
+# Function to pause or resume mpv
+toggle_mpv_playback() {
+    playerctl play-pause
+}
+
 # Main loop to monitor focus changes
 while true; do
     # Wait for the next focus event
@@ -7,16 +22,8 @@ while true; do
 
     # Check if any window other than alacritty is in focus
     if ! xprop -root | grep -q -i "alacritty"; then
-        if pgrep -f "mpv.*\.mp4" &>/dev/null; then
-            # Pause mpv if playing
-            xdotool key --clearmodifiers "p"
+        if is_mpv_playing; then
+            toggle_mpv_playback
         fi
-    fi
-
-    # Focus on alacritty or an empty workspace
-    if xprop -root | grep -q -i "alacritty"; then
-        xdotool search --name "Alacritty" windowactivate
-    else
-        xdotool key --clearmodifiers "Super+1" # Replace with your workspace switching keybinding
     fi
 done
