@@ -163,7 +163,8 @@ set_live_wallpaper() {
     xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/vid.mp4
     # --input-ipc-server=/tmp/mpvsocket
     # Save process id to kill later
-    sh $sysZ/shell/wallpaper_handler.sh >/dev/null 2>&1 &
+    sh $sysZ/shell/wallpaper_handler.sh &
+    # sh $sysZ/shell/wallpaper_handler.sh >/dev/null 2>&1 &
     store_pid "$temp_dir/wallpaper_handler_pid.txt"
 }
 
