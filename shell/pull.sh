@@ -76,6 +76,7 @@ change_wallpaper=false
 view_docs=false
 update_confirm=false
 dev_mode=true
+change_live_wallpaper=false
 user_home=""
 json_file=""
 sysZ=""
@@ -182,7 +183,7 @@ change_wallpaper_func() {
     exit 0
 }
 
-change_live_wallpaper() {
+change_live_wallpaper_func() {
     local x='.*'
     local FILES=$sysZ/videos/*
     local index=0
@@ -643,6 +644,11 @@ for arg in "$@"; do
         ;;
     -l)
         i3-msg 'exec betterlockscreen -l;'
+        exit 0
+        ;;
+    --lw)
+        echo -e ${BPurple}"Change Live Wallpaper\n" ${Color_Off}
+        change_live_wallpaper_func
         exit 0
         ;;
     --docs)
