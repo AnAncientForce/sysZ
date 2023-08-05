@@ -15,8 +15,9 @@ check_workspaces() {
     if [ $NUM -eq 0 ]; then
         echo "No windows open."
         return true
+    else
+        return false
     fi
-    return false
 }
 
 # Function to send the pause command to mpv via socat
