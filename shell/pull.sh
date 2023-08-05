@@ -646,6 +646,10 @@ for arg in "$@"; do
         i3-msg 'exec betterlockscreen -l;'
         exit 0
         ;;
+    -r)
+        wm_setup_func
+        exit 0
+        ;;
     --lw)
         echo -e ${BPurple}"Change Live Wallpaper\n" ${Color_Off}
         change_live_wallpaper_func
