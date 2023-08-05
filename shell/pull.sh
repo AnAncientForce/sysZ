@@ -134,31 +134,7 @@ set_live_wallpaper() {
     killall -9 feh xwinwrap
     sleep 0.1
     xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/vid.mp4
-    # Variable to track if mpv is paused (1) or not (0)
-    local is_paused=0
-    while true; do
-        # Wait for the next focus event
-        xprop -root -spy | while read -r; do
-            # Check if any window other than alacritty is in focus
-            if ! xprop -root | grep -q -i "alacritty"; then
-                # Check if mpv is running and playing an .mp4 video
-                if pgrep -x "mpv" &>/dev/null && pgrep -f "\.mp4" &>/dev/null; then
-                    # Pause mpv if not already paused
-                    if [ "$is_paused" -eq 0 ]; then
-                        echo '{"command": ["cycle", "pause"]}' | socat - /tmp/mpvsocket
-                        is_paused=1
-                    fi
-                else
-                    # Reset the is_paused variable when mpv is not running or not playing .mp4
-                    is_paused=0
-                fi
-            else
-                # Reset the is_paused variable when alacritty is in focus
-                is_paused=0
-            fi
-        done
-        sleep 0.1
-    done
+    sh "$sysZ/shell/wallpaper_handler.sh"
 }
 
 change_wallpaper_func() {
