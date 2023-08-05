@@ -45,6 +45,7 @@ pacman_packages=(
     "cmatrix"
     "socat"
     "xdotool"
+    "playerctl"
 )
 yay_packages=(
     "vimix-gtk-themes"
