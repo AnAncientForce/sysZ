@@ -9,6 +9,12 @@ is_alacritty_focused() {
     [[ $active_window_title == "$(whoami)@$HOSTNAME:"* ]]
 }
 
+# Function to check if a blank workspace is in focus
+is_blank_workspace_focused() {
+    local focused_container=$(i3-msg -t get_tree | jq -r '.. | select(.focused==true) | .name')
+    [[ -z $focused_container ]]
+}
+
 # Function to send the pause command to mpv via socat
 send_pause_command() {
     echo '{"command": ["cycle", "pause"]}' | socat - /tmp/mpvsocket
@@ -16,14 +22,14 @@ send_pause_command() {
 
 # Main loop to monitor focus changes
 while true; do
-    if is_alacritty_focused; then
-        echo "Alacritty is in focus and has the correct window title."
+    if is_alacritty_focused || is_blank_workspace_focused; then
+        echo "Alacritty or a blank workspace is in focus."
         if [[ $is_playing -eq 0 ]]; then
             send_pause_command
             is_playing=1
         fi
     else
-        echo "Alacritty is not in focus or has an incorrect window title."
+        echo "Neither Alacritty nor a blank workspace is in focus."
         if [[ $is_playing -eq 1 ]]; then
             send_pause_command
             is_playing=0
