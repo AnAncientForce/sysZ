@@ -6,6 +6,12 @@ is_alacritty_focused() {
     [[ $active_window_title == "$(whoami)@$HOSTNAME:"* ]]
 }
 
+# Function to check if "i3" is in the window name
+is_i3_focused() {
+    local active_window_name=$(xprop -id "$(xdotool getactivewindow)" _NET_WM_NAME | sed -r 's/_NET_WM_NAME\(.*\) = "(.*)"$/\1/')
+    [[ $active_window_name == *"i3"* ]]
+}
+
 # Function to send the pause command to mpv via socat
 send_pause_command() {
     echo '{"command": ["cycle", "pause"]}' | socat - /tmp/mpvsocket
@@ -23,7 +29,7 @@ done
 
 # Main loop to monitor focus changes
 while true; do
-    if xdotool search --sync --onlyvisible --name "$(whoami)@$HOSTNAME:" 2>/dev/null || xdotool getwindowfocus getwindowname | grep -q "i3"; then
+    if is_alacritty_focused || is_i3_focused; then
         echo "Alacritty or i3 is in focus."
         playerctl -p mpv status | grep -q "Playing"
         if [[ $? -ne 0 ]]; then
