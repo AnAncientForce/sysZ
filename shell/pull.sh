@@ -134,7 +134,20 @@ set_live_wallpaper() {
     killall -9 feh xwinwrap
     sleep 0.1
     xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/vid.mp4
-    sh "$sysZ/shell/wallpaper_handler.sh"
+    # sh "$sysZ/shell/wallpaper_handler.sh"
+    while true; do
+        local active_window_title=$(xprop -id "$(xdotool getactivewindow)" WM_NAME | sed -r 's/WM_NAME\(\w+\) = "(.*)"$/\1/')
+        if [[ $active_window_title == "$(whoami)@$HOSTNAME:"* ]]; then
+            echo "Alacritty is in focus and has the correct window title."
+            echo '{"command": ["cycle", "play"]}' | socat - /tmp/mpvsocket
+        else
+            echo "Alacritty is not in focus or has an incorrect window title."
+            echo '{"command": ["cycle", "pause"]}' | socat - /tmp/mpvsocket
+        fi
+
+        # Small sleep to reduce CPU usage
+        sleep 0.5
+    done
 }
 
 change_wallpaper_func() {
