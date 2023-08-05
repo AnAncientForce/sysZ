@@ -6,6 +6,13 @@ is_alacritty_focused() {
     [[ $active_window_title == "$(whoami)@$HOSTNAME:"* ]]
 }
 
+# Function to check if a window has transparency
+has_transparency() {
+    local window_id="$1"
+    local opacity=$(xprop -id "$window_id" | awk -F '=' '/_NET_WM_WINDOW_OPACITY\(CARDINAL\)/{print $2}')
+    [[ "$opacity" -ne 4294967295 ]] # 4294967295 (0xFFFFFFFF) represents 1.0 opacity
+}
+
 # Function to send the pause command to mpv via socat
 send_pause_command() {
     echo '{"command": ["cycle", "pause"]}' | socat - /tmp/mpvsocket
@@ -30,6 +37,13 @@ while true; do
         if [[ $? -ne 0 ]]; then
             send_pause_command
         fi
+    fi
+
+    # Check for transparency
+    focused_window_id=$(xdotool getactivewindow)
+    if has_transparency "$focused_window_id"; then
+        echo "Focused window has transparency."
+        send_pause_command
     fi
 
     # Small sleep to reduce CPU usage
