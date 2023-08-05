@@ -199,6 +199,13 @@ focus_follows_mouse no
 bindsym $mod+l exec betterlockscreen -l dimblur
 bindsym $mod+i exec sh ~/sysZ/shell/fav-gui-i3.sh
 bindsym $mod+shift+esc python ~/sysZ/main.py home
+
+# Increase brightness
+bindsym XF86MonBrightnessUp exec light -A 5
+
+# Decrease brightness
+bindsym XF86MonBrightnessDown exec light -U 5
+
 set $mode_sysZ [ Open Terminal (t), Lock Workstation (l) ]
 mode "$mode_sysZ" {
         bindsym t exec alacritty, mode "default"
