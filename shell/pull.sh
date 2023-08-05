@@ -43,6 +43,7 @@ pacman_packages=(
     "thunar-volman"
     "curl"
     "cmatrix"
+    "socat"
 )
 yay_packages=(
     "vimix-gtk-themes"
@@ -133,7 +134,16 @@ set_live_wallpaper() {
     killall -9 feh xwinwrap
     sleep 0.1
     xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/vid.mp4
-    sh "$sysZ/shell/wallpaper_handler.sh"
+    while true; do
+        xprop -root -spy | while read -r; do
+            if ! xprop -root | grep -q -i "alacritty"; then
+                if pgrep -x "mpv" &>/dev/null && pgrep -f "\.mp4" &>/dev/null; then
+                    echo '{"command": ["cycle", "pause"]}' | socat - /tmp/mpvsocket
+                fi
+            fi
+        done
+        sleep 0.1
+    done
 }
 
 change_wallpaper_func() {
