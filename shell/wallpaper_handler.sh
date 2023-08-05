@@ -1,20 +1,18 @@
 #!/bin/bash
 
-# Function to check if alacritty is in focus and the window title matches "username@hostname"
-is_alacritty_focused() {
-    local active_window_title=$(xprop -id "$(xdotool getactivewindow)" WM_NAME | sed -r 's/WM_NAME\(\w+\) = "(.*)"$/\1/')
-    [[ $active_window_title == "$(whoami)@$HOSTNAME:"* ]]
+# Function to check if alacritty or i3 is in focus
+is_alacritty_or_i3_focused() {
+    local active_window_name=$(xdotool getwindowfocus getwindowname)
+    if [[ $active_window_name == "$(whoami)@$HOSTNAME:"* || $active_window_name == "i3" ]]; then
+        return 0
+    else
+        return 1
+    fi
 }
 
 # Function to send the pause command to mpv via socat
 send_pause_command() {
     echo '{"command": ["cycle", "pause"]}' | socat - /tmp/mpvsocket
-}
-
-# Function to check if the workspace is empty in i3
-is_workspace_empty() {
-    local windows=$(i3-msg -t get_tree | jq '.. | objects | select(.type? == "con" and .window != null) | .id')
-    [[ -z "$windows" ]]
 }
 
 # Wait for the mpv socket to be available
@@ -24,14 +22,14 @@ done
 
 # Main loop to monitor focus changes
 while true; do
-    if is_alacritty_focused || is_workspace_empty; then
-        echo "Alacritty is in focus or workspace is empty."
+    if is_alacritty_or_i3_focused; then
+        echo "Alacritty or i3 is in focus."
         playerctl -p mpv status | grep -q "Playing"
         if [[ $? -ne 0 ]]; then
             send_pause_command
         fi
     else
-        echo "Alacritty is not in focus and workspace is not empty."
+        echo "Alacritty and i3 are not in focus."
         playerctl -p mpv status | grep -q "Paused"
         if [[ $? -ne 0 ]]; then
             send_pause_command
