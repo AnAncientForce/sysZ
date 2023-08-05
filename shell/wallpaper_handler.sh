@@ -7,7 +7,8 @@ is_alacritty_focused() {
 }
 
 is_i3_focused() {
-    local active_window_name=$(xdotool getwindowfocus getwindowname)
+    local active_window_id=$(xdotool getactivewindow)
+    local active_window_name=$(xdotool getwindowname "$active_window_id")
     [[ $active_window_name == *"i3"* ]]
 }
 
