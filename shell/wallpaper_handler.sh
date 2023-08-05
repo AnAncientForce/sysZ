@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Variable to store the playing state (0 for paused, 1 for playing)
-is_playing=0
-
 # Function to check if alacritty is in focus and the window title matches "username@hostname"
 is_alacritty_focused() {
     local active_window_title=$(xprop -id "$(xdotool getactivewindow)" WM_NAME | sed -r 's/WM_NAME\(\w+\) = "(.*)"$/\1/')
@@ -23,15 +20,15 @@ done
 while true; do
     if is_alacritty_focused; then
         echo "Alacritty is in focus."
-        if [[ $is_playing -eq 0 ]]; then
+        playerctl -p mpv status | grep -q "Playing"
+        if [[ $? -ne 0 ]]; then
             send_pause_command
-            is_playing=1
         fi
     else
         echo "Alacritty is not in focus."
-        if [[ $is_playing -eq 1 ]]; then
+        playerctl -p mpv status | grep -q "Paused"
+        if [[ $? -ne 0 ]]; then
             send_pause_command
-            is_playing=0
         fi
     fi
 
