@@ -11,6 +11,13 @@ send_pause_command() {
     echo '{"command": ["cycle", "pause"]}' | socat - /tmp/mpvsocket
 }
 
+# Function to check if there are any visible windows in the current workspace
+has_windows_in_workspace() {
+    local current_workspace=$(xprop -root _NET_CURRENT_DESKTOP | awk '{print $3}')
+    local windows_in_workspace=$(xdotool search --desktop "$current_workspace" "" 2>/dev/null)
+    [[ -n "$windows_in_workspace" ]]
+}
+
 # Wait for the mpv socket to be available
 while [ ! -e /tmp/mpvsocket ]; do
     sleep 0.1
@@ -18,14 +25,14 @@ done
 
 # Main loop to monitor focus changes
 while true; do
-    if is_alacritty_focused; then
-        echo "Alacritty is in focus."
+    if is_alacritty_focused || has_windows_in_workspace; then
+        echo "Alacritty is in focus or there are windows in the workspace."
         playerctl -p mpv status | grep -q "Playing"
         if [[ $? -ne 0 ]]; then
             send_pause_command
         fi
     else
-        echo "Alacritty is not in focus."
+        echo "Alacritty is not in focus and there are no windows in the workspace."
         playerctl -p mpv status | grep -q "Paused"
         if [[ $? -ne 0 ]]; then
             send_pause_command
@@ -33,5 +40,5 @@ while true; do
     fi
 
     # Small sleep to reduce CPU usage
-    sleep 2
+    sleep 5
 done
