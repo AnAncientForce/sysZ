@@ -133,6 +133,7 @@ function is_package_installed() {
 }
 
 set_live_wallpaper() {
+    kill_wallpaper_handler
     killall -9 feh xwinwrap mpv wallpaper_handler.sh
     sleep 0.1
     xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/vid.mp4
