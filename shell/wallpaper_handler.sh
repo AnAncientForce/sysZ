@@ -2,8 +2,11 @@
 
 # Function to check if alacritty is in focus and the window title matches "username@hostname"
 is_alacritty_focused() {
-    local active_window_title=$(xprop -id "$(xdotool getactivewindow)" WM_NAME | sed -r 's/WM_NAME\(\w+\) = "(.*)"$/\1/')
-    [[ $active_window_title == "$(whoami)@$HOSTNAME:"* ]]
+    # local active_window_title=$(xprop -id "$(xdotool getactivewindow)" WM_NAME | sed -r 's/WM_NAME\(\w+\) = "(.*)"$/\1/')
+    # [[ $active_window_title == "$(whoami)@$HOSTNAME:"* ]]
+
+    local active_window_name=$(xdotool getwindowfocus getwindowname)
+    [[ $active_window_name == "$(whoami)@$HOSTNAME:"* ]]
 }
 
 is_i3_focused() {
