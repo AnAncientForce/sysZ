@@ -657,8 +657,10 @@ for arg in "$@"; do
         valid_flag=true
         ;;
     --cw)
-        change_wallpaper=true
-        valid_flag=true
+        # change_wallpaper=true
+        # valid_flag=true
+        change_wallpaper_func
+        exit 0
         ;;
     --cd)
         cd "$sysZ/shell"
