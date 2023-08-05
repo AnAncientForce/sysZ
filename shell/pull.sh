@@ -132,7 +132,7 @@ function is_package_installed() {
 set_live_wallpaper() {
     killall -9 feh xwinwrap
     sleep 0.1
-    xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv -wid WID --loop --no-audio $sysZ/vid.mp4
+    xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/vid.mp4
     sh "$sysZ/shell/wallpaper_handler.sh"
 }
 
