@@ -206,7 +206,7 @@ bindsym XF86MonBrightnessUp exec light -A 5
 # Decrease brightness
 bindsym XF86MonBrightnessDown exec light -U 5
 
-set $mode_sysZ [ Open Terminal (t), Lock Workstation (l) ]
+set $mode_sysZ [ Open Terminal (T), Lock Workstation (L) ]
 mode "$mode_sysZ" {
         bindsym t exec alacritty, mode "default"
 	bindsym l exec betterlockscreen -l dimblur, mode "default"
