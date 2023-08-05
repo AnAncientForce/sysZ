@@ -81,6 +81,7 @@ change_live_wallpaper=false
 user_home=""
 json_file=""
 sysZ=""
+temp_dir=""
 
 if [ "$EUID" -eq 0 ]; then
     sysZ="/home/$SUDO_USER/sysZ"
@@ -91,6 +92,7 @@ else
     json_file="/home/$(whoami)/.config/sysZ/config.json"
     user_home="/home/$(whoami)"
 fi
+temp_dir="$user_home/tmp"
 
 saveJson() {
     local key="$1"
@@ -135,7 +137,25 @@ set_live_wallpaper() {
     sleep 0.1
     xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/vid.mp4
     # --input-ipc-server=/tmp/mpvsocket
+    # Save process id to kill later
     sh $sysZ/shell/wallpaper_handler.sh >/dev/null 2>&1 &
+    pid=$!
+    mkdir -p $user_home/tmp
+    echo "$pid" >"$temp_dir/wallpaper_handler_pid.txt"
+}
+
+kill_wallpaper_handler() {
+    # Read the PID from the temporary file
+    if [ -f "$temp_dir/wallpaper_handler_pid.txt" ]; then
+        pid=$(cat "$pid_file")
+        # Use killall with signal 9 to terminate the process
+        killall -9 "$pid"
+        # Clean up the temporary file
+        rm "$pid_file"
+        echo "Wallpaper handler process with PID $pid has been terminated."
+    else
+        echo "Wallpaper handler process not found in the temporary directory."
+    fi
 }
 
 change_wallpaper_func() {
@@ -686,6 +706,11 @@ for arg in "$@"; do
         ;;
     -r)
         wm_setup_func
+        exit 0
+        ;;
+    -k)
+        echo -e ${BRed}"kill_wallpaper_handler\n" ${Color_Off}
+        kill_wallpaper_handler
         exit 0
         ;;
     --lw)
