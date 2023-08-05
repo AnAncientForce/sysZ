@@ -58,7 +58,6 @@ yay_packages=(
     "ttf-font-awesome-4"
     "tty-clock"
     "pipes.sh"
-    "shantz-xwinwrap-bzr"
 )
 
 Color_Off='\033[0m'
