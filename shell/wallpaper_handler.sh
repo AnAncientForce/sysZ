@@ -16,6 +16,7 @@ check_workspaces() {
         echo "No windows open."
         return true
     fi
+    return false
 }
 
 # Function to send the pause command to mpv via socat
