@@ -140,13 +140,14 @@ set_live_wallpaper() {
     # Save process id to kill later
     sh $sysZ/shell/wallpaper_handler.sh >/dev/null 2>&1 &
     pid=$!
-    mkdir -p $user_home/tmp
+    mkdir -p $temp_dir
     echo "$pid" >"$temp_dir/wallpaper_handler_pid.txt"
 }
 
 kill_wallpaper_handler() {
     # Read the PID from the temporary file
-    if [ -f "$temp_dir/wallpaper_handler_pid.txt" ]; then
+    pid_file="$temp_dir/wallpaper_handler_pid.txt"
+    if [ -f "$pid_file" ]; then
         pid=$(cat "$pid_file")
         # Use killall with signal 9 to terminate the process
         killall -9 "$pid"
