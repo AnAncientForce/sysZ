@@ -7,9 +7,8 @@ is_alacritty_focused() {
 }
 
 is_i3_focused() {
-    local active_window_id=$(xdotool getactivewindow)
-    local active_window_name=$(xdotool getwindowname "$active_window_id")
-    [[ $active_window_name == *"i3"* ]]
+    local active_window_id=$(xdotool getwindowfocus getwindowname)
+    [[ $active_window_id == "i3" ]]
 }
 
 # Function to send the pause command to mpv via socat
