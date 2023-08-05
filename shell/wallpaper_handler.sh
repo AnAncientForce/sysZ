@@ -11,7 +11,7 @@ is_alacritty_focused() {
 
 # Function to check if a blank workspace is in focus
 is_blank_workspace_focused() {
-    local focused_container=$(i3-msg -t get_tree | jq -r '.. | select(.focused==true) | .name')
+    local focused_container=$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true).name')
     [[ -z $focused_container ]]
 }
 
