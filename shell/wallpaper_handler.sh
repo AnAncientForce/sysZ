@@ -1,11 +1,10 @@
 #!/bin/bash
+WID=$(xdotool search --name "mpv" | head -n 1)
 
-# Listen for i3 window focus events using i3ipc-python
 i3-msg -t subscribe -m '[{"change":"focus"}]' | while read -r event; do
-    # Check if the focused window is alacritty
     if [[ $(echo "$event" | jq -r '.container.name') == "alacritty" ]]; then
-        mpv --no-resume-playback
+        xwinwrap -id "$WID" -unpause
     else
-        mpv --pause
+        xwinwrap -id "$WID" -pause
     fi
 done
