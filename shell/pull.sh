@@ -130,7 +130,7 @@ function is_package_installed() {
 }
 
 set_live_wallpaper() {
-    killall -9 xwinwrap
+    killall -9 feh xwinwrap
     sleep 0.1
     xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv -wid WID --loop --no-audio $sysZ/vid.mp4
 }
@@ -181,7 +181,6 @@ change_wallpaper_func() {
             esac # 'esac' end case statement
         done
     done
-    wm_setup_func
     exit 0
 }
 
@@ -190,6 +189,8 @@ change_live_wallpaper_func() {
     local FILES=$sysZ/videos/*
     local index=0
     local max=0
+    killall -9 feh xwinwrap
+    sleep 0.1
     while true; do
         let "max=0"
         let "index=0"
@@ -586,10 +587,12 @@ help() {
     echo -e ${BGreen}"[*] -h            : Lists all available flags" ${Color_Off}
     echo -e ${BGreen}"[*] -u            : Updates sysZ" ${Color_Off}
     echo -e ${BGreen}"[*] -l            : Lock Workstation" ${Color_Off}
+    echo -e ${BGreen}"[*] -r            : Refreshes i3-wm" ${Color_Off}
     echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
     echo -e ${BGreen}"[*] --automatic   : Updates sysZ & updates arch linux & installs any new recommended packages" ${Color_Off}
     echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
     echo -e ${BGreen}"[*] --cw          : Change Wallpaper" ${Color_Off}
+    echo -e ${BGreen}"[*] --lw          : Change Live Wallpaper" ${Color_Off}
     echo -e ${BGreen}"[*] --ca          : Change Appearance" ${Color_Off}
     echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print, tools]" ${Color_Off}
     exit 0
