@@ -44,6 +44,7 @@ pacman_packages=(
     "curl"
     "cmatrix"
     "socat"
+    "xdotool"
 )
 yay_packages=(
     "vimix-gtk-themes"
