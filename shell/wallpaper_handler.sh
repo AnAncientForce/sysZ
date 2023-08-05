@@ -9,10 +9,13 @@ is_alacritty_focused() {
     [[ $active_window_title == "$(whoami)@$HOSTNAME:"* ]]
 }
 
-# Function to check if there are any active windows (blank i3 workspace)
-is_blank_workspace_focused() {
-    local window_list=$(xdotool search --all --onlyvisible "" 2>/dev/null)
-    [[ -z "$window_list" ]]
+check_workspaces() {
+    WINDOWS=$(xdotool search --all --onlyvisible --desktop $(xprop -notype -root _NET_CURRENT_DESKTOP | cut -c 24-) "" 2>/dev/null)
+    NUM=$(echo "$WINDOWS" | wc -l)
+    if [ $NUM -eq 0 ]; then
+        echo "No windows open."
+        return true
+    fi
 }
 
 # Function to send the pause command to mpv via socat
@@ -22,14 +25,14 @@ send_pause_command() {
 
 # Main loop to monitor focus changes
 while true; do
-    if is_alacritty_focused || is_blank_workspace_focused; then
-        echo "Alacritty or a blank workspace is in focus."
+    if is_alacritty_focused || check_workspaces; then
+        echo "Good"
         if [[ $is_playing -eq 0 ]]; then
             send_pause_command
             is_playing=1
         fi
     else
-        echo "Neither Alacritty nor a blank workspace is in focus."
+        echo "Bad"
         if [[ $is_playing -eq 1 ]]; then
             send_pause_command
             is_playing=0
