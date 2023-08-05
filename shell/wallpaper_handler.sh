@@ -11,10 +11,10 @@ send_pause_command() {
     echo '{"command": ["cycle", "pause"]}' | socat - /tmp/mpvsocket
 }
 
-# Function to check if there are any visible windows in the current workspace
+# Function to check if there are any windows in the current workspace
 has_windows_in_workspace() {
-    local current_workspace=$(xprop -root _NET_CURRENT_DESKTOP | awk '{print $3}')
-    local windows_in_workspace=$(xdotool search --desktop "$current_workspace" "" 2>/dev/null)
+    local current_workspace=$(xdotool get_desktop)
+    local windows_in_workspace=$(xdotool search --onlyvisible --desktop "$current_workspace" "" 2>/dev/null)
     [[ -n "$windows_in_workspace" ]]
 }
 
