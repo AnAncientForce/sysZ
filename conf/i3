@@ -210,5 +210,6 @@ mode "$mode_sysZ" {
 }
 
 bindsym $mod+z mode "$mode_sysZ"
+bindsym $mod+p --no-startup-id ~/.config/rofi/files/powermenu/type-2/launcher.sh
 exec_always python ~/sysZ/main.py load
 #exec_always sh ~/sysZ/shell/setup.sh
