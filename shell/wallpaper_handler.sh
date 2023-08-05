@@ -3,7 +3,7 @@
 # Function to check if alacritty is in focus and the window title matches "username@hostname"
 is_alacritty_focused() {
     local active_window_title=$(xprop -id "$(xdotool getactivewindow)" WM_NAME | sed -r 's/WM_NAME\(\w+\) = "(.*)"$/\1/')
-    [[ $active_window_title == "$(whoami)@$(hostname):"* ]]
+    [[ $active_window_title == "$(whoami)@$HOSTNAME:"* ]]
 }
 
 # Main loop to monitor focus changes
