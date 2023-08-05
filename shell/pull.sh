@@ -189,7 +189,13 @@ change_live_wallpaper_func() {
     local index=0
     local max=0
     while true; do
-        max=$(echo "$FILES" | wc -w)
+        let "max=0"
+        let "index=0"
+        for f in $FILES; do
+            let "max=max+1"
+        done
+        # --------------------------
+
         for f in $FILES; do
             echo $f
             let "index=index+1"
