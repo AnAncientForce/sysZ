@@ -309,6 +309,13 @@ git_install_yay() {
     makepkg -si
     yay --version
 }
+git_install_xwinwrap() {
+    git clone https://github.com/ujjwal96/xwinwrap.git
+    cd xwinwrap
+    make
+    sudo make install
+    make clean
+}
 
 manual() {
     echo -e ${BBlue}"\n[*] Manual update is starting..." ${Color_Off}
@@ -342,6 +349,13 @@ manual() {
     (y/n): " choice
     if [ "$choice" = "y" ]; then
         git_install_yay
+    fi
+
+    # install xwinwrap
+    read -p "Install xwinwrap?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        git_install_xwinwrap
     fi
 
     # install starship
@@ -728,11 +742,7 @@ elif [ "$dev_mode" = true ]; then
     read -p "Install ujjwal96/xwinwrap?
     (y/n): " choice
     if [ "$choice" = "y" ]; then
-        git clone https://github.com/ujjwal96/xwinwrap.git
-        cd xwinwrap
-        make
-        sudo make install
-        make clean
+        git_install_xwinwrap
     else
         echo -e ${BRed}"\nStop\n" ${Color_Off}
     fi
