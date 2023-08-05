@@ -133,7 +133,7 @@ set_live_wallpaper() {
     killall -9 feh xwinwrap
     sleep 0.1
     xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv -wid WID --loop --no-audio $sysZ/vid.mp4
-    sh "$sysZ/wallpaper_handler.sh"
+    sh "$sysZ/shell/wallpaper_handler.sh"
 }
 
 change_wallpaper_func() {
