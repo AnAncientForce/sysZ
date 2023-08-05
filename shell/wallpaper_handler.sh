@@ -13,7 +13,8 @@ send_pause_command() {
 
 # Function to check if there are any windows in the current workspace
 has_windows_in_workspace() {
-    local current_workspace=$(xdotool get_desktop)
+    local active_window_id=$(xdotool getactivewindow)
+    local current_workspace=$(xprop -id "$active_window_id" _NET_WM_DESKTOP | awk '{print $2}')
     local windows_in_workspace=$(xdotool search --onlyvisible --desktop "$current_workspace" "" 2>/dev/null)
     [[ -n "$windows_in_workspace" ]]
 }
