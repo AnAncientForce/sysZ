@@ -199,17 +199,19 @@ focus_follows_mouse no
 bindsym $mod+l exec betterlockscreen -l dimblur
 bindsym $mod+i exec sh ~/sysZ/shell/fav-gui-i3.sh
 bindsym $mod+shift+esc python ~/sysZ/main.py home
-set $mode_sysZ Lock Workstation (l), Change Wallpaper (w), Reload (r), Update (u), Docs (d)
+set $mode_sysZ Open Terminal (t), Lock Workstation (l)
 mode "$mode_sysZ" {
+        bindsym t exec alacritty, mode "default"
 	bindsym l exec betterlockscreen -l dimblur, mode "default"
-	bindsym w exec alacritty -e sh ~/sysZ/shell/cw.sh, mode "default"
-	bindsym r exec sh ~/sysZ/shell/setup.sh, mode "default"
-        bindsym u exec alacritty -e sh ~/sysZ/shell/pull.sh, mode "default"
-        bindsym d exec alacritty -e python ~/sysZ/main.py docs", mode "default"
+	# bindsym w exec alacritty -e sh ~/sysZ/shell/cw.sh, mode "default"
+	# bindsym r exec sh ~/sysZ/shell/setup.sh, mode "default"
+        # bindsym u exec alacritty -e sh ~/sysZ/shell/pull.sh, mode "default"
+        # bindsym d exec alacritty -e python ~/sysZ/main.py docs", mode "default"
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
 
 bindsym $mod+z mode "$mode_sysZ"
-exec_always python ~/sysZ/main.py load
-#exec_always sh ~/sysZ/shell/setup.sh
+exec_always sh ~/sysZ/shell/pull.sh -r
+# exec_always python ~/sysZ/main.py load
+# exec_always sh ~/sysZ/shell/setup.sh

@@ -672,7 +672,7 @@ for arg in "$@"; do
         exit 0
         ;;
     -l)
-        i3-msg 'exec betterlockscreen -l;'
+        i3-msg 'exec betterlockscreen -l dimblur;'
         exit 0
         ;;
     -r)
