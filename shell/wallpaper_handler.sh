@@ -2,7 +2,7 @@
 
 # Function to check if alacritty is in focus
 is_alacritty_focused() {
-    xdotool getactivewindow getwindowname | grep -q -i "alacritty"
+    xprop -root _NET_ACTIVE_WINDOW | grep -q "alacritty"
 }
 
 # Main loop to monitor focus changes
