@@ -181,6 +181,7 @@ change_wallpaper_func() {
             esac # 'esac' end case statement
         done
     done
+    wm_setup_func
     exit 0
 }
 
