@@ -5,27 +5,20 @@ contains_window() {
     xprop -root | grep -q -i "$1"
 }
 
-# Function to check if mpv is running
-is_mpv_running() {
-    pgrep -f "mpv" &>/dev/null
-}
-
 # Set initial state (not in focus)
 WINDOW_IN_FOCUS=false
 
-# Function to pause or resume the live wallpaper based on focus state
+# Get the window ID of the live wallpaper window
+LIVE_WALLPAPER_WINDOW_ID=$(wmctrl -l | grep "MPV MEDIA PLAYER" | cut -f 1 -d " ")
+
+# Function to show or hide the live wallpaper based on focus state
 toggle_live_wallpaper() {
     if $WINDOW_IN_FOCUS; then
-        # Terminal is in focus, allow the wallpaper to play
-        if ! is_mpv_running; then
-            # Resume the live wallpaper if it was paused
-            pkill -SIGCONT mpv
-        fi
+        # Terminal is in focus, show the live wallpaper window
+        wmctrl -i -r $LIVE_WALLPAPER_WINDOW_ID -b remove,hidden
     else
-        # Terminal is not in focus, pause the wallpaper if it's running
-        if is_mpv_running; then
-            pkill -SIGSTOP mpv
-        fi
+        # Terminal is not in focus, hide the live wallpaper window
+        wmctrl -i -r $LIVE_WALLPAPER_WINDOW_ID -b add,hidden
     fi
 }
 
@@ -41,6 +34,6 @@ while true; do
         WINDOW_IN_FOCUS=false
     fi
 
-    # Pause or resume the live wallpaper based on the focus state
+    # Show or hide the live wallpaper based on the focus state
     toggle_live_wallpaper
 done
