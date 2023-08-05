@@ -132,6 +132,30 @@ function is_package_installed() {
     yay -Qs "$package_name" &>/dev/null
 }
 
+store_pid() {
+    local custom_file="$1"
+    local pid=$!
+    mkdir -p "$(dirname "$custom_file")"
+    echo "$pid" >"$custom_file"
+}
+
+kill_pid() {
+    local pid_file="$1"
+    if [ -f "$pid_file" ]; then
+        local pid=$(cat "$pid_file")
+        if [ -n "$pid" ]; then
+            kill -9 "$pid"
+            echo "Process with PID $pid has been terminated."
+        else
+            echo "PID not found in the file $pid_file."
+        fi
+        # Clean up the PID file
+        rm "$pid_file"
+    else
+        echo "PID file $pid_file not found."
+    fi
+}
+
 set_live_wallpaper() {
     kill_wallpaper_handler
     killall -9 feh xwinwrap mpv wallpaper_handler.sh
@@ -140,24 +164,11 @@ set_live_wallpaper() {
     # --input-ipc-server=/tmp/mpvsocket
     # Save process id to kill later
     sh $sysZ/shell/wallpaper_handler.sh >/dev/null 2>&1 &
-    pid=$!
-    mkdir -p $temp_dir
-    echo "$pid" >"$temp_dir/wallpaper_handler_pid.txt"
+    store_pid "$temp_dir/wallpaper_handler_pid.txt"
 }
 
 kill_wallpaper_handler() {
-    # Read the PID from the temporary file
-    pid_file="$temp_dir/wallpaper_handler_pid.txt"
-    if [ -f "$pid_file" ]; then
-        pid=$(cat "$pid_file")
-        # Use killall with signal 9 to terminate the process
-        killall -9 "$pid"
-        # Clean up the temporary file
-        rm "$pid_file"
-        echo "Wallpaper handler process with PID $pid has been terminated."
-    else
-        echo "Wallpaper handler process not found in the temporary directory."
-    fi
+    kill_pid "$temp_dir/wallpaper_handler_pid.txt"
 }
 
 change_wallpaper_func() {

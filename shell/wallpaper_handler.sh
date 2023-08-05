@@ -11,6 +11,12 @@ send_pause_command() {
     echo '{"command": ["cycle", "pause"]}' | socat - /tmp/mpvsocket
 }
 
+# Function to check if the workspace is empty in i3
+is_workspace_empty() {
+    local windows=$(i3-msg -t get_tree | jq '.. | objects | select(.type? == "con" and .window != null) | .id')
+    [[ -z "$windows" ]]
+}
+
 # Wait for the mpv socket to be available
 while [ ! -e /tmp/mpvsocket ]; do
     sleep 0.1
@@ -18,14 +24,14 @@ done
 
 # Main loop to monitor focus changes
 while true; do
-    if is_alacritty_focused; then
-        echo "Alacritty is in focus."
+    if is_alacritty_focused || is_workspace_empty; then
+        echo "Alacritty is in focus or workspace is empty."
         playerctl -p mpv status | grep -q "Playing"
         if [[ $? -ne 0 ]]; then
             send_pause_command
         fi
     else
-        echo "Alacritty is not in focus."
+        echo "Alacritty is not in focus and workspace is not empty."
         playerctl -p mpv status | grep -q "Paused"
         if [[ $? -ne 0 ]]; then
             send_pause_command
