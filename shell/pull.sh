@@ -135,7 +135,7 @@ set_live_wallpaper() {
     sleep 0.1
     xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/vid.mp4
     # --input-ipc-server=/tmp/mpvsocket
-    i3-msg "exec sh $sysZ/shell/wallpaper_handler.sh;"
+    i3-msg "exec alacritty -e sh $sysZ/shell/wallpaper_handler.sh &;"
 }
 
 change_wallpaper_func() {
