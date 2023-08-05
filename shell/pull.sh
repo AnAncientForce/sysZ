@@ -90,6 +90,21 @@ else
     user_home="/home/$(whoami)"
 fi
 
+saveJson() {
+    local key="$1"
+    local value="$2"
+
+    # Check if the value is either "true" or "false"
+    if [ "$value" = "true" ] || [ "$value" = "false" ]; then
+        # Use the already declared $json_file variable to read the JSON content and update the value of the provided key
+        jq ".$key = $value" "$json_file" >"$json_file.tmp" && mv "$json_file.tmp" "$json_file"
+        echo "JSON value for key '$key' has been set to $value."
+    else
+        echo "Invalid value provided. Only 'true' or 'false' allowed."
+        return 1 # Invalid value
+    fi
+}
+
 checkJson() {
     # Check if the file exists
     if [ -f "$json_file" ]; then
@@ -111,6 +126,102 @@ checkJson() {
 function is_package_installed() {
     local package_name="$1"
     yay -Qs "$package_name" &>/dev/null
+}
+
+set_live_wallpaper() {
+    killall -9 xwinwrap
+    sleep 0.1
+    xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv -wid WID --loop --no-audio $sysZ/vid.mp4
+}
+
+change_wallpaper_func() {
+    local x='.*'
+    local FILES=$sysZ/wallpapers/*
+    local index=0
+    local max=0
+    while true; do
+        let "max=0"
+        let "index=0"
+        for f in $FILES; do
+            let "max=max+1"
+        done
+        # --------------------------
+
+        for f in $FILES; do
+            echo $f
+            let "index=index+1"
+            feh --bg-fill $f
+            read -p "($index/$max) Set this wallpaper? : " yn
+            case $yn in
+            [Yy]*)
+                echo "The wallpaper $name has been set"
+                cp -v $f $sysZ/bg
+                saveJson "live_wallpaper" "false"
+                exit 2
+                # v logging
+                # f Do not prompt for confirmation before overwriting existing files
+                break
+                ;;
+            [Bb]*)
+                echo "nevermind Reversed Index"
+                ;;
+            [Nn]*) ;;
+            *) ;; # echo "Please answer y or n";;
+            esac
+        done
+
+        while true; do
+            read -p "Loop through the wallpapers again? : " yn
+            case $yn in
+            [Yy]*) break ;;
+            [Nn]*) exit ;;
+            *) echo "Please answer y or n" ;;
+            esac # 'esac' end case statement
+        done
+    done
+    exit 0
+}
+
+change_live_wallpaper() {
+    local x='.*'
+    local FILES=$sysZ/videos/*
+    local index=0
+    local max=0
+    while true; do
+        max=$(echo "$FILES" | wc -w)
+        for f in $FILES; do
+            echo $f
+            let "index=index+1"
+            # feh --bg-fill $f
+            killall -9 xwinwrap
+            xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv -wid WID --loop --no-audio $f
+            read -p "($index/$max) Set this live wallpaper? : " yn
+            case $yn in
+            [Yy]*)
+                echo "The wallpaper $name has been set"
+                cp -v $f $sysZ/vid.mp4
+                saveJson "live_wallpaper" "true"
+                # cp -v $f $sysZ/bg
+                exit 2
+                break
+                ;;
+            [Bb]*)
+                echo "nevermind Reversed Index"
+                ;;
+            [Nn]*) ;;
+            *) ;;
+            esac
+        done
+        while true; do
+            read -p "Loop through the wallpapers again? : " yn
+            case $yn in
+            [Yy]*) break ;;
+            [Nn]*) exit ;;
+            *) echo "Please answer y or n" ;;
+            esac
+        done
+    done
+    exit 0
 }
 
 root_cmd() {
@@ -356,53 +467,6 @@ install_rec_yay() {
     fi
 }
 
-change_wallpaper_func() {
-    local x='.*'
-    local FILES=$sysZ/wallpapers/*
-    local index=0
-    local max=0
-    while true; do
-        let "max=0"
-        let "index=0"
-        for f in $FILES; do
-            let "max=max+1"
-        done
-        # --------------------------
-
-        for f in $FILES; do
-            echo $f
-            let "index=index+1"
-            feh --bg-fill $f
-            read -p "($index/$max) Set this wallpaper? : " yn
-            case $yn in
-            [Yy]*)
-                echo "The wallpaper $name has been set"
-                cp -v $f $sysZ/bg
-                exit 2
-                # v logging
-                # f Do not prompt for confirmation before overwriting existing files
-                break
-                ;;
-            [Bb]*)
-                echo "nevermind Reversed Index"
-                ;;
-            [Nn]*) ;;
-            *) ;; # echo "Please answer y or n";;
-            esac
-        done
-
-        while true; do
-            read -p "Loop through the wallpapers again? : " yn
-            case $yn in
-            [Yy]*) break ;;
-            [Nn]*) exit ;;
-            *) echo "Please answer y or n" ;;
-            esac # 'esac' end case statement
-        done
-    done
-    exit 0
-}
-
 automatic_setup_func() {
     echo -e ${BGreen}"[*] Automatic Setup is starting...\n" ${Color_Off}
     repo_pull
@@ -460,7 +524,11 @@ wm_setup_func() {
     killall -9 polybar copyq
     sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
-    i3-msg "exec feh --bg-fill $sysZ/bg;"
+    if checkJson "live_wallpaper"; then
+        set_live_wallpaper
+    else
+        i3-msg "exec feh --bg-fill $sysZ/bg;"
+    fi
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
     i3-msg "exec copyq;"
     i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
