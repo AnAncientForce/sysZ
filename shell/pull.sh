@@ -551,9 +551,9 @@ wm_setup_func() {
     i3-msg "reload"
     if checkJson "live_wallpaper"; then
         set_live_wallpaper
-        local cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
-        if (($(echo "$cpu_usage > 50" | bc -l))); then
-            echo -e ${BRed}"\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n" ${Color_Off}
+        cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
+        if [ $(echo "$cpu_usage > 50" | bc -l) -eq 1 ]; then
+            echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
         fi
     else
         i3-msg "exec feh --bg-fill $sysZ/bg;"
