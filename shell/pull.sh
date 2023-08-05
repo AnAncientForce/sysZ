@@ -136,6 +136,7 @@ set_live_wallpaper() {
 }
 
 change_wallpaper_func() {
+    killall -9 xwinwrap
     local x='.*'
     local FILES=$sysZ/wallpapers/*
     local index=0
