@@ -291,7 +291,7 @@ ex() {
         fi
     done
 }
-
+# ======================================== INSTALLS
 git_install_rofi() {
     cd ~
     git clone --depth=1 https://github.com/adi1090x/rofi.git
@@ -315,6 +315,51 @@ git_install_xwinwrap() {
     make
     sudo make install
     make clean
+}
+install_rec_pacman() {
+    not_installed=0
+    key="Arch"
+    echo "Checking $key"
+    # Check before warning prompt
+    for package in "${pacman_packages[@]}"; do
+        if ! pacman -Qi "$package" >/dev/null 2>&1; then
+            not_installed=1
+            break # Break out of the loop as soon as we find a package that needs installation
+        fi
+    done
+    if [ $not_installed -eq 1 ]; then
+        # Now for the real install
+        echo -e ${BRed}"[*] Attention Required\n" ${Color_Off}
+        for package in "${pacman_packages[@]}"; do
+            if ! pacman -Qi "$package" >/dev/null 2>&1; then
+                sudo pacman -S --noconfirm "$package"
+            fi
+        done
+    else
+        echo -e "${BGreen}[*] $key packages are already installed\n${Color_Off}"
+    fi
+}
+
+install_rec_yay() {
+    not_installed=0
+    key="AUR"
+    echo "Checking $key"
+    for package in "${yay_packages[@]}"; do
+        if ! yay -Qs "$package" >/dev/null; then
+            yay -S --noconfirm "$package"
+            not_installed=1
+        fi
+    done
+    if [ $not_installed -eq 1 ]; then
+        echo "Some $key packages were installed."
+    else
+        echo -e "${BGreen}[*] $key packages are already installed\n${Color_Off}"
+    fi
+
+    if ! is_package_installed "betterlockscreen"; then
+        echo -e "${BRed}[!] Attention Required${Color_Off}"
+        yay -S betterlockscreen
+    fi
 }
 
 manual() {
@@ -443,54 +488,6 @@ check_updates() {
     fi
 }
 
-# PACMAN & AUR INSTALL FUNCTIONS >
-
-install_rec_pacman() {
-    not_installed=0
-    key="Arch"
-    echo "Checking $key"
-    # Check before warning prompt
-    for package in "${pacman_packages[@]}"; do
-        if ! pacman -Qi "$package" >/dev/null 2>&1; then
-            not_installed=1
-            break # Break out of the loop as soon as we find a package that needs installation
-        fi
-    done
-    if [ $not_installed -eq 1 ]; then
-        # Now for the real install
-        echo -e ${BRed}"[*] Attention Required\n" ${Color_Off}
-        for package in "${pacman_packages[@]}"; do
-            if ! pacman -Qi "$package" >/dev/null 2>&1; then
-                sudo pacman -S --noconfirm "$package"
-            fi
-        done
-    else
-        echo -e "${BGreen}[*] $key packages are already installed\n${Color_Off}"
-    fi
-}
-
-install_rec_yay() {
-    not_installed=0
-    key="AUR"
-    echo "Checking $key"
-    for package in "${yay_packages[@]}"; do
-        if ! yay -Qs "$package" >/dev/null; then
-            yay -S --noconfirm "$package"
-            not_installed=1
-        fi
-    done
-    if [ $not_installed -eq 1 ]; then
-        echo "Some $key packages were installed."
-    else
-        echo -e "${BGreen}[*] $key packages are already installed\n${Color_Off}"
-    fi
-
-    if ! is_package_installed "betterlockscreen"; then
-        echo -e "${BRed}[!] Attention Required${Color_Off}"
-        yay -S betterlockscreen
-    fi
-}
-
 automatic_setup_func() {
     echo -e ${BGreen}"[*] Automatic Setup is starting...\n" ${Color_Off}
     repo_pull
@@ -554,6 +551,10 @@ wm_setup_func() {
     i3-msg "reload"
     if checkJson "live_wallpaper"; then
         set_live_wallpaper
+        local cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
+        if (($(echo "$cpu_usage > 50" | bc -l))); then
+            echo -e ${BRed}"\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n" ${Color_Off}
+        fi
     else
         i3-msg "exec feh --bg-fill $sysZ/bg;"
     fi
