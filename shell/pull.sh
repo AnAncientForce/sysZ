@@ -542,13 +542,18 @@ update_sysZ_func() {
 }
 
 wm_setup_func() {
-    killall -9 polybar copyq feh xwinwrap
+    killall -9 polybar copyq feh xwinwrap picom
     sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
     i3-msg "exec copyq;"
     i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
     i3-msg "reload"
+    if checkJson "use_background_blur"; then
+        i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
+    else
+        i3-msg 'exec picom -b --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
+    fi
     if checkJson "live_wallpaper"; then
         set_live_wallpaper
         cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
