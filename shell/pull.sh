@@ -48,6 +48,7 @@ pacman_packages=(
     "playerctl"
     "bluez"
     "bluez-utils"
+    "conky"
 )
 yay_packages=(
     "vimix-gtk-themes"
@@ -596,6 +597,7 @@ wm_setup_func() {
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
     i3-msg "exec copyq;"
+    i3-msg "exec conky -d &;"
     i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
     i3-msg "reload"
     if checkJson "use_background_blur"; then
