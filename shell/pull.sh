@@ -329,6 +329,7 @@ cu() {
     mkdir -p "$user_home/.config/kitty"
     cp "$sysZ/conf/i3" "$user_home/.config/i3/config"
     cp "$sysZ/conf/kitty.conf" "$user_home/.config/kitty"
+    cp "$sysZ/conf/conky.conf" "$user_home/.config/conky"
     cp "$sysZ/conf/alacritty.yml" "$user_home/.config"
     cp "$sysZ/conf/.bashrc" "$user_home"
 }
@@ -592,7 +593,7 @@ update_sysZ_func() {
 }
 
 wm_setup_func() {
-    killall -9 polybar copyq feh xwinwrap picom
+    killall -9 polybar copyq feh xwinwrap picom conky
     sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
