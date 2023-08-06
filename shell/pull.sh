@@ -46,6 +46,8 @@ pacman_packages=(
     "socat"
     "xdotool"
     "playerctl"
+    "bluez"
+    "bluez-utils"
 )
 yay_packages=(
     "vimix-gtk-themes"
