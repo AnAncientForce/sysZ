@@ -88,6 +88,7 @@ update_confirm=false
 dev_mode=true
 change_live_wallpaper=false
 auto_relaunch=false
+routine=false
 user_home=""
 json_file=""
 sysZ=""
@@ -599,6 +600,16 @@ update_sysZ_func() {
     wm_setup_func
 }
 
+routine_func() {
+    repo_pull
+    cu
+    ex
+    install_rec_yay
+    sudo pacman -Syu
+    install_rec_pacman
+    wm_setup_func
+}
+
 wm_setup_func() {
     killall -9 polybar copyq feh xwinwrap picom conky
     sleep 0.1
@@ -611,7 +622,8 @@ wm_setup_func() {
     if checkJson "use_background_blur"; then
         i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
     else
-        i3-msg 'exec picom -b --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
+        # i3-msg 'exec picom -b --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
+        i3-msg 'exec picom -b --config $sysZ/conf/picom.conf --corner-radius 4 --vsync;'
     fi
     if checkJson "live_wallpaper"; then
         set_live_wallpaper
@@ -664,7 +676,7 @@ help() {
     echo -e ${BBlue}"[*] sysz -h\n" ${Color_Off}
     echo -e ${BPurple}"Available flags\n" ${Color_Off}
     echo -e ${BGreen}"[*] -h            : Lists all available flags" ${Color_Off}
-    echo -e ${BGreen}"[*] -u            : Updates sysZ & installs dependencies" ${Color_Off}
+    echo -e ${BGreen}"[*] -u            : Updates sysZ (automatically installs dependencies)" ${Color_Off}
     echo -e ${BGreen}"[*] -l            : Lock Workstation" ${Color_Off}
     echo -e ${BGreen}"[*] -r            : Refreshes i3-wm" ${Color_Off}
     echo -e ${BGreen}"[*] --cw          : Change Wallpaper" ${Color_Off}
@@ -672,9 +684,10 @@ help() {
     echo -e ${BGreen}"[*] --ca          : Change Appearance" ${Color_Off}
     echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print, tools]" ${Color_Off}
     echo -e ${BGreen}"[*] --set         : sysZ settings | Usage: --set [w _KEY _BOOL, r]" ${Color_Off}
+    echo -e ${BGreen}"[*] --routine     : Updates sysZ (automatically installs dependencies) & Arch Linux" ${Color_Off}
     echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
     echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
-    echo -e ${BGreen}"[*] --automatic   : Updates sysZ & Updates Arch Linux & Installs any new recommended packages" ${Color_Off}
+    # echo -e ${BGreen}"[*] --automatic   : Updates sysZ & Updates Arch Linux & Installs any new recommended packages" ${Color_Off}
     exit 0
 }
 
@@ -761,6 +774,10 @@ for arg in "$@"; do
         view_docs=true
         valid_flag=true
         ;;
+    --routine)
+        routine=true
+        valid_flag=true
+        ;;
     --set)
         # $2 == operation (w, r)
         # $3 == value to write
@@ -834,6 +851,9 @@ elif [ "$update_confirm" = true ]; then
 
 elif [ "$view_docs" = true ]; then
     view_docs_func "$@"
+
+elif [ "$routine" = true ]; then
+    routine_func
 
 elif [ "$dev_mode" = true ]; then
     read -p "Install ujjwal96/xwinwrap?
