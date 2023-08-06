@@ -167,6 +167,33 @@ kill_pid() {
     fi
 }
 # ================================================================================ WALLPAPER
+wallpapers=(
+    "https://images6.alphacoders.com/131/1317292.jpeg"
+    "https://images2.alphacoders.com/131/1317287.png"
+    "https://images6.alphacoders.com/131/1317293.png"
+    "https://images2.alphacoders.com/131/1317263.png"
+    "https://images8.alphacoders.com/131/1317230.jpeg"
+    "https://images2.alphacoders.com/131/1317346.png"
+    "https://images4.alphacoders.com/131/1317261.jpeg"
+    "https://images.alphacoders.com/131/1317297.png"
+    "https://images8.alphacoders.com/131/1317219.jpeg"
+    "https://images6.alphacoders.com/131/1317345.png"
+    "https://images.alphacoders.com/131/1317226.jpeg"
+    "https://images7.alphacoders.com/131/1317264.png"
+    "https://images3.alphacoders.com/131/1317229.jpeg"
+    "https://images8.alphacoders.com/131/1317224.jpeg"
+    "https://images3.alphacoders.com/131/1317257.png"
+)
+
+download_wallpapers_func() {
+    mkdir -p "$sysZ/wallpapers"
+    for url in "${wallpapers[@]}"; do
+        filename=$(basename "$url")
+        wget -q "$url" -P "$sysZ/wallpapers"
+        echo "Downloaded $filename"
+    done
+}
+
 set_live_wallpaper() {
     kill_wallpaper_handler
     killall -9 feh xwinwrap mpv wallpaper_handler.sh
@@ -474,6 +501,13 @@ manual() {
     (y/n): " choice
     if [ "$choice" = "y" ]; then
         git_install_rofi
+    fi
+
+    # wallpapers
+    read -p "Download wallpapers?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        download_wallpapers_func
     fi
 
     # packages & update
