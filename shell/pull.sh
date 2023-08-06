@@ -49,6 +49,8 @@ pacman_packages=(
     "bluez"
     "bluez-utils"
     "conky"
+    "noto-fonts"
+    "font-manager"
 )
 yay_packages=(
     "vimix-gtk-themes"
@@ -61,6 +63,7 @@ yay_packages=(
     "ttf-font-awesome-4"
     "tty-clock"
     "pipes.sh"
+    "paper-icon-theme-git"
 )
 
 Color_Off='\033[0m'
