@@ -52,6 +52,7 @@ pacman_packages=(
     "noto-fonts"
     "font-manager"
 )
+# Disable "FreeMono"
 yay_packages=(
     "vimix-gtk-themes"
     "vimix-cursors"
