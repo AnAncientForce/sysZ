@@ -51,6 +51,7 @@ pacman_packages=(
     "conky"
     "noto-fonts"
     "font-manager"
+    "timeshift"
 )
 # Disable "FreeMono"
 yay_packages=(
@@ -594,6 +595,7 @@ update_sysZ_func() {
     repo_pull
     cu
     ex
+    install_rec_pacman
     wm_setup_func
 }
 
@@ -666,7 +668,7 @@ help() {
     echo -e ${BGreen}"[*] -l            : Lock Workstation" ${Color_Off}
     echo -e ${BGreen}"[*] -r            : Refreshes i3-wm" ${Color_Off}
     echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
-    echo -e ${BGreen}"[*] --automatic   : Updates sysZ & updates arch linux & installs any new recommended packages" ${Color_Off}
+    echo -e ${BGreen}"[*] --automatic   : Updates sysZ & Updates Arch Linux & Installs any new recommended packages" ${Color_Off}
     echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
     echo -e ${BGreen}"[*] --cw          : Change Wallpaper" ${Color_Off}
     echo -e ${BGreen}"[*] --lw          : Change Live Wallpaper" ${Color_Off}
