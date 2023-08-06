@@ -762,7 +762,6 @@ for arg in "$@"; do
         valid_flag=true
         ;;
     --set)
-        echo -e ${BPurple}"Change Live Wallpaper\n" ${Color_Off}
         if [ -z "$2" ]; then
             echo -e "${BRed}\n[!] Invalid operation\n${Color_Off}"
             exit 2
@@ -773,12 +772,10 @@ for arg in "$@"; do
         fi
         local op="$2"
         local key="$3"
-        if [ "$op" = "read" ]; then
-            if [ checkJson "$key" ]; then
-
-            fi
+        if [ "$op" = "r" ]; then
+            cat "$json_file"
         fi
-        if [ "$op" = "write" ]; then
+        if [ "$op" = "w" ]; then
             saveJson "$key"
         fi
         exit 0
