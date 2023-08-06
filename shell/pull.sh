@@ -190,11 +190,11 @@ download_wallpapers_func() {
     mkdir -p "$sysZ/wallpapers"
     for url in "${wallpapers[@]}"; do
         filename=$(basename "$url")
-        wget -q -N "$url" -P "$sysZ/wallpapers"
-        if [ $? -eq 0 ]; then
-            echo "Downloaded $filename"
-        else
+        if [ -f "$sysZ/wallpapers/$filename" ]; then
             echo "Skipped $filename"
+        else
+            wget -q -nc "$url" -P "$sysZ/wallpapers"
+            echo "Downloaded $filename"
         fi
     done
 }
