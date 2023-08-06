@@ -186,11 +186,16 @@ wallpapers=(
 )
 
 download_wallpapers_func() {
+    echo -e "${BPurple}[*] Downloading wallpapers. This may take a while.\n${Color_Off}"
     mkdir -p "$sysZ/wallpapers"
     for url in "${wallpapers[@]}"; do
         filename=$(basename "$url")
-        wget -q "$url" -P "$sysZ/wallpapers"
-        echo "Downloaded $filename"
+        wget -q -N "$url" -P "$sysZ/wallpapers"
+        if [ $? -eq 0 ]; then
+            echo "Downloaded $filename"
+        else
+            echo "Skipped $filename"
+        fi
     done
 }
 
