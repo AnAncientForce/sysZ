@@ -667,14 +667,14 @@ help() {
     echo -e ${BGreen}"[*] -u            : Updates sysZ & installs dependencies" ${Color_Off}
     echo -e ${BGreen}"[*] -l            : Lock Workstation" ${Color_Off}
     echo -e ${BGreen}"[*] -r            : Refreshes i3-wm" ${Color_Off}
-    echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
-    echo -e ${BGreen}"[*] --automatic   : Updates sysZ & Updates Arch Linux & Installs any new recommended packages" ${Color_Off}
-    echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
     echo -e ${BGreen}"[*] --cw          : Change Wallpaper" ${Color_Off}
     echo -e ${BGreen}"[*] --lw          : Change Live Wallpaper" ${Color_Off}
     echo -e ${BGreen}"[*] --ca          : Change Appearance" ${Color_Off}
     echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print, tools]" ${Color_Off}
-    echo -e ${BGreen}"[*] --set         : sysZ settings: [keys, set, read]" ${Color_Off}
+    echo -e ${BGreen}"[*] --set         : sysZ settings | Usage: --set [w _KEY _BOOL, r]" ${Color_Off}
+    echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
+    echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
+    echo -e ${BGreen}"[*] --automatic   : Updates sysZ & Updates Arch Linux & Installs any new recommended packages" ${Color_Off}
     exit 0
 }
 
@@ -762,13 +762,13 @@ for arg in "$@"; do
         valid_flag=true
         ;;
     --set)
+        # $2 == operation (w, r)
+        # $3 == value to write
+        # $4 == value
         if [ -z "$2" ]; then
             echo -e "${BRed}\n[!] Invalid operation (r, w)\n${Color_Off}"
             exit 2
         fi
-        # $2 == operation (w, r)
-        # $3 == value to write
-        # $4 == value
         if [ "$2" = "r" ]; then
             cat "$json_file"
         fi
