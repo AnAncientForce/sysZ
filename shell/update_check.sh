@@ -35,9 +35,9 @@ if ! checkJson "ignore_updates"; then
     if [ -d ".git" ] || git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
         git remote update >/dev/null 2>&1
         if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
-            echo "Updates Available"
+            echo "sysZ "
         else
-            echo "All up to date!"
+            echo "sysZ "
         fi
     fi
 fi
