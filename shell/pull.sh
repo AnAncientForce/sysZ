@@ -770,13 +770,15 @@ for arg in "$@"; do
             echo -e "${BRed}\n[!] Invalid key\n${Color_Off}"
             exit 2
         fi
-        local op="$2"
-        local key="$3"
-        if [ "$op" = "r" ]; then
+        # $2 == operation (w, r)
+        # $3 == value to write
+        # $4 == value
+        if [ "$2" = "r" ]; then
             cat "$json_file"
         fi
-        if [ "$op" = "w" ]; then
-            saveJson "$key"
+        if [ "$2" = "w" ]; then
+            saveJson "$3" "$4"
+            echo -e "${BBlue}\nSaved : $3 : $4\n${Color_Off}"
         fi
         exit 0
         ;;
