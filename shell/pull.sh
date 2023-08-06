@@ -52,6 +52,8 @@ pacman_packages=(
     "noto-fonts"
     "font-manager"
     "timeshift"
+    "tumbler"
+    "ffmpegthumbnailer"
 )
 # Disable "FreeMono"
 yay_packages=(
