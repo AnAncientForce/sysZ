@@ -621,10 +621,10 @@ wm_setup_func() {
     i3-msg "reload"
     if checkJson "use_background_blur"; then
         # i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
-        i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf --animation-for-open-window zoom --blur-background --backend glx;'
+        i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf --blur-background --backend glx;'
     else
         # i3-msg 'exec picom -b --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
-        i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf --animation-for-open-window zoom;'
+        i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf;'
     fi
     if checkJson "live_wallpaper"; then
         set_live_wallpaper
