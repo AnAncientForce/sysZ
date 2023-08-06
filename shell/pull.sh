@@ -79,6 +79,7 @@ view_docs=false
 update_confirm=false
 dev_mode=true
 change_live_wallpaper=false
+auto_relaunch=false
 user_home=""
 json_file=""
 sysZ=""
@@ -310,6 +311,14 @@ repo_pull() {
         echo "Git repository set up. Repository is ready."
     fi
     chmod +x $sysZ/shell/pull.sh
+     if auto_relaunch && [ -f "$sysZ/shell/pull.sh" ]; then
+        echo -e ${BBlue}"[*] Relaunching sysZ\n" ${Color_Off}
+        exec ./$sysZ/shell/pull.sh
+        echo -e ${BRed}"[!] Terminating current process\n" ${Color_Off}
+        exit 0
+    fi
+fi
+
 }
 
 cu() {
@@ -727,6 +736,9 @@ for arg in "$@"; do
         echo -e ${BRed}"kill_wallpaper_handler\n" ${Color_Off}
         kill_wallpaper_handler
         exit 0
+        ;;
+    -a)
+        auto_relaunch=true
         ;;
     --lw)
         echo -e ${BPurple}"Change Live Wallpaper\n" ${Color_Off}
