@@ -674,6 +674,7 @@ help() {
     echo -e ${BGreen}"[*] --lw          : Change Live Wallpaper" ${Color_Off}
     echo -e ${BGreen}"[*] --ca          : Change Appearance" ${Color_Off}
     echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print, tools]" ${Color_Off}
+    echo -e ${BGreen}"[*] --set         : sysZ settings: [keys, set, read]" ${Color_Off}
     exit 0
 }
 
@@ -759,6 +760,28 @@ for arg in "$@"; do
     --docs)
         view_docs=true
         valid_flag=true
+        ;;
+    --set)
+        echo -e ${BPurple}"Change Live Wallpaper\n" ${Color_Off}
+        if [ -z "$2" ]; then
+            echo -e "${BRed}\n[!] Invalid operation\n${Color_Off}"
+            exit 2
+        fi
+        if [ -z "$3" ]; then
+            echo -e "${BRed}\n[!] Invalid key\n${Color_Off}"
+            exit 2
+        fi
+        local op="$2"
+        local key="$3"
+        if [ "$op" = "read" ]; then
+            if [ checkJson "$key" ]; then
+
+            fi
+        fi
+        if [ "$op" = "write" ]; then
+            saveJson "$key"
+        fi
+        exit 0
         ;;
     --dev)
         dev_mode=true
