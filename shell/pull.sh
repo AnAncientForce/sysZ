@@ -186,7 +186,7 @@ wallpapers=(
 )
 
 download_wallpapers_func() {
-    echo -e "${BPurple}[*] Downloading wallpapers. This may take a while.\n${Color_Off}"
+    echo -e "${BYellow}[*] Downloading wallpapers. This may take a while.\n${Color_Off}"
     mkdir -p "$sysZ/wallpapers"
     for url in "${wallpapers[@]}"; do
         filename=$(basename "$url")
@@ -197,6 +197,7 @@ download_wallpapers_func() {
             echo "Downloaded $filename"
         fi
     done
+    echo -e "${BGreen}[*] Download successful\n${Color_Off}"
 }
 
 set_live_wallpaper() {
