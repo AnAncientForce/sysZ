@@ -157,7 +157,7 @@ kill_pid() {
         echo "PID file $pid_file not found."
     fi
 }
-
+# ================================================================================ WALLPAPER
 set_live_wallpaper() {
     kill_wallpaper_handler
     killall -9 feh xwinwrap mpv wallpaper_handler.sh
@@ -165,8 +165,8 @@ set_live_wallpaper() {
     xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/vid.mp4
     # --input-ipc-server=/tmp/mpvsocket
     # Save process id to kill later
-    sh $sysZ/shell/wallpaper_handler.sh &
-    # sh $sysZ/shell/wallpaper_handler.sh >/dev/null 2>&1 &
+    # sh $sysZ/shell/wallpaper_handler.sh &
+    sh $sysZ/shell/wallpaper_handler.sh >/dev/null 2>&1 &
     store_pid "$temp_dir/wallpaper_handler_pid.txt"
 }
 
@@ -273,7 +273,7 @@ change_live_wallpaper_func() {
     done
     exit 0
 }
-
+# ================================================================================ GENERAL
 root_cmd() {
     if [ "$(id -u)" -ne 0 ]; then
         echo -e "${BRed}[!] Must be running as sudo or root${Color_Off}"
@@ -311,6 +311,7 @@ repo_pull() {
         echo "Git repository set up. Repository is ready."
     fi
     chmod +x $sysZ/shell/pull.sh
+    echo -e ${BBlue}"[?] You can CTRL+C & relaunch to quickly apply script updates\n" ${Color_Off}
     #if [ "$auto_relaunch" = true ] && [ -f "$sysZ/shell/pull.sh" ]; then
     #    echo -e ${BBlue}"[*] Relaunching sysZ\n" ${Color_Off}
     #    exec ./$sysZ/shell/pull.sh
@@ -337,7 +338,7 @@ ex() {
         fi
     done
 }
-# ======================================== INSTALLS
+# ================================================================================ INSTALLS
 git_install_rofi() {
     cd ~
     git clone --depth=1 https://github.com/adi1090x/rofi.git
