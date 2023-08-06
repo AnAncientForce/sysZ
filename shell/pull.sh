@@ -664,7 +664,7 @@ help() {
     echo -e ${BBlue}"[*] sysz -h\n" ${Color_Off}
     echo -e ${BPurple}"Available flags\n" ${Color_Off}
     echo -e ${BGreen}"[*] -h            : Lists all available flags" ${Color_Off}
-    echo -e ${BGreen}"[*] -u            : Updates sysZ" ${Color_Off}
+    echo -e ${BGreen}"[*] -u            : Updates sysZ & installs dependencies" ${Color_Off}
     echo -e ${BGreen}"[*] -l            : Lock Workstation" ${Color_Off}
     echo -e ${BGreen}"[*] -r            : Refreshes i3-wm" ${Color_Off}
     echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
@@ -732,7 +732,7 @@ for arg in "$@"; do
         exit 0
         ;;
     --ca)
-        i3-msg 'exec qt5ct; exec lxappearance;'
+        i3-msg 'exec qt5ct; exec lxappearance; exec font-manager;'
         exit 0
         ;;
     -l)
