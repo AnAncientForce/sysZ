@@ -625,7 +625,7 @@ wm_setup_func() {
     if checkJson "use_background_blur"; then
         i3-msg 'exec killall -9 autotiling; workspace 9; exec alacritty -e autotiling;'
     fi
-    check_updates
+    # check_updates
     # echo -e "${BRed}[!] Please manually refresh (CTRL+SHIFT+R)\n${Color_Off}"
     # read -p "Press [Enter] to continue..."
 }
