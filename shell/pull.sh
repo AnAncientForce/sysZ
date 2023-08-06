@@ -311,12 +311,12 @@ repo_pull() {
         echo "Git repository set up. Repository is ready."
     fi
     chmod +x $sysZ/shell/pull.sh
-    if [ "$auto_relaunch" = true ] && [ -f "$sysZ/shell/pull.sh" ]; then
-        echo -e ${BBlue}"[*] Relaunching sysZ\n" ${Color_Off}
-        exec ./$sysZ/shell/pull.sh
-        echo -e ${BRed}"[!] Terminating current process\n" ${Color_Off}
-        exit 0
-    fi
+    #if [ "$auto_relaunch" = true ] && [ -f "$sysZ/shell/pull.sh" ]; then
+    #    echo -e ${BBlue}"[*] Relaunching sysZ\n" ${Color_Off}
+    #    exec ./$sysZ/shell/pull.sh
+    #    echo -e ${BRed}"[!] Terminating current process\n" ${Color_Off}
+    #    exit 0
+    #fi
 }
 
 cu() {
