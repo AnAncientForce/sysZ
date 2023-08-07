@@ -807,7 +807,7 @@ for arg in "$@"; do
                 exit 2
             fi
             saveJson "$3" "$4"
-            if [ $? -eq 1 ]; then
+            if [ $? -eq 0 ]; then
                 echo -e "${BBlue}\nSaved : $3 : $4\n${Color_Off}"
             else
                 echo -e "${BRed}\n[!] Expected _BOOLEAN\n${Color_Off}"
