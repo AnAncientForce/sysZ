@@ -683,27 +683,6 @@ wm_setup_func() {
     # read -p "Press [Enter] to continue..."
 }
 
-settings_func() {
-    # $2 == operation (w, r)
-    # $3 == value to write
-    # $4 == value
-    if [ -z "$2" ]; then
-        echo -e "${BRed}\n[!] Invalid operation (r, w)\n${Color_Off}"
-        exit 2
-    fi
-    if [ "$2" = "r" ]; then
-        cat "$json_file"
-    fi
-    if [ "$2" = "w" ]; then
-        if [ -z "$3" ]; then
-            echo -e "${BRed}\n[!] Cannot write empty key\n${Color_Off}"
-            exit 2
-        fi
-        saveJson "$3" "$4"
-        echo -e "${BBlue}\nSaved : $3 : $4\n${Color_Off}"
-    fi
-}
-
 function trap_ctrlc() {
     echo -e ${BRed}"\n[!] The current operation has been stopped.\n" ${Color_Off}
     exit 2
@@ -812,7 +791,24 @@ for arg in "$@"; do
         valid_flag=true
         ;;
     --set)
-        settings_func
+        # $2 == operation (w, r)
+        # $3 == value to write
+        # $4 == value
+        if [ -z "$2" ]; then
+            echo -e "${BRed}\n[!] Invalid operation (r, w)\n${Color_Off}"
+            exit 2
+        fi
+        if [ "$2" = "r" ]; then
+            cat "$json_file"
+        fi
+        if [ "$2" = "w" ]; then
+            if [ -z "$3" ]; then
+                echo -e "${BRed}\n[!] Cannot write empty key\n${Color_Off}"
+                exit 2
+            fi
+            saveJson "$3" "$4"
+            echo -e "${BBlue}\nSaved : $3 : $4\n${Color_Off}"
+        fi
         exit 0
         # ================================================================================ ^
         ;;
