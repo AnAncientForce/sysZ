@@ -4,6 +4,13 @@ const fs = require("fs");
 const path = require("path");
 const { exec } = require("child_process");
 
+let sysZ;
+if (process.getuid() === 0) {
+  sysZ = path.join("/home", process.env.SUDO_USER, "sysZ");
+} else {
+  sysZ = path.join("/home", os.userInfo().username, "sysZ");
+}
+
 function executeCommand(command) {
   exec(command, (error, stdout, stderr) => {
     if (error) {
@@ -13,6 +20,22 @@ function executeCommand(command) {
     console.log("Command executed successfully");
     console.log("stdout:", stdout);
     console.log("stderr:", stderr);
+  });
+}
+
+function executeCommandAndKeepTerminalOpen(command) {
+  const [program, ...args] = command.split(" "); // Split the command into program and arguments
+  const childProcess = spawn(program, args, {
+    stdio: "inherit", // Inherit stdio streams to keep terminal open
+    shell: true, // Use shell for executing the command
+  });
+
+  childProcess.on("error", (error) => {
+    console.error(`Error executing command: ${error.message}`);
+  });
+
+  childProcess.on("exit", (code, signal) => {
+    console.log(`Command exited with code ${code} and signal ${signal}`);
   });
 }
 
@@ -109,46 +132,49 @@ function page_home() {
   // requestShellScriptExecution("~/sysZ/shell/pull.sh -u");
 }
 
+var pull = "";
+
 function page_control_panel() {
   changeSection("section-control-panel");
   const parent = "section-control-panel-btns";
-  createAction("Open Terminal", "square-button", parent, function () {
-    //
-  });
+
+  // Actions
   createAction("Change Appearance", "square-button", parent, function () {
     executeCommand(
       "i3-msg 'exec qt5ct; exec lxappearance; exec font-manager;'"
     );
   });
   createAction("Change Wallpaper", "square-button", parent, function () {
-    //
+    executeCommandAndKeepTerminalOpen(`alacritty -e ${sysZ}/pull.sh --cw`);
   });
-  createAction("Arch PKG", "square-button", parent, function () {
-    //
-  });
-  createAction("AUR PKG", "square-button", parent, function () {
-    //
+  createAction("Change Live Wallpaper", "square-button", parent, function () {
+    executeCommandAndKeepTerminalOpen(`alacritty -e ${sysZ}/pull.sh --lw`);
   });
   createAction("System Update", "square-button", parent, function () {
-    //
+    executeCommandAndKeepTerminalOpen("alacritty -e " + "sudo pacman -Syu");
   });
   createAction("Update [sysZ]", "square-button", parent, function () {
-    //
+    executeCommandAndKeepTerminalOpen(`alacritty -e ${sysZ}/pull.sh -u`);
   });
   createAction("Restart [sysZ]", "square-button", parent, function () {
-    //
+    executeCommand(`i3-msg 'exec ${sysZ}/pull.sh -r;'`);
+  });
+
+  // System
+  createAction("Open Terminal", "square-button", parent, function () {
+    executeCommand("i3-msg 'exec alacritty;'");
   });
   createAction("Lock", "square-button", parent, function () {
-    //
+    executeCommand("i3-msg 'exec beterlockscreen -l dimblur;'");
   });
   createAction("Logout", "square-button", parent, function () {
-    //
+    executeCommand("i3-msg exit");
   });
   createAction("Restart", "square-button", parent, function () {
-    //
+    executeCommand("systemctl reboot");
   });
   createAction("Shutdown", "square-button", parent, function () {
-    //
+    executeCommand("systemctl poweroff");
   });
 }
 
