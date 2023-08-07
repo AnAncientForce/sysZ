@@ -163,7 +163,7 @@ function page_control_panel() {
     executeCommandAndKeepTerminalOpen(`alacritty -e ${sysZ}/shell/pull.sh -u`);
   });
   createAction("Restart [sysZ]", "square-button", parent, function () {
-    executeCommand(`i3-msg 'exec ${sysZ}/pull.sh -r;'`);
+    executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh -r;'`);
   });
 
   // System
@@ -171,7 +171,7 @@ function page_control_panel() {
     executeCommand("i3-msg 'exec alacritty;'");
   });
   createAction("Lock", "square-button", parent, function () {
-    executeCommand("i3-msg 'exec beterlockscreen -l dimblur;'");
+    executeCommand("i3-msg 'exec betterlockscreen -l dimblur;'");
   });
   createAction("Logout", "square-button", parent, function () {
     executeCommand("i3-msg exit");
