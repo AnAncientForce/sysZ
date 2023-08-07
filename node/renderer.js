@@ -3,6 +3,7 @@ const { ipcRenderer } = require("electron");
 const fs = require("fs");
 const path = require("path");
 const { exec } = require("child_process");
+const os = require("os");
 
 let sysZ;
 if (process.getuid() === 0) {

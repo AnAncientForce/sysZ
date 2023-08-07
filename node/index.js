@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const { exec } = require("child_process");
 const path = require("path");
+const os = require("os");
 
 let mainWindow;
 
