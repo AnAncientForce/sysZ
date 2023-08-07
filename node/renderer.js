@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { exec } = require("child_process");
 const os = require("os");
+const { spawn } = require("child_process");
 
 let sysZ;
 if (process.getuid() === 0) {
