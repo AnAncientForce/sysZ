@@ -1,10 +1,10 @@
 // sysZ
 const { ipcRenderer } = require("electron");
-const fs = require("fs");
-const path = require("path");
 const { exec } = require("child_process");
-const os = require("os");
 const { spawn } = require("child_process");
+const fs = require("fs");
+const os = require("os");
+const path = require("path");
 
 let sysZ;
 if (process.getuid() === 0) {
@@ -147,16 +147,20 @@ function page_control_panel() {
     );
   });
   createAction("Change Wallpaper", "square-button", parent, function () {
-    executeCommandAndKeepTerminalOpen(`alacritty -e ${sysZ}/pull.sh --cw`);
+    executeCommandAndKeepTerminalOpen(
+      `alacritty -e ${sysZ}/shell/pull.sh --cw`
+    );
   });
   createAction("Change Live Wallpaper", "square-button", parent, function () {
-    executeCommandAndKeepTerminalOpen(`alacritty -e ${sysZ}/pull.sh --lw`);
+    executeCommandAndKeepTerminalOpen(
+      `alacritty -e ${sysZ}/shell/pull.sh --lw`
+    );
   });
   createAction("System Update", "square-button", parent, function () {
     executeCommandAndKeepTerminalOpen("alacritty -e " + "sudo pacman -Syu");
   });
   createAction("Update [sysZ]", "square-button", parent, function () {
-    executeCommandAndKeepTerminalOpen(`alacritty -e ${sysZ}/pull.sh -u`);
+    executeCommandAndKeepTerminalOpen(`alacritty -e ${sysZ}/shell/pull.sh -u`);
   });
   createAction("Restart [sysZ]", "square-button", parent, function () {
     executeCommand(`i3-msg 'exec ${sysZ}/pull.sh -r;'`);
