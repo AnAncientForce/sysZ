@@ -134,8 +134,6 @@ function page_home() {
   // requestShellScriptExecution("~/sysZ/shell/pull.sh -u");
 }
 
-var pull = "";
-
 function page_control_panel() {
   changeSection("section-control-panel");
   const parent = "section-control-panel-btns";
@@ -185,14 +183,12 @@ function page_control_panel() {
 }
 
 function loadDoc(doc) {
-  const textBox = document.getElementById("text-box");
-  const filePath = path.join(__dirname, doc);
-  fs.readFile(filePath, "utf8", (error, content) => {
+  fs.readFile(path.join(__dirname, doc), "utf8", (error, content) => {
     if (error) {
       console.error("Error reading file:", error);
       return;
     }
-    textBox.value = content;
+    document.getElementById("text-box").value = content;
   });
 }
 
