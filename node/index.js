@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
-const path = require("path");
 const { exec } = require("child_process");
+const path = require("path");
 
 let mainWindow;
 
@@ -13,7 +13,7 @@ function createWindow() {
       contextIsolation: false,
     },
   });
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
   mainWindow.loadFile("index.html"); // Load your HTML file here
 
   mainWindow.on("closed", () => {

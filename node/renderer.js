@@ -2,6 +2,19 @@
 const { ipcRenderer } = require("electron");
 const fs = require("fs");
 const path = require("path");
+const { exec } = require("child_process");
+
+function executeCommand(command) {
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error executing command: ${error.message}`);
+      return;
+    }
+    console.log("Command executed successfully");
+    console.log("stdout:", stdout);
+    console.log("stderr:", stderr);
+  });
+}
 
 function requestShellScriptExecution(scriptName, args) {
   ipcRenderer.send("execute-shell-script", { scriptName, args });
@@ -103,7 +116,9 @@ function page_control_panel() {
     //
   });
   createAction("Change Appearance", "square-button", parent, function () {
-    //
+    executeCommand(
+      "i3-msg 'exec qt5ct; exec lxappearance; exec font-manager;'"
+    );
   });
   createAction("Change Wallpaper", "square-button", parent, function () {
     //
