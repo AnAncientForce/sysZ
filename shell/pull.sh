@@ -69,6 +69,23 @@ yay_packages=(
     "pipes.sh"
     "paper-icon-theme-git"
 )
+wallpapers=(
+    "https://images6.alphacoders.com/131/1317292.jpeg"
+    "https://images2.alphacoders.com/131/1317287.png"
+    "https://images6.alphacoders.com/131/1317293.png"
+    "https://images2.alphacoders.com/131/1317263.png"
+    "https://images8.alphacoders.com/131/1317230.jpeg"
+    "https://images2.alphacoders.com/131/1317346.png"
+    "https://images4.alphacoders.com/131/1317261.jpeg"
+    "https://images.alphacoders.com/131/1317297.png"
+    "https://images8.alphacoders.com/131/1317219.jpeg"
+    "https://images6.alphacoders.com/131/1317345.png"
+    "https://images.alphacoders.com/131/1317226.jpeg"
+    "https://images7.alphacoders.com/131/1317264.png"
+    "https://images3.alphacoders.com/131/1317229.jpeg"
+    "https://images8.alphacoders.com/131/1317224.jpeg"
+    "https://images3.alphacoders.com/131/1317257.png"
+)
 
 Color_Off='\033[0m'
 BBlack='\033[1;30m' BRed='\033[1;31m' BGreen='\033[1;32m' BYellow='\033[1;33m'
@@ -169,23 +186,6 @@ kill_pid() {
     fi
 }
 # ================================================================================ WALLPAPER
-wallpapers=(
-    "https://images6.alphacoders.com/131/1317292.jpeg"
-    "https://images2.alphacoders.com/131/1317287.png"
-    "https://images6.alphacoders.com/131/1317293.png"
-    "https://images2.alphacoders.com/131/1317263.png"
-    "https://images8.alphacoders.com/131/1317230.jpeg"
-    "https://images2.alphacoders.com/131/1317346.png"
-    "https://images4.alphacoders.com/131/1317261.jpeg"
-    "https://images.alphacoders.com/131/1317297.png"
-    "https://images8.alphacoders.com/131/1317219.jpeg"
-    "https://images6.alphacoders.com/131/1317345.png"
-    "https://images.alphacoders.com/131/1317226.jpeg"
-    "https://images7.alphacoders.com/131/1317264.png"
-    "https://images3.alphacoders.com/131/1317229.jpeg"
-    "https://images8.alphacoders.com/131/1317224.jpeg"
-    "https://images3.alphacoders.com/131/1317257.png"
-)
 
 download_wallpapers_func() {
     echo -e "${BYellow}[*] Downloading wallpapers. This may take a while.\n${Color_Off}"
@@ -683,6 +683,27 @@ wm_setup_func() {
     # read -p "Press [Enter] to continue..."
 }
 
+settings_func() {
+    # $2 == operation (w, r)
+    # $3 == value to write
+    # $4 == value
+    if [ -z "$2" ]; then
+        echo -e "${BRed}\n[!] Invalid operation (r, w)\n${Color_Off}"
+        exit 2
+    fi
+    if [ "$2" = "r" ]; then
+        cat "$json_file"
+    fi
+    if [ "$2" = "w" ]; then
+        if [ -z "$3" ]; then
+            echo -e "${BRed}\n[!] Cannot write empty key\n${Color_Off}"
+            exit 2
+        fi
+        saveJson "$3" "$4"
+        echo -e "${BBlue}\nSaved : $3 : $4\n${Color_Off}"
+    fi
+}
+
 function trap_ctrlc() {
     echo -e ${BRed}"\n[!] The current operation has been stopped.\n" ${Color_Off}
     exit 2
@@ -712,9 +733,9 @@ trap "trap_ctrlc" 2
 
 help() {
     echo -e ${BPurple}"Usage\n" ${Color_Off}
-    echo -e ${BBlue}"[*] chmod +x pull.sh" ${Color_Off}
-    echo -e ${BBlue}"[*] ./pull.sh -h" ${Color_Off}
-    echo -e ${BBlue}"[*] sysz -h\n" ${Color_Off}
+    # echo -e ${BBlue}"[*] chmod +x pull.sh" ${Color_Off}
+    # echo -e ${BBlue}"[*] ./pull.sh -h" ${Color_Off}
+    echo -e ${BBlue}"[>] sysz -h\n" ${Color_Off}
     echo -e ${BPurple}"Available flags\n" ${Color_Off}
     echo -e ${BGreen}"[*] -h            : Lists all available flags" ${Color_Off}
     echo -e ${BGreen}"[*] -u            : Updates sysZ (automatically installs dependencies)" ${Color_Off}
@@ -743,28 +764,12 @@ for arg in "$@"; do
         run_as_root=true
         valid_flag=true
         ;;
-    --pacman)
-        install_pacman=true
-        valid_flag=true
-        ;;
-    --yay)
-        install_yay=true
-        valid_flag=true
-        ;;
-    --setup)
-        wm_setup=true
-        valid_flag=true
-        ;;
     --update-check)
         update_check=true
         valid_flag=true
         ;;
     --first-setup)
         first_setup=true
-        valid_flag=true
-        ;;
-    --automatic)
-        automatic=true
         valid_flag=true
         ;;
     --update-confirm)
@@ -781,11 +786,6 @@ for arg in "$@"; do
         change_wallpaper_func
         exit 0
         ;;
-    --cd)
-        cd "$sysZ/shell"
-        echo -e ${BGreen}"\nDirectory Changed\n" ${Color_Off}
-        exit 0
-        ;;
     --ca)
         i3-msg 'exec qt5ct; exec lxappearance; exec font-manager;'
         exit 0
@@ -797,14 +797,6 @@ for arg in "$@"; do
     -r)
         wm_setup_func
         exit 0
-        ;;
-    -k)
-        echo -e ${BRed}"kill_wallpaper_handler\n" ${Color_Off}
-        kill_wallpaper_handler
-        exit 0
-        ;;
-    -a)
-        auto_relaunch=true
         ;;
     --lw)
         echo -e ${BPurple}"Change Live Wallpaper\n" ${Color_Off}
@@ -820,33 +812,44 @@ for arg in "$@"; do
         valid_flag=true
         ;;
     --set)
-        # $2 == operation (w, r)
-        # $3 == value to write
-        # $4 == value
-        if [ -z "$2" ]; then
-            echo -e "${BRed}\n[!] Invalid operation (r, w)\n${Color_Off}"
-            exit 2
-        fi
-        if [ "$2" = "r" ]; then
-            cat "$json_file"
-        fi
-        if [ "$2" = "w" ]; then
-            if [ -z "$3" ]; then
-                echo -e "${BRed}\n[!] Cannot write empty key\n${Color_Off}"
-                exit 2
-            fi
-            saveJson "$3" "$4"
-            echo -e "${BBlue}\nSaved : $3 : $4\n${Color_Off}"
-        fi
+        settings_func
         exit 0
+        # ================================================================================ ^
         ;;
     --dev)
         dev_mode=true
         valid_flag=true
         ;;
-    *)
-        # Handle other arguments as needed...
+    --setup)
+        wm_setup=true
+        valid_flag=true
         ;;
+    --automatic)
+        automatic=true
+        valid_flag=true
+        ;;
+    --cd)
+        cd "$sysZ/shell"
+        echo -e ${BGreen}"\nDirectory Changed\n" ${Color_Off}
+        exit 0
+        ;;
+    --pacman)
+        install_pacman=true
+        valid_flag=true
+        ;;
+    --yay)
+        install_yay=true
+        valid_flag=true
+        ;;
+    -k)
+        echo -e ${BRed}"kill_wallpaper_handler\n" ${Color_Off}
+        kill_wallpaper_handler
+        exit 0
+        ;;
+    -a)
+        auto_relaunch=true
+        ;;
+    *) ;;
     esac
 done
 if ! $valid_flag; then
@@ -908,7 +911,7 @@ elif [ "$dev_mode" = true ]; then
     read -p "Run live wallpaper?
     (y/n): " choice
     if [ "$choice" = "y" ]; then
-        xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv -wid WID --loop --no-audio $user_home/w.mp4
+        set_live_wallpaper
     else
         echo -e ${BRed}"\nStop\n" ${Color_Off}
     fi
