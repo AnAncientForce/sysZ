@@ -806,7 +806,8 @@ for arg in "$@"; do
                 echo -e "${BRed}\n[!] Cannot write empty key\n${Color_Off}"
                 exit 2
             fi
-            if [ "$(saveJson "$3" "$4")" -eq 0 ]; then
+            saveJson "$3" "$4"
+            if [ $? -eq 1 ]; then
                 echo -e "${BBlue}\nSaved : $3 : $4\n${Color_Off}"
             else
                 echo -e "${BRed}\n[!] Expected _BOOLEAN\n${Color_Off}"
