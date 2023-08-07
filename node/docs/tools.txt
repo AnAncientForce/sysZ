@@ -1,7 +1,0 @@
-Change brightness
-    brightnessctl set 100%
-
-Terminal
-    pipes.sh
-    tty-clock
-    cmatrix (-c = jap, -r = rainbow)

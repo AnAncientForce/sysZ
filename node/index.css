@@ -297,3 +297,19 @@ body {
     background-position: 0% 50%;
   }
 }
+
+.heading {
+  font-size: 20vw;
+  font-weight: bold;
+  text-align: center;
+  color: skyblue;
+}
+.heading.scale-down {
+  transition: 4s;
+  transform: scale(0.25);
+}
+.heading.scale-down.resolve {
+  transition: 1s;
+  transform: scale(1);
+  font-size: 5vw;
+}

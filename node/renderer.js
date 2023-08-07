@@ -200,16 +200,16 @@ function page_guide() {
   changeSection("section-guide");
   const parent = "section-guide-btns";
   createAction("Bluetooth", "square-button", parent, function () {
-    loadDoc("./docs/bluetooth.txt");
+    loadDoc("../docs/bluetooth.txt");
   });
   createAction("Packages & Updates", "square-button", parent, function () {
-    loadDoc("./docs/i3.txt");
+    loadDoc("../docs/i3.txt");
   });
   createAction("Printing", "square-button", parent, function () {
-    loadDoc("./docs/print.txt");
+    loadDoc("../docs/print.txt");
   });
   createAction("i3-wm Shortcuts", "square-button", parent, function () {
-    loadDoc("./docs/tools.txt");
+    loadDoc("../docs/tools.txt");
   });
 }
 
@@ -223,5 +223,10 @@ function build_nav() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  var heading = document.getElementById("heading");
+  heading.classList.add("scale-down");
+  heading.addEventListener("transitionend", function (event) {
+    heading.classList.add("resolve");
+  });
   page_home();
 });
