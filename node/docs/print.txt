@@ -1,0 +1,13 @@
+Source: https://lakur.tech/2021/09/16/adding-a-hp-printer-on-arch-linux/
+
+systemctl enable cups && systemctl start cups
+
+sudo pacman -S avahi hplip
+
+sudo systemctl enable avahi.service
+
+avahi-discover
+
+https://localhost:631 > Administration > Add Printer > Enter root as user and your root password
+
+Continue Setup
