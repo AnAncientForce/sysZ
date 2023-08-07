@@ -219,10 +219,12 @@ function build_nav() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  /*
   var heading = document.getElementById("heading");
   heading.classList.add("scale-down");
   heading.addEventListener("transitionend", function (event) {
     heading.classList.add("resolve");
   });
+  */
   page_home();
 });
