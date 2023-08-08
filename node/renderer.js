@@ -249,7 +249,10 @@ function dynamicSettings() {
 
       checkbox.addEventListener("change", function () {
         jsonData[key] = this.checked;
-        fs.writeFileSync(jsonData, JSON.stringify(jsonData, null, 2));
+        fs.writeFileSync(
+          `${os.homedir()}/.config/sysZ/config.json`,
+          JSON.stringify(jsonData, null, 2)
+        );
       });
     }
   }
