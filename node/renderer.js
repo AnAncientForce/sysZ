@@ -228,6 +228,7 @@ function dynamicSettings() {
   changeSection("section-settings");
   const jsonData = require(`${os.homedir()}/.config/sysZ/config.json`);
   const checkboxContainer = document.getElementById("checkboxContainer");
+
   for (const key in jsonData) {
     if (jsonData.hasOwnProperty(key)) {
       const checkbox = document.createElement("input");
@@ -244,7 +245,7 @@ function dynamicSettings() {
       checkbox.addEventListener("change", function () {
         jsonData[key] = this.checked;
         fs.writeFileSync(
-          "./path/to/your/json/file.json",
+          `${os.homedir()}/.config/sysZ/config.json`,
           JSON.stringify(jsonData, null, 2)
         );
       });
