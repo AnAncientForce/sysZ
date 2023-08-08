@@ -17,7 +17,7 @@ function createWindow() {
   });
   // mainWindow.webContents.openDevTools();
   mainWindow.loadFile("index.html");
-  //Menu.setApplicationMenu(null);
+  Menu.setApplicationMenu(null);
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
