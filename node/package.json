@@ -11,5 +11,11 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^25.4.0"
+  },
+  "build": {
+    "productName": "sysz",
+    "linux": {
+      "target": "AppImage"
+    }
   }
 }

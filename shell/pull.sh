@@ -54,6 +54,7 @@ pacman_packages=(
     "timeshift"
     "tumbler"
     "ffmpegthumbnailer"
+    "npm"
 )
 # Disable "FreeMono"
 yay_packages=(
@@ -385,6 +386,11 @@ ex() {
     done
 }
 # ================================================================================ INSTALLS
+npm_setup() {
+    cd ~
+    cd "$sysZ/node"
+    npm install
+}
 git_install_rofi() {
     cd ~
     git clone --depth=1 https://github.com/adi1090x/rofi.git
@@ -481,6 +487,13 @@ manual() {
     fi
 
     echo "Scanning for changes in default applications"
+
+    # setup npm
+    read -p "[Required] Setup sysZ settings gui?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        npm_setup
+    fi
 
     # install yay
     read -p "[Required] Install Yay?
