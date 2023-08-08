@@ -6,6 +6,7 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 
+var notUsingLinux = false;
 let sysZ;
 try {
   if (process.getuid() === 0) {
@@ -15,6 +16,7 @@ try {
   }
 } catch (error) {
   console.error("Not on Linux");
+  notUsingLinux = true;
 }
 
 function executeCommand(command) {
@@ -341,9 +343,13 @@ function showDialog(options) {
     cancelButton.style.display = "block";
     cancelButton.textContent = options.btn0;
     cancelButton.onclick = () => {
-      dialogOverlay.style.display = "none";
-      dialogBox.style.display = "none";
-      dialogOverlay.classList.remove("blur-background"); // Remove the blur class
+      dialogOverlay.classList.remove("dialog-show"); // Remove the dialog-show class
+      setTimeout(() => {
+        dialogOverlay.style.display = "none";
+        dialogBox.style.display = "none";
+      }, 500);
+      dialogOverlay.classList.remove("blur-background");
+      dialogBox.classList.add("animate-up");
       options.onCancel && options.onCancel();
     };
   } else {
@@ -354,11 +360,13 @@ function showDialog(options) {
     proceedButton.style.display = "block";
     proceedButton.textContent = options.btn1;
     proceedButton.onclick = () => {
+      dialogOverlay.classList.remove("dialog-show"); // Remove the dialog-show class
       setTimeout(() => {
         dialogOverlay.style.display = "none";
         dialogBox.style.display = "none";
       }, 500);
       dialogOverlay.classList.remove("blur-background");
+      dialogBox.classList.add("animate-up");
       options.onProceed && options.onProceed();
     };
   } else {
@@ -366,7 +374,7 @@ function showDialog(options) {
   }
 
   dialogOverlay.style.display = "flex";
-  dialogOverlay.classList.add("blur-background"); // Add the blur class
+  dialogOverlay.classList.add("blur-background");
   dialogBox.style.display = "block";
 }
 
@@ -396,7 +404,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   */
   page_home();
-  if (readJSONValue("show_change_log")) {
+  if (readJSONValue("show_change_log") || notUsingLinux) {
     fs.readFile("../change_log.txt", "utf8", (err, data) => {
       if (err) {
         console.error("Error reading file:", err);
