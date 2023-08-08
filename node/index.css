@@ -250,12 +250,16 @@ textarea {
 }
 
 .dialog-title {
-  font-size: 24px; /* Large font size for the title */
+  font-size: 24px;
+  font-weight: bold;
+  user-select: none;
   margin-bottom: 20px;
 }
 
 .dialog-message {
-  font-size: 20px; /* Large font size for the message */
+  font-size: 20px;
+  font-weight: bold;
+  user-select: none;
   margin-bottom: 20px;
 }
 
