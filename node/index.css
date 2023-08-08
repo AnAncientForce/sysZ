@@ -150,9 +150,21 @@ body {
 #section-settings {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center horizontally */
-  justify-content: center; /* Center vertically */
-  height: 100vh; /* Set the height to the full viewport height */
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Adjust the height to match your desired layout */
+}
+
+#checkboxContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%; /* Adjust the width as needed */
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Style for checkboxes */
@@ -169,13 +181,6 @@ body {
 
 .checkbox-label input[type="checkbox"] {
   margin-right: 5px;
-}
-
-/* Adjust text size and font-weight */
-.checkbox-label {
-  font-size: 14px; /* Adjust the text size */
-  font-weight: 500; /* Adjust the font weight (e.g., 500 for semi-bold) */
-  color: #333; /* Adjust the text color to be brighter */
 }
 
 @keyframes dropInAnimation {
