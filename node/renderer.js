@@ -358,7 +358,7 @@ function showDialog(options) {
       setTimeout(() => {
         dialogOverlay.style.display = "none";
         dialogBox.style.display = "none";
-      }, 300);
+      }, 1000);
       options.onProceed && options.onProceed();
     };
   } else {
