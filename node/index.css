@@ -147,6 +147,14 @@ body {
   animation: dropInAnimation 0.5s ease-out; /* Adjust duration and timing function as needed */
 }
 
+#section-settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  height: 100vh; /* Set the height to the full viewport height */
+}
+
 /* Style for checkboxes */
 .checkbox-label {
   display: flex;
