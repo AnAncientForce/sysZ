@@ -10,6 +10,7 @@ body {
   background-color: darkcyan;
   pointer-events: none;
   text-align: center;
+  overflow: hidden;
 }
 
 #title {

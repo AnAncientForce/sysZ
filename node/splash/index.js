@@ -18,6 +18,7 @@ function createWindow() {
   // mainWindow.webContents.openDevTools();
   mainWindow.loadFile("index.html");
   Menu.setApplicationMenu(null);
+  mainWindow.setFullScreen(true);
   mainWindow.on("closed", () => {
     mainWindow = null;
   });

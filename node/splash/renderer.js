@@ -88,6 +88,10 @@ document.addEventListener("DOMContentLoaded", () => {
     icon.classList.add("fast");
     white_screen.classList.add("shine");
 
+    white_screen.addEventListener("transitionend", () => {
+      ipcRenderer.send("close-application");
+    });
+
     console.log(`Script output:\n${stdout}`);
     console.error(`Script errors:\n${stderr}`);
     console.log("Script execution completed.");
