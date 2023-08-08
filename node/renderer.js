@@ -187,32 +187,36 @@ function page_control_panel() {
 }
 
 function loadDoc(doc) {
-  fs.readFile(path.join(__dirname, doc), "utf8", (error, content) => {
-    if (error) {
-      console.error("Error reading file:", error);
-      return;
+  fs.readFile(
+    path.join(__dirname, "../docs/" + doc + ".txt"),
+    "utf8",
+    (error, content) => {
+      if (error) {
+        console.error("Error reading file:", error);
+        return;
+      }
+      document.getElementById("text-box").value = content;
     }
-    document.getElementById("text-box").value = content;
-  });
+  );
 }
 
 function page_guide() {
   changeSection("section-guide");
   const parent = "section-guide-btns";
   createAction("Bluetooth", "square-button", parent, function () {
-    loadDoc("../docs/bluetooth.txt");
+    loadDoc("bluetooth");
   });
   createAction("Packages & Updates", "square-button", parent, function () {
-    loadDoc("../docs/pkgs.txt");
+    loadDoc("pkgs");
   });
   createAction("Printing", "square-button", parent, function () {
-    loadDoc("../docs/print.txt");
+    loadDoc("print");
   });
   createAction("i3-wm Shortcuts", "square-button", parent, function () {
-    loadDoc("../docs/i3.txt");
+    loadDoc("i3");
   });
   createAction("Tools", "square-button", parent, function () {
-    loadDoc("../docs/tools.txt");
+    loadDoc("tools");
   });
 }
 
