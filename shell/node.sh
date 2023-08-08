@@ -5,4 +5,5 @@ if [ "$EUID" -eq 0 ]; then
 else
     sysZ="/home/$(whoami)/sysZ"
 fi
+cd "$sysZ/node"
 npm run start
