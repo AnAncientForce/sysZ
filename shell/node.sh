@@ -6,4 +6,4 @@ else
     sysZ="/home/$(whoami)/sysZ"
 fi
 cd "$sysZ/node"
-npm run start
+npm run $1
