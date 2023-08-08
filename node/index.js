@@ -16,8 +16,8 @@ function createWindow() {
     },
   });
   // mainWindow.webContents.openDevTools();
-  mainWindow.loadFile("index.html"); // Load your HTML file here
-
+  mainWindow.loadFile("index.html");
+  Menu.setApplicationMenu(null);
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
@@ -26,7 +26,6 @@ function createWindow() {
 app.on("ready", createWindow);
 
 ipcMain.on("close-application", () => {
-  // Close the application
   app.quit();
 });
 

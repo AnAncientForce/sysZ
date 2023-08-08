@@ -199,12 +199,15 @@ function page_guide() {
     loadDoc("../docs/bluetooth.txt");
   });
   createAction("Packages & Updates", "square-button", parent, function () {
-    loadDoc("../docs/i3.txt");
+    loadDoc("../docs/pkgs.txt");
   });
   createAction("Printing", "square-button", parent, function () {
     loadDoc("../docs/print.txt");
   });
   createAction("i3-wm Shortcuts", "square-button", parent, function () {
+    loadDoc("../docs/i3.txt");
+  });
+  createAction("Tools", "square-button", parent, function () {
     loadDoc("../docs/tools.txt");
   });
 }
