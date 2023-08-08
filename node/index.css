@@ -140,6 +140,24 @@ body {
   width: auto; /* Let the content determine the width */
   height: auto; /* Let the content determine the height */
   word-wrap: break-word;
+
+  /* Define a custom animation keyframes */
+
+  /* Apply the animation on the button */
+  animation: dropInAnimation 0.5s ease-out; /* Adjust duration and timing function as needed */
+}
+
+@keyframes dropInAnimation {
+  0% {
+    transform: translateY(-10px); /* Move the button up by 10px */
+    opacity: 0; /* Start with opacity 0 */
+  }
+  100% {
+    transform: translateY(
+      0
+    ); /* Move the button back to its original position */
+    opacity: 1; /* End with full opacity */
+  }
 }
 
 /* Slowly rotate the button on hover */
