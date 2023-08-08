@@ -147,6 +147,17 @@ body {
   animation: dropInAnimation 0.5s ease-out; /* Adjust duration and timing function as needed */
 }
 
+#checkboxContainer input[type="checkbox"] {
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #82b8ff;
+}
+
+#checkboxContainer label {
+  display: block;
+}
+
 @keyframes dropInAnimation {
   0% {
     transform: translateY(-10px); /* Move the button up by 10px */

@@ -112,6 +112,7 @@ function changeSection(newSection) {
   elementsArray.forEach((element) => {
     element.remove();
   });
+  document.getElementById("checkboxContainer").innerHTML = "";
   currentSection = newSection;
   hideAllExceptCurrent();
   build_nav();
