@@ -151,11 +151,13 @@ body {
   margin: 5px;
   padding: 5px;
   border-radius: 5px;
-  background: linear-gradient(45deg, #82b8ff, #b6e1ff);
+  background-color: #82b8ff; /* Use the base color of the buttons */
+  border: none;
 }
 
 #checkboxContainer label {
   display: block;
+  color: white; /* Set the label text color */
 }
 
 @keyframes dropInAnimation {
