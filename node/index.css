@@ -140,7 +140,7 @@ body {
   width: auto; /* Let the content determine the width */
   height: auto; /* Let the content determine the height */
   word-wrap: break-word;
-
+  user-select: none;
   /* Define a custom animation keyframes */
 
   /* Apply the animation on the button */

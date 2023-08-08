@@ -130,6 +130,9 @@ function page_home() {
       page_control_panel();
     }
   );
+  createAction("Settings", "square-button", "section-home-btns", function () {
+    dynamicSettings();
+  });
   // for (let i = 0; i < 16; i++) {}
   // requestShellScriptExecution("~/sysZ/shell/pull.sh -u");
 }
@@ -219,6 +222,34 @@ function build_nav() {
   createAction("Exit", "square-button", "nav", function () {
     ipcRenderer.send("close-application");
   });
+}
+
+function dynamicSettings() {
+  changeSection("section-settings");
+  const jsonData = require(`${os.homedir()}/.config/sysZ/config.json`);
+  const checkboxContainer = document.getElementById("checkboxContainer");
+  for (const key in jsonData) {
+    if (jsonData.hasOwnProperty(key)) {
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = key;
+      checkbox.checked = jsonData[key];
+
+      const label = document.createElement("label");
+      label.textContent = key;
+      label.appendChild(checkbox);
+
+      checkboxContainer.appendChild(label);
+
+      checkbox.addEventListener("change", function () {
+        jsonData[key] = this.checked;
+        fs.writeFileSync(
+          "./path/to/your/json/file.json",
+          JSON.stringify(jsonData, null, 2)
+        );
+      });
+    }
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
