@@ -228,9 +228,6 @@ textarea {
 
 /* ================================================== */
 .dialog-overlay {
-  * {
-    user-select: none;
-  }
   display: none;
   position: fixed;
   top: 0;
@@ -255,12 +252,14 @@ textarea {
 .dialog-title {
   font-size: 24px;
   font-weight: bold;
+  user-select: none;
   margin-bottom: 20px;
 }
 
 .dialog-message {
   font-size: 20px;
   font-weight: bold;
+  user-select: none;
   margin-bottom: 20px;
 }
 
@@ -272,6 +271,7 @@ textarea {
 
 .dialog-button {
   font-size: 18px; /* Large font size for the buttons */
+  user-select: none;
   background-color: #82b8ff;
   color: white;
   border: none;
