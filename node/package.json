@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "splash": "electron splash/index.js"
   },
   "keywords": [],
   "author": "",

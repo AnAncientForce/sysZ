@@ -1,0 +1,132 @@
+html,
+body {
+  margin: 0;
+  line-height: 1.4;
+  font-weight: lighter;
+  color: white;
+  font-family: sans-serif;
+  min-height: 100vh;
+  user-select: none;
+  background-color: darkcyan;
+  pointer-events: none;
+  text-align: center;
+}
+
+#title {
+  color: skyblue;
+  text-align: center;
+  margin-top: 10vh;
+}
+
+#hint-frame {
+  z-index: 1000;
+  background-color: grey;
+  position: fixed;
+  width: 100%;
+  opacity: 0.9;
+  backdrop-filter: blur(20px);
+  background-color: rgba(128, 128, 128, 0.5);
+  transform: translate(-50%, -100%);
+  transition: transform 2s ease-in-out;
+  text-align: center;
+  top: 0;
+}
+
+#hint {
+  color: white;
+}
+
+.animate-up {
+  animation: slideUp 2s ease-in-out forwards, fadeIn 1s ease-in-out forwards;
+}
+
+.white-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  z-index: 9999; /* Place it above other elements */
+  opacity: 0;
+  pointer-events: none; /* Prevent interaction with the white screen */
+  transition: 2.5s ease-in-out;
+}
+
+.white-screen.shine {
+  opacity: 1;
+  transition: 2.5s ease-in-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100vh);
+  }
+  to {
+    transform: translateY(50vh);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Start transparent */
+  }
+  to {
+    opacity: 1; /* Fully opaque */
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1; /* Start transparent */
+  }
+  to {
+    opacity: 0; /* Fully opaque */
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Horizontally center items */
+  align-items: center; /* Vertically center items */
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Horizontally center items */
+  align-items: center; /* Vertically center items */
+}
+
+.spin {
+  animation: rotation 3s linear infinite; /* Default animation */
+}
+.spin.fast {
+  animation: rotation 1s linear infinite; /* Faster animation */
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 20px;
+}

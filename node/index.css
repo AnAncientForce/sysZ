@@ -240,7 +240,8 @@ textarea {
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(0px);
-  transition: backdrop-filter 0.5s ease-in-out;
+  opacity: 0;
+  transition: 0.5s ease-in-out;
 }
 
 .dialog-box {
@@ -290,8 +291,9 @@ textarea {
 }
 
 .blur-background {
+  opacity: 1;
   backdrop-filter: blur(5px);
-  transition: backdrop-filter 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
 }
 
 .animate-up {
