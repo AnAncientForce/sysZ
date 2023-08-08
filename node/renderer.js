@@ -296,6 +296,73 @@ function dynamicSettings() {
   }
 }
 
+function showDialog(options) {
+  const dialogOverlay = document.getElementById("dialog-overlay");
+  const dialogBox = document.getElementById("dialog-box");
+  const dialogTitle = document.getElementById("dialog-title"); // Add this line
+  const dialogMessage = document.getElementById("dialog-message");
+  const cancelButton = document.getElementById("cancel-button");
+  const proceedButton = document.getElementById("proceed-button");
+
+  if (options.title) {
+    dialogTitle.textContent = options.title;
+    dialogTitle.style.display = "block"; // Show the title
+  } else {
+    dialogTitle.style.display = "none"; // Hide the title
+  }
+
+  if (options.message) {
+    dialogMessage.innerHTML = options.message.replace(/\n/g, "<br>"); // Replace newline characters with <br>
+    dialogMessage.style.display = "block"; // Show the message
+  } else {
+    dialogMessage.style.display = "none"; // Hide the message
+  }
+
+  if (options.btn0) {
+    cancelButton.style.display = "block"; // Show cancel button
+    cancelButton.textContent = options.btn0;
+    cancelButton.onclick = () => {
+      dialogOverlay.style.display = "none"; // Hide the overlay
+      dialogBox.style.display = "none"; // Hide the dialog box
+      options.onCancel && options.onCancel();
+    };
+  } else {
+    cancelButton.style.display = "none"; // Hide cancel button
+  }
+
+  if (options.btn1) {
+    proceedButton.style.display = "block"; // Show proceed button
+    proceedButton.textContent = options.btn1;
+    proceedButton.onclick = () => {
+      dialogOverlay.style.display = "none"; // Hide the overlay
+      dialogBox.style.display = "none"; // Hide the dialog box
+      options.onProceed && options.onProceed();
+    };
+  } else {
+    proceedButton.style.display = "none"; // Hide proceed button
+  }
+
+  dialogOverlay.style.display = "flex"; // Show the overlay
+  dialogBox.style.display = "block"; // Show the dialog box
+}
+
+function readJSONValue(valueKey) {
+  try {
+    const rawData = fs.readFileSync(`${os.homedir()}/.config/sysZ/config.json`);
+    const jsonData = JSON.parse(rawData);
+
+    if (jsonData && jsonData.hasOwnProperty(valueKey)) {
+      return jsonData[valueKey] === true;
+    } else {
+      console.log(`Value "${valueKey}" not found in JSON file.`);
+      return null;
+    }
+  } catch (error) {
+    console.error("Error reading JSON file:", error.message);
+    return null;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   /*
   var heading = document.getElementById("heading");
@@ -305,4 +372,17 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   */
   page_home();
+  if (readJSONValue("show_change_log")) {
+    fs.readFile("../change_log.txt", "utf8", (err, data) => {
+      if (err) {
+        console.error("Error reading file:", err);
+        return;
+      }
+      showDialog({
+        title: "Change Log",
+        message: data,
+        btn0: "Continue",
+      });
+    });
+  }
 });
