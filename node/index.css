@@ -147,6 +147,7 @@ body {
   animation: dropInAnimation 0.5s ease-out; /* Adjust duration and timing function as needed */
 }
 
+/* Style for checkboxes */
 .checkbox-label {
   display: flex;
   align-items: center;
@@ -155,10 +156,18 @@ body {
   border-radius: 5px;
   background-color: #82b8ff; /* Replace with your desired background color */
   cursor: pointer;
+  width: 200px; /* Adjust the width as needed */
 }
 
 .checkbox-label input[type="checkbox"] {
   margin-right: 5px;
+}
+
+/* Adjust text size and font-weight */
+.checkbox-label {
+  font-size: 14px; /* Adjust the text size */
+  font-weight: 500; /* Adjust the font weight (e.g., 500 for semi-bold) */
+  color: #333; /* Adjust the text color to be brighter */
 }
 
 @keyframes dropInAnimation {
