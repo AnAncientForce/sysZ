@@ -354,11 +354,11 @@ function showDialog(options) {
     proceedButton.style.display = "block";
     proceedButton.textContent = options.btn1;
     proceedButton.onclick = () => {
-      dialogOverlay.classList.remove("blur-background");
       setTimeout(() => {
         dialogOverlay.style.display = "none";
         dialogBox.style.display = "none";
-      }, 1000);
+      }, 500);
+      dialogOverlay.classList.remove("blur-background");
       options.onProceed && options.onProceed();
     };
   } else {
