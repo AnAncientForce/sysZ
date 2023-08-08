@@ -19,38 +19,6 @@ try {
   notUsingLinux = true;
 }
 
-function executeCommand(command) {
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error executing command: ${error.message}`);
-      return;
-    }
-    console.log("Command executed successfully");
-    console.log("stdout:", stdout);
-    console.log("stderr:", stderr);
-  });
-}
-
-function executeCommandAndKeepTerminalOpen(command) {
-  const [program, ...args] = command.split(" "); // Split the command into program and arguments
-  const childProcess = spawn(program, args, {
-    stdio: "inherit", // Inherit stdio streams to keep terminal open
-    shell: true, // Use shell for executing the command
-  });
-
-  childProcess.on("error", (error) => {
-    console.error(`Error executing command: ${error.message}`);
-  });
-
-  childProcess.on("exit", (code, signal) => {
-    console.log(`Command exited with code ${code} and signal ${signal}`);
-  });
-}
-
-function requestShellScriptExecution(scriptName, args) {
-  ipcRenderer.send("execute-shell-script", { scriptName, args });
-}
-
 var actionIndexer = 0;
 var booleanStorage = {};
 
@@ -70,12 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
   const hintElement = document.getElementById("hint");
   const randomIndex = Math.floor(Math.random() * hints.length);
-  hintElement.textContent = hints[randomIndex];
-
   const icon = document.getElementById("logo");
   const hint_frame = document.getElementById("hint-frame");
   const white_screen = document.getElementById("white-screen");
 
+  hintElement.textContent = hints[randomIndex];
   icon.classList.add("spin");
   hint_frame.classList.add("animate-up");
 
