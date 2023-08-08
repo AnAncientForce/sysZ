@@ -691,7 +691,6 @@ wm_setup_func() {
     if checkJson "use_background_blur"; then
         i3-msg 'exec killall -9 autotiling; workspace 9; exec alacritty -e autotiling;'
     fi
-    sleep 3
     # i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
     # i3-msg 'exec picom -b --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
     # check_updates

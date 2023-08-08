@@ -51,12 +51,12 @@ body {
   z-index: 9999; /* Place it above other elements */
   opacity: 0;
   pointer-events: none; /* Prevent interaction with the white screen */
-  transition: 2.5s ease-in-out;
+  transition: 2s ease-in-out;
 }
 
 .white-screen.shine {
   opacity: 1;
-  transition: 2.5s ease-in-out;
+  transition: 2s ease-in-out;
 }
 
 @keyframes slideUp {
