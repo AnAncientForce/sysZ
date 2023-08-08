@@ -7,10 +7,14 @@ const os = require("os");
 const path = require("path");
 
 let sysZ;
-if (process.getuid() === 0) {
-  sysZ = path.join("/home", process.env.SUDO_USER, "sysZ");
-} else {
-  sysZ = path.join("/home", os.userInfo().username, "sysZ");
+try {
+  if (process.getuid() === 0) {
+    sysZ = path.join("/home", process.env.SUDO_USER, "sysZ");
+  } else {
+    sysZ = path.join("/home", os.userInfo().username, "sysZ");
+  }
+} catch (error) {
+  console.error("Not on Linux");
 }
 
 function executeCommand(command) {
@@ -55,7 +59,7 @@ function checkBoolean(key) {
   return booleanStorage[key];
 }
 
-function createAction(text, optionalClass, section, action) {
+function createAction(text, optionalClass, section, action, caArgs) {
   actionIndexer++;
   const div = document.createElement("div");
   div.id = `action${actionIndexer}`;
@@ -64,10 +68,20 @@ function createAction(text, optionalClass, section, action) {
     div.classList.add(optionalClass);
   }
   // "animated-background"
-  div.textContent = text;
+
+  if (!caArgs?.useImg) {
+    div.textContent = text;
+  } else {
+    const img = document.createElement("img");
+    img.src = caArgs.imgSrc;
+    img.alt = caArgs.imgAlt || "";
+    img.classList.add("nav-img");
+    div.appendChild(img);
+  }
   div.onclick = action;
   document.getElementById(section).appendChild(div);
   // console.log("Appended", `action${actionIndexer}`, text);
+  caArgs = {};
   return div;
 }
 
@@ -221,12 +235,32 @@ function page_guide() {
 }
 
 function build_nav() {
-  createAction("Home", "square-button", "nav", function () {
-    page_home();
-  });
-  createAction("Exit", "square-button", "nav", function () {
-    ipcRenderer.send("close-application");
-  });
+  createAction(
+    "Home",
+    "square-button",
+    "nav",
+    function () {
+      page_home();
+    },
+    {
+      useImg: true,
+      imgSrc: "./images/house.png",
+      imgAlt: "Home",
+    }
+  );
+  createAction(
+    "Exit",
+    "square-button",
+    "nav",
+    function () {
+      ipcRenderer.send("close-application");
+    },
+    {
+      useImg: true,
+      imgSrc: "./images/exit.png",
+      imgAlt: "Exit",
+    }
+  );
 }
 
 function dynamicSettings() {
