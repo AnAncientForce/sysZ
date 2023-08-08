@@ -113,6 +113,7 @@ user_home=""
 json_file=""
 sysZ=""
 temp_dir=""
+node_path=""
 
 if [ "$EUID" -eq 0 ]; then
     sysZ="/home/$SUDO_USER/sysZ"
@@ -124,6 +125,7 @@ else
     user_home="/home/$(whoami)"
 fi
 temp_dir="$user_home/tmp"
+node_path="$sysZ/node"
 
 saveJson() {
     local key="$1"
