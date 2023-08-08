@@ -356,7 +356,9 @@ function showDialog(options) {
     proceedButton.onclick = () => {
       dialogOverlay.style.display = "none";
       dialogBox.style.display = "none";
-      dialogOverlay.classList.remove("blur-background"); // Remove the blur class
+      setTimeout(() => {
+        dialogOverlay.classList.remove("blur-background");
+      }, 300);
       options.onProceed && options.onProceed();
     };
   } else {
