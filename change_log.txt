@@ -1,3 +1,3 @@
 08/08/2023 | Switched from python to node.js using the electron framework
 08/07/2023 | Started electron framework development
-08/07/2023 | [?] possibly fixed the wifi indication in polybar
+08/07/2023 | [?] Possibly fixed the wifi indication in polybar

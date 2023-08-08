@@ -250,7 +250,8 @@ body {
 }
 
 .dialog-message {
-  font-size: 16px;
+  font-size: large;
+  font-weight: bold;
   margin-bottom: 20px;
 }
 
