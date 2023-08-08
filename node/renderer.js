@@ -322,6 +322,7 @@ function showDialog(options) {
   const dialogMessage = document.getElementById("dialog-message");
   const cancelButton = document.getElementById("cancel-button");
   const proceedButton = document.getElementById("proceed-button");
+  const body = document.body; // Get the body element
 
   if (options.title) {
     dialogTitle.textContent = options.title;
@@ -343,6 +344,7 @@ function showDialog(options) {
     cancelButton.onclick = () => {
       dialogOverlay.style.display = "none"; // Hide the overlay
       dialogBox.style.display = "none"; // Hide the dialog box
+      body.classList.remove("blur-background"); // Remove blur effect class
       options.onCancel && options.onCancel();
     };
   } else {
@@ -355,12 +357,14 @@ function showDialog(options) {
     proceedButton.onclick = () => {
       dialogOverlay.style.display = "none"; // Hide the overlay
       dialogBox.style.display = "none"; // Hide the dialog box
+      body.classList.remove("blur-background"); // Remove blur effect class
       options.onProceed && options.onProceed();
     };
   } else {
     proceedButton.style.display = "none"; // Hide proceed button
   }
 
+  body.classList.add("blur-background"); // Add blur effect class
   dialogOverlay.style.display = "flex"; // Show the overlay
   dialogBox.style.display = "block"; // Show the dialog box
 }

@@ -286,6 +286,10 @@ textarea {
   background-color: #3a75c4;
 }
 
+.blur-background {
+  backdrop-filter: blur(5px);
+}
+
 /* ================================== NOT USED ================================================================================== */
 
 @keyframes rotation {
