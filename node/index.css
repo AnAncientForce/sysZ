@@ -147,17 +147,18 @@ body {
   animation: dropInAnimation 0.5s ease-out; /* Adjust duration and timing function as needed */
 }
 
-#checkboxContainer input[type="checkbox"] {
-  margin: 5px;
+.checkbox-label {
+  display: flex;
+  align-items: center;
   padding: 5px;
+  margin: 5px;
   border-radius: 5px;
-  background-color: #82b8ff; /* Use the base color of the buttons */
-  border: none;
+  background-color: #82b8ff; /* Replace with your desired background color */
+  cursor: pointer;
 }
 
-#checkboxContainer label {
-  display: block;
-  color: white; /* Set the label text color */
+.checkbox-label input[type="checkbox"] {
+  margin-right: 5px;
 }
 
 @keyframes dropInAnimation {

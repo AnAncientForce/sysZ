@@ -232,23 +232,24 @@ function dynamicSettings() {
 
   for (const key in jsonData) {
     if (jsonData.hasOwnProperty(key)) {
+      const checkboxLabel = document.createElement("label");
+      checkboxLabel.classList.add("checkbox-label");
+
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.id = key;
       checkbox.checked = jsonData[key];
 
-      const label = document.createElement("label");
-      label.textContent = key;
-      label.appendChild(checkbox);
+      const label = document.createTextNode(key);
 
-      checkboxContainer.appendChild(label);
+      checkboxLabel.appendChild(checkbox);
+      checkboxLabel.appendChild(label);
+
+      checkboxContainer.appendChild(checkboxLabel);
 
       checkbox.addEventListener("change", function () {
         jsonData[key] = this.checked;
-        fs.writeFileSync(
-          `${os.homedir()}/.config/sysZ/config.json`,
-          JSON.stringify(jsonData, null, 2)
-        );
+        fs.writeFileSync(jsonData, JSON.stringify(jsonData, null, 2));
       });
     }
   }
