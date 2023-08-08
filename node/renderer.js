@@ -134,6 +134,9 @@ function changeSection(newSection) {
 
 function page_home() {
   changeSection("section-home");
+  createAction("Change Log", "square-button", "section-home-btns", function () {
+    page_change_log();
+  });
   createAction("Guides", "square-button", "section-home-btns", function () {
     page_guide();
   });
@@ -232,6 +235,10 @@ function page_guide() {
   createAction("Tools", "square-button", parent, function () {
     loadDoc("tools");
   });
+}
+
+function page_change_log() {
+  changeSection("section-change-log");
 }
 
 function build_nav() {
