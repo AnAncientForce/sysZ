@@ -318,55 +318,54 @@ function dynamicSettings() {
 function showDialog(options) {
   const dialogOverlay = document.getElementById("dialog-overlay");
   const dialogBox = document.getElementById("dialog-box");
-  const dialogTitle = document.getElementById("dialog-title"); // Add this line
+  const dialogTitle = document.getElementById("dialog-title");
   const dialogMessage = document.getElementById("dialog-message");
   const cancelButton = document.getElementById("cancel-button");
   const proceedButton = document.getElementById("proceed-button");
-  const body = document.body; // Get the body element
 
   if (options.title) {
     dialogTitle.textContent = options.title;
-    dialogTitle.style.display = "block"; // Show the title
+    dialogTitle.style.display = "block";
   } else {
-    dialogTitle.style.display = "none"; // Hide the title
+    dialogTitle.style.display = "none";
   }
 
   if (options.message) {
-    dialogMessage.innerHTML = options.message.replace(/\n/g, "<br>"); // Replace newline characters with <br>
-    dialogMessage.style.display = "block"; // Show the message
+    dialogMessage.innerHTML = options.message.replace(/\n/g, "<br>");
+    dialogMessage.style.display = "block";
   } else {
-    dialogMessage.style.display = "none"; // Hide the message
+    dialogMessage.style.display = "none";
   }
 
   if (options.btn0) {
-    cancelButton.style.display = "block"; // Show cancel button
+    cancelButton.style.display = "block";
     cancelButton.textContent = options.btn0;
     cancelButton.onclick = () => {
-      dialogOverlay.style.display = "none"; // Hide the overlay
-      dialogBox.style.display = "none"; // Hide the dialog box
-      body.classList.remove("blur-background"); // Remove blur effect class
+      dialogOverlay.style.display = "none";
+      dialogBox.style.display = "none";
+      dialogOverlay.classList.remove("blur-background"); // Remove the blur class
       options.onCancel && options.onCancel();
     };
   } else {
-    cancelButton.style.display = "none"; // Hide cancel button
+    cancelButton.style.display = "none";
   }
 
   if (options.btn1) {
-    proceedButton.style.display = "block"; // Show proceed button
+    proceedButton.style.display = "block";
     proceedButton.textContent = options.btn1;
     proceedButton.onclick = () => {
-      dialogOverlay.style.display = "none"; // Hide the overlay
-      dialogBox.style.display = "none"; // Hide the dialog box
-      body.classList.remove("blur-background"); // Remove blur effect class
+      dialogOverlay.style.display = "none";
+      dialogBox.style.display = "none";
+      dialogOverlay.classList.remove("blur-background"); // Remove the blur class
       options.onProceed && options.onProceed();
     };
   } else {
-    proceedButton.style.display = "none"; // Hide proceed button
+    proceedButton.style.display = "none";
   }
 
-  body.classList.add("blur-background"); // Add blur effect class
-  dialogOverlay.style.display = "flex"; // Show the overlay
-  dialogBox.style.display = "block"; // Show the dialog box
+  dialogOverlay.style.display = "flex";
+  dialogOverlay.classList.add("blur-background"); // Add the blur class
+  dialogBox.style.display = "block";
 }
 
 function readJSONValue(valueKey) {
