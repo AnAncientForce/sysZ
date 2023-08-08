@@ -354,10 +354,10 @@ function showDialog(options) {
     proceedButton.style.display = "block";
     proceedButton.textContent = options.btn1;
     proceedButton.onclick = () => {
-      dialogOverlay.style.display = "none";
-      dialogBox.style.display = "none";
+      dialogOverlay.classList.remove("blur-background");
       setTimeout(() => {
-        dialogOverlay.classList.remove("blur-background");
+        dialogOverlay.style.display = "none";
+        dialogBox.style.display = "none";
       }, 300);
       options.onProceed && options.onProceed();
     };
