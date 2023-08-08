@@ -239,6 +239,18 @@ function page_guide() {
 
 function page_change_log() {
   changeSection("section-change-log");
+  fs.readFile(
+    path.join(__dirname, "../change_log.txt"),
+    "utf8",
+    (error, content) => {
+      if (error) {
+        console.error("Error reading file:", error);
+        return;
+      }
+      document.getElementById("section-change-log-text-box").textContent =
+        content;
+    }
+  );
 }
 
 function build_nav() {
@@ -388,7 +400,15 @@ document.addEventListener("DOMContentLoaded", () => {
       showDialog({
         title: "Change Log",
         message: data,
-        btn0: "Continue",
+        btn0: "Dismiss",
+        btn1: "Shortcut",
+        onCancel: () => {
+          //
+        },
+        onProceed: () => {
+          //
+          page_change_log();
+        },
       });
     });
   }

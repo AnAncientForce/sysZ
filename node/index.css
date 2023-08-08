@@ -91,7 +91,7 @@ body {
   height: 10vh;
 }
 
-#text-box {
+textarea {
   width: 500px; /* Set the desired width */
   height: 500px; /* Set the desired height */
   border-radius: 10px; /* Add rounded corners */
