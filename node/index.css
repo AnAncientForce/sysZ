@@ -249,9 +249,13 @@ body {
   display: none;
 }
 
+.dialog-title {
+  font-size: 24px; /* Large font size for the title */
+  margin-bottom: 20px;
+}
+
 .dialog-message {
-  font-size: large;
-  font-weight: bold;
+  font-size: 20px; /* Large font size for the message */
   margin-bottom: 20px;
 }
 
@@ -262,6 +266,7 @@ body {
 }
 
 .dialog-button {
+  font-size: 18px; /* Large font size for the buttons */
   background-color: #82b8ff;
   color: white;
   border: none;
