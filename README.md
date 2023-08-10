@@ -1,4 +1,11 @@
 # sysZ
+![lock](screenshots/lock.png)
+![blank_workspace](screenshots/blank_workspace.png)
+![control_panel](screenshots/control_panel.png)
+![guide](screenshots/guide.png)
+![terminal_help](screenshots/terminal_help.png)
+
+# What is sysZ?
 * A preconfigured customization of the  [i3 Window Manager](https://github.com/Airblader/i3)
 * The repository is synchronised across three of my computers for one click updating
 
