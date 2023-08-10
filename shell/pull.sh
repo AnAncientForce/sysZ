@@ -662,6 +662,7 @@ routine_func() {
     install_rec_yay
     sudo pacman -Syu
     install_rec_pacman
+    continue_setup_func
     wm_setup_func
 }
 
