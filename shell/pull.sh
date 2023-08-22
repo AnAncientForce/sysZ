@@ -473,64 +473,11 @@ manual() {
     # make files executable
     ex
 
-    # sysZ / config.json
-    read -p "
-    Copy default sysZ config file?
-    " choice
-    if [ "$choice" = "y" ]; then
-        cp "$user_home/sysZ/conf/config.json" "$user_home/.config/sysZ"
-        if [ -f "$user_home/.config/sysZ/config.json" ]; then
-            echo "sysZ config copied successfully"
-        else
-            echo "sysZ config did not copy successfully"
-        fi
-    else
-        echo "config.json was not replaced"
-    fi
-
-    echo "Scanning for changes in default applications"
-
-    # setup npm
-    read -p "[Required] Setup sysZ settings gui?
-    (y/n): " choice
-    if [ "$choice" = "y" ]; then
-        npm_setup
-    fi
-
     # install yay
     read -p "[Required] Install Yay?
     (y/n): " choice
     if [ "$choice" = "y" ]; then
         git_install_yay
-    fi
-
-    # install xwinwrap
-    read -p "[Required] Install xwinwrap?
-    (y/n): " choice
-    if [ "$choice" = "y" ]; then
-        git_install_xwinwrap
-    fi
-
-    # install starship
-    read -p "[Required] Install starship?
-    (y/n): " choice
-    if [ "$choice" = "y" ]; then
-        cd ~
-        curl -sS https://starship.rs/install.sh | sh
-    fi
-
-    # rofi
-    read -p "[Required]: Install rofi themes?
-    (y/n): " choice
-    if [ "$choice" = "y" ]; then
-        git_install_rofi
-    fi
-
-    # wallpapers
-    read -p "Download wallpapers?
-    (y/n): " choice
-    if [ "$choice" = "y" ]; then
-        download_wallpapers_func
     fi
 
     # packages & update
@@ -569,6 +516,59 @@ manual() {
 
     else
         echo "Skipping..."
+    fi
+
+    # sysZ / config.json
+    read -p "
+    [Required if setting up for the very first time] Copy default sysZ config file?
+    " choice
+    if [ "$choice" = "y" ]; then
+        cp "$user_home/sysZ/conf/config.json" "$user_home/.config/sysZ"
+        if [ -f "$user_home/.config/sysZ/config.json" ]; then
+            echo "sysZ config copied successfully"
+        else
+            echo "sysZ config did not copy successfully"
+        fi
+    else
+        echo "config.json was not replaced"
+    fi
+
+    echo "Scanning for changes in default applications"
+
+    # setup npm
+    read -p "[Required] Setup sysZ settings gui?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        npm_setup
+    fi
+
+    # install xwinwrap
+    read -p "[Required] Install xwinwrap?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        git_install_xwinwrap
+    fi
+
+    # install starship
+    read -p "[Required] Install starship?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        cd ~
+        curl -sS https://starship.rs/install.sh | sh
+    fi
+
+    # rofi
+    read -p "[Required]: Install rofi themes?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        git_install_rofi
+    fi
+
+    # wallpapers
+    read -p "Download wallpapers?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        download_wallpapers_func
     fi
 
     # render lockscreen
