@@ -221,4 +221,4 @@ exec_always sh ~/sysZ/shell/node.sh splash
 # exec_always sh ~/sysZ/shell/pull.sh -r
 # exec_always python ~/sysZ/main.py load
 # exec_always sh ~/sysZ/shell/setup.sh
-exec xrandr --dpi 220
+# exec xrandr --dpi 220
