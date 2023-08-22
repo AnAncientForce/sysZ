@@ -377,6 +377,7 @@ cu() {
     cp "$sysZ/conf/conky.conf" "$user_home/.config/conky"
     cp "$sysZ/conf/alacritty.yml" "$user_home/.config"
     cp "$sysZ/conf/.bashrc" "$user_home"
+    cp "$sysZ/conf/.Xresources" "$user_home"
 }
 
 ex() {
