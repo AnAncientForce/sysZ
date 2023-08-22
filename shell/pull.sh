@@ -55,6 +55,7 @@ pacman_packages=(
     "tumbler"
     "ffmpegthumbnailer"
     "npm"
+    "xorg-xinit"
 )
 # Disable "FreeMono"
 yay_packages=(
