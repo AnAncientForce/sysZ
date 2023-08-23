@@ -361,11 +361,6 @@ function setupWallpaperSelection(type) {
           thumbnail.classList.remove("selected");
         });
         imgElement.classList.add("selected");
-
-        const existingSettings = helper.getSettings();
-        existingSettings.live_wallpaper_id = videoFile;
-        fs.writeFileSync(jSettings, JSON.stringify(existingSettings));
-
         if (type == "wallpaper") {
           executeCommand(`feh --bg-fill ${filePath}`);
           executeCommand(`cp -v ${filePath} ${sysZ}/bg`);
