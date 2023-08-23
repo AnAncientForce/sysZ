@@ -301,6 +301,11 @@ textarea {
   transform: translateY(-200%);
 }
 
+#xscale {
+  border-radius: 16px;
+  border-color: red;
+}
+
 /* ================================== NOT USED ================================================================================== */
 
 @keyframes rotation {
