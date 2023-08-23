@@ -217,7 +217,7 @@ mode "$mode_sysZ" {
 }
 
 bindsym $mod+z mode "$mode_sysZ"
-bindsym $mod+Shift+z exec sh ~/sysZ/shell/node.sh
+bindsym $mod+Shift+z exec sh ~/sysZ/shell/node.sh start
 exec_always sh ~/sysZ/shell/node.sh splash
 # exec_always sh ~/sysZ/shell/pull.sh -r
 # exec_always python ~/sysZ/main.py load
