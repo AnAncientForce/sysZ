@@ -459,6 +459,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     const xftDpiMatch = data.match(/\b\d+\b/);
     if (xftDpiMatch) {
+      const xftDpiValue = parseInt(xftDpiMatch[0]);
       xscale.value = xftDpiValue;
     }
   });
