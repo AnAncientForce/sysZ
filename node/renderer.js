@@ -206,7 +206,7 @@ function page_control_panel() {
 
   createAction(
     "xscale",
-    "square-button",
+    "",
     "xscale",
     function () {
       showDialog({
