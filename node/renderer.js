@@ -203,6 +203,31 @@ function page_control_panel() {
   createAction("Shutdown", "square-button", parent, function () {
     executeCommand("systemctl poweroff");
   });
+
+  createAction(
+    "xscale",
+    "square-button",
+    "xscale",
+    function () {
+      showDialog({
+        title: "Xresources",
+        message: "The scaling size for the applications",
+        btn0: "Dismiss",
+        btn1: "Ok",
+        onCancel: () => {
+          //
+        },
+        onProceed: () => {
+          //
+        },
+      });
+    },
+    {
+      useImg: true,
+      imgSrc: "./images/help.png",
+      imgAlt: "Help",
+    }
+  );
 }
 
 function loadDoc(doc) {
@@ -450,28 +475,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
-  createAction(
-    "xscale",
-    "square-button",
-    "xscale",
-    function () {
-      showDialog({
-        title: "Xresources",
-        message: "The scaling size for the applications",
-        btn0: "Dismiss",
-        btn1: "Ok",
-        onCancel: () => {
-          //
-        },
-        onProceed: () => {
-          //
-        },
-      });
-    },
-    {
-      useImg: true,
-      imgSrc: "./images/help.png",
-      imgAlt: "Help",
-    }
-  );
 });
