@@ -69,7 +69,6 @@ yay_packages=(
     "ttf-font-awesome-4"
     "tty-clock"
     "pipes.sh"
-    "paper-icon-theme-git"
 )
 wallpapers=(
     "https://images6.alphacoders.com/131/1317292.jpeg"
