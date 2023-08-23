@@ -21,7 +21,7 @@ function createWindow() {
     mainWindow.webContents.openDevTools();
   }
   */
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
   mainWindow.maximize();
   mainWindow.loadFile("main/index.html");
   Menu.setApplicationMenu(null);
