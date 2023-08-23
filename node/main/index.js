@@ -334,6 +334,7 @@ function setupWallpaperSelection(type) {
   if (type == "video") {
     folderPath = `${sysZ}/videos`;
   }
+  const thumbnailsContainer = document.getElementById("thumbnails");
   fs.readdir(folderPath, (err, files) => {
     if (err) {
       console.error(`Error reading folder: ${err}`);

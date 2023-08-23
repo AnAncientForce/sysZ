@@ -369,6 +369,74 @@ textarea {
   }
 }
 
+/* ================================================== */
+
+#section-video {
+  text-align: center;
+  padding: 20px;
+}
+
+#video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#video-background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This scales the video while maintaining aspect ratio */
+  filter: blur(12px);
+  transition: filter 1s;
+}
+
+#video-background.ready {
+  filter: blur(0px);
+}
+/* ================================================== */
+
+.thumbnail-frame {
+  height: 70vh;
+  overflow-y: auto;
+  border: 4px solid gray;
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+}
+
+.thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+
+.thumbnail {
+  outline: 2px solid white;
+  border-radius: 6px;
+  margin: 10px;
+  cursor: pointer;
+  /* Add other thumbnail styles */
+  flex: 1 1 calc(25% - 20px);
+  max-width: calc(25% - 20px);
+}
+
+.thumbnail img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.selected {
+  outline: 2px solid skyblue;
+  border-radius: 16px;
+}
+
+/* ================================================== */
+
 /* ================================== NOT USED ================================================================================== */
 
 @keyframes rotation {
