@@ -4,7 +4,7 @@ const os = require("os");
 
 var jSettings = null;
 try {
-  jSettings = fs.readFileSync(`${os.homedir()}/.config/sysZ/config.json`);
+  jSettings = `${os.homedir()}/.config/sysZ/config.json`;
 } catch (error) {
   console.error("Error reading JSON file:", error.message);
   return null;
