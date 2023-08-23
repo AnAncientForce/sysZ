@@ -425,4 +425,29 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+
+  const xscale = document.getElementById("xresourcesScale");
+  xscale.addEventListener("input", function () {
+    const enteredValue = parseInt(xscale.value);
+    if (!isNaN(enteredValue)) {
+      if (enteredValue >= 56 && enteredValue <= 300) {
+        executeCommand(
+          `echo 'Xft.dpi: ${enteredValue}' >> ${os.homedir()}/.Xresources`
+        );
+      } else {
+        showDialog({
+          title: "Warning",
+          message: "The number must be > 56 or < 300",
+          btn0: "Dismiss",
+          btn1: "Ok",
+          onCancel: () => {
+            //
+          },
+          onProceed: () => {
+            //
+          },
+        });
+      }
+    }
+  });
 });
