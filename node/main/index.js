@@ -324,16 +324,21 @@ function build_nav() {
 }
 
 function setupWallpaperSelection(type) {
-  if (checkBoolean("wallpapers_setup")) {
-    return;
-  }
   var folderPath;
   var thumbnailsContainer;
   if (type == "wallpaper") {
+    if (checkBoolean("wallpapers_setup_1")) {
+      return;
+    }
+    saveBoolean("wallpapers_setup_1", true);
     folderPath = `${sysZ}/wallpapers`;
     thumbnailsContainer = document.getElementById("thumbnails-wallpaper");
   }
   if (type == "video") {
+    if (checkBoolean("wallpapers_setup_2")) {
+      return;
+    }
+    saveBoolean("wallpapers_setup_2", true);
     folderPath = `${sysZ}/videos`;
     thumbnailsContainer = document.getElementById("thumbnails-video");
   }
@@ -371,7 +376,6 @@ function setupWallpaperSelection(type) {
       thumbnailsContainer.appendChild(imgElement);
     });
   });
-  saveBoolean("wallpapers_setup", true);
 }
 
 function dynamicSettings() {
