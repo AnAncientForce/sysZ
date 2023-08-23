@@ -302,6 +302,7 @@ textarea {
 }
 
 #xscale {
+  font-weight: bold;
   padding: 1.5%;
   width: 10vw !important;
   height: 12.5vh !important;
@@ -309,6 +310,7 @@ textarea {
   border-radius: 15px;
 }
 #xscale img {
+  padding: 1.5%;
   height: auto !important;
   width: 2.5vw !important;
 }

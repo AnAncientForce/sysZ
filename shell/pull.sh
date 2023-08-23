@@ -572,6 +572,13 @@ manual() {
         download_wallpapers_func
     fi
 
+    # root
+    read -p "Setup QT_QPA_PLATFORMTHEME?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        sudo sh $sysZ/shell/root.sh
+    fi
+
     # render lockscreen
     continue_setup_func
 
