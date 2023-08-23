@@ -2,10 +2,10 @@
   "name": "sysz",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main/node.js",
   "scripts": {
     "start": "electron .",
-    "splash": "electron splash/index.js"
+    "splash": "electron splash/node.js"
   },
   "keywords": [],
   "author": "",

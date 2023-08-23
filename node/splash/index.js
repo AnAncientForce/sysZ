@@ -1,51 +1,66 @@
-const { app, BrowserWindow, ipcMain, Menu } = require("electron");
+// sysZ
+const { ipcRenderer } = require("electron");
 const { exec } = require("child_process");
 const { spawn } = require("child_process");
-const path = require("path");
+const fs = require("fs");
 const os = require("os");
+const path = require("path");
 
-let mainWindow;
-
-function createWindow() {
-  mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
-  // mainWindow.webContents.openDevTools();
-  mainWindow.loadFile("index.html");
-  Menu.setApplicationMenu(null);
-  mainWindow.setFullScreen(true);
-  mainWindow.on("closed", () => {
-    mainWindow = null;
-  });
+var notUsingLinux = false;
+let sysZ;
+try {
+  if (process.getuid() === 0) {
+    sysZ = path.join("/home", process.env.SUDO_USER, "sysZ");
+  } else {
+    sysZ = path.join("/home", os.userInfo().username, "sysZ");
+  }
+} catch (error) {
+  console.error("Not on Linux");
+  notUsingLinux = true;
 }
 
-app.on("ready", createWindow);
+var actionIndexer = 0;
+var booleanStorage = {};
 
-ipcMain.on("close-application", () => {
-  app.quit();
-});
+function saveBoolean(key, value) {
+  booleanStorage[key] = value;
+}
+function checkBoolean(key) {
+  return booleanStorage[key];
+}
 
-// Listen for the IPC message to execute the shell script with arguments
-ipcMain.on("execute-shell-script", (event, { scriptName, args }) => {
-  const scriptPath = path.join(__dirname, scriptName);
-  const command = `sh ${scriptPath} ${args.join(" ")}`;
-  exec(command, (error, stdout, stderr) => {
+document.addEventListener("DOMContentLoaded", () => {
+  const hints = [
+    "We're loading!",
+    "Nearly there!",
+    "Hold on tight!",
+    "Prepare for launch!",
+  ];
+  const hintElement = document.getElementById("hint");
+  const randomIndex = Math.floor(Math.random() * hints.length);
+  const icon = document.getElementById("logo");
+  const hint_frame = document.getElementById("hint-frame");
+  const white_screen = document.getElementById("white-screen");
+
+  hintElement.textContent = hints[randomIndex];
+  icon.classList.add("spin");
+  hint_frame.classList.add("animate-up");
+
+  exec(`sh ${sysZ}/shell/pull.sh -r`, (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error executing the shell script: ${error.message}`);
-      // Send a response back to the renderer process indicating the error
-      event.reply("shell-script-execution-failed", error.message);
+      console.error(`Error executing script: ${error}`);
       return;
     }
 
-    console.log("Shell script executed successfully.");
-    console.log("Output:");
-    console.log(stdout);
-    // Send a response back to the renderer process indicating success and passing the stdout
-    event.reply("shell-script-execution-success", stdout);
+    icon.classList.add("fast");
+    white_screen.classList.add("shine");
+
+    white_screen.addEventListener("transitionend", () => {
+      ipcRenderer.send("close-application");
+    });
+
+    console.log(`Script output:\n${stdout}`);
+    console.error(`Script errors:\n${stderr}`);
+    console.log("Script execution completed.");
   });
 });

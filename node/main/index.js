@@ -5,6 +5,8 @@ const { spawn } = require("child_process");
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
+const dialog = require("../modules/dialog.js");
+const helper = require("../modules/helper.js");
 
 var notUsingLinux = false;
 let sysZ;
@@ -123,15 +125,19 @@ function hideAllExceptCurrent() {
 }
 
 function changeSection(newSection) {
-  const elementsToDelete = document.getElementsByClassName("square-button");
-  const elementsArray = Array.from(elementsToDelete);
-  elementsArray.forEach((element) => {
-    element.remove();
-  });
+  document
+    .querySelectorAll(".square-button, #xscale img")
+    .forEach((element) => {
+      element.remove();
+    });
   document.getElementById("checkboxContainer").innerHTML = "";
   currentSection = newSection;
   hideAllExceptCurrent();
   build_nav();
+}
+
+function showDialog(options) {
+  dialog.showDialog(options);
 }
 
 function page_home() {
@@ -212,19 +218,19 @@ function page_control_panel() {
       showDialog({
         title: "Xresources",
         message: "The scaling size for the applications",
-        btn0: "Dismiss",
-        btn1: "Ok",
-        onCancel: () => {
-          //
-        },
-        onProceed: () => {
-          //
-        },
+        buttons: [
+          {
+            label: "Continue",
+            action: () => {
+              //
+            },
+          },
+        ],
       });
     },
     {
       useImg: true,
-      imgSrc: "./images/help.png",
+      imgSrc: "../images/help.png",
       imgAlt: "Help",
     }
   );
@@ -232,7 +238,7 @@ function page_control_panel() {
 
 function loadDoc(doc) {
   fs.readFile(
-    path.join(__dirname, "../docs/" + doc + ".txt"),
+    path.join(__dirname, "../../docs/" + doc + ".txt"),
     "utf8",
     (error, content) => {
       if (error) {
@@ -267,7 +273,7 @@ function page_guide() {
 function page_change_log() {
   changeSection("section-change-log");
   fs.readFile(
-    path.join(__dirname, "../change_log.txt"),
+    path.join(__dirname, "../../change_log.txt"),
     "utf8",
     (error, content) => {
       if (error) {
@@ -290,7 +296,7 @@ function build_nav() {
     },
     {
       useImg: true,
-      imgSrc: "./images/house.png",
+      imgSrc: "../images/house.png",
       imgAlt: "Home",
     }
   );
@@ -303,7 +309,7 @@ function build_nav() {
     },
     {
       useImg: true,
-      imgSrc: "./images/exit.png",
+      imgSrc: "../images/exit.png",
       imgAlt: "Exit",
     }
   );
@@ -342,6 +348,7 @@ function dynamicSettings() {
   }
 }
 
+/*
 function showDialog(options) {
   const dialogOverlay = document.getElementById("dialog-overlay");
   const dialogBox = document.getElementById("dialog-box");
@@ -402,6 +409,7 @@ function showDialog(options) {
   dialogOverlay.classList.add("blur-background");
   dialogBox.style.display = "block";
 }
+*/
 
 function readJSONValue(valueKey) {
   try {
@@ -438,19 +446,23 @@ document.addEventListener("DOMContentLoaded", () => {
       showDialog({
         title: "Change Log",
         message: data,
-        btn0: "Dismiss",
-        btn1: "Shortcut",
-        onCancel: () => {
-          //
-        },
-        onProceed: () => {
-          //
-          page_change_log();
-        },
+        buttons: [
+          {
+            label: "Dismiss",
+            action: () => {
+              //
+            },
+          },
+          {
+            label: "Shortcut",
+            action: () => {
+              page_change_log();
+            },
+          },
+        ],
       });
     });
   }
-
   const xscale = document.getElementById("xresourcesScale");
   fs.readFile(`${os.homedir()}/.Xresources`, "utf8", (err, data) => {
     if (err) {
@@ -474,14 +486,14 @@ document.addEventListener("DOMContentLoaded", () => {
         showDialog({
           title: "Warning",
           message: "The number must be > 56 or < 300",
-          btn0: "Dismiss",
-          btn1: "Ok",
-          onCancel: () => {
-            //
-          },
-          onProceed: () => {
-            //
-          },
+          buttons: [
+            {
+              label: "Continue",
+              action: () => {
+                //
+              },
+            },
+          ],
         });
       }
     }
