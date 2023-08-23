@@ -432,7 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isNaN(enteredValue)) {
       if (enteredValue >= 56 && enteredValue <= 300) {
         executeCommand(
-          `echo 'Xft.dpi: ${enteredValue}' >> ${os.homedir()}/.Xresources`
+          `echo 'Xft.dpi: ${enteredValue}' > ${os.homedir()}/.Xresources`
         );
       } else {
         showDialog({
