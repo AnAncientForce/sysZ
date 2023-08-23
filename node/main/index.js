@@ -407,86 +407,6 @@ function dynamicSettings() {
   }
 }
 
-/*
-function showDialog(options) {
-  const dialogOverlay = document.getElementById("dialog-overlay");
-  const dialogBox = document.getElementById("dialog-box");
-  const dialogTitle = document.getElementById("dialog-title");
-  const dialogMessage = document.getElementById("dialog-message");
-  const cancelButton = document.getElementById("cancel-button");
-  const proceedButton = document.getElementById("proceed-button");
-
-  if (options.title) {
-    dialogTitle.textContent = options.title;
-    dialogTitle.style.display = "block";
-  } else {
-    dialogTitle.style.display = "none";
-  }
-
-  if (options.message) {
-    dialogMessage.innerHTML = options.message.replace(/\n/g, "<br>");
-    dialogMessage.style.display = "block";
-  } else {
-    dialogMessage.style.display = "none";
-  }
-
-  if (options.btn0) {
-    cancelButton.style.display = "block";
-    cancelButton.textContent = options.btn0;
-    cancelButton.onclick = () => {
-      dialogOverlay.classList.remove("dialog-show"); // Remove the dialog-show class
-      setTimeout(() => {
-        dialogOverlay.style.display = "none";
-        dialogBox.style.display = "none";
-      }, 500);
-      dialogOverlay.classList.remove("blur-background");
-      dialogBox.classList.add("animate-up");
-      options.onCancel && options.onCancel();
-    };
-  } else {
-    cancelButton.style.display = "none";
-  }
-
-  if (options.btn1) {
-    proceedButton.style.display = "block";
-    proceedButton.textContent = options.btn1;
-    proceedButton.onclick = () => {
-      dialogOverlay.classList.remove("dialog-show"); // Remove the dialog-show class
-      setTimeout(() => {
-        dialogOverlay.style.display = "none";
-        dialogBox.style.display = "none";
-      }, 500);
-      dialogOverlay.classList.remove("blur-background");
-      dialogBox.classList.add("animate-up");
-      options.onProceed && options.onProceed();
-    };
-  } else {
-    proceedButton.style.display = "none";
-  }
-
-  dialogOverlay.style.display = "flex";
-  dialogOverlay.classList.add("blur-background");
-  dialogBox.style.display = "block";
-}
-*/
-
-function readJSONValue(valueKey) {
-  try {
-    const rawData = fs.readFileSync(`${os.homedir()}/.config/sysZ/config.json`);
-    const jsonData = JSON.parse(rawData);
-
-    if (jsonData && jsonData.hasOwnProperty(valueKey)) {
-      return jsonData[valueKey] === true;
-    } else {
-      console.log(`Value "${valueKey}" not found in JSON file.`);
-      return null;
-    }
-  } catch (error) {
-    console.error("Error reading JSON file:", error.message);
-    return null;
-  }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   /*
   var heading = document.getElementById("heading");
@@ -496,7 +416,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   */
   page_home();
-  if (readJSONValue("show_change_log") || notUsingLinux) {
+  if (helper.readJSONValue("show_change_log") || notUsingLinux) {
     fs.readFile("../change_log.txt", "utf8", (err, data) => {
       if (err) {
         console.error("Error reading file:", err);
