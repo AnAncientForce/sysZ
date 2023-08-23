@@ -3,7 +3,7 @@ const { exec } = require("child_process");
 const { spawn } = require("child_process");
 const path = require("path");
 const os = require("os");
-//const helper = require("./modules/helper.js");
+const helper = require("../modules/helper.js");
 
 let mainWindow;
 
@@ -16,11 +16,11 @@ function createWindow() {
       contextIsolation: false,
     },
   });
-  /*
-  if (helper.readJSONValue("dev")) {
+
+  if (helper.readJSONValue("developer_mode")) {
     mainWindow.webContents.openDevTools();
   }
-  */
+
   // mainWindow.webContents.openDevTools();
   mainWindow.maximize();
   mainWindow.loadFile("main/index.html");

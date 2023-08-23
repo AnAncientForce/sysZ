@@ -174,14 +174,22 @@ function page_control_panel() {
     );
   });
   createAction("Change Wallpaper", "square-button", parent, function () {
+    /*
     executeCommandAndKeepTerminalOpen(
       `alacritty -e ${sysZ}/shell/pull.sh --cw`
     );
+    */
+    changeSection("section-wallpaper");
+    setupWallpaperSelection();
   });
   createAction("Change Live Wallpaper", "square-button", parent, function () {
+    /*
     executeCommandAndKeepTerminalOpen(
       `alacritty -e ${sysZ}/shell/pull.sh --lw`
     );
+    */
+    changeSection("section-video");
+    setupVideoSelection();
   });
   createAction("System Update", "square-button", parent, function () {
     executeCommandAndKeepTerminalOpen("alacritty -e " + "sudo pacman -Syu");
@@ -313,6 +321,54 @@ function build_nav() {
       imgAlt: "Exit",
     }
   );
+}
+
+function setupWallpaperSelection(type) {
+  if (checkBoolean("wallpapers_setup")) {
+    return;
+  }
+  const folderPath = `${sysZ}/wallpapers`;
+  if (type == "wallpaper") {
+    folderPath = `${sysZ}/wallpapers`;
+  }
+  if (type == "video") {
+    folderPath = `${sysZ}/videos`;
+  }
+  fs.readdir(folderPath, (err, files) => {
+    if (err) {
+      console.error(`Error reading folder: ${err}`);
+      return;
+    }
+    files.forEach((file) => {
+      const filePath = path.join(folderPath, file);
+      console.log(filePath);
+
+      const imgElement = document.createElement("img");
+      imgElement.src = filePath;
+      imgElement.alt = filePath;
+      imgElement.classList.add("thumbnail");
+      imgElement.addEventListener("click", () => {
+        const thumbnails = document.querySelectorAll(".thumbnail");
+        thumbnails.forEach((thumbnail) => {
+          thumbnail.classList.remove("selected");
+        });
+        imgElement.classList.add("selected");
+
+        const existingSettings = helper.getSettings();
+        existingSettings.live_wallpaper_id = videoFile;
+        fs.writeFileSync(jSettings, JSON.stringify(existingSettings));
+
+        if (type == "wallpaper") {
+          executeCommand(`cp ${filePath} ${sysZ}/bg`);
+        }
+        if (type == "video") {
+          executeCommand(`cp ${filePath} ${sysZ}/vid.mp4`);
+        }
+      });
+      thumbnailsContainer.appendChild(imgElement);
+    });
+  });
+  saveBoolean("wallpapers_setup", true);
 }
 
 function dynamicSettings() {

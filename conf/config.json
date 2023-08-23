@@ -3,5 +3,6 @@
   "ignore_updates": false,
   "render_lockscreen": true,
   "show_change_log": true,
-  "live_wallpaper": false
+  "live_wallpaper": false,
+  "developer_mode": false
 }
