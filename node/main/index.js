@@ -180,7 +180,7 @@ function page_control_panel() {
     );
     */
     changeSection("section-wallpaper");
-    setupWallpaperSelection();
+    setupWallpaperSelection("wallpaper");
   });
   createAction("Change Live Wallpaper", "square-button", parent, function () {
     /*
@@ -189,7 +189,7 @@ function page_control_panel() {
     );
     */
     changeSection("section-video");
-    setupVideoSelection();
+    setupWallpaperSelection("video");
   });
   createAction("System Update", "square-button", parent, function () {
     executeCommandAndKeepTerminalOpen("alacritty -e " + "sudo pacman -Syu");
@@ -327,8 +327,8 @@ function setupWallpaperSelection(type) {
   if (checkBoolean("wallpapers_setup")) {
     return;
   }
-  var folderPath = `${sysZ}/wallpapers`;
-  var thumbnailsContainer = null;
+  var folderPath;
+  var thumbnailsContainer;
   if (type == "wallpaper") {
     folderPath = `${sysZ}/wallpapers`;
     thumbnailsContainer = document.getElementById("thumbnails-wallpaper");
