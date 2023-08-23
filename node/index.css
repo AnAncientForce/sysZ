@@ -302,8 +302,8 @@ textarea {
 }
 
 #xscale {
+  text-align: center;
   font-weight: bold;
-  padding: 1.5%;
   width: 10vw !important;
   height: 12.5vh !important;
   background: linear-gradient(45deg, #82b8ff, #b6e1ff);

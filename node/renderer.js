@@ -466,7 +466,7 @@ document.addEventListener("DOMContentLoaded", () => {
   xscale.addEventListener("input", function () {
     const enteredValue = parseInt(xscale.value);
     if (!isNaN(enteredValue)) {
-      if (enteredValue >= 56 && enteredValue <= 300) {
+      if (enteredValue >= 96 && enteredValue <= 296) {
         executeCommand(
           `echo 'Xft.dpi: ${enteredValue}' > ${os.homedir()}/.Xresources`
         );
