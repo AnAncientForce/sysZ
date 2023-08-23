@@ -302,8 +302,15 @@ textarea {
 }
 
 #xscale {
-  border-radius: 16px;
-  border-color: red;
+  padding: 1.5%;
+  width: 10vw;
+  height: 10vh;
+  background: linear-gradient(45deg, #82b8ff, #b6e1ff);
+  border-radius: 15px;
+}
+#xscale img {
+  height: auto;
+  width: 2.5vw;
 }
 
 /* ================================== NOT USED ================================================================================== */

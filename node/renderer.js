@@ -452,6 +452,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const xscale = document.getElementById("xresourcesScale");
+  fs.readFile(`${os.homedir()}/.Xresources`, "utf8", (err, data) => {
+    if (err) {
+      console.error(`Error reading .Xresources file: ${err.message}`);
+      return;
+    }
+    if (data.match(/\b\d+\b/)) {
+      xscale.value = xftDpiValue;
+    }
+  });
   xscale.addEventListener("input", function () {
     const enteredValue = parseInt(xscale.value);
     if (!isNaN(enteredValue)) {
