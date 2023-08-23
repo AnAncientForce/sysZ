@@ -327,14 +327,16 @@ function setupWallpaperSelection(type) {
   if (checkBoolean("wallpapers_setup")) {
     return;
   }
-  const folderPath = `${sysZ}/wallpapers`;
+  var folderPath = `${sysZ}/wallpapers`;
+  var thumbnailsContainer = null;
   if (type == "wallpaper") {
     folderPath = `${sysZ}/wallpapers`;
+    thumbnailsContainer = document.getElementById("thumbnails-wallpaper");
   }
   if (type == "video") {
     folderPath = `${sysZ}/videos`;
+    thumbnailsContainer = document.getElementById("thumbnails-video");
   }
-  const thumbnailsContainer = document.getElementById("thumbnails");
   fs.readdir(folderPath, (err, files) => {
     if (err) {
       console.error(`Error reading folder: ${err}`);
