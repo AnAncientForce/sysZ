@@ -7,7 +7,7 @@ const os = require("os");
 const path = require("path");
 const dialog = require("../modules/dialog.js");
 const helper = require("../modules/helper.js");
-
+const jSettings = fs.readFileSync(`${os.homedir()}/.config/sysZ/config.json`);
 var notUsingLinux = false;
 let sysZ;
 try {
@@ -183,13 +183,13 @@ function page_control_panel() {
     setupWallpaperSelection("wallpaper");
   });
   createAction("Change Live Wallpaper", "square-button", parent, function () {
-    /*
     executeCommandAndKeepTerminalOpen(
       `alacritty -e ${sysZ}/shell/pull.sh --lw`
     );
-    */
+    /*
     changeSection("section-video");
     setupWallpaperSelection("video");
+    */
   });
   createAction("System Update", "square-button", parent, function () {
     executeCommandAndKeepTerminalOpen("alacritty -e " + "sudo pacman -Syu");
@@ -367,10 +367,11 @@ function setupWallpaperSelection(type) {
         fs.writeFileSync(jSettings, JSON.stringify(existingSettings));
 
         if (type == "wallpaper") {
-          executeCommand(`cp ${filePath} ${sysZ}/bg`);
+          executeCommand(`feh --bg-fill ${filePath}`);
+          executeCommand(`cp -v ${filePath} ${sysZ}/bg`);
         }
         if (type == "video") {
-          executeCommand(`cp ${filePath} ${sysZ}/vid.mp4`);
+          executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
         }
       });
       thumbnailsContainer.appendChild(imgElement);
