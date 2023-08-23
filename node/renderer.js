@@ -457,7 +457,8 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(`Error reading .Xresources file: ${err.message}`);
       return;
     }
-    if (data.match(/\b\d+\b/)) {
+    const xftDpiMatch = data.match(/\b\d+\b/);
+    if (xftDpiMatch) {
       xscale.value = xftDpiValue;
     }
   });
