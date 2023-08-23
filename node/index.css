@@ -303,14 +303,14 @@ textarea {
 
 #xscale {
   padding: 1.5%;
-  width: 10vw;
-  height: 12.5vh;
+  width: 10vw !important;
+  height: 12.5vh !important;
   background: linear-gradient(45deg, #82b8ff, #b6e1ff);
   border-radius: 15px;
 }
 #xscale img {
-  height: auto;
-  width: 2.5vw;
+  height: auto !important;
+  width: 2.5vw !important;
 }
 
 /* ================================== NOT USED ================================================================================== */
