@@ -472,30 +472,32 @@ function dynamicSettings() {
     }
   }
 }
-
+let intervalId;
+let hintIndex = 0;
+const hints = [
+  "Want to configure some things? Check out settings!\nThere are some values you can modify to your liking!",
+  "Check out guides to learn how to do some awesome stuff!",
+];
 function home_hints() {
   clearInterval(intervalId);
-  let intervalId;
-  let hintIndex = 0;
-  const hints = [
-    "Want to configure some things? Check out settings!\nThere are some values you can modify to your liking!",
-    "Check out guides to learn how to do some awesome stuff!",
-  ];
-  const tipsElement = document.getElementById("tips");
+
   if (hintIndex >= hints.length) {
     hintIndex = 0;
-    helper.shuffleArray(hints);
+    shuffleArray(hints);
   }
+
+  const tipsElement = document.getElementById("tips");
   tipsElement.textContent = hints[hintIndex];
   hintIndex++;
+
   intervalId = setInterval(() => {
     if (hintIndex >= hints.length) {
       hintIndex = 0;
-      helper.shuffleArray(hints);
+      shuffleArray(hints);
     }
     tipsElement.textContent = hints[hintIndex];
     hintIndex++;
-  }, 7500);
+  }, 10000);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
