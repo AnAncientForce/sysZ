@@ -416,12 +416,9 @@ function setupWallpaperSelection(type) {
       imgElement.alt = filePath;
       imgElement.classList.add("thumbnail");
       imgElement.addEventListener("load", () => {
+        thumbnailsContainer.appendChild(imgElement);
         images.push(imgElement);
         if (images.length === loadCount) {
-          // All images have been loaded
-          images.forEach((loadedImg) => {
-            thumbnailsContainer.appendChild(loadedImg);
-          });
           changeSection("section-wallpaper");
           console.log("All wallpapers have been loaded");
         }
