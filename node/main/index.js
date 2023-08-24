@@ -115,21 +115,28 @@ function collapseLogic(x) {
 
 var currentSection = "";
 
-function hideAllExceptCurrent() {
+function hideAllExceptCurrent(caArgs) {
   const sections = document.querySelectorAll("section");
 
   sections.forEach((section) => {
     if (section.tagName === "SECTION") {
-      if (section.id === currentSection) {
-        section.style.display = "block";
+      if (caArgs?.hide_all) {
+        section.classList.add("hidden");
       } else {
-        section.style.display = "none";
+        // default
+        document.getElementById(currentSection).classList.remove("hidden");
+        if (section.id === currentSection) {
+          section.style.display = "block";
+        } else {
+          section.style.display = "none";
+        }
       }
     }
   });
+  caArgs = {};
 }
 
-function changeSection(newSection) {
+function changeSection(newSection, caArgs) {
   document
     .querySelectorAll(".square-button, #xscale img")
     .forEach((element) => {
@@ -138,7 +145,9 @@ function changeSection(newSection) {
   document.getElementById("checkboxContainer").innerHTML = "";
   currentSection = newSection;
   hideAllExceptCurrent();
-  build_nav();
+  if (!caArgs?.hide_nav) {
+    build_nav();
+  }
 }
 
 function showDialog(options) {
@@ -459,66 +468,72 @@ document.addEventListener("DOMContentLoaded", () => {
     heading.classList.add("resolve");
   });
   */
-  page_home();
-  if (helper.readJSONValue("show_change_log") || notUsingLinux) {
-    fs.readFile("../change_log.txt", "utf8", (err, data) => {
-      if (err) {
-        console.error("Error reading file:", err);
-        return;
-      }
-      showDialog({
-        title: "Change Log",
-        message: data,
-        buttons: [
-          {
-            label: "Dismiss",
-            action: () => {
-              //
-            },
-          },
-          {
-            label: "Shortcut",
-            action: () => {
-              page_change_log();
-            },
-          },
-        ],
-      });
-    });
-  }
-  const xscale = document.getElementById("xresourcesScale");
-  fs.readFile(`${os.homedir()}/.Xresources`, "utf8", (err, data) => {
-    if (err) {
-      console.error(`Error reading .Xresources file: ${err.message}`);
-      return;
-    }
-    const xftDpiMatch = data.match(/\b\d+\b/);
-    if (xftDpiMatch) {
-      const xftDpiValue = parseInt(xftDpiMatch[0]);
-      xscale.value = xftDpiValue;
-    }
-  });
-  xscale.addEventListener("input", function () {
-    const enteredValue = parseInt(xscale.value);
-    if (!isNaN(enteredValue)) {
-      if (enteredValue >= 96 && enteredValue <= 296) {
-        executeCommand(
-          `echo 'Xft.dpi: ${enteredValue}' > ${os.homedir()}/.Xresources`
-        );
-      } else {
+  caArgs = {
+    hide_nav: true,
+  };
+  changeSection("section-load", caArgs);
+  setTimeout(() => {
+    page_home();
+    if (helper.readJSONValue("show_change_log") || notUsingLinux) {
+      fs.readFile("../change_log.txt", "utf8", (err, data) => {
+        if (err) {
+          console.error("Error reading file:", err);
+          return;
+        }
         showDialog({
-          title: "Warning",
-          message: "The number must be > 56 or < 300",
+          title: "Change Log",
+          message: data,
           buttons: [
             {
-              label: "Continue",
+              label: "Dismiss",
               action: () => {
                 //
               },
             },
+            {
+              label: "Shortcut",
+              action: () => {
+                page_change_log();
+              },
+            },
           ],
         });
-      }
+      });
     }
-  });
+    const xscale = document.getElementById("xresourcesScale");
+    fs.readFile(`${os.homedir()}/.Xresources`, "utf8", (err, data) => {
+      if (err) {
+        console.error(`Error reading .Xresources file: ${err.message}`);
+        return;
+      }
+      const xftDpiMatch = data.match(/\b\d+\b/);
+      if (xftDpiMatch) {
+        const xftDpiValue = parseInt(xftDpiMatch[0]);
+        xscale.value = xftDpiValue;
+      }
+    });
+    xscale.addEventListener("input", function () {
+      const enteredValue = parseInt(xscale.value);
+      if (!isNaN(enteredValue)) {
+        if (enteredValue >= 96 && enteredValue <= 296) {
+          executeCommand(
+            `echo 'Xft.dpi: ${enteredValue}' > ${os.homedir()}/.Xresources`
+          );
+        } else {
+          showDialog({
+            title: "Warning",
+            message: "The number must be > 56 or < 300",
+            buttons: [
+              {
+                label: "Continue",
+                action: () => {
+                  //
+                },
+              },
+            ],
+          });
+        }
+      }
+    });
+  }, 500);
 });
