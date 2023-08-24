@@ -387,7 +387,7 @@ function setupWallpaperSelection(type) {
     if (checkBoolean("wallpapers_setup_1")) {
       return;
     }
-    // changeSection("section-load", caArgs);
+    changeSection("section-load", caArgs);
     saveBoolean("wallpapers_setup_1", true);
     folderPath = `${sysZ}/wallpapers`;
     thumbnailsContainer = document.getElementById("thumbnails-wallpaper");
@@ -396,7 +396,7 @@ function setupWallpaperSelection(type) {
     if (checkBoolean("wallpapers_setup_2")) {
       return;
     }
-    // changeSection("section-load", caArgs);
+    changeSection("section-load", caArgs);
     saveBoolean("wallpapers_setup_2", true);
     folderPath = `${sysZ}/videos`;
     thumbnailsContainer = document.getElementById("thumbnails-video");
@@ -406,7 +406,6 @@ function setupWallpaperSelection(type) {
       console.error(`Error reading folder: ${err}`);
       return;
     }
-    const loadCount = files.length; // Count of images to be loaded
     files.forEach((file) => {
       const filePath = path.join(folderPath, file);
       console.log(filePath);
@@ -418,7 +417,7 @@ function setupWallpaperSelection(type) {
       imgElement.addEventListener("load", () => {
         thumbnailsContainer.appendChild(imgElement);
         images.push(imgElement);
-        if (images.length === loadCount) {
+        if (images.length === files.length) {
           changeSection("section-wallpaper");
           console.log("All wallpapers have been loaded");
         }
