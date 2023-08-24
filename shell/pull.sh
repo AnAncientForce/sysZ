@@ -128,7 +128,7 @@ temp_dir="$user_home/tmp"
 node_path="$sysZ/node"
 
 validate_keys() {
-    echo -e ${BPurple}"[*] Validating json keys\n" ${Color_Off}
+    echo -e ${BPurple}"[*] Please open the Command Centre to validate json keys\n" ${Color_Off}
     validate_json_key "use_background_blur"
     validate_json_key "ignore_updates"
     validate_json_key "render_lockscreen"
@@ -140,11 +140,11 @@ validate_keys() {
 }
 
 validate_json_key() {
-    local key="$1"
-    if ! jq -e ".$key" "$json_file" &>/dev/null; then
-        saveJson "$key" false
-        echo -e ${BBlue}"[*] Created a missing key\n" ${Color_Off}
-    fi
+    # local key="$1"
+    #if ! jq -e ".$key" "$json_file" &>/dev/null; then
+    #    saveJson "$key" false
+    #    echo -e ${BBlue}"[*] Created a missing key\n" ${Color_Off}
+    #fi
 }
 
 saveJson() {

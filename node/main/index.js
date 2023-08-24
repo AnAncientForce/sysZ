@@ -501,6 +501,26 @@ function home_hints() {
   }, 10000);
 }
 
+function validateMissingKeys() {
+  const keysToValidate = [
+    "use_background_blur",
+    "ignore_updates",
+    "render_lockscreen",
+    "show_change_log",
+    "live_wallpaper",
+    "developer_mode",
+    "show_resources_monitor",
+    "dev_test_key",
+  ];
+  const jsonObject = helper.getSettings();
+  keysToValidate.forEach((key) => {
+    if (!(key in jsonObject)) {
+      jsonObject[key] = false;
+      helper.writeSettings(jsonObject);
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   /*
   var heading = document.getElementById("heading");
@@ -515,6 +535,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   changeSection("section-load", caArgs);
   */
+  validateMissingKeys();
   page_home();
   if (helper.readJSONValue("show_change_log") || notUsingLinux) {
     fs.readFile("../change_log.txt", "utf8", (err, data) => {
