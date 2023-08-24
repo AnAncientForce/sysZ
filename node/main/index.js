@@ -475,15 +475,16 @@ function dynamicSettings() {
 let intervalId;
 let hintIndex = 0;
 const hints = [
-  "Want to configure some things? Check out settings!\nThere are some values you can modify to your liking!",
-  "Check out guides to learn how to do some awesome stuff!",
+  "Want to configure some things? Check out {Settings}!\nThere are some values you can modify to your liking!",
+  "Check out {Guides} to learn how to do some awesome stuff!",
+  "New wallpaper? Head to the control panel and select {Change Wallpaper}!",
 ];
 function home_hints() {
   clearInterval(intervalId);
 
   if (hintIndex >= hints.length) {
     hintIndex = 0;
-    shuffleArray(hints);
+    helper.shuffleArray(hints);
   }
 
   const tipsElement = document.getElementById("tips");
@@ -493,7 +494,7 @@ function home_hints() {
   intervalId = setInterval(() => {
     if (hintIndex >= hints.length) {
       hintIndex = 0;
-      shuffleArray(hints);
+      helper.shuffleArray(hints);
     }
     tipsElement.textContent = hints[hintIndex];
     hintIndex++;
