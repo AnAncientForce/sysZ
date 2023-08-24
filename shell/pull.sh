@@ -141,11 +141,9 @@ validate_keys() {
 
 validate_json_key() {
     local key="$1"
-    local json_file="$user_home/.config/sysZ/config.json"
-
-    if ! jq ".\"$key\"" "$json_file" &>/dev/null; then
+    if ! checkJson "$key"; then
         saveJson "$key" false
-        echo -e ${BBlue}"[*] Created a missing key: $key\n" ${Color_Off}
+        echo -e ${BBlue}"[*] Created a missing key\n" ${Color_Off}
     fi
 }
 
