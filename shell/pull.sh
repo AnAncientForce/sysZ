@@ -141,7 +141,7 @@ validate_keys() {
 
 validate_json_key() {
     local key="$1"
-    local json_file="config.json"
+    local json_file="$sysZ/.config/sysZ/config.json"
     if ! checkJson "$key"; then
         saveJson "$key" false
     fi
