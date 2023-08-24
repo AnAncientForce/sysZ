@@ -10,6 +10,16 @@ try {
   return null;
 }
 
+function isUsingLinux() {
+  try {
+    if (process.getuid() === 0) {
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+}
+
 function readJSONValue(valueKey) {
   try {
     const rawData = fs.readFileSync(jSettings);
@@ -38,4 +48,5 @@ module.exports = {
   readJSONValue: readJSONValue,
   getSettings: getSettings,
   writeSettings: writeSettings,
+  isUsingLinux: isUsingLinux,
 };

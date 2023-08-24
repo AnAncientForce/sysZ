@@ -16,12 +16,13 @@ function createWindow() {
       contextIsolation: false,
     },
   });
-
-  // mainWindow.webContents.openDevTools();
-  if (helper.readJSONValue("developer_mode")) {
+  if (helper.isUsingLinux()) {
+    if (helper.readJSONValue("developer_mode")) {
+      mainWindow.webContents.openDevTools();
+    }
+  } else {
     mainWindow.webContents.openDevTools();
   }
-
   mainWindow.maximize();
   mainWindow.loadFile("main/index.html");
   Menu.setApplicationMenu(null);

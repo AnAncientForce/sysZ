@@ -7,7 +7,7 @@ const os = require("os");
 const path = require("path");
 const dialog = require("../modules/dialog.js");
 const helper = require("../modules/helper.js");
-const jSettings = fs.readFileSync(`${os.homedir()}/.config/sysZ/config.json`);
+// const jSettings = fs.readFileSync(`${os.homedir()}/.config/sysZ/config.json`);
 var notUsingLinux = false;
 let sysZ;
 try {
@@ -82,6 +82,11 @@ function createAction(text, optionalClass, section, action, caArgs) {
     img.classList.add("nav-img");
     div.appendChild(img);
   }
+
+  if (caArgs?.showTitle) {
+    div.appendChild(document.createTextNode(text));
+  }
+
   div.onclick = action;
   document.getElementById(section).appendChild(div);
   // console.log("Appended", `action${actionIndexer}`, text);
@@ -142,23 +147,62 @@ function showDialog(options) {
 
 function page_home() {
   changeSection("section-home");
-  createAction("Change Log", "square-button", "section-home-btns", function () {
-    page_change_log();
-  });
-  createAction("Guides", "square-button", "section-home-btns", function () {
-    page_guide();
-  });
+  createAction(
+    "Change Log",
+    "square-button",
+    "section-home-btns",
+    function () {
+      page_change_log();
+    },
+    {
+      showTitle: true,
+      useImg: true,
+      imgSrc: "../images/change_log.png",
+      imgAlt: "Help",
+    }
+  );
+  createAction(
+    "Guides",
+    "square-button",
+    "section-home-btns",
+    function () {
+      page_guide();
+    },
+    {
+      showTitle: true,
+      useImg: true,
+      imgSrc: "../images/guide.png",
+      imgAlt: "Help",
+    }
+  );
   createAction(
     "Control Panel",
     "square-button",
     "section-home-btns",
     function () {
       page_control_panel();
+    },
+    {
+      showTitle: true,
+      useImg: true,
+      imgSrc: "../images/control.png",
+      imgAlt: "Help",
     }
   );
-  createAction("Settings", "square-button", "section-home-btns", function () {
-    dynamicSettings();
-  });
+  createAction(
+    "Settings",
+    "square-button",
+    "section-home-btns",
+    function () {
+      dynamicSettings();
+    },
+    {
+      showTitle: true,
+      useImg: true,
+      imgSrc: "../images/settings.png",
+      imgAlt: "Help",
+    }
+  );
   // for (let i = 0; i < 16; i++) {}
   // requestShellScriptExecution("~/sysZ/shell/pull.sh -u");
 }
