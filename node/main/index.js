@@ -408,8 +408,6 @@ function setupWallpaperSelection(type) {
     }
     files.forEach((file) => {
       const filePath = path.join(folderPath, file);
-      console.log(filePath);
-
       const imgElement = document.createElement("img");
       imgElement.src = filePath;
       imgElement.alt = filePath;
@@ -418,24 +416,25 @@ function setupWallpaperSelection(type) {
         images.push(imgElement);
         if (images.length === files.length) {
           changeSection("section-wallpaper");
-          console.log("All wallpapers have been loaded");
+          files.forEach((apple) => {
+            imgElement.addEventListener("click", () => {
+              const thumbnails = document.querySelectorAll(".thumbnail");
+              thumbnails.forEach((thumbnail) => {
+                thumbnail.classList.remove("selected");
+              });
+              imgElement.classList.add("selected");
+              if (type == "wallpaper") {
+                executeCommand(`feh --bg-fill ${filePath}`);
+                executeCommand(`cp -v ${filePath} ${sysZ}/bg`);
+              }
+              if (type == "video") {
+                executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
+              }
+            });
+            thumbnailsContainer.appendChild(imgElement);
+          });
         }
       });
-      imgElement.addEventListener("click", () => {
-        const thumbnails = document.querySelectorAll(".thumbnail");
-        thumbnails.forEach((thumbnail) => {
-          thumbnail.classList.remove("selected");
-        });
-        imgElement.classList.add("selected");
-        if (type == "wallpaper") {
-          executeCommand(`feh --bg-fill ${filePath}`);
-          executeCommand(`cp -v ${filePath} ${sysZ}/bg`);
-        }
-        if (type == "video") {
-          executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
-        }
-      });
-      thumbnailsContainer.appendChild(imgElement);
     });
   });
 }
