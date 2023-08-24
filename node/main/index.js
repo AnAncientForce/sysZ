@@ -406,33 +406,38 @@ function setupWallpaperSelection(type) {
       console.error(`Error reading folder: ${err}`);
       return;
     }
+    const loadCount = files.length; // Count of images to be loaded
     files.forEach((file) => {
       const filePath = path.join(folderPath, file);
+      console.log(filePath);
+
       const imgElement = document.createElement("img");
       imgElement.src = filePath;
       imgElement.alt = filePath;
       imgElement.classList.add("thumbnail");
       imgElement.addEventListener("load", () => {
         images.push(imgElement);
-        if (images.length === files.length) {
-          changeSection("section-wallpaper");
-          files.forEach((apple) => {
-            imgElement.addEventListener("click", () => {
-              const thumbnails = document.querySelectorAll(".thumbnail");
-              thumbnails.forEach((thumbnail) => {
-                thumbnail.classList.remove("selected");
-              });
-              imgElement.classList.add("selected");
-              if (type == "wallpaper") {
-                executeCommand(`feh --bg-fill ${filePath}`);
-                executeCommand(`cp -v ${filePath} ${sysZ}/bg`);
-              }
-              if (type == "video") {
-                executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
-              }
-            });
-            thumbnailsContainer.appendChild(imgElement);
+        if (images.length === loadCount) {
+          // All images have been loaded
+          images.forEach((loadedImg) => {
+            thumbnailsContainer.appendChild(loadedImg);
           });
+          changeSection("section-wallpaper");
+          console.log("All wallpapers have been loaded");
+        }
+      });
+      imgElement.addEventListener("click", () => {
+        const thumbnails = document.querySelectorAll(".thumbnail");
+        thumbnails.forEach((thumbnail) => {
+          thumbnail.classList.remove("selected");
+        });
+        imgElement.classList.add("selected");
+        if (type == "wallpaper") {
+          executeCommand(`feh --bg-fill ${filePath}`);
+          executeCommand(`cp -v ${filePath} ${sysZ}/bg`);
+        }
+        if (type == "video") {
+          executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
         }
       });
     });
