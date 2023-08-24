@@ -513,12 +513,14 @@ function validateMissingKeys() {
     "dev_test_key",
   ];
   const jsonObject = helper.getSettings();
+  console.log("validating json keys");
   keysToValidate.forEach((key) => {
     if (!(key in jsonObject)) {
       jsonObject[key] = false;
       helper.writeSettings(jsonObject);
     }
   });
+  console.log("validation success");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
