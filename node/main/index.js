@@ -377,6 +377,8 @@ function build_nav() {
 }
 
 function setupWallpaperSelection(type) {
+  changeSection("section-load");
+  const images = [];
   var folderPath;
   var thumbnailsContainer;
   if (type == "wallpaper") {
@@ -408,6 +410,13 @@ function setupWallpaperSelection(type) {
       imgElement.src = filePath;
       imgElement.alt = filePath;
       imgElement.classList.add("thumbnail");
+      imgElement.addEventListener("load", () => {
+        images.push(imgElement);
+        if (images.length === files.length) {
+          changeSection("section-wallpaper");
+          console.log("All wallpapers have been loaded");
+        }
+      });
       imgElement.addEventListener("click", () => {
         const thumbnails = document.querySelectorAll(".thumbnail");
         thumbnails.forEach((thumbnail) => {
