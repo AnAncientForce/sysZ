@@ -141,7 +141,7 @@ validate_keys() {
 
 validate_json_key() {
     local key="$1"
-    if ! checkJson "$key"; then
+    if [ -z "$(checkJson "$key")" ]; then
         saveJson "$key" false
         echo -e ${BBlue}"[*] Created a missing key\n" ${Color_Off}
     fi
