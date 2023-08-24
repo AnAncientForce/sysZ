@@ -148,9 +148,6 @@ validate_json_key() {
     fi
 }
 
-# Call the function with the desired key
-validate_json_key "some_key"
-
 saveJson() {
     local key="$1"
     local value="$2"
