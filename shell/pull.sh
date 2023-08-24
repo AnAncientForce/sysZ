@@ -127,6 +127,29 @@ fi
 temp_dir="$user_home/tmp"
 node_path="$sysZ/node"
 
+validate_keys() {
+    echo -e ${BPurple}"[*] Validating json keys\n" ${Color_Off}
+    validate_json_key "use_background_blur"
+    validate_json_key "ignore_updates"
+    validate_json_key "render_lockscreen"
+    validate_json_key "show_change_log"
+    validate_json_key "live_wallpaper"
+    validate_json_key "developer_mode"
+    validate_json_key "show_resources_monitor"
+    validate_json_key "dev_test_key"
+}
+
+validate_json_key() {
+    local key="$1"
+    local json_file="config.json"
+    if ! checkJson "$key"; then
+        saveJson "$key" false
+    fi
+}
+
+# Call the function with the desired key
+validate_json_key "some_key"
+
 saveJson() {
     local key="$1"
     local value="$2"
@@ -474,6 +497,9 @@ manual() {
     # make files executable
     ex
 
+    # validate json keys
+    validate_keys
+
     # install yay
     read -p "[Required] Install Yay?
     (y/n): " choice
@@ -658,6 +684,7 @@ update_sysZ_func() {
     repo_pull
     cu
     ex
+    validate_keys
     install_rec_pacman
     install_rec_yay
     wm_setup_func

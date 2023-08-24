@@ -455,6 +455,7 @@ textarea {
   color: #3a75c4;
   font-weight: bold;
   transition: 0.3s;
+  animation: dropInAnimation 0.5s ease-out;
 }
 
 /* ================================== NOT USED ================================================================================== */
