@@ -542,7 +542,7 @@ document.addEventListener("DOMContentLoaded", () => {
   } catch (error) {
     showDialog({
       title: "Validation has failed!",
-      message: `Please check if sysZ's .json configuration file is valid.\n${error.message}`,
+      message: `Please check if sysZ's config.json file exists and is not incorrect or corrupted.\n${error.message}`,
       buttons: [
         {
           label: "Continue",
