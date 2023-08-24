@@ -545,7 +545,7 @@ document.addEventListener("DOMContentLoaded", () => {
       message: `Please check if sysZ's config.json file exists and is not incorrect or corrupted.\n${error.message}`,
       buttons: [
         {
-          label: "Continue",
+          label: "Terminate",
           action: () => {
             ipcRenderer.send("close-application");
           },
