@@ -129,22 +129,6 @@ node_path="$sysZ/node"
 
 validate_keys() {
     echo -e ${BPurple}"[*] Please open the Command Centre to automtaically validate json keys\n" ${Color_Off}
-    #validate_json_key "use_background_blur"
-    #validate_json_key "ignore_updates"
-    #validate_json_key "render_lockscreen"
-    #validate_json_key "show_change_log"
-    #validate_json_key "live_wallpaper"
-    #validate_json_key "developer_mode"
-    #validate_json_key "show_resources_monitor"
-    #validate_json_key "dev_test_key"
-}
-
-validate_json_key() {
-    # local key="$1"
-    #if ! jq -e ".$key" "$json_file" &>/dev/null; then
-    #    saveJson "$key" false
-    #    echo -e ${BBlue}"[*] Created a missing key\n" ${Color_Off}
-    #fi
 }
 
 saveJson() {
