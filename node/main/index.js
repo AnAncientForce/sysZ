@@ -510,8 +510,8 @@ function validateMissingKeys() {
     "live_wallpaper",
     "developer_mode",
     "show_resources_monitor",
-    "dev_test_key",
   ];
+  // "dev_test_key"
   const jsonObject = helper.getSettings();
   console.log("validating json keys");
   keysToValidate.forEach((key) => {
