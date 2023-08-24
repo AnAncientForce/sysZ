@@ -56,6 +56,7 @@ pacman_packages=(
     "ffmpegthumbnailer"
     "npm"
     "xorg-xinit"
+    "xfce4-settings"
 )
 # Disable "FreeMono"
 yay_packages=(
