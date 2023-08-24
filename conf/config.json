@@ -4,5 +4,6 @@
   "render_lockscreen": true,
   "show_change_log": true,
   "live_wallpaper": false,
-  "developer_mode": false
+  "developer_mode": false,
+  "show_resources_monitor": true
 }

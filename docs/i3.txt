@@ -19,6 +19,9 @@ Change workspaces
 Access sysZ helper menu
     Super + Z
 
+Open sysZ control centre
+    Super + Shift + Z
+
 Lock workstation
     Super + L
 
