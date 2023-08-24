@@ -520,7 +520,7 @@ function validateMissingKeys() {
       helper.writeSettings(jsonObject);
     }
   });
-  console.log("validation success");
+  console.log("json validation success");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -537,7 +537,22 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   changeSection("section-load", caArgs);
   */
-  validateMissingKeys();
+  try {
+    validateMissingKeys();
+  } catch (error) {
+    showDialog({
+      title: "Validation has failed!",
+      message: `Please check if sysZ's .json configuration file is valid.\n${error.message}`,
+      buttons: [
+        {
+          label: "Continue",
+          action: () => {
+            ipcRenderer.send("close-application");
+          },
+        },
+      ],
+    });
+  }
   page_home();
   if (helper.readJSONValue("show_change_log") || notUsingLinux) {
     fs.readFile("../change_log.txt", "utf8", (err, data) => {
