@@ -44,9 +44,18 @@ function writeSettings(data) {
   fs.writeFileSync(jSettings, JSON.stringify(data));
 }
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 module.exports = {
   readJSONValue: readJSONValue,
   getSettings: getSettings,
   writeSettings: writeSettings,
   isUsingLinux: isUsingLinux,
+  shuffleArray: shuffleArray,
 };

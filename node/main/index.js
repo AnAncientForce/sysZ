@@ -473,6 +473,31 @@ function dynamicSettings() {
   }
 }
 
+function home_hints() {
+  clearInterval(intervalId);
+  let intervalId;
+  let hintIndex = 0;
+  const hints = [
+    "Want to configure some things? Check out settings!\nThere are some values you can modify to your liking!",
+    "Check out guides to learn how to do some awesome stuff!",
+  ];
+  const tipsElement = document.getElementById("tips");
+  if (hintIndex >= hints.length) {
+    hintIndex = 0;
+    helper.shuffleArray(hints);
+  }
+  tipsElement.textContent = hints[hintIndex];
+  hintIndex++;
+  intervalId = setInterval(() => {
+    if (hintIndex >= hints.length) {
+      hintIndex = 0;
+      helper.shuffleArray(hints);
+    }
+    tipsElement.textContent = hints[hintIndex];
+    hintIndex++;
+  }, 7500);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   /*
   var heading = document.getElementById("heading");
@@ -481,72 +506,73 @@ document.addEventListener("DOMContentLoaded", () => {
     heading.classList.add("resolve");
   });
   */
+  /*
   caArgs = {
     hide_nav: true,
   };
   changeSection("section-load", caArgs);
-  setTimeout(() => {
-    page_home();
-    if (helper.readJSONValue("show_change_log") || notUsingLinux) {
-      fs.readFile("../change_log.txt", "utf8", (err, data) => {
-        if (err) {
-          console.error("Error reading file:", err);
-          return;
-        }
+  */
+  page_home();
+  if (helper.readJSONValue("show_change_log") || notUsingLinux) {
+    fs.readFile("../change_log.txt", "utf8", (err, data) => {
+      if (err) {
+        console.error("Error reading file:", err);
+        return;
+      }
+      showDialog({
+        title: "Change Log",
+        message: data,
+        buttons: [
+          {
+            label: "Dismiss",
+            action: () => {
+              //
+            },
+          },
+          {
+            label: "Shortcut",
+            action: () => {
+              page_change_log();
+            },
+          },
+        ],
+      });
+    });
+  }
+  const xscale = document.getElementById("xresourcesScale");
+  fs.readFile(`${os.homedir()}/.Xresources`, "utf8", (err, data) => {
+    if (err) {
+      console.error(`Error reading .Xresources file: ${err.message}`);
+      return;
+    }
+    const xftDpiMatch = data.match(/\b\d+\b/);
+    if (xftDpiMatch) {
+      const xftDpiValue = parseInt(xftDpiMatch[0]);
+      xscale.value = xftDpiValue;
+    }
+  });
+  xscale.addEventListener("input", function () {
+    const enteredValue = parseInt(xscale.value);
+    if (!isNaN(enteredValue)) {
+      if (enteredValue >= 96 && enteredValue <= 296) {
+        executeCommand(
+          `echo 'Xft.dpi: ${enteredValue}' > ${os.homedir()}/.Xresources`
+        );
+      } else {
         showDialog({
-          title: "Change Log",
-          message: data,
+          title: "Warning",
+          message: "The number must be > 56 or < 300",
           buttons: [
             {
-              label: "Dismiss",
+              label: "Continue",
               action: () => {
                 //
               },
             },
-            {
-              label: "Shortcut",
-              action: () => {
-                page_change_log();
-              },
-            },
           ],
         });
-      });
+      }
     }
-    const xscale = document.getElementById("xresourcesScale");
-    fs.readFile(`${os.homedir()}/.Xresources`, "utf8", (err, data) => {
-      if (err) {
-        console.error(`Error reading .Xresources file: ${err.message}`);
-        return;
-      }
-      const xftDpiMatch = data.match(/\b\d+\b/);
-      if (xftDpiMatch) {
-        const xftDpiValue = parseInt(xftDpiMatch[0]);
-        xscale.value = xftDpiValue;
-      }
-    });
-    xscale.addEventListener("input", function () {
-      const enteredValue = parseInt(xscale.value);
-      if (!isNaN(enteredValue)) {
-        if (enteredValue >= 96 && enteredValue <= 296) {
-          executeCommand(
-            `echo 'Xft.dpi: ${enteredValue}' > ${os.homedir()}/.Xresources`
-          );
-        } else {
-          showDialog({
-            title: "Warning",
-            message: "The number must be > 56 or < 300",
-            buttons: [
-              {
-                label: "Continue",
-                action: () => {
-                  //
-                },
-              },
-            ],
-          });
-        }
-      }
-    });
-  }, 250);
+  });
+  home_hints();
 });

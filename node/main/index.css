@@ -437,6 +437,21 @@ textarea {
 
 /* ================================================== */
 
+#tipsFrame {
+  text-align: center;
+  font-size: x-large;
+  padding: 10vh;
+  border-color: white;
+  border-style: dashed;
+  border-radius: 15px;
+  pointer-events: none;
+  background-color: skyblue;
+  height: 20vh;
+  width: 40vh;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  opacity: 0.9;
+}
+
 /* ================================== NOT USED ================================================================================== */
 
 @keyframes rotation {
