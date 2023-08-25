@@ -60,7 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (helper.readJSONValue("show_resources_monitor")) {
         helper.executeCommand("i3-msg 'exec conky -d;'");
       }
-      ipcRenderer.send("close-application");
+      setTimeout(function () {
+        ipcRenderer.send("close-application");
+      }, 50);
     });
 
     console.log(`Script output:\n${stdout}`);
