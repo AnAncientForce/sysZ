@@ -684,9 +684,10 @@ routine_func() {
 }
 
 wm_setup_func() {
-    killall -9 polybar copyq feh xwinwrap picom conky
+    killall -9 polybar copyq feh xwinwrap picom conky nm-applet
     sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
+    i3-msg "exec nm-applet;"
     i3-msg "exec copyq;"
     i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
     if checkJson "show_resources_monitor"; then
