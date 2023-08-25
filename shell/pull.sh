@@ -705,9 +705,9 @@ wm_setup_func() {
     else
         i3-msg "exec feh --bg-fill $sysZ/bg;"
     fi
-    if checkJson "show_resources_monitor"; then
-        i3-msg "exec conky -d &;"
-    fi
+    #if checkJson "show_resources_monitor"; then
+    #    i3-msg "exec conky -d &;"
+    #fi
     i3-msg "reload"
 
     # i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'

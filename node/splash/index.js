@@ -56,6 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
     white_screen.classList.add("shine");
 
     white_screen.addEventListener("transitionend", () => {
+      if (helper.readJSONValue("show_resources_monitor")) {
+        executeCommand("i3-msg 'exec conky -d &;'");
+      }
       ipcRenderer.send("close-application");
     });
 

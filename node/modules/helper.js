@@ -51,10 +51,24 @@ function shuffleArray(array) {
 function shuffleArray(array) {
   return array.sort(() => Math.random() - 0.5);
 }
+
+function executeCommand(command) {
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error executing command: ${error.message}`);
+      return;
+    }
+    console.log("Command executed successfully");
+    console.log("stdout:", stdout);
+    console.log("stderr:", stderr);
+  });
+}
+
 module.exports = {
   readJSONValue: readJSONValue,
   getSettings: getSettings,
   writeSettings: writeSettings,
   isUsingLinux: isUsingLinux,
   shuffleArray: shuffleArray,
+  executeCommand: executeCommand,
 };
