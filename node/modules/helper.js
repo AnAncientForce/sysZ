@@ -41,8 +41,8 @@ function getSettings() {
   return JSON.parse(fs.readFileSync(jSettings, "utf8"));
 }
 function writeSettings(data) {
-  // fs.writeFileSync(jSettings, JSON.stringify(data));
-  fs.writeFileSync(jSettings, JSON.stringify(data, null, 2));
+  fs.writeFileSync(jSettings, JSON.stringify(data));
+  // fs.writeFileSync(jSettings, JSON.stringify(data, null, 2));
 }
 
 /*
