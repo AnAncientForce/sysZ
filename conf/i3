@@ -218,7 +218,7 @@ mode "$mode_sysZ" {
 bindsym $mod+Shift+e exec i3-msg exit
 bindsym $mod+z mode "$mode_sysZ"
 bindsym $mod+Shift+z exec sh ~/sysZ/shell/node.sh start
-bindsym Control+Mod1+Delete exec plasma-systemmonitor
+bindsym Control+Shift+Escape exec plasma-systemmonitor
 exec_always sh ~/sysZ/shell/node.sh splash
 # exec_always sh ~/sysZ/shell/pull.sh -r
 # exec_always python ~/sysZ/main.py load
