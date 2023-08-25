@@ -687,7 +687,6 @@ wm_setup_func() {
     killall -9 polybar copyq feh xwinwrap picom conky
     sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
-    i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
     i3-msg "exec copyq;"
     i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
     if checkJson "show_resources_monitor"; then
@@ -698,6 +697,7 @@ wm_setup_func() {
     else
         i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf;'
     fi
+    i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
     if checkJson "live_wallpaper"; then
         set_live_wallpaper
         cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
