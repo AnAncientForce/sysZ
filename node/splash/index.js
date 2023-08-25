@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     white_screen.addEventListener("transitionend", () => {
       if (helper.readJSONValue("show_resources_monitor")) {
-        helper.executeCommand("i3-msg 'exec conky -d &;'");
+        helper.executeCommand("i3-msg 'exec conky -d;'");
       }
       ipcRenderer.send("close-application");
     });
