@@ -11,13 +11,7 @@ try {
 }
 
 function isUsingLinux() {
-  try {
-    if (process.getuid() === 0) {
-      return true;
-    }
-  } catch (error) {
-    return false;
-  }
+  return process.platform === "linux";
 }
 
 function readJSONValue(valueKey) {
