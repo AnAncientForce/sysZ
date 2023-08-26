@@ -1,0 +1,19 @@
+Recommended apps:
+
+Text Editor
+    gedit
+
+Web browser
+    librewolf
+
+Terminal
+    alacritty
+
+Notes
+    obsidian
+
+Password Manager
+    bitwarden
+
+Cloud Storage Service
+    megasync

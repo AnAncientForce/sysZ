@@ -317,6 +317,9 @@ function loadDoc(doc) {
 function page_guide() {
   changeSection("section-guide");
   const parent = "section-guide-btns";
+  createAction("Recommended Apps", "square-button", parent, function () {
+    loadDoc("apps");
+  });
   createAction("Bluetooth", "square-button", parent, function () {
     loadDoc("bluetooth");
   });
