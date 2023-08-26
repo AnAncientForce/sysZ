@@ -382,7 +382,8 @@ cu() {
     cp "$sysZ/conf/conky.conf" "$user_home/.config/conky"
     cp "$sysZ/conf/alacritty.yml" "$user_home/.config"
     cp "$sysZ/conf/.bashrc" "$user_home"
-    if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
+    if [ ! -f "$user_home/.config/sysZ/autostart.sh" ]; then
+        mkdir -p "$user_home/.config/sysZ"
         cp "$sysZ/conf/autostart.sh" "$user_home/.config/sysZ"
     fi
 }
