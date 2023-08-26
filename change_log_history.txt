@@ -1,6 +1,13 @@
-26/08/2023 | Added back/forward button for tips, added autostart functionality, fixed bug where resources monitor would not show on start (50%)
-25/08/2023 | Added tips to the home screen, fixed polybar's border radius from cutting off in the tray area
-23/08/2023 | Added scale setting, added wallpaper selector in the control panel, updated main interface
+26/08/2023 | Added back/forward button for tips
+26/08/2023 | Added autostart functionality
+26/08/2023 | Fixed bug where resources monitor would not show on start (sort of fixed)
+25/08/2023 | Internet module now restarts whenever i3 is reloaded, this fixes an issue where there is no internet connection on boot.
+25/08/2023 | Added tips to the home screen
+25/08/2023 | Added custom icons to some of the buttons
+25/08/2023 | Fixed polybar's border radius from cutting off in the tray area
+23/08/2023 | Added scale setting
+23/08/2023 | Added wallpaper selector in the control panel
+23/08/2023 | Updated main interface
 08/08/2023 | Switched from python to node.js using the electron framework
 08/07/2023 | Started electron framework development
 08/07/2023 | Fixed the wifi indication in polybar
