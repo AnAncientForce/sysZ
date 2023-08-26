@@ -23,6 +23,11 @@ WARNING! ~ This tool will override many of your configuration files! If you alre
 # How to use
 In a terminal, running `sysz -h` will display a list of help commands. Alternatively you can open the control panel (by clicking the cube icon in the polybar) if you prefer a gui interface.
 
+# Features within sysZ's customization:
+* Wallpaper selection
+* Live Wallpaper selection with automatic pausing
+* Autostart file
+
 # Dependencies
 - [i3-gaps](https://github.com/Airblader/i3)
 - [betterlockscreen](https://github.com/betterlockscreen/betterlockscreen)
