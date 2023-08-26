@@ -505,28 +505,49 @@ function home_hints() {
   const tipsElement = document.getElementById("tips");
   hints = colorizeHints(hints, "green");
   clearInterval(intervalId);
-  /*
-  if (hintIndex >= hints.length) {
-    hintIndex = 0;
-    helper.shuffleArray(hints);
-  }
-  tipsElement.innerHTML = hints[hintIndex];
-  hintIndex++;
-  */
+
   const update = () => {
     if (hintIndex >= hints.length) {
       hintIndex = 0;
       helper.shuffleArray(hints);
     }
     tipsElement.innerHTML = hints[hintIndex];
-    hintIndex++;
   };
 
-  update();
+  const restartInterval = () => {
+    clearInterval(intervalId);
+    intervalId = setInterval(() => {
+      hintIndex++;
+      update();
+      if (hintIndex >= hints.length) {
+        hintIndex = 0;
+        helper.shuffleArray(hints);
+      }
+    }, 2 * 1000);
+  };
 
-  intervalId = setInterval(() => {
+  createAction("<", "mini-btn", "tips-nav", function () {
+    hintIndex--;
+    if (hintIndex < 0) {
+      hintIndex = hints.length - 1;
+    }
     update();
-  }, 15000);
+    clearInterval(intervalId);
+    restartInterval();
+  });
+
+  createAction(">", "mini-btn", "tips-nav", function () {
+    hintIndex++;
+    if (hintIndex >= hints.length) {
+      hintIndex = 0;
+    }
+    update();
+    clearInterval(intervalId);
+    restartInterval();
+  });
+
+  update();
+  restartInterval();
 }
 
 function validateMissingKeys() {

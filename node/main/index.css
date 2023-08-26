@@ -444,7 +444,6 @@ textarea {
   border-color: white;
   border-style: dashed;
   border-radius: 15px;
-  pointer-events: none;
   background-color: skyblue;
   min-height: fit-content;
   min-width: fit-content;
@@ -456,6 +455,26 @@ textarea {
   font-weight: bold;
   transition: 0.3s;
   animation: dropInAnimation 0.5s ease-out;
+}
+
+#tips {
+  pointer-events: none;
+}
+
+#tips-nav {
+  height: fit-content;
+  width: fit-content;
+}
+.mini-btn {
+  text-align: center;
+  color: white;
+  font-size: xx-large;
+  background-color: #3a75c4;
+  padding: 1%;
+  margin: 10%;
+  height: 5vh;
+  width: 7.5vw;
+  border-radius: 16px;
 }
 
 /* ================================== NOT USED ================================================================================== */
