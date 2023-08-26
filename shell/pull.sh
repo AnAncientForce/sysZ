@@ -382,7 +382,9 @@ cu() {
     cp "$sysZ/conf/conky.conf" "$user_home/.config/conky"
     cp "$sysZ/conf/alacritty.yml" "$user_home/.config"
     cp "$sysZ/conf/.bashrc" "$user_home"
-    # cp "$sysZ/conf/.Xresources" "$user_home"
+    if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
+        cp "$sysZ/conf/autostart.sh" "$user_home/.config/sysZ"
+    fi
 }
 
 ex() {
@@ -620,7 +622,6 @@ check_updates() {
 automatic_setup_func() {
     echo -e ${BGreen}"[*] Automatic Setup is starting...\n" ${Color_Off}
     repo_pull
-    create_file_if_not_exist
     cu
     ex
     install_rec_yay
@@ -685,11 +686,6 @@ routine_func() {
     wm_setup_func
 }
 
-create_file_if_not_exist() {
-    mkdir -p "$user_home/.config/sysZ"
-    cp "$sysZ/conf/autostart.sh" "$user_home/.config/sysZ"
-}
-
 wm_setup_func() {
     killall -9 polybar copyq feh xwinwrap picom conky nm-applet
     sleep 0.1
@@ -715,7 +711,9 @@ wm_setup_func() {
     #if checkJson "show_resources_monitor"; then
     #    i3-msg "exec conky -d &;"
     #fi
-    i3-msg "exec $user_home/.config/sysZ/autostart.sh;"
+    if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
+        i3-msg "exec $user_home/.config/sysZ/autostart.sh;"
+    fi
     i3-msg "reload"
 
     # i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
