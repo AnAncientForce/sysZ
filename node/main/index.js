@@ -477,31 +477,56 @@ function dynamicSettings() {
 }
 let intervalId;
 let hintIndex = 0;
-const hints = [
-  "Want to configure some things? Check out {Settings}!\nThere are some values you can modify to your liking!",
+var hints = [
+  "Want to configure some things? Check out {Settings}\nThere are some values you can modify to your liking!",
   "Check out {Guides} to learn how to do some awesome stuff!",
-  "New wallpaper? Head to the control panel and select {Change Wallpaper}!",
+  "New wallpaper? {Control Panel > Change Wallpaper}",
+  "Unable to download apps? Check there is a valid internet connection and run {sudo pacman -Sy}",
+  "Have a favourite app that you'd like to launch everytime the system starts? Head to {Control Panel > Autostart}",
 ];
-function home_hints() {
-  clearInterval(intervalId);
 
+function colorizeHints(arr, color) {
+  if (checkBoolean("colorize")) {
+    return arr;
+  }
+  saveBoolean("colorize", true);
+
+  const coloredHints = arr.map((hint) => {
+    return hint.replace(
+      /\{([^}]+)\}/g,
+      `<span style="color: ${color};">$1</span>`
+    );
+  });
+
+  return coloredHints;
+}
+
+function home_hints() {
+  const tipsElement = document.getElementById("tips");
+  hints = colorizeHints(hints, "green");
+  clearInterval(intervalId);
+  /*
   if (hintIndex >= hints.length) {
     hintIndex = 0;
     helper.shuffleArray(hints);
   }
-
-  const tipsElement = document.getElementById("tips");
-  tipsElement.textContent = hints[hintIndex];
+  tipsElement.innerHTML = hints[hintIndex];
   hintIndex++;
-
-  intervalId = setInterval(() => {
+  */
+  const update = () => {
     if (hintIndex >= hints.length) {
       hintIndex = 0;
       helper.shuffleArray(hints);
     }
-    tipsElement.textContent = hints[hintIndex];
+    tipsElement.innerHTML = hints[hintIndex];
     hintIndex++;
-  }, 10000);
+  };
+
+  update();
+
+  intervalId = setInterval(() => {
+    update();
+  }, 15000);
 }
 
 function validateMissingKeys() {
