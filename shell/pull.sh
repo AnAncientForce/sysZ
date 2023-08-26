@@ -57,6 +57,7 @@ pacman_packages=(
     "npm"
     "xorg-xinit"
     "xfce4-settings"
+    "gedit"
 )
 # Disable "FreeMono"
 yay_packages=(
@@ -129,7 +130,7 @@ temp_dir="$user_home/tmp"
 node_path="$sysZ/node"
 
 validate_keys() {
-    echo -e ${BPurple}"[*] Please open the Command Centre to automtaically validate json keys\n" ${Color_Off}
+    echo -e ${BPurple}"[*] Please open the main interface to automatically validate json keys\n" ${Color_Off}
 }
 
 saveJson() {

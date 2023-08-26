@@ -1,4 +1,6 @@
-23/08/2023 | Added scale setting, updated interface (let me know if there's any issues)
+26/08/2023 | Added back/forward button for tips, added autostart functionality, fixed bug where resources monitor would not show on start (50%)
+25/08/2023 | Added tips to the home screen, fixed polybar's border radius from cutting off in the tray area
+23/08/2023 | Added scale setting, added wallpaper selector in the control panel, updated main interface
 08/08/2023 | Switched from python to node.js using the electron framework
 08/07/2023 | Started electron framework development
-08/07/2023 | [?] Possibly fixed the wifi indication in polybar
+08/07/2023 | Fixed the wifi indication in polybar
