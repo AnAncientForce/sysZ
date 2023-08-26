@@ -533,6 +533,7 @@ manual() {
     " choice
     if [ "$choice" = "y" ]; then
         cp "$user_home/sysZ/conf/config.json" "$user_home/.config/sysZ"
+        cp "$user_home/sysZ/conf/autostart.sh" "$user_home/.config/sysZ"
         if [ -f "$user_home/.config/sysZ/config.json" ]; then
             echo "sysZ config copied successfully"
         else
@@ -708,6 +709,7 @@ wm_setup_func() {
     #if checkJson "show_resources_monitor"; then
     #    i3-msg "exec conky -d &;"
     #fi
+    i3-msg "exec $user_home/.config/sysZ/autostart.sh;"
     i3-msg "reload"
 
     # i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
