@@ -271,6 +271,9 @@ function page_control_panel() {
     executeCommand("systemctl poweroff");
   });
 
+  createAction("Autostart", "square-button", parent, function () {
+    executeCommand("i3-msg 'exec gedit ~/.config/sysZ/autostart.sh;'");
+  });
   createAction(
     "xscale",
     "",
