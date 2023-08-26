@@ -10,8 +10,11 @@ Rofi search menu (d menu)
 End session / log out
     Super + Shift + E
 
+Refresh i3
+    Super + Shift + r
+
 Move focused window to another workspace
-    Super + Shift 1-9
+    Super + Shift + 1-9
 
 Change workspaces
     Super + 1-9
@@ -19,11 +22,11 @@ Change workspaces
 Access sysZ helper menu
     Super + Z
 
-Open sysZ control centre
+Open sysZ main interface
     Super + Shift + Z
 
 Lock workstation
     Super + L
 
-Access rofi fav gui menu
-    Super + i
+Powermenu
+    Super + P
