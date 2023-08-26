@@ -620,6 +620,7 @@ check_updates() {
 automatic_setup_func() {
     echo -e ${BGreen}"[*] Automatic Setup is starting...\n" ${Color_Off}
     repo_pull
+    create_file_if_not_exist
     cu
     ex
     install_rec_yay
@@ -682,6 +683,11 @@ routine_func() {
     install_rec_pacman
     continue_setup_func
     wm_setup_func
+}
+
+create_file_if_not_exist() {
+    mkdir -p "$user_home/.config/sysZ"
+    cp "$sysZ/conf/autostart.sh" "$user_home/.config/sysZ"
 }
 
 wm_setup_func() {
