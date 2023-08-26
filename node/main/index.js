@@ -532,7 +532,6 @@ function home_hints() {
       hintIndex = hints.length - 1;
     }
     update();
-    clearInterval(intervalId);
     restartInterval();
   });
 
@@ -542,7 +541,6 @@ function home_hints() {
       hintIndex = 0;
     }
     update();
-    clearInterval(intervalId);
     restartInterval();
   });
 

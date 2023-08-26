@@ -466,6 +466,9 @@ textarea {
   width: fit-content;
 }
 .mini-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   color: white;
   font-size: xx-large;
