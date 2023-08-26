@@ -523,7 +523,7 @@ function home_hints() {
         hintIndex = 0;
         helper.shuffleArray(hints);
       }
-    }, 2 * 1000);
+    }, 15 * 1000);
   };
 
   createAction("<", "mini-btn", "tips-nav", function () {
