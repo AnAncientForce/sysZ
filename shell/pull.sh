@@ -713,7 +713,7 @@ wm_setup_func() {
     #    i3-msg "exec conky -d &;"
     #fi
     if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
-        i3-msg "exec $user_home/.config/sysZ/autostart.sh;"
+        i3-msg "exec sh $user_home/.config/sysZ/autostart.sh;"
     fi
     i3-msg "reload"
 
