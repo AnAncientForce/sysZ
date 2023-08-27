@@ -195,7 +195,9 @@ client.focused = #ffffff #ffffff #000000 #c8395b
 client.urgent = #900000 #900000 #ffffff #c8395b
 gaps inner 6
 gaps outer 6
+smart_gaps on
 focus_follows_mouse no
+bindsym $mod+q kill
 bindsym $mod+l exec betterlockscreen -l dimblur
 bindsym $mod+i exec sh ~/sysZ/shell/fav-gui-i3.sh
 bindsym $mod+shift+esc python ~/sysZ/main.py home

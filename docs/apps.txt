@@ -12,6 +12,16 @@ Terminal
 Notes
     obsidian
 
+Photo Editor
+    inkscape
+
+Video Editor
+    kdenlive
+
+Recording Software
+    obs-studio
+    if gpu error launch via; LIBGL_ALWAYS_SOFTWARE=1 obs
+
 Password Manager
     bitwarden
 
