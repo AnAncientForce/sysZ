@@ -1,3 +1,5 @@
+27/08/2023 | Made polybar cleaner by removing unnecessary modules
+27/08/2023 | Added more user feedback, for example a notification for whenever the user adjusts the volume.
 26/08/2023 | Added back/forward button for tips
 26/08/2023 | Added autostart functionality
 26/08/2023 | Fixed bug where resources monitor would not show on start (sort of fixed)

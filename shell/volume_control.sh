@@ -10,6 +10,9 @@ adjust_volume() {
         new_volume=$((volume_percent + 10))
     elif [ "$1" = "down" ]; then
         new_volume=$((volume_percent - 10))
+    else
+        echo "Invalid argument: Use 'up' or 'down'." >&2
+        exit 1
     fi
 
     if [ "$new_volume" -gt "$MAX_VOLUME" ]; then
@@ -18,7 +21,11 @@ adjust_volume() {
         new_volume=0
     fi
 
-    pactl set-sink-volume "$sink_id" "$new_volume%" >/dev/null
+    if ! pactl set-sink-volume "$sink_id" "$new_volume%" >/dev/null; then
+        echo "Error adjusting volume." >&2
+        exit 1
+    fi
+
     echo "$new_volume"
 }
 
