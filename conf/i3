@@ -57,8 +57,7 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec --no-startup-id rofi -show run
-bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-5/launcher.sh
-bindsym $mod+p exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
+
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -202,11 +201,16 @@ gaps inner 6
 gaps outer 6
 smart_gaps on
 focus_follows_mouse no
+
+exec_always sh ~/sysZ/shell/node.sh splash
+
 bindsym $mod+q kill
 bindsym $mod+l exec betterlockscreen -l dimblur
 bindsym $mod+i exec sh ~/sysZ/shell/fav-gui-i3.sh
 bindsym $mod+shift+esc python ~/sysZ/main.py home
 
+bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-5/launcher.sh
+bindsym $mod+p exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/sysZ/shell/volume_control.sh up
 bindsym XF86AudioLowerVolume exec --no-startup-id ~/sysZ/shell/volume_control.sh down
@@ -232,7 +236,6 @@ bindsym XF86MonBrightnessDown exec brightnessctl set 5%- ; exec dunstify -t 2000
 bindsym $mod+Shift+e exec i3-msg exit
 bindsym $mod+Shift+z exec sh ~/sysZ/shell/node.sh start
 bindsym Control+Shift+Escape exec plasma-systemmonitor
-exec_always sh ~/sysZ/shell/node.sh splash
 
 # exec_always sh ~/sysZ/shell/pull.sh -r
 # exec_always python ~/sysZ/main.py load
