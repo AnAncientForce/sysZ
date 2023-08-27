@@ -37,7 +37,8 @@ if ! checkJson "ignore_updates"; then
         if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
             echo "sysZ "
         else
-            echo "sysZ "
+            echo ""
+            # echo "sysZ "
         fi
     fi
 fi
