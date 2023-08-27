@@ -694,8 +694,7 @@ quick_refresh_func() {
     repo_pull
     cu
     ex
-    continue_setup_func
-    cd "$current_dir"
+    validate_keys
 
     killall -9 polybar feh xwinwrap picom
     sleep 0.1
