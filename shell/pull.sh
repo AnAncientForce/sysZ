@@ -59,6 +59,7 @@ pacman_packages=(
     "xfce4-settings"
     "gedit"
     "dunst"
+    "arandr"
 )
 # Disable "FreeMono"
 yay_packages=(
