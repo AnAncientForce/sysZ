@@ -58,6 +58,7 @@ pacman_packages=(
     "xorg-xinit"
     "xfce4-settings"
     "gedit"
+    "dunst"
 )
 # Disable "FreeMono"
 yay_packages=(

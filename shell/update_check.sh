@@ -36,6 +36,7 @@ if ! checkJson "ignore_updates"; then
         git remote update >/dev/null 2>&1
         if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
             echo "sysZ "
+            dunstify -t 10000 "An update is now available for sysZ"
         else
             echo ""
             # echo "sysZ "
