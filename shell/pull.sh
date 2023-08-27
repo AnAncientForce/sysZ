@@ -690,9 +690,15 @@ routine_func() {
 }
 
 quick_refresh_func() {
+    echo -e ${BGreen}"[*] Quick Refresh + Update [DEV]...\n" ${Color_Off}
+    repo_pull
+    cu
+    ex
+    continue_setup_func
+    cd "$current_dir"
+
     killall -9 polybar feh xwinwrap picom
     sleep 0.1
-    echo -e ${BBlue}"\n[*] [QUICK] wm-refresh" ${Color_Off}
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
     i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
     if checkJson "use_background_blur"; then
