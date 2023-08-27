@@ -111,6 +111,7 @@ dev_mode=true
 change_live_wallpaper=false
 auto_relaunch=false
 routine=false
+quick_refresh=false
 user_home=""
 json_file=""
 sysZ=""
@@ -688,6 +689,29 @@ routine_func() {
     wm_setup_func
 }
 
+quick_refresh_func() {
+    killall -9 polybar feh xwinwrap picom
+    sleep 0.1
+    echo -e ${BBlue}"\n[*] [QUICK] wm-refresh" ${Color_Off}
+    i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
+    i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
+    if checkJson "use_background_blur"; then
+        i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf --blur-background --backend glx;'
+    else
+        i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf;'
+    fi
+    if checkJson "live_wallpaper"; then
+        set_live_wallpaper
+        cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
+        if [ $(echo "$cpu_usage > 50" | bc -l) -eq 1 ]; then
+            echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
+        fi
+    else
+        i3-msg "exec feh --bg-fill $sysZ/bg;"
+    fi
+    i3-msg "reload"
+}
+
 wm_setup_func() {
     killall -9 polybar copyq feh xwinwrap picom conky nm-applet
     sleep 0.1
@@ -891,6 +915,9 @@ for arg in "$@"; do
     -a)
         auto_relaunch=true
         ;;
+    -qr)
+        quick_refresh=true
+        ;;
     *) ;;
     esac
 done
@@ -940,6 +967,9 @@ elif [ "$view_docs" = true ]; then
 
 elif [ "$routine" = true ]; then
     routine_func
+
+elif [ "$quick_refresh" = true ]; then
+    quick_refresh_func
 
 elif [ "$dev_mode" = true ]; then
     read -p "Install ujjwal96/xwinwrap?
