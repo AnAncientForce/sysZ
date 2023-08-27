@@ -921,8 +921,9 @@ for arg in "$@"; do
     -a)
         auto_relaunch=true
         ;;
-    -qr)
+    --qr)
         quick_refresh=true
+        valid_flag=true
         ;;
     *) ;;
     esac
