@@ -38,10 +38,7 @@ exec --no-startup-id nm-applet
 set $refresh_i3status killall -SIGUSR1 i3status
 
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id ~/sysZ/shell/volume_control.sh up
-bindsym XF86AudioLowerVolume exec --no-startup-id ~/sysZ/shell/volume_control.sh down
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && dunstify -t 2000 "Volume Muted"
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && dunstify -t 2000 "Microphone Muted"
+
 
 
 
@@ -195,7 +192,8 @@ bindsym $mod+r mode "resize"
 #        status_command i3status
 #}
 
-# Main Setup
+# ==================================================================================================== Main Setup ====================================================================================================
+
 new_window pixel 0
 new_float pixel 0
 client.focused = #ffffff #ffffff #000000 #c8395b
@@ -210,26 +208,32 @@ bindsym $mod+i exec sh ~/sysZ/shell/fav-gui-i3.sh
 bindsym $mod+shift+esc python ~/sysZ/main.py home
 
 
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/sysZ/shell/volume_control.sh up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/sysZ/shell/volume_control.sh down
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && dunstify -t 2000 "Volume Muted"
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && dunstify -t 2000 "Microphone Muted"
 
 bindsym XF86MonBrightnessUp exec brightnessctl set 5%+ ; exec dunstify -t 2000 "Brightness Increased" "$(brightnessctl get)"
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%- ; exec dunstify -t 2000 "Brightness Increased" "$(brightnessctl get)"
 
-set $mode_sysZ [ Open Terminal (T), Lock Workstation (L) ]
-mode "$mode_sysZ" {
-        bindsym t exec alacritty, mode "default"
-	bindsym l exec betterlockscreen -l dimblur, mode "default"
+#set $mode_sysZ [ Open Terminal (T), Lock Workstation (L) ]
+#mode "$mode_sysZ" {
+#        bindsym t exec alacritty, mode "default"
+#	bindsym l exec betterlockscreen -l dimblur, mode "default"
 	# bindsym w exec alacritty -e sh ~/sysZ/shell/cw.sh, mode "default"
 	# bindsym r exec sh ~/sysZ/shell/setup.sh, mode "default"
         # bindsym u exec alacritty -e sh ~/sysZ/shell/pull.sh, mode "default"
         # bindsym d exec alacritty -e python ~/sysZ/main.py docs", mode "default"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
+#        bindsym Return mode "default"
+#        bindsym Escape mode "default"
+#}
+#bindsym $mod+z mode "$mode_sysZ"
+
 bindsym $mod+Shift+e exec i3-msg exit
-bindsym $mod+z mode "$mode_sysZ"
 bindsym $mod+Shift+z exec sh ~/sysZ/shell/node.sh start
 bindsym Control+Shift+Escape exec plasma-systemmonitor
 exec_always sh ~/sysZ/shell/node.sh splash
+
 # exec_always sh ~/sysZ/shell/pull.sh -r
 # exec_always python ~/sysZ/main.py load
 # exec_always sh ~/sysZ/shell/setup.sh
