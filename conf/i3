@@ -203,7 +203,9 @@ bindsym $mod+i exec sh ~/sysZ/shell/fav-gui-i3.sh
 bindsym $mod+shift+esc python ~/sysZ/main.py home
 
 
-bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+# bindsym XF86MonBrightnessUp exec brightnessctl set 5%+ ; exec dunstify -t 2000 "Brightness Increased"
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+ ; exec dunstify -t 2000 "Brightness Increased" "$(brightnessctl get)"
+
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
 set $mode_sysZ [ Open Terminal (T), Lock Workstation (L) ]
