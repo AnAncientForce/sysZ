@@ -1,1 +1,0 @@
-export GDK_SCALE=2

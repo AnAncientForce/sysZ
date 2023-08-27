@@ -19,13 +19,16 @@ adjust_volume() {
     fi
 
     pactl set-sink-volume "$sink_id" "$new_volume%" >/dev/null
+    echo "$new_volume"
 }
 
 if [ "$1" = "up" ] || [ "$1" = "down" ]; then
     new_volume=$(adjust_volume "$1")
     if [ "$new_volume" -ne 0 ] && [ "$new_volume" -ne "$MAX_VOLUME" ]; then
+        echo "$new_volume"
         dunstify -t 2000 "Volume Adjusted" "$new_volume%"
     else
+        echo "$new_volume"
         dunstify -t 2000 "Volume Adjusted" "$new_volume%"
     fi
 fi
