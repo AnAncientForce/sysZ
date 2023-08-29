@@ -20,7 +20,8 @@ switch = {
     "search": open_rofi,
     "close window": close_window,
     "power": power_menu,
-    "control": control_panel
+    "control": control_panel,
+    "lock": lock
 }
 
 def process_command(command):
