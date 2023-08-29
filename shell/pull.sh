@@ -60,6 +60,7 @@ pacman_packages=(
     "gedit"
     "dunst"
     "arandr"
+    "python-pipx"
 )
 # Disable "FreeMono"
 yay_packages=(
@@ -589,7 +590,12 @@ manual() {
     fi
 
     # install module for offline voice commands
-    pip install -r $sysZ/requirements.txt
+    read -p "Install voice helper (offline)?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        source $sysZ/.venv/bin/activate
+        pip install -r $sysZ/requirements.txt
+    fi
 
     # root
     read -p "Setup QT_QPA_PLATFORMTHEME?
