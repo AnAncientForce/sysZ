@@ -40,6 +40,7 @@ def main():
                 command = recognizer.recognize_sphinx(audio).lower()
                 print("You said:", command)
                 process_command(command)
+                print("Available commands:", ', '.join(switch.keys()))
             except sr.UnknownValueError:
                 print("Sorry, could not understand audio.")
 
