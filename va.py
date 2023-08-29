@@ -1,20 +1,6 @@
 from subprocess import call
 import speech_recognition as sr
 
-def process_command(command):
-    switch = {
-        "search": open_rofi,
-        "close window": close_window,
-        "power": power_menu,
-        "control": control_panel
-    }
-    
-    action = switch.get(command, None)
-    if action:
-        action()
-    else:
-        print("Command not recognized.")
-
 def open_rofi():
     call("i3-msg 'exec betterlockscreen -l;'", shell=True)
 
@@ -26,6 +12,20 @@ def power_menu():
 
 def control_panel():
     call("i3-msg 'exec xdotool key Super+shift+z;'", shell=True)
+
+switch = {
+    "search": open_rofi,
+    "close window": close_window,
+    "power": power_menu,
+    "control": control_panel
+}
+
+def process_command(command):
+    action = switch.get(command, None)
+    if action:
+        action()
+    else:
+        print("Command not recognized.")
 
 def main():
     recognizer = sr.Recognizer()
