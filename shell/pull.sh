@@ -593,7 +593,9 @@ manual() {
     read -p "Install voice helper (offline)?
     (y/n): " choice
     if [ "$choice" = "y" ]; then
-        source $sysZ/.venv/bin/activate
+        cd $sysZ
+        python3 -m venv .venv
+        source ~/sysZ/.venv/bin/activate
         pip install -r $sysZ/requirements.txt
     fi
 
