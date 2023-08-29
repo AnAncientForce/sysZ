@@ -35,7 +35,7 @@ def main():
     recognizer = sr.Recognizer()
     microphone = sr.Microphone()
 
-    print("Listening for commands...")
+    print("")
 
     with microphone as source:
         while True:
