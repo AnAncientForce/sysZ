@@ -1,8 +1,11 @@
 from subprocess import call
 import speech_recognition as sr
 
-def open_rofi():
+def lock():
     call("i3-msg 'exec betterlockscreen -l;'", shell=True)
+
+def open_rofi():
+    call("i3-msg 'exec xdotool key Super+d;'", shell=True)
 
 def close_window():
     call("i3-msg 'exec xdotool key Super+q;'", shell=True)
