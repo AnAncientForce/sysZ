@@ -588,6 +588,9 @@ manual() {
         download_wallpapers_func
     fi
 
+    # install module for offline voice commands
+    pip install -r $sysZ/requirements.txt
+
     # root
     read -p "Setup QT_QPA_PLATFORMTHEME?
     (y/n): " choice
