@@ -37,7 +37,6 @@ pacman_packages=(
     "git"
     "xfce4-screenshooter"
     "copyq"
-    "plasma-systemmonitor"
     "ntfs-3g"
     "fuse"
     "thunar-volman"
@@ -61,6 +60,7 @@ pacman_packages=(
     "dunst"
     "arandr"
     "python-pipx"
+    "htop"
 )
 # Disable "FreeMono"
 yay_packages=(
