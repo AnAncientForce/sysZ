@@ -242,6 +242,8 @@ bindsym Control+Shift+Escape exec alacritty -e htop
 bindsym $mod+Shift+s exec xfce4-screenshooter
 bindsym Control+$mod+Left workspace prev
 bindsym Control+$mod+Right workspace next
+bindsym Alt+Tab focus right 
+bindsym $mod+Tab exec rofi -show window
 
 # exec_always sh ~/sysZ/shell/pull.sh -r
 # exec_always python ~/sysZ/main.py load
