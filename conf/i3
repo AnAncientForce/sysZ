@@ -200,7 +200,7 @@ client.urgent = #900000 #900000 #ffffff #c8395b
 gaps inner 6
 gaps outer 6
 smart_gaps on
-focus_follows_mouse no
+# focus_follows_mouse no
 
 exec_always sh ~/sysZ/shell/node.sh splash
 
@@ -208,7 +208,7 @@ bindsym $mod+q kill
 bindsym $mod+l exec betterlockscreen -l dimblur
 bindsym $mod+i exec sh ~/sysZ/shell/node.sh start
 # bindsym $mod+i exec sh ~/sysZ/shell/fav-gui-i3.sh
-bindsym $mod+shift+esc python ~/sysZ/main.py home
+# bindsym $mod+shift+esc python ~/sysZ/main.py home
 
 bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-5/launcher.sh
 # bindsym $mod+p exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
@@ -244,7 +244,8 @@ bindsym Control+$mod+Left workspace prev
 bindsym Control+$mod+Right workspace next
 bindsym $mod+Tab exec rofi -show window
 bindsym $mod+p exec arandr
-bindsym Control+Alt+Delete exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
+bindsym mod1+Tab focus right
+# bindsym Control+Alt exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
 
 # exec_always sh ~/sysZ/shell/pull.sh -r
 # exec_always python ~/sysZ/main.py load
@@ -255,6 +256,3 @@ bindsym Control+Alt+Delete exec --no-startup-id ~/.config/rofi/powermenu/type-2/
 # assign [class="LibreWolf"] 2
 # assign [class="Alacritty"] 3
 # assign [class="Thunar"] 4
-
-exec_always --no-startup-id ~/sysZ/i3-cycle-focus.py --history 2
-bindsym $mod1+Tab exec --no-startup-id i3-cycle-focus.py --switch
