@@ -206,7 +206,8 @@ exec_always sh ~/sysZ/shell/node.sh splash
 
 bindsym $mod+q kill
 bindsym $mod+l exec betterlockscreen -l dimblur
-bindsym $mod+i exec sh ~/sysZ/shell/fav-gui-i3.sh
+bindsym $mod+i exec sh ~/sysZ/shell/node.sh start
+# bindsym $mod+i exec sh ~/sysZ/shell/fav-gui-i3.sh
 bindsym $mod+shift+esc python ~/sysZ/main.py home
 
 bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-5/launcher.sh
@@ -242,3 +243,9 @@ bindsym Control+Shift+Escape exec alacritty -e htop
 # exec_always python ~/sysZ/main.py load
 # exec_always sh ~/sysZ/shell/setup.sh
 # exec xrandr --dpi 220
+
+
+ for_window    [class="Firefox"]        move container to $workspace2, title_format "Firefox"
+ for_window    [class="Librewolf"]             move container to $workspace2, title_format "Librewolf"
+ for_window    [class="Alacritty"]                 move container to $workspace3
+ for_window    [class="Thunar"]          move container to $workspace4

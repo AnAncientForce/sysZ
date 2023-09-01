@@ -759,7 +759,7 @@ wm_setup_func() {
         i3-msg "exec sh $user_home/.config/sysZ/autostart.sh;"
     fi
     i3-msg "reload"
-
+    # /etc/xdg/autostart/polkit-kde-authentication-agent-1.desktop
     # i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
     # i3-msg 'exec picom -b --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
     # check_updates
