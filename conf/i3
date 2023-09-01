@@ -245,7 +245,7 @@ bindsym Control+Shift+Escape exec alacritty -e htop
 # exec xrandr --dpi 220
 
 
- for_window [class="firefox"]   move workspace to $ws2
- for_window [class="LibreWolf"] move workspace to $ws2
- for_window [class="Alacritty"] move workspace to $ws3
- for_window [class="thunar"]    move workspace to $ws4
+ for_window [class="firefox"]   move to workspace to $ws2
+ for_window [class="LibreWolf"] move to workspace to $ws2
+ for_window [class="Alacritty"] move to workspace to $ws3
+ for_window [class="thunar"]    move to workspace to $ws4
