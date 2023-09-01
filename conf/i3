@@ -255,3 +255,6 @@ bindsym Control+Alt+Delete exec --no-startup-id ~/.config/rofi/powermenu/type-2/
 # assign [class="LibreWolf"] 2
 # assign [class="Alacritty"] 3
 # assign [class="Thunar"] 4
+
+exec_always --no-startup-id ~/sysZ/i3-cycle-focus.py --history 2
+bindsym $mod1+Tab exec --no-startup-id i3-cycle-focus.py --switch
