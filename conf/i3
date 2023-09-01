@@ -211,7 +211,7 @@ bindsym $mod+i exec sh ~/sysZ/shell/node.sh start
 bindsym $mod+shift+esc python ~/sysZ/main.py home
 
 bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-5/launcher.sh
-bindsym $mod+p exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
+# bindsym $mod+p exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/sysZ/shell/volume_control.sh up
 bindsym XF86AudioLowerVolume exec --no-startup-id ~/sysZ/shell/volume_control.sh down
@@ -242,8 +242,9 @@ bindsym Control+Shift+Escape exec alacritty -e htop
 bindsym $mod+Shift+s exec xfce4-screenshooter
 bindsym Control+$mod+Left workspace prev
 bindsym Control+$mod+Right workspace next
-bindsym alt+Tab focus right 
 bindsym $mod+Tab exec rofi -show window
+bindsym $mod+p exec arandr
+bindsym Control+Alt+Delete exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
 
 # exec_always sh ~/sysZ/shell/pull.sh -r
 # exec_always python ~/sysZ/main.py load
