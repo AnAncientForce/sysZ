@@ -246,12 +246,7 @@ bindsym $mod+Shift+s exec xfce4-screenshooter
 # exec_always sh ~/sysZ/shell/setup.sh
 # exec xrandr --dpi 220
 
-assign [class="firefox"] 2
-assign [class="LibreWolf"] 2
-assign [class="Alacritty"] 3
-assign [class="Thunar"] 4
-
-#for_window [class="firefox"]   move to workspace to $ws2
-#for_window [class="LibreWolf"] move to workspace to $ws2
-#for_window [class="Alacritty"] move to workspace to $ws3
-#for_window [class="thunar"]    move to workspace to $ws4
+# assign [class="firefox"] 2
+# assign [class="LibreWolf"] 2
+# assign [class="Alacritty"] 3
+# assign [class="Thunar"] 4
