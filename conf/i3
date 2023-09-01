@@ -98,9 +98,9 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+# bindsym $mod+s layout stacking
+# bindsym $mod+w layout tabbed
+# bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -235,6 +235,7 @@ bindsym XF86MonBrightnessDown exec brightnessctl set 5%- ; exec dunstify -t 2000
 #bindsym $mod+z mode "$mode_sysZ"
 
 bindsym $mod+v exec copyq show
+bindsym $mod+e exec thunar
 bindsym $mod+Shift+e exec i3-msg exit
 bindsym $mod+Shift+z exec sh ~/sysZ/shell/node.sh start
 bindsym Control+Shift+Escape exec alacritty -e htop
