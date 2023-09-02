@@ -731,7 +731,7 @@ quick_refresh_func() {
 }
 
 wm_setup_func() {
-    killall -9 polybar copyq feh xwinwrap picom conky nm-applet
+    killall -9 polybar copyq feh xwinwrap picom conky nm-applet mpv
     sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     i3-msg "exec nm-applet;"
