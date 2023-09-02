@@ -18,4 +18,4 @@ theme='style-5'
 rofi \
     -show drun \
     -theme ${dir}/${theme}.rasi \
-    -font "Fira Code 18"
+    -font "monospace 18"
