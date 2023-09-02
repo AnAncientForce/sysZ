@@ -8,5 +8,5 @@
  **/
 
 * {
-    font: "Cantarell 16";
+    font: "Cantarell 12";
 }
