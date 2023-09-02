@@ -2,7 +2,7 @@ i3-wm
 Only mentions the most important features, not everything is listed here.
 
 Close Window
-    Super + Shift + Q
+    Super + Q
 
 Rofi search menu (d menu)
     Super + D
@@ -11,7 +11,7 @@ End session / log out
     Super + Shift + E
 
 Refresh i3
-    Super + Shift + r
+    Super + Shift + R
 
 Move focused window to another workspace
     Super + Shift + 1-9
@@ -19,14 +19,26 @@ Move focused window to another workspace
 Change workspaces
     Super + 1-9
 
-Access sysZ helper menu
-    Super + Z
-
-Open sysZ main interface
-    Super + Shift + Z
+sysZ Main Interface
+    Super + i
 
 Lock workstation
     Super + L
 
-Powermenu
+Display Settings
     Super + P
+
+Open File Manager (Thunar)
+    Super + E
+
+Open Terminal (Alacritty)
+    Super + Enter
+
+Cycle thru active workspace's containers
+    Alt+Tab
+
+Overview of all open containers
+    Super + Tab
+
+Cycle thru workspaces
+    Control + Super + (<) LEFT_ARROW_KEY or RIGHT_ARROW_KEY (>)
