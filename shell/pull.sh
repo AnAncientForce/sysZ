@@ -389,7 +389,7 @@ cu() {
     cp "$sysZ/conf/.bashrc" "$user_home"
     if [ -f "$user_home/.config/rofi/launchers/type-1/launcher.sh" ]; then
         cp "$sysZ/conf/rofi/config.rasi" "$user_home/.config/rofi"
-        cp "$sysZ/conf/rofi/fonts.rasi" "$user_home/.config/rofi/launchers/type-1/shared"
+        cp "$sysZ/conf/rofi/fonts.rasi" "$user_home/.config/rofi/launchers/type-5/shared"
         cp "$sysZ/conf/rofi/launcher.sh" "$user_home/.config/rofi/launchers/type-1"
     fi
     if [ ! -f "$user_home/.config/sysZ/autostart.sh" ]; then
