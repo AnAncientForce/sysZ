@@ -17,5 +17,4 @@ theme='style-5'
 ## Run
 rofi \
     -show drun \
-    -theme ${dir}/${theme}.rasi \
-    -font "Arial 18"
+    -theme ${dir}/${theme}.rasi
