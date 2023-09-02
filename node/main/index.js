@@ -563,6 +563,7 @@ function validateMissingKeys() {
     "live_wallpaper",
     "developer_mode",
     "show_resources_monitor",
+    "use_autotiling",
   ];
   // "dev_test_key"
   const jsonObject = helper.getSettings();

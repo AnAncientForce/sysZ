@@ -757,6 +757,9 @@ wm_setup_func() {
     else
         i3-msg "exec feh --bg-fill $sysZ/bg;"
     fi
+    if checkJson "use_autotiling"; then
+        i3-msg "exec autotiling;"
+    fi
     #if checkJson "show_resources_monitor"; then
     #    i3-msg "exec conky -d &;"
     #fi
