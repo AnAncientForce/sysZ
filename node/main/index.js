@@ -435,6 +435,9 @@ function setupWallpaperSelection(type) {
         });
         imgElement.classList.add("selected");
         if (type == "wallpaper") {
+          const jsonObject = helper.getSettings();
+          jsonObject["live_wallpaper"] = false;
+          helper.writeSettings(jsonObject);
           executeCommand(`feh --bg-fill ${filePath}`);
           executeCommand(`cp -v ${filePath} ${sysZ}/bg`);
         }
