@@ -761,7 +761,7 @@ wm_setup_func() {
     #    i3-msg "exec conky -d &;"
     #fi
     if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
-        i3-msg "exec sh $user_home/.config/sysZ/autostart.sh;"
+        sh $user_home/.config/sysZ/autostart.sh
     fi
     i3-msg "reload"
     # /etc/xdg/autostart/polkit-kde-authentication-agent-1.desktop
