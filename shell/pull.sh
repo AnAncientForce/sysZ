@@ -387,7 +387,7 @@ cu() {
     cp "$sysZ/conf/conky.conf" "$user_home/.config/conky"
     cp "$sysZ/conf/alacritty.yml" "$user_home/.config"
     cp "$sysZ/conf/.bashrc" "$user_home"
-    if [ -f "$user_home/.config/rofi/launchers/type-1" ]; then
+    if [ -f "$user_home/.config/rofi/launchers/type-1/launcher.sh" ]; then
         cp "$sysZ/conf/launcher.sh" "$user_home/.config/rofi/launchers/type-1"
     fi
     if [ ! -f "$user_home/.config/sysZ/autostart.sh" ]; then
