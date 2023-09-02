@@ -238,12 +238,12 @@ bindsym $mod+v exec copyq show
 bindsym $mod+e exec thunar
 bindsym $mod+Shift+e exec i3-msg exit
 bindsym $mod+Shift+z exec sh ~/sysZ/shell/node.sh start
-bindsym Control+Shift+Escape exec alacritty -e htop
 bindsym $mod+Shift+s exec xfce4-screenshooter
-bindsym Control+$mod+Left workspace prev
-bindsym Control+$mod+Right workspace next
 bindsym $mod+Tab exec rofi -show window
 bindsym $mod+p exec arandr
+bindsym Control+Shift+Escape exec alacritty -e htop
+bindsym Control+$mod+Left workspace prev
+bindsym Control+$mod+Right workspace next
 bindsym mod1+Tab focus right
 # bindsym Control+Alt exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
 

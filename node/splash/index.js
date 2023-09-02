@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
   icon.classList.add("spin");
   hint_frame.classList.add("animate-up");
 
-  exec(`sh ${sysZ}/shell/pull.sh -r`, (error, stdout, stderr) => {
+  exec(`alacritty -e sh ${sysZ}/shell/pull.sh -r`, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error executing script: ${error}`);
       return;
