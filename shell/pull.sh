@@ -388,8 +388,9 @@ cu() {
     cp "$sysZ/conf/alacritty.yml" "$user_home/.config"
     cp "$sysZ/conf/.bashrc" "$user_home"
     if [ -f "$user_home/.config/rofi/launchers/type-1/launcher.sh" ]; then
-        cp "$sysZ/conf/config.rasi" "$user_home/.config/rofi"
-        cp "$sysZ/conf/launcher.sh" "$user_home/.config/rofi/launchers/type-1"
+        cp "$sysZ/conf/rofi/config.rasi" "$user_home/.config/rofi"
+        cp "$sysZ/conf/rofi/fonts.rasi" "$user_home/.config/rofi/shared"
+        cp "$sysZ/conf/rofi/launcher.sh" "$user_home/.config/rofi/launchers/type-1"
     fi
     if [ ! -f "$user_home/.config/sysZ/autostart.sh" ]; then
         mkdir -p "$user_home/.config/sysZ"
