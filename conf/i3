@@ -200,7 +200,7 @@ client.urgent = #900000 #900000 #ffffff #c8395b
 gaps inner 6
 gaps outer 6
 smart_gaps on
-# focus_follows_mouse no
+focus_follows_mouse no
 
 
 
