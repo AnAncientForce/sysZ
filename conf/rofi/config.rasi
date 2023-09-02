@@ -83,7 +83,7 @@ configuration {
 
 	/*---------- Misc setting ----------*/
 	terminal: "rofi-sensible-terminal";
-	font: "Cantarell 12";
+	font: "Cantarell 20";
 	sort: false;
 	threads: 0;
 	click-to-exit: true;
