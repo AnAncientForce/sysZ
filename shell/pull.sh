@@ -742,7 +742,6 @@ wm_setup_func() {
     i3-msg "exec nm-applet;"
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
     i3-msg "exec copyq;"
-    i3-msg "exec systemctl --user restart pulseaudio;"
     i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
     if checkJson "use_background_blur"; then
         i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf --blur-background --backend glx;'

@@ -202,7 +202,15 @@ gaps outer 6
 smart_gaps on
 # focus_follows_mouse no
 
+
+
 exec_always sh ~/sysZ/shell/node.sh splash
+
+exec_always systemctl --user restart pulseaudio
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 bindsym $mod+q kill
 bindsym $mod+l exec betterlockscreen -l dimblur
@@ -214,10 +222,7 @@ bindsym $mod+d exec --no-startup-id rofi -show
 # bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-5/launcher.sh
 # bindsym $mod+p exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
 
 #bindsym XF86AudioRaiseVolume exec --no-startup-id ~/sysZ/shell/volume_control.sh up
 #bindsym XF86AudioLowerVolume exec --no-startup-id ~/sysZ/shell/volume_control.sh down
