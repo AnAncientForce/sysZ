@@ -246,6 +246,18 @@ function page_control_panel() {
   });
   createAction("System Update", "square-button", parent, function () {
     executeCommandAndKeepTerminalOpen("alacritty -e " + "sudo pacman -Syu");
+    showDialog({
+      title: "Proceed in terminal",
+      message: "A terminal window may have opened. Please proceed there.",
+      buttons: [
+        {
+          label: "Continue",
+          action: () => {
+            //
+          },
+        },
+      ],
+    });
   });
   createAction("Update [sysZ]", "square-button", parent, function () {
     executeCommandAndKeepTerminalOpen(`alacritty -e ${sysZ}/shell/pull.sh -u`);
