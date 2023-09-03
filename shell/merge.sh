@@ -15,14 +15,17 @@ if [ -n "$delimiter_line_number" ]; then
     # Extract everything above the delimiter from TextDoc2.txt
     head -n "$stop_line_number" "$textdoc2" >temp.txt
 
-    # Append the content of TextDoc1.txt to temp.txt
-    cat "$textdoc1" >>temp.txt
-
     # Append the content below the delimiter back to temp.txt
     tail -n +$(($delimiter_line_number + 1)) "$textdoc2" >>temp.txt
 
-    # Overwrite TextDoc2.txt with the updated content
-    mv temp.txt "$textdoc2"
+    # Overwrite TextDoc2.txt with the updated content from TextDoc1.txt
+    cat "$textdoc1" >"$textdoc2"
+
+    # Append the modified content back to TextDoc2.txt
+    cat temp.txt >>"$textdoc2"
+
+    # Remove the temporary file
+    rm temp.txt
 else
     echo "Delimiter not found in $textdoc2"
 fi
