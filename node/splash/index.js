@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     white_screen.addEventListener("transitionend", () => {
       if (helper.readJSONValue("live_wallpaper")) {
-        helper.executeCommand("i3-msg 'sh ~/sysZ/shell/pull.sh --apply-lw;'");
+        helper.executeCommand("i3-msg 'sh ~/sysZ/shell/pull.sh --apply-live;'");
       }
       if (helper.readJSONValue("show_resources_monitor")) {
         helper.executeCommand("i3-msg 'exec conky -d;'");

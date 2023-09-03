@@ -941,7 +941,7 @@ for arg in "$@"; do
     -a)
         auto_relaunch=true
         ;;
-    --apply-lw)
+    --apply-live)
         if checkJson "live_wallpaper"; then
             set_live_wallpaper
         fi
