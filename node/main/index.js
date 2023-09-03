@@ -7,6 +7,7 @@ const os = require("os");
 const path = require("path");
 const dialog = require("../modules/dialog.js");
 const helper = require("../modules/helper.js");
+const { group } = require("console");
 // const jSettings = fs.readFileSync(`${os.homedir()}/.config/sysZ/config.json`);
 var notUsingLinux = false;
 let sysZ;
@@ -87,8 +88,34 @@ function createAction(text, optionalClass, section, action, caArgs) {
     div.appendChild(document.createTextNode(text));
   }
 
+  if (caArgs?.group) {
+    if (caArgs.group.length > 0) {
+      var groupDiv;
+      if (document.getElementById(caArgs.group)) {
+        // group already exists, add child
+        groupDiv = document.getElementById(caArgs.group);
+        groupDiv.appendChild(div);
+      } else {
+        // create group, attach child
+        groupDiv = document.createElement("div");
+        groupDiv.id = caArgs.group;
+        groupDiv.style.borderColor = "red";
+        groupDiv.style.border = "2px solid white";
+        groupDiv.style.borderRadius = "16px";
+        groupDiv.style.textAlign = "center";
+        groupDiv.appendChild(document.createTextNode(caArgs.group));
+        groupDiv.appendChild(div);
+        document.getElementById(section).appendChild(groupDiv);
+      }
+    }
+  }
+
   div.onclick = action;
-  document.getElementById(section).appendChild(div);
+  if (!caArgs?.group) {
+    // not using group, so append default
+    document.getElementById(section).appendChild(div);
+  }
+
   // console.log("Appended", `action${actionIndexer}`, text);
   caArgs = {};
   return div;
@@ -221,71 +248,218 @@ function page_control_panel() {
   const parent = "section-control-panel-btns";
 
   // Actions
-  createAction("Change Appearance", "square-button", parent, function () {
-    executeCommand(
-      "i3-msg 'exec qt5ct; exec lxappearance; exec font-manager;'"
-    );
-  });
-  createAction("Change Wallpaper", "square-button", parent, function () {
-    /*
+  createAction(
+    "Change Appearance",
+    "square-button",
+    parent,
+    function () {
+      executeCommand(
+        "i3-msg 'exec qt5ct; exec lxappearance; exec font-manager;'"
+      );
+    },
+    {
+      showTitle: true,
+      group: "Appearance",
+      useImg: true,
+      imgSrc: "../images/colour.png",
+      imgAlt: "alt",
+    }
+  );
+  createAction(
+    "Change Wallpaper",
+    "square-button",
+    parent,
+    function () {
+      /*
     executeCommandAndKeepTerminalOpen(
       `alacritty -e ${sysZ}/shell/pull.sh --cw`
     );
     */
-    changeSection("section-wallpaper");
-    setupWallpaperSelection("wallpaper");
-  });
-  createAction("Change Live Wallpaper", "square-button", parent, function () {
-    executeCommandAndKeepTerminalOpen(
-      `alacritty -e ${sysZ}/shell/pull.sh --lw`
-    );
-    /*
+      changeSection("section-wallpaper");
+      setupWallpaperSelection("wallpaper");
+    },
+    {
+      showTitle: true,
+      group: "Appearance",
+      useImg: true,
+      imgSrc: "../images/wallpaper.png",
+      imgAlt: "alt",
+    }
+  );
+  createAction(
+    "Change Live Wallpaper",
+    "square-button",
+    parent,
+    function () {
+      executeCommandAndKeepTerminalOpen(
+        `alacritty -e ${sysZ}/shell/pull.sh --lw`
+      );
+      /*
     changeSection("section-video");
     setupWallpaperSelection("video");
     */
-  });
-  createAction("System Update", "square-button", parent, function () {
-    executeCommandAndKeepTerminalOpen("alacritty -e " + "sudo pacman -Syu");
-    showDialog({
-      title: "Proceed in terminal",
-      message: "A terminal window may have opened. Please proceed there.",
-      buttons: [
-        {
-          label: "Continue",
-          action: () => {
-            //
+    },
+    {
+      showTitle: true,
+      group: "Appearance",
+      useImg: true,
+      imgSrc: "../images/live-wallpaper.png",
+      imgAlt: "alt",
+    }
+  );
+  createAction(
+    "System Update",
+    "square-button",
+    parent,
+    function () {
+      executeCommandAndKeepTerminalOpen("alacritty -e " + "sudo pacman -Syu");
+      showDialog({
+        title: "Proceed in terminal",
+        message: "A terminal window may have opened. Please proceed there.",
+        buttons: [
+          {
+            label: "Continue",
+            action: () => {
+              //
+            },
           },
-        },
-      ],
-    });
-  });
-  createAction("Update [sysZ]", "square-button", parent, function () {
-    executeCommandAndKeepTerminalOpen(`alacritty -e ${sysZ}/shell/pull.sh -u`);
-  });
-  createAction("Restart [sysZ]", "square-button", parent, function () {
-    executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh -r;'`);
-  });
+        ],
+      });
+    },
+    {
+      showTitle: true,
+      group: "System",
+      useImg: true,
+      imgSrc: "../images/update.png",
+      imgAlt: "alt",
+    }
+  );
+  createAction(
+    "Update [sysZ]",
+    "square-button",
+    parent,
+    function () {
+      executeCommandAndKeepTerminalOpen(
+        `alacritty -e ${sysZ}/shell/pull.sh -u`
+      );
+    },
+    {
+      showTitle: true,
+      group: "sysZ",
+      useImg: true,
+      imgSrc: "../images/update.png",
+      imgAlt: "alt",
+    }
+  );
+  createAction(
+    "Refresh [sysZ]",
+    "square-button",
+    parent,
+    function () {
+      executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh -r;'`);
+    },
+    {
+      showTitle: true,
+      group: "sysZ",
+      useImg: true,
+      imgSrc: "../images/restart.png",
+      imgAlt: "alt",
+    }
+  );
 
   // System
-  createAction("Open Terminal", "square-button", parent, function () {
-    executeCommand("i3-msg 'exec alacritty;'");
-  });
-  createAction("Lock", "square-button", parent, function () {
-    executeCommand("i3-msg 'exec betterlockscreen -l dimblur;'");
-  });
-  createAction("Logout", "square-button", parent, function () {
-    executeCommand("i3-msg exit");
-  });
-  createAction("Restart", "square-button", parent, function () {
-    executeCommand("systemctl reboot");
-  });
-  createAction("Shutdown", "square-button", parent, function () {
-    executeCommand("systemctl poweroff");
-  });
+  createAction(
+    "Lock",
+    "square-button",
+    parent,
+    function () {
+      executeCommand("i3-msg 'exec betterlockscreen -l dimblur;'");
+    },
+    {
+      showTitle: true,
+      group: "System",
+      useImg: true,
+      imgSrc: "../images/lock.png",
+      imgAlt: "alt",
+    }
+  );
+  createAction(
+    "Logout",
+    "square-button",
+    parent,
+    function () {
+      executeCommand("i3-msg exit");
+    },
+    {
+      showTitle: true,
+      group: "System",
+      useImg: true,
+      imgSrc: "../images/logout.png",
+      imgAlt: "alt",
+    }
+  );
+  createAction(
+    "Restart",
+    "square-button",
+    parent,
+    function () {
+      executeCommand("systemctl reboot");
+    },
+    {
+      showTitle: true,
+      group: "System",
+      useImg: true,
+      imgSrc: "../images/restart.png",
+      imgAlt: "alt",
+    }
+  );
+  createAction(
+    "Shutdown",
+    "square-button",
+    parent,
+    function () {
+      executeCommand("systemctl poweroff");
+    },
+    {
+      showTitle: true,
+      group: "System",
+      useImg: true,
+      imgSrc: "../images/shutdown.png",
+      imgAlt: "alt",
+    }
+  );
 
-  createAction("Autostart", "square-button", parent, function () {
-    executeCommand("i3-msg 'exec gedit ~/.config/sysZ/autostart.sh;'");
-  });
+  createAction(
+    "Open Terminal",
+    "square-button",
+    parent,
+    function () {
+      executeCommand("i3-msg 'exec alacritty;'");
+    },
+    {
+      showTitle: true,
+      group: "Other",
+      useImg: true,
+      imgSrc: "../images/terminal.png",
+      imgAlt: "Help",
+    }
+  );
+
+  createAction(
+    "Autostart",
+    "square-button",
+    parent,
+    function () {
+      executeCommand("i3-msg 'exec gedit ~/.config/sysZ/autostart.sh;'");
+    },
+    {
+      showTitle: true,
+      group: "Other",
+      useImg: true,
+      imgSrc: "../images/autostart.png",
+      imgAlt: "Help",
+    }
+  );
   createAction(
     "xscale",
     "",
@@ -310,6 +484,17 @@ function page_control_panel() {
       imgAlt: "Help",
     }
   );
+
+  if (document.getElementById("Appearance")) {
+    document
+      .getElementById("Appearance")
+      .appendChild(document.getElementById("xscale"));
+  }
+  /*
+  document
+    .getElementById("section-control-panel-btns")
+    .appendChild(document.getElementById("xscale"));
+    */
 }
 
 function loadDoc(doc) {

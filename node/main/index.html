@@ -9,9 +9,9 @@
     -->
   </head>
   <body id="body" class="non-selectable">
-    <div id="grid-overlay" class="grid-overlay"></div>
     <div id="notification" class="notification slide">beep</div>
-    <div id="qq" class="settings-container fixed">
+    <div id="grid-overlay" class="grid-overlay"></div>
+    <div id="qq" class="settings-container">
       <section id="section-load">
         <div class="center">
           <img id="load_img" class="spin" src="../../load.png" />
@@ -34,16 +34,18 @@
       </section>
       <section id="section-control-panel">
         <h1 style="text-align: center">sysZ | Control Panel</h1>
-        <div id="section-control-panel-btns" class="button-container"></div>
-        <div id="xscale">
-          <label for="xresourcesScale">Scale</label>
-          <input
-            type="number"
-            id="xresourcesScale"
-            name="xresourcesScale"
-            min="96"
-            max="296"
-          />
+
+        <div id="section-control-panel-btns">
+          <div id="xscale">
+            <label for="xresourcesScale">Scale</label>
+            <input
+              type="number"
+              id="xresourcesScale"
+              name="xresourcesScale"
+              min="96"
+              max="296"
+            />
+          </div>
         </div>
       </section>
       <section id="section-guide">

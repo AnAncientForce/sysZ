@@ -23,6 +23,8 @@ body {
 }
 
 .grid-overlay {
+  z-index: -1;
+  overflow-y: hidden;
   position: fixed;
   top: 0;
   left: 0;
@@ -42,7 +44,7 @@ body {
   position: absolute;
   z-index: -2;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   object-fit: cover;
   animation-name: fadein;
   animation-duration: 2s;
@@ -64,16 +66,20 @@ body {
 .settings-container {
   /* display: flex; */
   /* flex-direction: column; */
-  border: 4px;
-  border-radius: 4px;
-  border-color: white;
-  /* background-color: thistle; */
+  /* border: 4px solid red; */
+  position: fixed;
+  /*
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 60%;
   height: 90%;
+  */
+  display: flex;
+  justify-content: center; /* Horizontally center items */
   font-size: medium;
+  width: 100%;
+  height: 88%;
   /* overflow-y: auto; */
 }
 .settings-container.fixed {
@@ -93,8 +99,8 @@ body {
 }
 
 textarea {
-  width: 750px; /* Set the desired width */
-  height: 500px; /* Set the desired height */
+  width: 70vw; /* Set the desired width as a percentage of the viewport width */
+  height: 70vh; /* Set the desired height as a percentage of the viewport height */
   border-radius: 10px; /* Add rounded corners */
   padding: 10px; /* Add padding to create spacing between content and border */
   font-family: Arial, sans-serif; /* Set desired font */
@@ -106,7 +112,7 @@ textarea {
   display: grid;
   grid-template-columns: repeat(
     auto-fill,
-    minmax(200px, 1fr)
+    minmax(100px, 1fr)
   ); /* Increase minmax value */
   gap: 10px;
 }
@@ -133,19 +139,20 @@ textarea {
   text-align: center;
   flex-direction: column;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   transition: transform 0.3s;
   margin: 5%;
   padding: 10px; /* Add padding to the button */
   width: auto; /* Let the content determine the width */
   height: auto; /* Let the content determine the height */
-  word-wrap: break-word;
   user-select: none;
   /* Define a custom animation keyframes */
 
   /* Apply the animation on the button */
   animation: dropInAnimation 0.5s ease-out; /* Adjust duration and timing function as needed */
+
+  font-size: 2vw; /* Set initial font size relative to viewport width */
+  line-height: 1.2;
+  max-height: 20vh; /* Adjust the height of each item as needed */
 }
 
 #section-settings {
@@ -251,16 +258,16 @@ textarea {
   text-align: center;
   flex-direction: column;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   transition: transform 0.3s;
   margin: 5%;
-  padding: 10px;
-  width: 200px !important;
   height: auto;
   word-wrap: break-word;
   user-select: none;
   animation: dropInAnimation 0.5s ease-out;
+
+  font-size: 2vw; /* Set initial font size relative to viewport width */
+  line-height: 1.2;
+  max-height: 20vh; /* Adjust the height of each item as needed */
 }
 #xscale img {
   padding: 2.5%;
@@ -459,6 +466,8 @@ textarea {
 
 #tips {
   pointer-events: none;
+  font-size: 2vw; /* Set initial font size relative to viewport width */
+  line-height: 1.2;
 }
 
 #tips-nav {
@@ -479,6 +488,18 @@ textarea {
   width: 7.5vw;
   border-radius: 16px;
 }
+
+/* ================================================== */
+
+#section-control-panel-btns {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next row when necessary */
+  gap: 10px; /* Adjust the gap between items as needed */
+  max-height: 80vh; /* Set a maximum height for the container */
+  overflow-y: auto; /* Add a vertical scrollbar when content overflows the height */
+}
+
+/* ================================================== */
 
 /* ================================== NOT USED ================================================================================== */
 
@@ -522,6 +543,7 @@ textarea {
   color: red;
   background-color: aquamarine;
   right: 0;
+  pointer-events: none;
 }
 
 .singleaction {
