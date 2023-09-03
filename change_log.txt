@@ -1,1 +1,1 @@
-23/08/2023 | Added scale setting, updated interface (let me know if there's any issues)
+03/09/2023 | Fixed live wallpaper. Check change log for more information, and as always: (let me know if there's any issues)

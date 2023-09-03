@@ -1,3 +1,6 @@
+03/09/2023 | Fixed live wallpaper (please ensure there are no spaces in the file name)
+02/09/2023 | Replaced animations with fade effects
+01/09/2023 | Adjusted polybar height scaling 
 27/08/2023 | Made polybar cleaner by removing unnecessary modules
 27/08/2023 | Added more user feedback, for example a notification for whenever the user adjusts the volume.
 26/08/2023 | Added back/forward button for tips
