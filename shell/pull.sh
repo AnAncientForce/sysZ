@@ -382,7 +382,7 @@ cu() {
     mkdir -p "$user_home/.config/sysZ"
     mkdir -p "$user_home/.config/kitty"
     mkdir -p "$user_home/.config/conky"
-    # cp "$sysZ/conf/i3" "$user_home/.config/i3/config"
+    cp "$sysZ/conf/i3" "$user_home/.config/i3/config"
     cp "$sysZ/conf/kitty.conf" "$user_home/.config/kitty"
     cp "$sysZ/conf/conky.conf" "$user_home/.config/conky"
     cp "$sysZ/conf/alacritty.yml" "$user_home/.config"
