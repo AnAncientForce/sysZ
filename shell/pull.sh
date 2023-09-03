@@ -748,13 +748,16 @@ wm_setup_func() {
     else
         i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf;'
     fi
-    if checkJson "live_wallpaper"; then
-        set_live_wallpaper
-        cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
-        if [ $(echo "$cpu_usage > 50" | bc -l) -eq 1 ]; then
-            echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
-        fi
-    else
+    #if checkJson "live_wallpaper"; then
+    #    set_live_wallpaper
+    #    cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
+    #    if [ $(echo "$cpu_usage > 50" | bc -l) -eq 1 ]; then
+    #        echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
+    #    fi
+    #else
+    #    i3-msg "exec feh --bg-fill $sysZ/bg;"
+    #fi
+    if ! checkJson "live_wallpaper"; then
         i3-msg "exec feh --bg-fill $sysZ/bg;"
     fi
     if checkJson "use_autotiling"; then
