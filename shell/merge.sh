@@ -4,8 +4,8 @@
 textdoc1="/home/$(whoami)/sysZ/conf/i3"
 textdoc2="/home/$(whoami)/.config/i3/config"
 
-# Find the line number of the "=============================" line in TextDoc2.txt
-delimiter_line_number=$(grep -n "#=====EDIT_UNDER_THIS_LINE=====" "$textdoc2" | cut -d ':' -f 1)
+# Find the line number of the first "=============================" line in TextDoc2.txt
+delimiter_line_number=$(grep -n -m 1 "#=====EDIT_UNDER_THIS_LINE=====" "$textdoc2" | cut -d ':' -f 1)
 
 # If the delimiter is found, proceed with the replacement
 if [ -n "$delimiter_line_number" ]; then
