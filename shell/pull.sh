@@ -937,6 +937,11 @@ for arg in "$@"; do
         install_yay=true
         valid_flag=true
         ;;
+    -ri3)
+        cp "$sysZ/conf/i3" "$user_home/.config/i3/config"
+        echo -e ${BGreen}"\nReset i3 config with default\n" ${Color_Off}
+        exit 0
+        ;;
     -k)
         echo -e ${BRed}"kill_wallpaper_handler\n" ${Color_Off}
         kill_wallpaper_handler
