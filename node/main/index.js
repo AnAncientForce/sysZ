@@ -102,6 +102,7 @@ function createAction(text, optionalClass, section, action, caArgs) {
         groupDiv.style.borderColor = "red";
         groupDiv.style.border = "2px solid white";
         groupDiv.style.borderRadius = "16px";
+        groupDiv.style.fontWeight = "bold";
         groupDiv.style.textAlign = "center";
         groupDiv.appendChild(document.createTextNode(caArgs.group));
         groupDiv.appendChild(div);

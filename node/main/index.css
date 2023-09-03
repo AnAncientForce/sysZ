@@ -264,7 +264,6 @@ textarea {
   user-select: none;
   animation: dropInAnimation 0.5s ease-out;
 
-  font-size: 2vw; /* Set initial font size relative to viewport width */
   line-height: 1.2;
   max-height: 20vh; /* Adjust the height of each item as needed */
 }
@@ -465,7 +464,6 @@ textarea {
 
 #tips {
   pointer-events: none;
-  font-size: 2vw; /* Set initial font size relative to viewport width */
   line-height: 1.2;
 }
 
