@@ -1,3 +1,4 @@
+03/09/2023 | Design improvements to main interface (scaling, control panel categories)
 03/09/2023 | Fixed live wallpaper (please ensure there are no spaces in the file name)
 02/09/2023 | Removed audio change notifications because the method I was using wasn't efficient for multiple devices.
 02/09/2023 | Replaced animations with fade effects
