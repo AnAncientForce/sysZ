@@ -9,14 +9,14 @@ delimiter_line_number=$(grep -n "#=====EDIT_UNDER_THIS_LINE=====" "$textdoc2" | 
 
 # If the delimiter is found, proceed with the replacement
 if [ -n "$delimiter_line_number" ]; then
-    # Extract everything above and including the delimiter from TextDoc2.txt
-    head -n "$delimiter_line_number" "$textdoc2" >temp.txt
+    # Extract everything under the delimiter from TextDoc2.txt
+    tail -n +"$delimiter_line_number" "$textdoc2" >temp.txt
 
-    # Append the content of TextDoc1.txt to temp.txt
-    cat "$textdoc1" >>temp.txt
+    # Prepend the content of TextDoc1.txt to temp.txt
+    cat "$textdoc1" temp.txt >updated_temp.txt
 
     # Overwrite TextDoc2.txt with the updated content
-    mv temp.txt "$textdoc2"
+    mv updated_temp.txt "$textdoc2"
 else
     echo "Delimiter not found in $textdoc2"
 fi
