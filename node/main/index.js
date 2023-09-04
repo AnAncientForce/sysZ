@@ -538,7 +538,7 @@ function page_guide() {
 function page_change_log() {
   changeSection("section-change-log");
   fs.readFile(
-    path.join(__dirname, "./change_log_history.txt"),
+    path.join(__dirname, "../change_log_history.txt"),
     "utf8",
     (error, content) => {
       if (error) {
