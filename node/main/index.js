@@ -807,14 +807,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   page_home();
   if (helper.readJSONValue("show_change_log") || notUsingLinux) {
-    fs.readFile("../change_log.txt", "utf8", (err, data) => {
+    fs.readFile("../change_log_history.txt", "utf8", (err, data) => {
       if (err) {
         console.error("Error reading file:", err);
         return;
       }
+      const firstLine = data.split("\n")[0];
       showDialog({
         title: "Change Log",
-        message: data,
+        message: firstLine,
         buttons: [
           {
             label: "Dismiss",
