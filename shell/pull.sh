@@ -645,6 +645,15 @@ auto_sysZ_install_func() {
         echo -e "${BRed}\n[!] The current user must be in the sudoers wheel group." "${Color_Off}"
         return 1
     fi
+    echo -e "${BRed}\n[*] Please note that:" "${Color_Off}"
+    echo -e "${BPurple}\n[*] Throughout the installation you will be asked to enter your sudo password." "${Color_Off}"
+    echo -e "${BPurple}\n[*] When the installation completes you wil automatically be logged out." "${Color_Off}"
+    read -p "Start the automatic installer?
+    (y/n): " choice
+    if [ "$choice" != "y" ]; then
+        echo -e "${BRed}\n[!] Installer has stopped" "${Color_Off}"
+        return 1
+    fi
 
     echo -e ${BBlue}"\n[*] Automatic install is starting; information will be logged at all times." ${Color_Off}
 
@@ -717,12 +726,7 @@ auto_sysZ_install_func() {
 
     cd "$current_dir"
 
-    # logout
-    read -p "Installation complete! You are about to be logged out. Proceed?
-    (y/n): " choice
-    if [ "$choice" = "y" ]; then
-        i3-msg exit
-    fi
+    i3-msg exit
 }
 
 check_updates() {
