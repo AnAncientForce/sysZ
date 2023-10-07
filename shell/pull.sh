@@ -639,7 +639,7 @@ empty_folder() {
 auto_sysZ_install_func() {
 
     # privileges check
-    if ! [ "$(id -u)" = 0 ]; then
+    if ! groups | grep -q '\<wheel\>'; then
         echo -e "${BRed}\n[!] User must be a 'superuser'." "${Color_Off}"
         return 1
     fi
