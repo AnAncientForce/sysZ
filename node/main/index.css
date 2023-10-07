@@ -463,6 +463,8 @@ textarea {
 }
 
 #tips {
+  min-height: fit-content;
+  min-width: fit-content;
   pointer-events: none;
   line-height: 1.2;
 }

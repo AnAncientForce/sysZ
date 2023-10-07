@@ -115,6 +115,7 @@ change_live_wallpaper=false
 auto_relaunch=false
 routine=false
 quick_refresh=false
+auto_sysZ_install=false
 user_home=""
 json_file=""
 sysZ=""
@@ -620,6 +621,77 @@ manual() {
     cd "$current_dir"
 }
 
+# ==================
+auto_sysZ_install_func() {
+    echo -e ${BBlue}"\n[*] Automatic install is starting; information will be logged at all times." ${Color_Off}
+
+    if [ -f "$user_home/.config/sysZ" ]; then
+        echo "Deleting sysZ configurations..."
+        rm -r "$user_home/.config/sysZ"
+    fi
+
+    if [ -d "$sysZ" ]; then
+        rm -r "$sysZ"
+    fi
+
+    repo_pull
+
+    # configuration files
+    cu
+
+    # make files executable
+    ex
+
+    # validate json keys
+    validate_keys
+
+    # install yay
+    git_install_yay
+
+    # packages & update
+    install_rec_yay
+    echo -e "${BRed}[*] Attention Required${Color_Off}"
+    install_rec_pacman
+    sudo pacman -Syu
+
+    # sysZ / config.json
+    cp "$user_home/sysZ/conf/config.json" "$user_home/.config/sysZ"
+    cp "$user_home/sysZ/conf/autostart.sh" "$user_home/.config/sysZ"
+    if [ -f "$user_home/.config/sysZ/config.json" ]; then
+        echo "sysZ config copied successfully"
+    else
+        echo "sysZ config did not copy successfully"
+    fi
+
+    echo "Scanning for changes in default applications"
+
+    # setup npm
+    npm_setup
+
+    # install xwinwrap
+    git_install_xwinwrap
+
+    # install starship
+    cd ~
+    curl -sS https://starship.rs/install.sh | sh
+
+    # rofi
+    git_install_rofi
+
+    # wallpapers
+    download_wallpapers_func
+
+    # root (QT_QPA_PLATFORMTHEME?)
+    sudo sh $sysZ/shell/root.sh
+
+    # render lockscreen
+    continue_setup_func
+
+    cd "$current_dir"
+
+    wm_setup_func
+}
+
 check_updates() {
     if ! checkJson "ignore_updates"; then
         current_dir=$(pwd)
@@ -824,6 +896,7 @@ help() {
     echo -e ${BGreen}"[*] --routine     : Updates sysZ (automatically installs dependencies) & Arch Linux" ${Color_Off}
     echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
     echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
+    echo -e ${BBlue}"[*] --auto        : Automatically installs sysZ" ${Color_Off}
     # echo -e ${BGreen}"[*] --automatic   : Updates sysZ & Updates Arch Linux & Installs any new recommended packages" ${Color_Off}
     exit 0
 }
@@ -960,6 +1033,10 @@ for arg in "$@"; do
         quick_refresh=true
         valid_flag=true
         ;;
+    --auto)
+        auto_sysZ_install=true
+        valid_flag=true
+        ;;
     *) ;;
     esac
 done
@@ -1012,6 +1089,9 @@ elif [ "$routine" = true ]; then
 
 elif [ "$quick_refresh" = true ]; then
     quick_refresh_func
+
+elif [ "$auto_sysZ_install" = true ]; then
+    auto_sysZ_install_func
 
 elif [ "$dev_mode" = true ]; then
     read -p "Install ujjwal96/xwinwrap?
