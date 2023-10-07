@@ -646,7 +646,7 @@ auto_sysZ_install_func() {
         return 1
     fi
     echo -e "${BRed}\n[*] Please note that:" "${Color_Off}"
-    echo -e "${BPurple}\n[*] Throughout the installation you will be asked to enter your sudo password." "${Color_Off}"
+    echo -e "${BPurple}\n[*] Throughout the installation you will be asked to enter your sudo password multiple time(s)." "${Color_Off}"
     echo -e "${BPurple}\n[*] When the installation completes you wil automatically be logged out." "${Color_Off}"
     read -p "Start the automatic installer?
     (y/n): " choice
@@ -931,9 +931,9 @@ help() {
     echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print, tools]" ${Color_Off}
     echo -e ${BGreen}"[*] --set         : sysZ settings | Usage: --set [w _KEY _BOOL, r]" ${Color_Off}
     echo -e ${BGreen}"[*] --routine     : Updates sysZ (automatically installs dependencies) & Arch Linux" ${Color_Off}
-    echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
-    echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
     echo -e ${BBlue}"[*] --auto        : Automatically installs sysZ" ${Color_Off}
+    # echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
+    # echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
     # echo -e ${BGreen}"[*] --automatic   : Updates sysZ & Updates Arch Linux & Installs any new recommended packages" ${Color_Off}
     exit 0
 }
