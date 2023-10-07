@@ -435,7 +435,8 @@ git_install_xwinwrap() {
     git clone https://github.com/ujjwal96/xwinwrap.git
     cd xwinwrap
     make
-    sudo make install
+    # sudo make install
+    sudo make DESTDIR=/usr/local install
     make clean
 }
 install_rec_pacman() {
