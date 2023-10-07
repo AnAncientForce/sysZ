@@ -630,9 +630,9 @@ auto_sysZ_install_func() {
         rm -r "$user_home/.config/sysZ"
     fi
 
-    if [ -d "$sysZ" ]; then
-        rm -r "$sysZ"
-    fi
+    #if [ -d "$sysZ" ]; then
+    #    rm -r "$sysZ"
+    #fi
 
     repo_pull
 
