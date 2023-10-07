@@ -450,10 +450,10 @@ textarea {
   border-style: dashed;
   border-radius: 15px;
   background-color: skyblue;
-  min-height: fit-content;
-  min-width: fit-content;
-  height: 20vh;
+  /* height: 20vh; */
   width: 40vh;
+  min-height: fit-content;
+  min-width: 40vh;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   opacity: 0.9;
   color: #3a75c4;
@@ -463,8 +463,6 @@ textarea {
 }
 
 #tips {
-  min-height: fit-content;
-  min-width: fit-content;
   pointer-events: none;
   line-height: 1.2;
 }

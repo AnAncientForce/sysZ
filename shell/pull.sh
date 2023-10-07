@@ -622,17 +622,39 @@ manual() {
 }
 
 # ==================
+empty_folder() {
+    local folder_path="$1"
+    if [ -d "$folder_path" ]; then
+        cd "$folder_path"
+        for file in *; do
+            if [ -f "$file" ]; then
+                rm "$file"
+            fi
+        done
+    else
+        echo "Folder does not exist $folder_path"
+    fi
+}
+
 auto_sysZ_install_func() {
+    # privileges check
+    if [ "$(id -u)" = 0 ] || [ "$(id -un)" = "root" ]; then
+        # Continue
+    else
+        echo -e ${BRed}"\n[!] Installer must be running as either 'su' or via a superuser." ${Color_Off}
+        return 1
+    fi
+
     echo -e ${BBlue}"\n[*] Automatic install is starting; information will be logged at all times." ${Color_Off}
 
     if [ -f "$user_home/.config/sysZ" ]; then
         echo "Deleting sysZ configurations..."
         rm -r "$user_home/.config/sysZ"
     fi
-
-    #if [ -d "$sysZ" ]; then
-    #    rm -r "$sysZ"
-    #fi
+    if [ -d "$sysZ" ]; then
+        empty_folder "$sysZ/wallpapers"
+        empty_folder "$sysZ/node/node_modules"
+    fi
 
     repo_pull
 
@@ -684,12 +706,21 @@ auto_sysZ_install_func() {
     # root (QT_QPA_PLATFORMTHEME?)
     sudo sh $sysZ/shell/root.sh
 
+    # set default wallpaper
+    cp -v $sysZ/wallpapers/sysz-default-bg.png $sysZ/bg
+    saveJson "live_wallpaper" "false"
+
     # render lockscreen
     continue_setup_func
 
     cd "$current_dir"
 
-    wm_setup_func
+    # logout
+    read -p "Installation complete! You are about to be logged out. Proceed?
+    (y/n): " choice
+    if [ "$choice" = "y" ]; then
+        i3-msg exit
+    fi
 }
 
 check_updates() {
