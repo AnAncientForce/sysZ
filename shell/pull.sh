@@ -639,8 +639,8 @@ empty_folder() {
 auto_sysZ_install_func() {
 
     # privileges check
-    if ! [ "$(id -u)" = 0 ] || ! [ "$(id -un)" = "root" ]; then
-        echo -e ${BRed}"\n[!] Installer must be running as either 'su' or via a superuser." ${Color_Off}
+    if ! [ "$(id -u)" = 0 ] then
+        echo -e ${BRed}"\n[!] User must be a 'superuser'." ${Color_Off}
         return 1
     fi
 
