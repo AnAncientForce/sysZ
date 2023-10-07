@@ -580,7 +580,6 @@ manual() {
     (y/n): " choice
     if [ "$choice" = "y" ]; then
         cd ~
-        export STARSHIP_INIT=1
         curl -sS https://starship.rs/install.sh | sh
     fi
 
@@ -697,6 +696,7 @@ auto_sysZ_install_func() {
 
     # install starship
     cd ~
+    export STARSHIP_INIT=1
     curl -sS https://starship.rs/install.sh | sh
 
     # rofi
