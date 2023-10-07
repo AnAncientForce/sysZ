@@ -427,7 +427,8 @@ git_install_yay() {
     fi
     git clone https://aur.archlinux.org/yay.git
     cd yay
-    makepkg -si
+    # makepkg -si
+    yes | makepkg -si
     yay --version
 }
 git_install_xwinwrap() {
@@ -578,6 +579,7 @@ manual() {
     (y/n): " choice
     if [ "$choice" = "y" ]; then
         cd ~
+        export STARSHIP_INIT=1
         curl -sS https://starship.rs/install.sh | sh
     fi
 
@@ -640,7 +642,7 @@ auto_sysZ_install_func() {
 
     # privileges check
     if ! groups | grep -q '\<wheel\>'; then
-        echo -e "${BRed}\n[!] User must be a 'superuser'." "${Color_Off}"
+        echo -e "${BRed}\n[!] The current user must be in the sudoers wheel group." "${Color_Off}"
         return 1
     fi
 
