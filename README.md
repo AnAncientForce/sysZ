@@ -26,8 +26,8 @@ WARNING! ~ This tool will override many of your configuration files! If you alre
 4. While using the [archinstall](https://github.com/archlinux/archinstall) script, select the `i3 window manager` in the `Profile(desktop` section.
 5. Once Arch Linux has been setup, login to a user account and open a terminal ($mod+enter). In the terminal, run `sudo pacman -S git` and from the home directory, run `git clone https://github.com/AnAncientForce/sysZ.git`
 6. Once cloned, `cd` into the `~/sysZ/shell` folder
-7. Run `sh pull.sh --first-setup`, you will be asked a few questions about what you would like to be installed. The [required] options are necessary otherwise things may not function as expected.
-8.  Once complete, re-open your terminal and run `sysZ -u` and confirm that it is working. Once done you can reboot.
+7. Run `sh pull.sh --auto`
+8. Proceed with any additional prompts
 
 # Dependencies
 - [i3-gaps](https://github.com/Airblader/i3)
