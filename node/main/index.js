@@ -670,8 +670,8 @@ function setupWallpaperSelection(type) {
           const jsonObject = helper.getSettings();
           jsonObject["live_wallpaper"] = true;
           helper.writeSettings(jsonObject);
-          executeCommand(`killall -9 mpv`);
           executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
+          executeCommand(`sysz -r`);
         });
 
         videoElement.addEventListener("mouseenter", () => {
