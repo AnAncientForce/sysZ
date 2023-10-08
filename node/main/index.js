@@ -655,6 +655,7 @@ function setupWallpaperSelection(type) {
         videoElement.id = filePath;
         videoElement.src = filePath;
         videoElement.controls = false;
+        videoElement.classList.add("thumbnail");
         thumbnailsContainer.appendChild(videoElement);
 
         videoElement.addEventListener("loadeddata", () => {
@@ -671,7 +672,6 @@ function setupWallpaperSelection(type) {
           jsonObject["live_wallpaper"] = true;
           helper.writeSettings(jsonObject);
           executeCommand(`killall -9 mpv`);
-          executeCommand(`feh --bg-fill ${filePath}`);
           executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
         });
 
