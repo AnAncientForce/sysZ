@@ -31,6 +31,10 @@ function executeCommand(command) {
     console.log("Command executed successfully");
     console.log("stdout:", stdout);
     console.log("stderr:", stderr);
+
+    if (typeof callback === "function") {
+      callback();
+    }
   });
 }
 
@@ -670,11 +674,11 @@ function setupWallpaperSelection(type) {
           const jsonObject = helper.getSettings();
           jsonObject["live_wallpaper"] = true;
           helper.writeSettings(jsonObject);
-          executeCommand(`cp -v "${filePath}" ${sysZ}/vid.mp4`);
-          setTimeout(function () {
+          executeCommand(`cp -v "${filePath}" ${sysZ}/vid.mp4`, () => {
+            console.log("copy successful");
             executeCommand(`killall -9 mpv`);
             executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh -r;'`);
-          }, 500);
+          });
           /*
           showDialog({
             title: "Success",
