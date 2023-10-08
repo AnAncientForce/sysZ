@@ -671,7 +671,7 @@ function setupWallpaperSelection(type) {
           jsonObject["live_wallpaper"] = true;
           helper.writeSettings(jsonObject);
           executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
-          executeCommand(`sysz -r`);
+          executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh -r;'`);
         });
 
         videoElement.addEventListener("mouseenter", () => {
