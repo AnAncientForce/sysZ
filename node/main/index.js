@@ -671,7 +671,7 @@ function setupWallpaperSelection(type) {
           jsonObject["live_wallpaper"] = true;
           helper.writeSettings(jsonObject);
           executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
-          setTimeout(function() {
+          setTimeout(function () {
             executeCommand(`killall -9 mpv`);
             executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh -r;'`);
           }, 500);
@@ -689,8 +689,8 @@ function setupWallpaperSelection(type) {
               },
             ],
           });
-        });
         */
+        });
         videoElement.addEventListener("mouseenter", () => {
           if (videoElement.paused) {
             videoElement.play();
