@@ -670,9 +670,12 @@ function setupWallpaperSelection(type) {
           const jsonObject = helper.getSettings();
           jsonObject["live_wallpaper"] = true;
           helper.writeSettings(jsonObject);
-          // executeCommand(`killall -9 mpv`);
           executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
-          // executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh -r;'`);
+          setTimeout(function() {
+            executeCommand(`killall -9 mpv`);
+            executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh -r;'`);
+          }, 500);
+          /*
           showDialog({
             title: "Success",
             message:
@@ -687,7 +690,7 @@ function setupWallpaperSelection(type) {
             ],
           });
         });
-
+        */
         videoElement.addEventListener("mouseenter", () => {
           if (videoElement.paused) {
             videoElement.play();
