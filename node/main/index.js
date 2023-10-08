@@ -610,6 +610,7 @@ function setupWallpaperSelection(type) {
       console.error(`Error reading folder: ${err}`);
       return;
     }
+    // ==========| IMAGES |========== //
     files.forEach((file) => {
       const filePath = path.join(folderPath, file);
       console.log(filePath);
@@ -640,33 +641,42 @@ function setupWallpaperSelection(type) {
           executeCommand(`feh --bg-fill ${filePath}`);
           executeCommand(`cp -v ${filePath} ${sysZ}/bg`);
         }
-        if (type == "video") {
-          // executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
-
-          const videoElement = document.getElementById("my-video");
-
-          videoElement.addEventListener("click", () => {
-            const jsonObject = helper.getSettings();
-            jsonObject["live_wallpaper"] = true;
-            helper.writeSettings(jsonObject);
-            executeCommand(`killall -9 mpv`);
-            executeCommand(`feh --bg-fill ${filePath}`);
-            executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
-          });
-
-          thumbnailsContainer.addEventListener("mouseenter", () => {
-            if (videoElement.paused) {
-              videoElement.play();
-            }
-          });
-
-          videoContainer.addEventListener("mouseleave", () => {
-            if (!videoElement.paused) {
-              videoElement.pause();
-            }
-          });
-        }
       });
+    });
+    // ==========| VIDEOS |========== //
+    files.forEach((file) => {
+      const filePath = path.join(folderPath, file);
+      console.log(filePath);
+      if (type == "video") {
+        // executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
+
+        const videoElement = document.createElement("video");
+        videoElement.id = filePath;
+        videoElement.src = filePath;
+        videoElement.controls = false;
+        thumbnailsContainer.appendChild(videoElement);
+
+        videoElement.addEventListener("click", () => {
+          const jsonObject = helper.getSettings();
+          jsonObject["live_wallpaper"] = true;
+          helper.writeSettings(jsonObject);
+          executeCommand(`killall -9 mpv`);
+          executeCommand(`feh --bg-fill ${filePath}`);
+          executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
+        });
+
+        thumbnailsContainer.addEventListener("mouseenter", () => {
+          if (videoElement.paused) {
+            videoElement.play();
+          }
+        });
+
+        videoContainer.addEventListener("mouseleave", () => {
+          if (!videoElement.paused) {
+            videoElement.pause();
+          }
+        });
+      }
     });
   });
 }
