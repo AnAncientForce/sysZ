@@ -636,6 +636,7 @@ function setupWallpaperSelection(type) {
           const jsonObject = helper.getSettings();
           jsonObject["live_wallpaper"] = false;
           helper.writeSettings(jsonObject);
+          executeCommand(`killall -9 mpv`);
           executeCommand(`feh --bg-fill ${filePath}`);
           executeCommand(`cp -v ${filePath} ${sysZ}/bg`);
         }
