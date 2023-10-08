@@ -41,5 +41,5 @@ while true; do
     fi
 
     # Small sleep to reduce CPU usage
-    sleep 10
+    sleep 5
 done
