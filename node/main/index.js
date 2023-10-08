@@ -649,11 +649,10 @@ function setupWallpaperSelection(type) {
       const filePath = path.join(folderPath, file);
       console.log(filePath);
       if (type == "video") {
-        // executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
-
         const videoElement = document.createElement("video");
         videoElement.id = filePath;
         videoElement.src = filePath;
+        videoElement.muted = true;
         videoElement.controls = false;
         videoElement.classList.add("thumbnail");
         thumbnailsContainer.appendChild(videoElement);
