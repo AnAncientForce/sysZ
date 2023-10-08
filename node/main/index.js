@@ -670,9 +670,22 @@ function setupWallpaperSelection(type) {
           const jsonObject = helper.getSettings();
           jsonObject["live_wallpaper"] = true;
           helper.writeSettings(jsonObject);
-          executeCommand(`killall -9 mpv`);
+          // executeCommand(`killall -9 mpv`);
           executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
-          executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh -r;'`);
+          // executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh -r;'`);
+          showDialog({
+            title: "Success",
+            message:
+              "The live wallpaper has been changed \n Please refresh the wm to see the new live wallpaper",
+            buttons: [
+              {
+                label: "Continue",
+                action: () => {
+                  //
+                },
+              },
+            ],
+          });
         });
 
         videoElement.addEventListener("mouseenter", () => {
