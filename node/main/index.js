@@ -659,7 +659,7 @@ function setupWallpaperSelection(type) {
 
         videoElement.addEventListener("loadeddata", () => {
           thumbnailsContainer.appendChild(videoElement);
-          videos.push(imgElement);
+          videos.push(videoElement);
           if (videos.length === files.length) {
             changeSection("section-video");
             console.log("All videos have been loaded");
