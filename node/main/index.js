@@ -677,11 +677,9 @@ function setupWallpaperSelection(type) {
           changeSection("section-load", caArgs);
           executeCommand(`cp -v "${filePath}" ${sysZ}/vid.mp4`, () => {
             console.log("copy successful");
-            setTimeout(function () {
-              executeCommand(`killall -9 mpv`);
-              executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh -r;'`);
-              changeSection("section-video");
-            }, 1000);
+            executeCommand(`killall -9 mpv`);
+            executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh --apply-live;'`);
+            changeSection("section-video");
           });
           /*
           showDialog({
