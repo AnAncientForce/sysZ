@@ -292,13 +292,13 @@ function page_control_panel() {
     "square-button",
     parent,
     function () {
+      /*
       executeCommandAndKeepTerminalOpen(
         `alacritty -e ${sysZ}/shell/pull.sh --lw`
       );
-      /*
-    changeSection("section-video");
-    setupWallpaperSelection("video");
-    */
+      */
+      changeSection("section-video");
+      setupWallpaperSelection("video");
     },
     {
       showTitle: true,
@@ -641,7 +641,30 @@ function setupWallpaperSelection(type) {
           executeCommand(`cp -v ${filePath} ${sysZ}/bg`);
         }
         if (type == "video") {
-          executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
+          // executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
+
+          const videoElement = document.getElementById("my-video");
+
+          videoElement.addEventListener("click", () => {
+            const jsonObject = helper.getSettings();
+            jsonObject["live_wallpaper"] = true;
+            helper.writeSettings(jsonObject);
+            executeCommand(`killall -9 mpv`);
+            executeCommand(`feh --bg-fill ${filePath}`);
+            executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
+          });
+
+          thumbnailsContainer.addEventListener("mouseenter", () => {
+            if (videoElement.paused) {
+              videoElement.play();
+            }
+          });
+
+          videoContainer.addEventListener("mouseleave", () => {
+            if (!videoElement.paused) {
+              videoElement.pause();
+            }
+          });
         }
       });
     });
