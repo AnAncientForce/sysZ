@@ -665,13 +665,13 @@ function setupWallpaperSelection(type) {
           executeCommand(`cp -v ${filePath} ${sysZ}/vid.mp4`);
         });
 
-        thumbnailsContainer.addEventListener("mouseenter", () => {
+        videoElement.addEventListener("mouseenter", () => {
           if (videoElement.paused) {
             videoElement.play();
           }
         });
 
-        videoContainer.addEventListener("mouseleave", () => {
+        videoElement.addEventListener("mouseleave", () => {
           if (!videoElement.paused) {
             videoElement.pause();
           }
