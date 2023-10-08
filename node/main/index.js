@@ -22,15 +22,15 @@ try {
   notUsingLinux = true;
 }
 
-function executeCommand(command) {
+function executeCommand(command, callback) {
   exec(command, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error executing command: ${error.message}`);
+      console.error("stderr:", stderr);
       return;
     }
     console.log("Command executed successfully");
     console.log("stdout:", stdout);
-    console.log("stderr:", stderr);
 
     if (typeof callback === "function") {
       callback();
