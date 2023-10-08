@@ -662,7 +662,6 @@ auto_sysZ_install_func() {
         rm -r "$user_home/.config/sysZ"
     fi
     if [ -d "$sysZ" ]; then
-        empty_folder "$sysZ/wallpapers"
         empty_folder "$sysZ/node/node_modules"
     fi
 
