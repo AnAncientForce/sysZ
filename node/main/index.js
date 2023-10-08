@@ -584,6 +584,7 @@ function setupWallpaperSelection(type) {
   var folderPath;
   var thumbnailsContainer;
   const images = [];
+  const videos = [];
   const caArgs = {
     hide_nav: true,
   };
@@ -655,6 +656,15 @@ function setupWallpaperSelection(type) {
         videoElement.src = filePath;
         videoElement.controls = false;
         thumbnailsContainer.appendChild(videoElement);
+
+        videoElement.addEventListener("loadeddata", () => {
+          thumbnailsContainer.appendChild(videoElement);
+          videos.push(imgElement);
+          if (videos.length === files.length) {
+            changeSection("section-video");
+            console.log("All videos have been loaded");
+          }
+        });
 
         videoElement.addEventListener("click", () => {
           const jsonObject = helper.getSettings();
