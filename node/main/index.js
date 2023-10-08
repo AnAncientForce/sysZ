@@ -675,9 +675,9 @@ function setupWallpaperSelection(type) {
           jsonObject["live_wallpaper"] = true;
           helper.writeSettings(jsonObject);
           changeSection("section-load", caArgs);
+          executeCommand(`killall -9 mpv`);
           executeCommand(`cp -v "${filePath}" ${sysZ}/vid.mp4`, () => {
             console.log("copy successful");
-            executeCommand(`killall -9 mpv`);
             executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh -r;'`);
             changeSection("section-video");
           });
