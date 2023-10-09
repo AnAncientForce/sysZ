@@ -500,6 +500,31 @@ function page_control_panel() {
     .getElementById("section-control-panel-btns")
     .appendChild(document.getElementById("xscale"));
     */
+
+  createAction(
+    "screensaver",
+    "",
+    "screensaver",
+    function () {
+      showDialog({
+        title: "Screensaver",
+        message: "Timeout properties for sysZ's built in screensaver",
+        buttons: [
+          {
+            label: "Continue",
+            action: () => {
+              //
+            },
+          },
+        ],
+      });
+    },
+    {
+      useImg: true,
+      imgSrc: "../images/help.png",
+      imgAlt: "Help",
+    }
+  );
 }
 
 function loadDoc(doc) {
