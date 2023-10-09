@@ -23,7 +23,7 @@ if pgrep -x "mpv" >/dev/null; then
 fi
 
 # Run
-mpv --fs --loop --mute -no-osc --no-osd-bar printf "%s\n" "${files[RANDOM % ${#files[@]}]}" &
+mpv --fs --loop --mute -no-osc --no-osd-bar "${files[RANDOM % ${#files[@]}]}" &
 
 # Check when activity is back
 # Compare mouse position
