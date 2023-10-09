@@ -47,17 +47,19 @@ document.addEventListener("DOMContentLoaded", () => {
   icon.classList.add("spin");
   hint_frame.classList.add("animate-up");
 
-  exec(`sh ${sysZ}/shell/pull.sh -r`, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error executing script: ${error}`);
-      return;
-    }
+  exec(
+    `i3-msg 'exec sh ${sysZ}/shell/pull.sh -r;'`,
+    (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error executing script: ${error}`);
+        return;
+      }
 
-    icon.classList.add("fast");
-    white_screen.classList.add("shine");
+      icon.classList.add("fast");
+      white_screen.classList.add("shine");
 
-    white_screen.addEventListener("transitionend", () => {
-      /*
+      white_screen.addEventListener("transitionend", () => {
+        /*
       if (helper.readJSONValue("live_wallpaper")) {
         helper.executeCommand(
           `i3-msg 'exec sh ${sysZ}/shell/pull.sh --apply-live;'`
@@ -67,11 +69,12 @@ document.addEventListener("DOMContentLoaded", () => {
         helper.executeCommand("i3-msg 'exec killall -9 conky ; conky -d;'");
       }
       */
-      ipcRenderer.send("close-application");
-    });
+        ipcRenderer.send("close-application");
+      });
 
-    console.log(`Script output:\n${stdout}`);
-    console.error(`Script errors:\n${stderr}`);
-    console.log("Script execution completed.");
-  });
+      console.log(`Script output:\n${stdout}`);
+      console.error(`Script errors:\n${stderr}`);
+      console.log("Script execution completed.");
+    }
+  );
 });
