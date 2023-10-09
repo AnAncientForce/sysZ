@@ -25,6 +25,10 @@ if [ -e "$lockfile" ]; then
     echo "Instance is already running. Exiting."
     exit 1
 fi
+if [ -e "$temp_dir/lockscreen.lock" ]; then
+    echo "The screen is already locked."
+    exit 1
+fi
 touch "$lockfile"
 
 files=($sysZ/videos/*)
