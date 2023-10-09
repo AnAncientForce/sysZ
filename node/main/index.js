@@ -776,7 +776,7 @@ function dynamicSettings() {
   const checkboxContainer = document.getElementById("checkboxContainer");
 
   for (const key in jsonData) {
-    if (jsonData.hasOwnProperty(key)) {
+    if (jsonData.hasOwnProperty(key) && typeof jsonData[key] === "boolean") {
       const checkboxLabel = document.createElement("label");
       checkboxLabel.classList.add("checkbox-label");
 

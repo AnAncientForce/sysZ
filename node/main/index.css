@@ -80,7 +80,7 @@ body {
   font-size: medium;
   width: 100%;
   height: 88%;
-  /* overflow-y: auto; */
+  overflow-y: auto;
 }
 .settings-container.fixed {
   position: fixed;
