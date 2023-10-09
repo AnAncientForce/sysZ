@@ -48,7 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
   hint_frame.classList.add("animate-up");
 
   helper.executeCommand(`i3-msg 'exec sh ${sysZ}/shell/pull.sh -r;'`);
-  ipcRenderer.send("close-application");
+
+  icon.classList.add("fast");
+  white_screen.classList.add("shine");
+  white_screen.addEventListener("transitionend", () => {
+    ipcRenderer.send("close-application");
+  });
 
   /*
   exec(
