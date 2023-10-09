@@ -167,7 +167,7 @@ textarea {
   flex-direction: column;
   align-items: center; /* Center the containers horizontally */
   justify-content: center; /* Center the containers vertically */
-  width: 25vh;
+  width: 30vh;
   /* background-color: #f0f0f0; */
   padding: 20px;
   border-radius: 15px;
