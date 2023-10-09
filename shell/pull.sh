@@ -574,7 +574,7 @@ wallpaper_management_func() {
 }
 
 wm_setup_func() {
-    killall -9 polybar feh picom
+    killall -9 polybar feh picom conky
     sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
@@ -590,6 +590,8 @@ wm_setup_func() {
     fi
 
     wallpaper_management_func
+
+    i3-msg "exec conky -d;"
 
     if checkJson "use_autotiling"; then
         i3-msg "exec autotiling;"
