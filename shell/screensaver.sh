@@ -7,9 +7,15 @@
 #r=$RANDOM
 #r=$(($r % $total))
 
-mp4_folder="$HOME/sysZ/videos"
-mp4_files=$(find "$mp4_folder" -type f -name "*.mp4")
-random_mp4=$(shuf -n 1 -e $mp4_files)
+sysZ=""
+if [ "$EUID" -eq 0 ]; then
+    sysZ="/home/$SUDO_USER/sysZ"
+else
+    sysZ="/home/$(whoami)/sysZ"
+fi
+
+files=($sysZ/videos/*)
+printf "%s\n" "${files[RANDOM % ${#files[@]}]}"
 
 if pgrep -x "mpv" >/dev/null; then
     killall -9 mpv
@@ -18,7 +24,7 @@ fi
 
 # Run
 if [ -n "$random_mp4" ]; then
-    mpv --fs --loop --mute -no-osc --no-osd-bar $random_mp4 &
+    mpv --fs --loop --mute -no-osc --no-osd-bar printf "%s\n" "${files[RANDOM % ${#files[@]}]}" &
 fi
 
 # Check when activity is back
