@@ -254,120 +254,6 @@ kill_wallpaper_handler() {
     kill_pid "$temp_dir/wallpaper_handler_pid.txt"
 }
 
-change_wallpaper_func() {
-    killall -9 xwinwrap
-    local x='.*'
-    local FILES=$sysZ/wallpapers/*
-    local index=0
-    local max=0
-    while true; do
-        let "max=0"
-        let "index=0"
-        for f in $FILES; do
-            let "max=max+1"
-        done
-        # --------------------------
-
-        for f in $FILES; do
-            echo $f
-            let "index=index+1"
-            feh --bg-fill $f
-            read -p "($index/$max) Set this wallpaper? : " yn
-            case $yn in
-            [Yy]*)
-                echo "The wallpaper $name has been set"
-                cp -v $f $sysZ/saved/bg
-                saveJson "live_wallpaper" "false"
-                exit 2
-                # v logging
-                # f Do not prompt for confirmation before overwriting existing files
-                break
-                ;;
-            [Bb]*)
-                echo "nevermind Reversed Index"
-                ;;
-            [Nn]*) ;;
-            *) ;; # echo "Please answer y or n";;
-            esac
-        done
-
-        while true; do
-            read -p "Loop through the wallpapers again? : " yn
-            case $yn in
-            [Yy]*) break ;;
-            [Nn]*) exit ;;
-            *) echo "Please answer y or n" ;;
-            esac # 'esac' end case statement
-        done
-    done
-    exit 0
-}
-
-change_live_wallpaper_func() {
-    local x='.*'
-    local FILES=$sysZ/videos/*
-    local index=0
-    local max=0
-    killall -9 feh xwinwrap
-    sleep 0.1
-    while true; do
-        let "max=0"
-        let "index=0"
-        for f in $FILES; do
-            let "max=max+1"
-        done
-        # --------------------------
-
-        for f in $FILES; do
-            echo $f
-            let "index=index+1"
-            # feh --bg-fill $f
-            killall -9 xwinwrap
-            xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv -wid WID --loop --no-audio $f
-            read -p "($index/$max) Set this live wallpaper? : " yn
-            case $yn in
-            [Yy]*)
-                echo "The wallpaper $name has been set"
-                cp -v $f $sysZ/saved/vid.mp4
-                saveJson "live_wallpaper" "true"
-                set_live_wallpaper
-                # cp -v $f $sysZ/bg
-                exit 2
-                break
-                ;;
-            [Bb]*)
-                echo "nevermind Reversed Index"
-                ;;
-            [Nn]*) ;;
-            *) ;;
-            esac
-        done
-        while true; do
-            read -p "Loop through the wallpapers again? : " yn
-            case $yn in
-            [Yy]*) break ;;
-            [Nn]*) exit ;;
-            *) echo "Please answer y or n" ;;
-            esac
-        done
-    done
-    exit 0
-}
-# ================================================================================ GENERAL
-root_cmd() {
-    if [ "$(id -u)" -ne 0 ]; then
-        echo -e "${BRed}[!] Must be running as sudo or root${Color_Off}"
-        exit 1
-    fi
-    read -p "Setup QT_QPA_PLATFORMTHEME?
-    (y/n): " choice
-
-    if [ "$choice" = "y" ]; then
-        echo -e "${BRed}[*] Setting up QT_QPA_PLATFORMTHEME in /etc/environment...${Color_Off}"
-        echo 'QT_QPA_PLATFORMTHEME="qt5ct"' >/etc/environment
-    fi
-}
-
 repo_pull() {
     echo -e ${BPurple}"[*] Checking for repository changes\n" ${Color_Off}
     # Store the current directory
@@ -505,144 +391,6 @@ install_rec_yay() {
         echo -e "${BRed}[!] Attention Required${Color_Off}"
         yay -S betterlockscreen
     fi
-}
-
-manual() {
-    echo -e ${BBlue}"\n[*] Manual update is starting..." ${Color_Off}
-    repo_pull
-
-    # configuration files
-    cu
-
-    # make files executable
-    ex
-
-    # validate json keys
-    validate_keys
-
-    # install yay
-    read -p "[Required] Install Yay?
-    (y/n): " choice
-    if [ "$choice" = "y" ]; then
-        git_install_yay
-    fi
-
-    # packages & update
-    echo -e "${BPurple}[*] System Upgrade${Color_Off}"
-    read -p "
-    (y) Install Yay packages
-    (p) Install Pacman packages
-    (b) Install Both packages (yay & pacman)
-    (u) System Update
-    (a) All
-    (s) Skip
-    " choice
-
-    if [ "$choice" = "y" ]; then
-        install_rec_yay
-
-    elif [ "$choice" = "p" ]; then
-        install_rec_pacman
-
-    elif [ "$choice" = "b" ]; then
-        install_rec_yay
-        install_rec_pacman
-
-    elif [ "$choice" = "u" ]; then
-        echo -e "${BRed}[*] Attention Required\nAbout to perform a system update...${Color_Off}"
-        sudo pacman -Syu
-
-    elif [ "$choice" = "a" ]; then
-        install_rec_yay
-        echo -e "${BRed}[*] Attention Required${Color_Off}"
-        install_rec_pacman
-        sudo pacman -Syu
-
-    elif [ "$choice" = "s" ]; then
-        echo -e "${BPurple}[*] Skipping...${Color_Off}"
-
-    else
-        echo "Skipping..."
-    fi
-
-    # sysZ / config.json
-    read -p "
-    [Required if setting up for the very first time] Copy default sysZ config file?
-    " choice
-    if [ "$choice" = "y" ]; then
-        cp "$user_home/sysZ/conf/config.json" "$user_home/.config/sysZ"
-        cp "$user_home/sysZ/conf/autostart.sh" "$user_home/.config/sysZ"
-        if [ -f "$user_home/.config/sysZ/config.json" ]; then
-            echo "sysZ config copied successfully"
-        else
-            echo "sysZ config did not copy successfully"
-        fi
-    else
-        echo "config.json was not replaced"
-    fi
-
-    echo "Scanning for changes in default applications"
-
-    # setup npm
-    read -p "[Required] Setup sysZ settings gui?
-    (y/n): " choice
-    if [ "$choice" = "y" ]; then
-        npm_setup
-    fi
-
-    # install xwinwrap
-    read -p "[Required] Install xwinwrap?
-    (y/n): " choice
-    if [ "$choice" = "y" ]; then
-        git_install_xwinwrap
-    fi
-
-    # install starship
-    read -p "[Required] Install starship?
-    (y/n): " choice
-    if [ "$choice" = "y" ]; then
-        cd ~
-        curl -sS https://starship.rs/install.sh | sh
-    fi
-
-    # rofi
-    read -p "[Required]: Install rofi themes?
-    (y/n): " choice
-    if [ "$choice" = "y" ]; then
-        git_install_rofi
-    fi
-
-    # wallpapers
-    read -p "Download wallpapers?
-    (y/n): " choice
-    if [ "$choice" = "y" ]; then
-        download_wallpapers_func
-    fi
-
-    # install module for offline voice commands
-    read -p "Install voice helper (offline)?
-    (y/n): " choice
-    if [ "$choice" = "y" ]; then
-        cd $sysZ
-        python3 -m venv .venv
-        source ~/sysZ/.venv/bin/activate
-        pip install -r $sysZ/requirements.txt
-    fi
-
-    # root
-    read -p "Setup QT_QPA_PLATFORMTHEME?
-    (y/n): " choice
-    if [ "$choice" = "y" ]; then
-        sudo sh $sysZ/shell/root.sh
-    fi
-
-    # render lockscreen
-    continue_setup_func
-
-    # end
-    # echo "===> All done! :)"
-    # echo -e ${BGreen}"[*] Setup has finished\n" ${Color_Off}
-    cd "$current_dir"
 }
 
 # ==================
@@ -784,24 +532,10 @@ automatic_setup_func() {
 continue_setup_func() {
     if checkJson "render_lockscreen"; then
         echo -e "${BPurple}[*] Rendering lockscreen...${Color_Off}"
-        betterlockscreen -u $sysZ/saved/bg
-    fi
-}
-
-view_docs_func() {
-    if [ -z "$2" ]; then
-        echo -e "${BRed}\n[!] Please provide a valid [doc] name.\n${Color_Off}"
-        exit 2
-    fi
-    doc_name="$2"
-    docs_path="$sysZ/docs/$doc_name.txt"
-    if [ -f "$docs_path" ]; then
-        cat "$docs_path"
-        exit 0
-    else
-        echo -e "${BRed}\n[!] Invalid document\n${Color_Off}"
-        echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print, tools]" ${Color_Off}
-        exit 2
+        wallpaper_path=$(checkJsonString "wallpaper_path")
+        if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
+            betterlockscreen -u $wallpaper_path
+        fi
     fi
 }
 
@@ -823,17 +557,6 @@ update_sysZ_func() {
     validate_keys
     install_rec_pacman
     install_rec_yay
-    wm_setup_func
-}
-
-routine_func() {
-    repo_pull
-    cu
-    ex
-    install_rec_yay
-    sudo pacman -Syu
-    install_rec_pacman
-    continue_setup_func
     wm_setup_func
 }
 
@@ -869,8 +592,6 @@ quick_refresh_func() {
 }
 
 wm_setup_func() {
-    # xwinwrap
-    # i3-msg "exec nm-applet;"
     killall -9 polybar copyq feh picom conky
     sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
@@ -945,8 +666,6 @@ trap "trap_ctrlc" 2
 
 help() {
     echo -e ${BPurple}"Usage\n" ${Color_Off}
-    # echo -e ${BBlue}"[*] chmod +x pull.sh" ${Color_Off}
-    # echo -e ${BBlue}"[*] ./pull.sh -h" ${Color_Off}
     echo -e ${BBlue}"[>] sysz -h\n" ${Color_Off}
     echo -e ${BPurple}"Available flags\n" ${Color_Off}
     echo -e ${BGreen}"[*] -h            : Lists all available flags" ${Color_Off}
@@ -956,6 +675,8 @@ help() {
     echo -e ${BGreen}"[*] --auto        : Automatically installs sysZ" ${Color_Off}
     echo -e ${BGreen}"[*] --set         : sysZ settings | Usage: --set [w _KEY _BOOL, r]" ${Color_Off}
     echo -e ${BBlue}"[?] For a general overview of how things work, press [SUPER + i] to open the control centre. Next, click [Guides]" ${Color_Off}
+    # echo -e ${BBlue}"[*] chmod +x pull.sh" ${Color_Off}
+    # echo -e ${BBlue}"[*] ./pull.sh -h" ${Color_Off}
     # echo -e ${BGreen}"[*] --cw          : Change Wallpaper" ${Color_Off}
     # echo -e ${BGreen}"[*] --lw          : Change Live Wallpaper" ${Color_Off}
     # echo -e ${BGreen}"[*] --ca          : Change Appearance" ${Color_Off}
