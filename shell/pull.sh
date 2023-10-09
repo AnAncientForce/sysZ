@@ -575,9 +575,8 @@ wallpaper_management_func() {
 }
 
 wm_setup_func() {
-    killall -9 polybar picom
-    sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
+    killall -9 polybar picom
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
 
     if ! checkJson "disable_sfx"; then
@@ -589,10 +588,6 @@ wm_setup_func() {
     else
         i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf;'
     fi
-
-    # wallpaper_management_func
-
-    # i3-msg "exec conky -d;"
 
     if checkJson "use_autotiling"; then
         i3-msg "exec autotiling;"
