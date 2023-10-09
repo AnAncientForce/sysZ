@@ -525,6 +525,12 @@ function page_control_panel() {
       imgAlt: "Help",
     }
   );
+
+  if (document.getElementById("Appearance")) {
+    document
+      .getElementById("Appearance")
+      .appendChild(document.getElementById("screensaver"));
+  }
 }
 
 function loadDoc(doc) {
