@@ -584,6 +584,7 @@ wallpaper_management_func() {
     if checkJson "live_wallpaper"; then
         # A
         live_wallpaper_path=$(checkJsonString "live_wallpaper_path")
+        echo "live_wallpaper_path: $live_wallpaper_path"
         if [ $? -eq 0 ] && [ -n "$live_wallpaper_path" ]; then
             kill_wallpaper_handler
             killall -9 feh xwinwrap mpv wallpaper_handler.sh
@@ -604,6 +605,7 @@ wallpaper_management_func() {
         # B
     else
         wallpaper_path=$(checkJsonString "wallpaper_path")
+        echo "wallpaper_path: $wallpaper_path"
         if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
             i3-msg "exec feh --bg-fill $wallpaper_path"
         fi
@@ -611,7 +613,7 @@ wallpaper_management_func() {
 }
 
 wm_setup_func() {
-    killall -9 polybar copyq picom conky
+    killall -9 polybar copyq feh picom conky
     sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
