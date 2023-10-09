@@ -21,7 +21,7 @@ while [ ! -e /tmp/mpvsocket ]; do
 done
 
 while true; do
-    if app1 || app2 || is_i3_focused; then
+    if is_window_focused; then
         echo "in focus"
         playerctl -p mpv status | grep -q "Playing"
         if [[ $? -ne 0 ]]; then
