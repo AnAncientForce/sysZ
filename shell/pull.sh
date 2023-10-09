@@ -764,6 +764,12 @@ for arg in "$@"; do
         valid_flag=true
         ;;
     --qr)
+        repo_pull
+        cu
+        ex
+        validate_keys
+        wm_setup_func
+        exit 0
         quick_refresh=true
         valid_flag=true
         ;;
