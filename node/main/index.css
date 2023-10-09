@@ -235,7 +235,7 @@ textarea {
 
 /* ================================================== */
 
-#xscale {
+#xscale, #screensaver {
   /* Set rounded corners */
   border-radius: 15px;
 
@@ -267,7 +267,7 @@ textarea {
   line-height: 1.2;
   max-height: 20vh; /* Adjust the height of each item as needed */
 }
-#xscale img {
+#xscale, #screensaver img {
   padding: 2.5%;
   height: auto !important;
   width: 2.5vw !important;
