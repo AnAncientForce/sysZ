@@ -561,7 +561,7 @@ wallpaper_management_func() {
 screensaver_func() {
     screensaver_timeout=$(checkJsonString "screensaver_timeout")
     echo "screensaver_timeout: $screensaver_timeout"
-    if [ "$screensaver_timeout" -gt 5 ]; then
+    if [ "$screensaver_timeout" -gt 0 ]; then
         echo "Screensaver: Enabled"
         kill_pid "$temp_dir/screensaver_launcher_pid.txt"
         sh $sysZ/shell/screensaver_launcher.sh $screensaver_timeout >/dev/null 2>&1 &
