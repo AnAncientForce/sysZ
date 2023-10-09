@@ -7,18 +7,32 @@
 #r=$RANDOM
 #r=$(($r % $total))
 
+user_home=""
 sysZ=""
+temp_dir=""
+
 if [ "$EUID" -eq 0 ]; then
     sysZ="/home/$SUDO_USER/sysZ"
+    user_home="/home/$SUDO_USER"
 else
     sysZ="/home/$(whoami)/sysZ"
+    user_home="/home/$(whoami)"
 fi
+temp_dir="$user_home/tmp"
+
+lockfile="$temp_dir/screensaver.lock"
+if [ -e "$lockfile" ]; then
+    echo "Instance is already running. Exiting."
+    exit 1
+fi
+touch "$lockfile"
 
 files=($sysZ/videos/*)
 # printf "%s\n" "${files[RANDOM % ${#files[@]}]}"
 
 if pgrep -x "mpv" >/dev/null; then
     killall -9 mpv
+    rm -f "$lockfile"
     exit 0
 fi
 
@@ -43,6 +57,7 @@ while true; do
             killall -9 mpv
         # exit 0
         fi
+        rm -f "$lockfile"
         exit 0
     fi
 

@@ -508,7 +508,8 @@ function page_control_panel() {
     function () {
       showDialog({
         title: "Screensaver",
-        message: "Timeout properties for sysZ's built in screensaver",
+        message:
+          "Timeout properties for sysZ's built in screensaver\nNumber is multiped by 60. So 1 is the equivalent to 1 minute",
         buttons: [
           {
             label: "Continue",
@@ -1020,7 +1021,7 @@ document.addEventListener("DOMContentLoaded", () => {
       enteredValue = "0";
     }
     const jsonObject = helper.getSettings();
-    jsonObject["screensaver_timeout"] = enteredValue.toString();
+    jsonObject["screensaver_timeout"] = (enteredValue * 60).toString();
     helper.writeSettings(jsonObject);
   });
   home_hints();
