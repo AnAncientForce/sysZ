@@ -858,9 +858,9 @@ function validateMissingKeys() {
       } else if (type === "string") {
         jsonObject[key] = "none";
       }
-      helper.writeSettings(jsonObject);
     }
   });
+  helper.writeSettings(jsonObject);
   console.log("json validation success");
 }
 
