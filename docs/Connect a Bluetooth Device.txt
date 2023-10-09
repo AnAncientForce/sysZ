@@ -27,7 +27,8 @@ METHOD 1: Connecting a bluetooth device via the command line:
     2. if the device is already paired and not connecting, use the remove command and re-pair.
 
 
-METHOD 2: Connecting a bluetooth device via interface:
+METHOD 2: Connecting a bluetooth device via gui:
+
     Ensure "blueman" is installed
 
     Start & Enable the bluetooth.service:

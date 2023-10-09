@@ -218,7 +218,6 @@ kill_pid() {
         echo "PID file $pid_file not found."
     fi
 }
-# ================================================================================ WALLPAPER
 
 download_wallpapers_func() {
     echo -e "${BYellow}[*] Downloading wallpapers. This may take a while.\n${Color_Off}"
@@ -233,22 +232,6 @@ download_wallpapers_func() {
         fi
     done
     echo -e "${BGreen}[*] Download successful\n${Color_Off}"
-}
-
-set_live_wallpaper() {
-    live_wallpaper_path=$(checkJsonString "live_wallpaper_path")
-    if [ $? -eq 0 ] && [ -n "$live_wallpaper_path" ]; then
-        kill_wallpaper_handler
-        killall -9 feh xwinwrap mpv wallpaper_handler.sh
-        sleep 0.1
-        xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $live_wallpaper_path
-        sh $sysZ/shell/wallpaper_handler.sh >/dev/null 2>&1 &
-        store_pid "$temp_dir/wallpaper_handler_pid.txt"
-    fi
-    # xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/saved/vid.mp4
-    # --input-ipc-server=/tmp/mpvsocket
-    # Save process id to kill later
-    # sh $sysZ/shell/wallpaper_handler.sh &
 }
 
 kill_wallpaper_handler() {
