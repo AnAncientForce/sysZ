@@ -869,11 +869,11 @@ quick_refresh_func() {
 }
 
 wm_setup_func() {
-    killall -9 polybar copyq feh picom conky
     # xwinwrap
+    # i3-msg "exec nm-applet;"
+    killall -9 polybar copyq feh picom conky
     sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
-    # i3-msg "exec nm-applet;"
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
     i3-msg "exec copyq;"
     i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
@@ -889,22 +889,25 @@ wm_setup_func() {
             echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
         fi
     else
-        # i3-msg "exec feh --bg-fill $sysZ/saved/bg;"
-        i3-msg "exec feh --bg-fill $checkJson "wallpaper_path""
+        wallpaper_path=$(checkJsonString "wallpaper_path")
+        if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
+            i3-msg "exec feh --bg-fill $wallpaper_path"
+        fi
     fi
-    #if ! checkJson "live_wallpaper"; then
-    #    i3-msg "exec feh --bg-fill $sysZ/bg;"
-    #fi
     if checkJson "use_autotiling"; then
         i3-msg "exec autotiling;"
     fi
-    #if checkJson "show_resources_monitor"; then
-    #    i3-msg "exec conky -d &;"
-    #fi
+
     if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
         i3-msg "exec sh $user_home/.config/sysZ/autostart.sh;"
     fi
     i3-msg "reload"
+    #if ! checkJson "live_wallpaper"; then
+    #    i3-msg "exec feh --bg-fill $sysZ/bg;"
+    #fi
+    #if checkJson "show_resources_monitor"; then
+    #    i3-msg "exec conky -d &;"
+    #fi
     # /etc/xdg/autostart/polkit-kde-authentication-agent-1.desktop
     # i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
     # i3-msg 'exec picom -b --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
