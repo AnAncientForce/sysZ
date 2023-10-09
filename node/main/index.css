@@ -262,16 +262,21 @@ textarea {
   height: auto;
   word-wrap: break-word;
   user-select: none;
-  animation: dropInAnimation 0.5s ease-out;
-
+  
   line-height: 1.2;
   max-height: 20vh; /* Adjust the height of each item as needed */
 }
-#xscale, #screensaver img {
+
+#xscale img, #screensaver img {
   padding: 2.5%;
   height: auto !important;
   width: 2.5vw !important;
 }
+
+#xscale {
+  animation: dropInAnimation 0.5s ease-out; /* Apply animation to #xscale only */
+}
+
 
 /* ================================================== */
 .dialog-overlay {
