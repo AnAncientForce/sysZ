@@ -562,18 +562,18 @@ screensaver_func() {
     screensaver_timeout=$(checkJsonString "screensaver_timeout")
     if [[ $screensaver_timeout =~ ^[0-9]+$ ]]; then
         screensaver_timeout=$((screensaver_timeout * 60))
-        echo "Screensaver timeout in seconds: $screensaver_timeout"
+        # echo "Screensaver timeout in seconds: $screensaver_timeout"
     else
         echo "Invalid or non-numeric value for screensaver_timeout"
     fi
-    echo "screensaver_timeout: $screensaver_timeout"
+    # echo "screensaver_timeout: $screensaver_timeout"
     if [ "$screensaver_timeout" -gt 0 ]; then
-        echo "Screensaver: Enabled"
+        # echo "Screensaver: Enabled"
         kill_pid "$temp_dir/screensaver_launcher_pid.txt"
         sh $sysZ/shell/screensaver_launcher.sh $screensaver_timeout >/dev/null 2>&1 &
         store_pid "$temp_dir/screensaver_launcher_pid.txt"
     else
-        echo "Screensaver: Disabled"
+        # echo "Screensaver: Disabled"
     fi
 }
 
