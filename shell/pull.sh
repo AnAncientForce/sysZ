@@ -808,10 +808,10 @@ for arg in "$@"; do
     --apply-live)
         if checkJson "live_wallpaper"; then
             set_live_wallpaper
-            cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
-            if [ $(echo "$cpu_usage > 50" | bc -l) -eq 1 ]; then
-                echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
-            fi
+            # cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
+            # if [ $(echo "$cpu_usage > 50" | bc -l) -eq 1 ]; then
+            #    echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
+            # fi
         else
             wallpaper_path=$(checkJsonString "wallpaper_path")
             if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then

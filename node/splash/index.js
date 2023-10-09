@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     white_screen.addEventListener("transitionend", () => {
       if (helper.readJSONValue("live_wallpaper")) {
         helper.executeCommand(
-          "i3-msg 'exec sh ~/sysZ/shell/pull.sh --apply-live;'"
+          `i3-msg 'exec sh ${sysZ}/shell/pull.sh --apply-live;'`
         );
       }
       if (helper.readJSONValue("show_resources_monitor")) {
