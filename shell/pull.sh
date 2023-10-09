@@ -560,26 +560,6 @@ update_sysZ_func() {
     wm_setup_func
 }
 
-quick_refresh_func() {
-    echo -e ${BGreen}"[*] Quick Refresh + Update [DEV]...\n" ${Color_Off}
-    repo_pull
-    cu
-    ex
-    validate_keys
-
-    killall -9 polybar feh xwinwrap picom
-    sleep 0.1
-    i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
-    i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
-    if checkJson "use_background_blur"; then
-        i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf --blur-background --backend glx;'
-    else
-        i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf;'
-    fi
-    wallpaper_management_func
-    i3-msg "reload"
-}
-
 wallpaper_management_func() {
     if checkJson "live_wallpaper"; then
         # A
@@ -613,11 +593,10 @@ wallpaper_management_func() {
 }
 
 wm_setup_func() {
-    killall -9 polybar copyq feh picom conky
+    killall -9 polybar feh picom conky
     sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
-    i3-msg "exec copyq;"
 
     if ! checkJson "disable_sfx"; then
         i3-msg "exec sox $sysZ/sfx/M_UI_00000040.flac -d -v 2.0;"
