@@ -576,24 +576,27 @@ quick_refresh_func() {
     else
         i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf;'
     fi
-    if checkJson "live_wallpaper"; then
-        set_live_wallpaper
-        cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
-        if [ $(echo "$cpu_usage > 50" | bc -l) -eq 1 ]; then
-            echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
-        fi
-    else
-        wallpaper_path=$(checkJsonString "wallpaper_path")
-        if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
-            i3-msg "exec feh --bg-fill $wallpaper_path"
-        fi
-    fi
+    wallpaper_management_func
     i3-msg "reload"
 }
 
 wallpaper_management_func() {
     if checkJson "live_wallpaper"; then
-        set_live_wallpaper
+        # A
+        live_wallpaper_path=$(checkJsonString "live_wallpaper_path")
+        if [ $? -eq 0 ] && [ -n "$live_wallpaper_path" ]; then
+            kill_wallpaper_handler
+            killall -9 feh xwinwrap mpv wallpaper_handler.sh
+            sleep 0.1
+            xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $live_wallpaper_path
+            sh $sysZ/shell/wallpaper_handler.sh >/dev/null 2>&1 &
+            store_pid "$temp_dir/wallpaper_handler_pid.txt"
+        fi
+        # xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/saved/vid.mp4
+        # --input-ipc-server=/tmp/mpvsocket
+        # Save process id to kill later
+        # sh $sysZ/shell/wallpaper_handler.sh &
+        # B
         cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
         if [ $(echo "$cpu_usage > 50" | bc -l) -eq 1 ]; then
             echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
