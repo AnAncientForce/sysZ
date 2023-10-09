@@ -572,8 +572,6 @@ screensaver_func() {
         kill_pid "$temp_dir/screensaver_launcher_pid.txt"
         sh $sysZ/shell/screensaver_launcher.sh $screensaver_timeout >/dev/null 2>&1 &
         store_pid "$temp_dir/screensaver_launcher_pid.txt"
-    else
-        # echo "Screensaver: Disabled"
     fi
 }
 
