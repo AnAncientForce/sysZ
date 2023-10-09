@@ -65,6 +65,7 @@ pacman_packages=(
 )
 # Disable "FreeMono"
 yay_packages=(
+    "xidlehook"
     "vimix-gtk-themes"
     "vimix-cursors"
     "vimix-icon-theme"
@@ -577,6 +578,7 @@ screensaver_func() {
 }
 
 wm_setup_func() {
+    echo "wm-refresh" >"${sysZ}/log.txt"
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     killall -9 polybar picom
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
