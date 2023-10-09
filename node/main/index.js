@@ -1015,11 +1015,11 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("screensaver timout;", enteredValue);
       } else {
         // default "0", disabled
-        enteredValue = "0";
+        enteredValue = 0;
       }
     } else {
       // default "0", disabled
-      enteredValue = "0";
+      enteredValue = 0;
     }
     const jsonObject = helper.getSettings();
     jsonObject["screensaver_timeout"] = enteredValue.toString();
