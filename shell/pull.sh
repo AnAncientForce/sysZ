@@ -924,13 +924,13 @@ help() {
     echo -e ${BGreen}"[*] -u            : Updates sysZ (automatically installs dependencies)" ${Color_Off}
     echo -e ${BGreen}"[*] -l            : Lock Workstation" ${Color_Off}
     echo -e ${BGreen}"[*] -r            : Refreshes i3-wm" ${Color_Off}
-    echo -e ${BGreen}"[*] --cw          : Change Wallpaper" ${Color_Off}
-    echo -e ${BGreen}"[*] --lw          : Change Live Wallpaper" ${Color_Off}
-    echo -e ${BGreen}"[*] --ca          : Change Appearance" ${Color_Off}
-    echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print, tools]" ${Color_Off}
+    echo -e ${BGreen}"[*] --auto        : Automatically installs sysZ" ${Color_Off}
     echo -e ${BGreen}"[*] --set         : sysZ settings | Usage: --set [w _KEY _BOOL, r]" ${Color_Off}
-    echo -e ${BGreen}"[*] --routine     : Updates sysZ (automatically installs dependencies) & Arch Linux" ${Color_Off}
-    echo -e ${BBlue}"[*] --auto        : Automatically installs sysZ" ${Color_Off}
+    # echo -e ${BGreen}"[*] --cw          : Change Wallpaper" ${Color_Off}
+    # echo -e ${BGreen}"[*] --lw          : Change Live Wallpaper" ${Color_Off}
+    # echo -e ${BGreen}"[*] --ca          : Change Appearance" ${Color_Off}
+    # echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print, tools]" ${Color_Off}
+    # echo -e ${BGreen}"[*] --routine     : Updates sysZ (automatically installs dependencies) & Arch Linux" ${Color_Off}
     # echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
     # echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
     # echo -e ${BGreen}"[*] --automatic   : Updates sysZ & Updates Arch Linux & Installs any new recommended packages" ${Color_Off}
