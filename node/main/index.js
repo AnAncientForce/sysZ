@@ -854,6 +854,7 @@ function validateMissingKeys() {
     { key: "developer_mode", type: "boolean" },
     { key: "show_resources_monitor", type: "boolean" },
     { key: "use_autotiling", type: "boolean" },
+    { key: "disable_sfx", type: "boolean" },
     { key: "wallpaper_path", type: "string" },
     { key: "live_wallpaper_path", type: "string" },
   ];
