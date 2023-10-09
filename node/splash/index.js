@@ -47,11 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
   icon.classList.add("spin");
   hint_frame.classList.add("animate-up");
 
-  helper.executeCommand(`i3-msg 'exec sh ${sysZ}/shell/pull.sh -r;'`);
+  // helper.executeCommand(`i3-msg 'exec sh ${sysZ}/shell/pull.sh -r;'`);
 
-  ipcRenderer.send("close-application");
+  // ipcRenderer.send("close-application");
 
-  /*
   exec(
     `i3-msg 'exec sh ${sysZ}/shell/pull.sh -r;'`,
     (error, stdout, stderr) => {
@@ -64,7 +63,14 @@ document.addEventListener("DOMContentLoaded", () => {
       white_screen.classList.add("shine");
 
       white_screen.addEventListener("transitionend", () => {
-      
+        if (helper.readJSONValue("live_wallpaper")) {
+          helper.executeCommand(
+            `i3-msg 'exec sh ${sysZ}/shell/pull.sh --apply-live;'`
+          );
+          if (helper.readJSONValue("show_resources_monitor")) {
+            helper.executeCommand("i3-msg 'exec killall -9 conky ; conky -d;'");
+          }
+        }
         ipcRenderer.send("close-application");
       });
 
@@ -73,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Script execution completed.");
     }
   );
-  */
 });
 
 /*

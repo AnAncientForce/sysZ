@@ -568,13 +568,14 @@ wallpaper_management_func() {
     else
         wallpaper_path=$(checkJsonString "wallpaper_path")
         if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
+            killall -9 feh
             i3-msg "exec feh --bg-fill $wallpaper_path"
         fi
     fi
 }
 
 wm_setup_func() {
-    killall -9 polybar feh picom conky
+    killall -9 polybar picom
     sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
@@ -589,9 +590,9 @@ wm_setup_func() {
         i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf;'
     fi
 
-    wallpaper_management_func
+    # wallpaper_management_func
 
-    i3-msg "exec conky -d;"
+    # i3-msg "exec conky -d;"
 
     if checkJson "use_autotiling"; then
         i3-msg "exec autotiling;"
