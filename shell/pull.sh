@@ -603,18 +603,27 @@ wm_setup_func() {
     else
         i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf;'
     fi
-    if checkJson "live_wallpaper"; then
-        set_live_wallpaper
-        cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
-        if [ $(echo "$cpu_usage > 50" | bc -l) -eq 1 ]; then
-            echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
-        fi
-    else
+
+    #if checkJson "live_wallpaper"; then
+    #    set_live_wallpaper
+    #    cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
+    #    if [ $(echo "$cpu_usage > 50" | bc -l) -eq 1 ]; then
+    #        echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
+    #    fi
+    #else
+    #    wallpaper_path=$(checkJsonString "wallpaper_path")
+    #    if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
+    #        i3-msg "exec feh --bg-fill $wallpaper_path"
+    #    fi
+    #fi
+
+    if ! checkJson "live_wallpaper"; then
         wallpaper_path=$(checkJsonString "wallpaper_path")
         if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
             i3-msg "exec feh --bg-fill $wallpaper_path"
         fi
     fi
+
     if checkJson "use_autotiling"; then
         i3-msg "exec autotiling;"
     fi
@@ -622,6 +631,7 @@ wm_setup_func() {
     if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
         i3-msg "exec sh $user_home/.config/sysZ/autostart.sh;"
     fi
+
     i3-msg "reload"
     #if ! checkJson "live_wallpaper"; then
     #    i3-msg "exec feh --bg-fill $sysZ/bg;"
