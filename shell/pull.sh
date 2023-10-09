@@ -570,6 +570,7 @@ screensaver_func() {
     if [ "$screensaver_timeout" -gt 0 ]; then
         # echo "Screensaver: Enabled"
         kill_pid "$temp_dir/screensaver_launcher_pid.txt"
+        killall -9 xidlehook screensaver_launcher.sh
         sh $sysZ/shell/screensaver_launcher.sh $screensaver_timeout >/dev/null 2>&1 &
         store_pid "$temp_dir/screensaver_launcher_pid.txt"
     fi
@@ -581,7 +582,7 @@ wm_setup_func() {
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
 
     if ! checkJson "disable_sfx"; then
-        i3-msg "exec sox $sysZ/sfx/M_UI_00000040.flac -d -v 2.0;"
+        i3-msg "exec sox $sysZ/sfx/M_UI_00000040.flac -d;"
     fi
 
     if checkJson "use_background_blur"; then
