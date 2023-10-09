@@ -1,3 +1,4 @@
+09/10/2023 | Added screensaver module. You can configure the screen saver from the control centre.
 08/10/2023 | You can now set live wallpapers via the control centre; click to set, hover to preview
 03/09/2023 | Design improvements to main interface (scaling, control panel categories)
 03/09/2023 | Fixed live wallpaper (please ensure there are no spaces in the file name)
