@@ -838,21 +838,26 @@ function home_hints() {
 
 function validateMissingKeys() {
   const keysToValidate = [
-    "use_background_blur",
-    "ignore_updates",
-    "render_lockscreen",
-    "show_change_log",
-    "live_wallpaper",
-    "developer_mode",
-    "show_resources_monitor",
-    "use_autotiling",
+    { key: "use_background_blur", type: "boolean" },
+    { key: "ignore_updates", type: "boolean" },
+    { key: "render_lockscreen", type: "boolean" },
+    { key: "show_change_log", type: "boolean" },
+    { key: "live_wallpaper", type: "boolean" },
+    { key: "developer_mode", type: "boolean" },
+    { key: "show_resources_monitor", type: "boolean" },
+    { key: "use_autotiling", type: "boolean" },
+    { key: "wallpaper_path", type: "string" },
+    { key: "live_wallpaper_path", type: "string" },
   ];
-  // "dev_test_key"
   const jsonObject = helper.getSettings();
   console.log("validating json keys");
-  keysToValidate.forEach((key) => {
+  keysToValidate.forEach(({ key, type }) => {
     if (!(key in jsonObject)) {
-      jsonObject[key] = false;
+      if (type === "boolean") {
+        jsonObject[key] = false;
+      } else if (type === "string") {
+        jsonObject[key] = "none";
+      }
       helper.writeSettings(jsonObject);
     }
   });
