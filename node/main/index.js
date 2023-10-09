@@ -519,15 +519,16 @@ function loadDoc(doc) {
 function page_guide() {
   changeSection("section-guide");
   const parent = "section-guide-btns";
-
+  console.log("reading path:", path.join(__dirname, "../../docs/"));
   fs.readdir(path.join(__dirname, "../../docs/"), (err, files) => {
     if (err) {
       console.error(`Error reading folder: ${err}`);
       return;
     }
     files.forEach((file) => {
-      const filePath = path.join(folderPath, file);
-      console.log(filePath);
+      //const filePath = path.join(folderPath, file);
+      //console.log(filePath);
+      console.log(file);
       createAction(file, "square-button", parent, function () {
         loadDoc(file);
       });
