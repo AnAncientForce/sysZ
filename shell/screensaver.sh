@@ -1,11 +1,15 @@
 #!/usr/env/bin bash
 # Created by Z : Screen saver script
 
-BASEDIR=$(dirname $0)
-path=~/sysZ/videos/
-total=$(find $path* -name "*.mp4" | wc -l)
-r=$RANDOM
-r=$(($r % $total))
+#BASEDIR=$(dirname $0)
+#path=~/sysZ/videos/
+#total=$(find $path* -name "*.mp4" | wc -l)
+#r=$RANDOM
+#r=$(($r % $total))
+
+mp4_folder="~/sysZ/videos"
+mp4_files=$(find "$mp4_folder" -type f -name "*.mp4")
+random_mp4=$(shuf -n 1 -e $mp4_files)
 
 if pgrep -x "mpv" >/dev/null; then
     killall -9 mpv
@@ -13,7 +17,9 @@ if pgrep -x "mpv" >/dev/null; then
 fi
 
 # Run
-mpv --fs --loop --mute -no-osc --no-osd-bar $path$r.mp4 &
+if [ -n "$random_mp4" ]; then
+    mpv --fs --loop --mute -no-osc --no-osd-bar $random_mp4 &
+fi
 
 # Check when activity is back
 # Compare mouse position
