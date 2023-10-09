@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (!helper.readJSONValue("disable_sfx")) {
         helper.executeCommand(
-          `i3-msg 'exec sox ${sysZ}/sfx/M_UI_0000001B.flac -d;'`
+          `i3-msg 'exec sox ~/sysZ/sfx/M_UI_0000001B.flac -d;'`
         );
       }
       ipcRenderer.send("close-application");
