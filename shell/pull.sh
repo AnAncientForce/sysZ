@@ -564,7 +564,7 @@ wallpaper_management_func() {
     if checkJson "live_wallpaper"; then
         # A
         live_wallpaper_path=$(checkJsonString "live_wallpaper_path")
-        echo "live_wallpaper_path: $live_wallpaper_path"
+        # echo "live_wallpaper_path: $live_wallpaper_path"
         if [ $? -eq 0 ] && [ -n "$live_wallpaper_path" ]; then
             kill_wallpaper_handler
             killall -9 feh xwinwrap mpv wallpaper_handler.sh
@@ -585,7 +585,7 @@ wallpaper_management_func() {
         # B
     else
         wallpaper_path=$(checkJsonString "wallpaper_path")
-        echo "wallpaper_path: $wallpaper_path"
+        # echo "wallpaper_path: $wallpaper_path"
         if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
             i3-msg "exec feh --bg-fill $wallpaper_path"
         fi
