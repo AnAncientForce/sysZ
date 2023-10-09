@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       }
       if (helper.readJSONValue("show_resources_monitor")) {
-        helper.executeCommand("i3-msg 'exec conky -d;'");
+        helper.executeCommand("i3-msg 'exec killall -9 conky ; conky -d;'");
       }
       ipcRenderer.send("close-application");
     });
