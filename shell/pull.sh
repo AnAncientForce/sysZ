@@ -558,6 +558,15 @@ wallpaper_management_func() {
     fi
 }
 
+screensaver_func() {
+    screensaver_timeout=$(checkJsonString "screensaver_timeout")
+    if [ "$screensaver_timeout" -gt 0 ]; then
+        kill_pid "$temp_dir/screensaver_launcher_pid.txt"
+        sh $sysZ/shell/screensaver_launcher.sh >/dev/null 2>&1 &
+        store_pid "$temp_dir/screensaver_launcher.txt"
+    fi
+}
+
 wm_setup_func() {
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     killall -9 polybar picom
@@ -573,12 +582,7 @@ wm_setup_func() {
         i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf;'
     fi
 
-    screensaver_timeout=$(checkJsonString "screensaver_timeout")
-    if [ "$screensaver_timeout" -gt 0 ]; then
-        kill_pid "$temp_dir/screensaver_launcher_pid.txt"
-        sh $sysZ/shell/screensaver_launcher.sh >/dev/null 2>&1 &
-        store_pid "$temp_dir/screensaver_launcher.txt"
-    fi
+    screensaver_func
 
     if checkJson "use_autotiling"; then
         i3-msg "exec autotiling;"
@@ -628,12 +632,7 @@ fi
 for arg in "$@"; do
     case "$arg" in
     --ss)
-        screensaver_timeout=$(checkJsonString "screensaver_timeout")
-        if [ "$screensaver_timeout" -gt 0 ]; then
-            kill_pid "$temp_dir/screensaver_launcher_pid.txt"
-            sh $sysZ/shell/screensaver_launcher.sh >/dev/null 2>&1 &
-            store_pid "$temp_dir/screensaver_launcher.txt"
-        fi
+        screensaver_func
         exit 0
         ;;
     --root)
