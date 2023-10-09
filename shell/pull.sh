@@ -591,16 +591,17 @@ wallpaper_management_func() {
             xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $live_wallpaper_path
             sh $sysZ/shell/wallpaper_handler.sh >/dev/null 2>&1 &
             store_pid "$temp_dir/wallpaper_handler_pid.txt"
+
+            cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
+            if [ $(echo "$cpu_usage > 50" | bc -l) -eq 1 ]; then
+                echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
+            fi
         fi
         # xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/saved/vid.mp4
         # --input-ipc-server=/tmp/mpvsocket
         # Save process id to kill later
         # sh $sysZ/shell/wallpaper_handler.sh &
         # B
-        cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
-        if [ $(echo "$cpu_usage > 50" | bc -l) -eq 1 ]; then
-            echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
-        fi
     else
         wallpaper_path=$(checkJsonString "wallpaper_path")
         if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
@@ -610,7 +611,7 @@ wallpaper_management_func() {
 }
 
 wm_setup_func() {
-    killall -9 polybar copyq feh picom conky
+    killall -9 polybar copyq picom conky
     sleep 0.1
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
