@@ -2,10 +2,15 @@
 
 app1() {
     local active_window_name=$(xdotool getwindowfocus getwindowname)
-    [[ $active_window_name == *"Alacritty"* ]]
+    [[ $active_window_name == "$(whoami)@$HOSTNAME:"* ]]
 }
 
 app2() {
+    local active_window_name=$(xdotool getwindowfocus getwindowname)
+    [[ $active_window_name == *"Alacritty"* ]]
+}
+
+is_i3_focused() {
     local active_window_name=$(xdotool getwindowfocus getwindowname)
     [[ $active_window_name == *"i3"* ]]
 }
