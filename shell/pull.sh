@@ -588,7 +588,7 @@ wallpaper_management_func() {
         if [ $? -eq 0 ] && [ -n "$live_wallpaper_path" ]; then
             kill_wallpaper_handler
             killall -9 feh xwinwrap mpv wallpaper_handler.sh
-            sleep 0.1
+            sleep 1
             xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $live_wallpaper_path
             sh $sysZ/shell/wallpaper_handler.sh >/dev/null 2>&1 &
             store_pid "$temp_dir/wallpaper_handler_pid.txt"
