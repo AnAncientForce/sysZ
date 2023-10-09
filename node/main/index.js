@@ -1021,7 +1021,7 @@ document.addEventListener("DOMContentLoaded", () => {
       enteredValue = "0";
     }
     const jsonObject = helper.getSettings();
-    jsonObject["screensaver_timeout"] = (enteredValue * 60).toString();
+    jsonObject["screensaver_timeout"] = enteredValue.toString();
     helper.writeSettings(jsonObject);
   });
   home_hints();

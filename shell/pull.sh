@@ -560,6 +560,12 @@ wallpaper_management_func() {
 
 screensaver_func() {
     screensaver_timeout=$(checkJsonString "screensaver_timeout")
+    if [[ $screensaver_timeout =~ ^[0-9]+$ ]]; then
+        screensaver_timeout=$((screensaver_timeout * 60))
+        echo "Screensaver timeout in seconds: $screensaver_timeout"
+    else
+        echo "Invalid or non-numeric value for screensaver_timeout"
+    fi
     echo "screensaver_timeout: $screensaver_timeout"
     if [ "$screensaver_timeout" -gt 0 ]; then
         echo "Screensaver: Enabled"
