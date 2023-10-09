@@ -998,18 +998,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   const screensaver = document.getElementById("screensaverTimeout");
+  if (helper.readJSONValue("screensaver_timeout")) {
+    screensaver.value = parseInt(helper.readJSONValue("screensaver_timeout"));
+  }
   screensaver.addEventListener("input", function () {
     const enteredValue = parseInt(screensaver.value);
     if (!isNaN(enteredValue)) {
       if (enteredValue >= 1 && enteredValue <= 120) {
-        const jsonObject = helper.getSettings();
-        // jsonObject["live_wallpaper"] = true;
-        jsonObject["screensaver_timeout"] = enteredValue;
-        helper.writeSettings(jsonObject);
+        console.log("screensaver timout;", enteredValue);
       } else {
         console.log("Invalid; screensaver module disabled");
       }
+    } else {
+      // default "0", disabled
+      enteredValue = "0";
     }
+    const jsonObject = helper.getSettings();
+    jsonObject["screensaver_timeout"] = enteredValue.toString();
+    helper.writeSettings(jsonObject);
   });
   home_hints();
 });
