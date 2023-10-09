@@ -520,7 +520,7 @@ function page_guide() {
   changeSection("section-guide");
   const parent = "section-guide-btns";
 
-  fs.readdir(folderPath, (err, files) => {
+  fs.readdir(path.join(__dirname, "../../docs/"), (err, files) => {
     if (err) {
       console.error(`Error reading folder: ${err}`);
       return;
