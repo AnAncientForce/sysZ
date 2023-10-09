@@ -660,9 +660,12 @@ function setupWallpaperSelection(type) {
           const jsonObject = helper.getSettings();
           jsonObject["live_wallpaper"] = false;
           helper.writeSettings(jsonObject);
+          jsonObject["wallpaper_path"] = filePath;
           executeCommand(`killall -9 mpv`);
           executeCommand(`feh --bg-fill ${filePath}`);
+          /*
           executeCommand(`cp -v ${filePath} ${sysZ}/saved/bg`);
+          */
         }
       });
     });
@@ -691,7 +694,10 @@ function setupWallpaperSelection(type) {
         videoElement.addEventListener("click", () => {
           const jsonObject = helper.getSettings();
           jsonObject["live_wallpaper"] = true;
+          jsonObject["live_wallpaper_path"] = filePath;
           helper.writeSettings(jsonObject);
+          executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh --apply-live;'`);
+          /*
           changeSection("section-load", caArgs);
           executeCommand(`cp -v "${filePath}" ${sysZ}/saved/vid.mp4`, () => {
             console.log("copy successful");
@@ -699,6 +705,7 @@ function setupWallpaperSelection(type) {
             executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh --apply-live;'`);
             changeSection("section-video");
           });
+          */
           /*
           showDialog({
             title: "Success",
@@ -858,9 +865,9 @@ function validateMissingKeys() {
       } else if (type === "string") {
         jsonObject[key] = "none";
       }
+      helper.writeSettings(jsonObject);
     }
   });
-  helper.writeSettings(jsonObject);
   console.log("json validation success");
 }
 
