@@ -7,7 +7,14 @@
 #r=$RANDOM
 #r=$(($r % $total))
 
-mp4_folder="~/sysZ/videos"
+sysZ=""
+if [ "$EUID" -eq 0 ]; then
+    sysZ="/home/$SUDO_USER/sysZ"
+else
+    sysZ="/home/$(whoami)/sysZ"
+fi
+
+mp4_folder="$sysz/videos"
 mp4_files=$(find "$mp4_folder" -type f -name "*.mp4")
 random_mp4=$(shuf -n 1 -e $mp4_files)
 
