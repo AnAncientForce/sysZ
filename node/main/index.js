@@ -696,9 +696,8 @@ function setupWallpaperSelection(type) {
           jsonObject["live_wallpaper"] = true;
           jsonObject["live_wallpaper_path"] = filePath;
           helper.writeSettings(jsonObject);
-          executeCommand(`i3-msg 'exec ${sysZ}/shell/node.sh splash;'`);
-          /*
           executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh --apply-live;'`);
+          /*
           changeSection("section-load", caArgs);
           executeCommand(`cp -v "${filePath}" ${sysZ}/saved/vid.mp4`, () => {
             console.log("copy successful");
