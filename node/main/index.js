@@ -528,6 +528,7 @@ function page_guide() {
     files.forEach((file) => {
       //const filePath = path.join(folderPath, file);
       //console.log(filePath);
+      file = file.replace(".txt", "");
       console.log(file);
       createAction(file, "square-button", parent, function () {
         loadDoc(file);
