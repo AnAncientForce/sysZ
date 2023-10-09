@@ -1014,7 +1014,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (enteredValue >= 1 && enteredValue <= 120) {
         console.log("screensaver timout;", enteredValue);
       } else {
-        console.log("Invalid; screensaver module disabled");
+        // default "0", disabled
+        enteredValue = "0";
       }
     } else {
       // default "0", disabled
