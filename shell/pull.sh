@@ -614,7 +614,7 @@ wm_setup_func() {
     i3-msg "exec copyq;"
 
     if ! checkJson "disable_sfx"; then
-        i3-msg "exec sox $sysZ/sfx/M_UI_0000001B.flac -d -v 2.0;"
+        i3-msg "exec sox $sysZ/sfx/M_UI_00000040.flac -d -v 2.0;"
     fi
 
     if checkJson "use_background_blur"; then
