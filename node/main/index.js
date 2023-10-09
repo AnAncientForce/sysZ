@@ -662,7 +662,7 @@ function setupWallpaperSelection(type) {
           helper.writeSettings(jsonObject);
           executeCommand(`killall -9 mpv`);
           executeCommand(`feh --bg-fill ${filePath}`);
-          executeCommand(`cp -v ${filePath} ${sysZ}/bg`);
+          executeCommand(`cp -v ${filePath} ${sysZ}/saved/bg`);
         }
       });
     });
@@ -693,7 +693,7 @@ function setupWallpaperSelection(type) {
           jsonObject["live_wallpaper"] = true;
           helper.writeSettings(jsonObject);
           changeSection("section-load", caArgs);
-          executeCommand(`cp -v "${filePath}" ${sysZ}/vid.mp4`, () => {
+          executeCommand(`cp -v "${filePath}" ${sysZ}/saved/vid.mp4`, () => {
             console.log("copy successful");
             executeCommand(`killall -9 mpv`);
             executeCommand(`i3-msg 'exec ${sysZ}/shell/pull.sh --apply-live;'`);

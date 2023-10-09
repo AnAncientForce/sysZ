@@ -34,5 +34,5 @@ while true; do
             send_pause_command
         fi
     fi
-    sleep 2.5
+    sleep 5
 done

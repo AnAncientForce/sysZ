@@ -220,7 +220,7 @@ set_live_wallpaper() {
     kill_wallpaper_handler
     killall -9 feh xwinwrap mpv wallpaper_handler.sh
     sleep 0.1
-    xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/vid.mp4
+    xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/saved/vid.mp4
     # --input-ipc-server=/tmp/mpvsocket
     # Save process id to kill later
     # sh $sysZ/shell/wallpaper_handler.sh &
@@ -254,7 +254,7 @@ change_wallpaper_func() {
             case $yn in
             [Yy]*)
                 echo "The wallpaper $name has been set"
-                cp -v $f $sysZ/bg
+                cp -v $f $sysZ/saved/bg
                 saveJson "live_wallpaper" "false"
                 exit 2
                 # v logging
@@ -306,7 +306,7 @@ change_live_wallpaper_func() {
             case $yn in
             [Yy]*)
                 echo "The wallpaper $name has been set"
-                cp -v $f $sysZ/vid.mp4
+                cp -v $f $sysZ/saved/vid.mp4
                 saveJson "live_wallpaper" "true"
                 set_live_wallpaper
                 # cp -v $f $sysZ/bg
@@ -717,7 +717,7 @@ auto_sysZ_install_func() {
     sudo sh $sysZ/shell/root.sh
 
     # set default wallpaper
-    cp -v $sysZ/wallpapers/sysz-default-bg.png $sysZ/bg
+    cp -v $sysZ/wallpapers/sysz-default-bg.png $sysZ/saved/bg
     saveJson "live_wallpaper" "false"
 
     # render lockscreen
@@ -762,7 +762,7 @@ automatic_setup_func() {
 continue_setup_func() {
     if checkJson "render_lockscreen"; then
         echo -e "${BPurple}[*] Rendering lockscreen...${Color_Off}"
-        betterlockscreen -u $sysZ/bg
+        betterlockscreen -u $sysZ/saved/bg
     fi
 }
 
@@ -838,7 +838,7 @@ quick_refresh_func() {
             echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
         fi
     else
-        i3-msg "exec feh --bg-fill $sysZ/bg;"
+        i3-msg "exec feh --bg-fill $sysZ/saved/bg;"
     fi
     i3-msg "reload"
 }
@@ -864,7 +864,7 @@ wm_setup_func() {
             echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
         fi
     else
-        i3-msg "exec feh --bg-fill $sysZ/bg;"
+        i3-msg "exec feh --bg-fill $sysZ/saved/bg;"
     fi
     #if ! checkJson "live_wallpaper"; then
     #    i3-msg "exec feh --bg-fill $sysZ/bg;"
