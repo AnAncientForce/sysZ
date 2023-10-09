@@ -519,6 +519,21 @@ function loadDoc(doc) {
 function page_guide() {
   changeSection("section-guide");
   const parent = "section-guide-btns";
+
+  fs.readdir(folderPath, (err, files) => {
+    if (err) {
+      console.error(`Error reading folder: ${err}`);
+      return;
+    }
+    files.forEach((file) => {
+      const filePath = path.join(folderPath, file);
+      console.log(filePath);
+      createAction(file, "square-button", parent, function () {
+        loadDoc(file);
+      });
+    });
+  });
+  /*
   createAction("Recommended Apps", "square-button", parent, function () {
     loadDoc("apps");
   });
@@ -537,6 +552,7 @@ function page_guide() {
   createAction("Tools", "square-button", parent, function () {
     loadDoc("tools");
   });
+  */
 }
 
 function page_change_log() {

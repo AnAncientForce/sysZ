@@ -926,7 +926,7 @@ help() {
     echo -e ${BGreen}"[*] -r            : Refreshes i3-wm" ${Color_Off}
     echo -e ${BGreen}"[*] --auto        : Automatically installs sysZ" ${Color_Off}
     echo -e ${BGreen}"[*] --set         : sysZ settings | Usage: --set [w _KEY _BOOL, r]" ${Color_Off}
-    echo -e ${Blue}"[?] For a general overview of how things work, press [SUPER + i] to open the control centre. Next, click [Guides]" ${Color_Off}
+    echo -e ${BBlue}"[?] For a general overview of how things work, press [SUPER + i] to open the control centre. Next, click [Guides]" ${Color_Off}
     # echo -e ${BGreen}"[*] --cw          : Change Wallpaper" ${Color_Off}
     # echo -e ${BGreen}"[*] --lw          : Change Live Wallpaper" ${Color_Off}
     # echo -e ${BGreen}"[*] --ca          : Change Appearance" ${Color_Off}

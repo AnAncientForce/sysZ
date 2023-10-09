@@ -1,0 +1,12 @@
+source: https://linuxopsys.com/topics/add-user-to-sudoers-in-arch-linux
+
+configure group wheel
+    visudo
+    Remove '#' from "%wheel ALL=(ALL) ALL
+
+add a user
+    sudo useradd -m [USERNAME]
+    sudo passwd [USERNAME] [PASSWORD]
+
+add sudo permissions to user
+    sudo usermod -aG wheel [USERNAME]
