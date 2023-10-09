@@ -518,17 +518,6 @@ check_updates() {
     fi
 }
 
-automatic_setup_func() {
-    echo -e ${BGreen}"[*] Automatic Setup is starting...\n" ${Color_Off}
-    repo_pull
-    cu
-    ex
-    install_rec_yay
-    install_rec_pacman
-    continue_setup_func
-    cd "$current_dir"
-}
-
 continue_setup_func() {
     if checkJson "render_lockscreen"; then
         echo -e "${BPurple}[*] Rendering lockscreen...${Color_Off}"
@@ -555,16 +544,14 @@ update_sysZ_func() {
     cu
     ex
     validate_keys
-    install_rec_pacman
     install_rec_yay
+    install_rec_pacman
     wm_setup_func
 }
 
 wallpaper_management_func() {
     if checkJson "live_wallpaper"; then
-        # A
         live_wallpaper_path=$(checkJsonString "live_wallpaper_path")
-        # echo "live_wallpaper_path: $live_wallpaper_path"
         if [ $? -eq 0 ] && [ -n "$live_wallpaper_path" ]; then
             kill_wallpaper_handler
             killall -9 feh xwinwrap mpv wallpaper_handler.sh
@@ -578,14 +565,8 @@ wallpaper_management_func() {
                 echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
             fi
         fi
-        # xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/saved/vid.mp4
-        # --input-ipc-server=/tmp/mpvsocket
-        # Save process id to kill later
-        # sh $sysZ/shell/wallpaper_handler.sh &
-        # B
     else
         wallpaper_path=$(checkJsonString "wallpaper_path")
-        # echo "wallpaper_path: $wallpaper_path"
         if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
             i3-msg "exec feh --bg-fill $wallpaper_path"
         fi
@@ -619,19 +600,6 @@ wm_setup_func() {
     fi
 
     i3-msg "reload"
-
-    #if ! checkJson "live_wallpaper"; then
-    #    i3-msg "exec feh --bg-fill $sysZ/bg;"
-    #fi
-    #if checkJson "show_resources_monitor"; then
-    #    i3-msg "exec conky -d &;"
-    #fi
-    # /etc/xdg/autostart/polkit-kde-authentication-agent-1.desktop
-    # i3-msg 'exec picom -b --blur-background --backend glx --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
-    # i3-msg 'exec picom -b --animations --animation-for-open-window zoom --corner-radius 4 --vsync;'
-    # check_updates
-    # echo -e "${BRed}[!] Please manually refresh (CTRL+SHIFT+R)\n${Color_Off}"
-    # read -p "Press [Enter] to continue..."
 }
 
 function trap_ctrlc() {
@@ -647,18 +615,6 @@ trap "trap_ctrlc" 2
 # echo -e ${BGreen}"[*] E\n" ${Color_Off}
 # echo -e ${BRed}"[!] F\n" ${Color_Off}
 
-# first time setup, first time setup for sysZ (asks questions)
-# regular setup, includes repo updates & system updates & new recommended package downloads
-# sysZ-update, gets github updates
-
-# echo "Available flags:"
-# echo "--automatic    : Checks repository for updates & automatically installs them"
-# echo "--root         : Manual setup with root privileges"
-# echo "--pacman       : Installs recommended Arch Linux packages"
-# echo "--yay          : Installs recommended Arch User Repository packages"
-# echo "--setup        : Reloads sysZ's integration of the window manager"
-# echo "--update-check : Checks for repository updates. Returns true or false (dose not update anything)"
-
 # ----------------------------- Flag Logic
 
 help() {
@@ -672,16 +628,6 @@ help() {
     echo -e ${BGreen}"[*] --auto        : Automatically installs sysZ" ${Color_Off}
     echo -e ${BGreen}"[*] --set         : sysZ settings | Usage: --set [w _KEY _BOOL, r]" ${Color_Off}
     echo -e ${BBlue}"[?] For a general overview of how things work, press [SUPER + i] to open the control centre. Next, click [Guides]" ${Color_Off}
-    # echo -e ${BBlue}"[*] chmod +x pull.sh" ${Color_Off}
-    # echo -e ${BBlue}"[*] ./pull.sh -h" ${Color_Off}
-    # echo -e ${BGreen}"[*] --cw          : Change Wallpaper" ${Color_Off}
-    # echo -e ${BGreen}"[*] --lw          : Change Live Wallpaper" ${Color_Off}
-    # echo -e ${BGreen}"[*] --ca          : Change Appearance" ${Color_Off}
-    # echo -e ${BGreen}"[*] --docs        : View docs: [bluetooth, i3, pkgs, print, tools]" ${Color_Off}
-    # echo -e ${BGreen}"[*] --routine     : Updates sysZ (automatically installs dependencies) & Arch Linux" ${Color_Off}
-    # echo -e ${BGreen}"[*] --first-setup : Runs the first time setup installer" ${Color_Off}
-    # echo -e ${BGreen}"[*] --root        : Runs the first time [root] setup installer" ${Color_Off}
-    # echo -e ${BGreen}"[*] --automatic   : Updates sysZ & Updates Arch Linux & Installs any new recommended packages" ${Color_Off}
     exit 0
 }
 
