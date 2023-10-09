@@ -887,6 +887,7 @@ function validateMissingKeys() {
     { key: "disable_sfx", type: "boolean" },
     { key: "wallpaper_path", type: "string" },
     { key: "live_wallpaper_path", type: "string" },
+    { key: "screensaver_timeout", type: "string" },
   ];
   const jsonObject = helper.getSettings();
   console.log("validating json keys");
@@ -993,6 +994,20 @@ document.addEventListener("DOMContentLoaded", () => {
             },
           ],
         });
+      }
+    }
+  });
+  const screensaver = document.getElementById("screensaverTimeout");
+  screensaver.addEventListener("input", function () {
+    const enteredValue = parseInt(screensaver.value);
+    if (!isNaN(enteredValue)) {
+      if (enteredValue >= 1 && enteredValue <= 120) {
+        const jsonObject = helper.getSettings();
+        // jsonObject["live_wallpaper"] = true;
+        jsonObject["screensaver_timeout"] = enteredValue;
+        helper.writeSettings(jsonObject);
+      } else {
+        console.log("Invalid; screensaver module disabled");
       }
     }
   });

@@ -573,6 +573,13 @@ wm_setup_func() {
         i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf;'
     fi
 
+    screensaver_timeout=$(checkJsonString "screensaver_timeout")
+    if [ "$screensaver_timeout" -gt 0 ]; then
+        kill_pid "$temp_dir/screensaver_launcher_pid.txt"
+        sh $sysZ/shell/screensaver_launcher.sh >/dev/null 2>&1 &
+        store_pid "$temp_dir/screensaver_launcher.txt"
+    fi
+
     if checkJson "use_autotiling"; then
         i3-msg "exec autotiling;"
     fi
@@ -620,6 +627,15 @@ fi
 
 for arg in "$@"; do
     case "$arg" in
+    --ss)
+        screensaver_timeout=$(checkJsonString "screensaver_timeout")
+        if [ "$screensaver_timeout" -gt 0 ]; then
+            kill_pid "$temp_dir/screensaver_launcher_pid.txt"
+            sh $sysZ/shell/screensaver_launcher.sh >/dev/null 2>&1 &
+            store_pid "$temp_dir/screensaver_launcher.txt"
+        fi
+        exit 0
+        ;;
     --root)
         run_as_root=true
         valid_flag=true
