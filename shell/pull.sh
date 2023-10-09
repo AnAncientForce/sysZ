@@ -599,7 +599,7 @@ wm_setup_func() {
     i3-msg "exec copyq;"
 
     if ! checkJson "disable_sfx"; then
-        i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
+        i3-msg "exec sox $sysZ/sfx/M_UI_0000001B.flac -d;"
     fi
 
     if checkJson "use_background_blur"; then
