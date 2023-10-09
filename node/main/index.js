@@ -1009,17 +1009,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   screensaver.addEventListener("input", function () {
-    const enteredValue = parseInt(screensaver.value);
+    var enteredValue = parseInt(screensaver.value);
     if (!isNaN(enteredValue)) {
       if (enteredValue >= 1 && enteredValue <= 120) {
         console.log("screensaver timout;", enteredValue);
       } else {
         // default "0", disabled
-        enteredValue = 0;
+        enteredValue = "0";
       }
     } else {
       // default "0", disabled
-      enteredValue = 0;
+      enteredValue = "0";
     }
     const jsonObject = helper.getSettings();
     jsonObject["screensaver_timeout"] = enteredValue.toString();
