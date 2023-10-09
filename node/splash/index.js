@@ -49,11 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   helper.executeCommand(`i3-msg 'exec sh ${sysZ}/shell/pull.sh -r;'`);
 
-  icon.classList.add("fast");
-  white_screen.classList.add("shine");
-  white_screen.addEventListener("transitionend", () => {
-    ipcRenderer.send("close-application");
-  });
+  ipcRenderer.send("close-application");
 
   /*
   exec(
