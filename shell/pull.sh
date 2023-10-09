@@ -47,6 +47,7 @@ pacman_packages=(
     "playerctl"
     "bluez"
     "bluez-utils"
+    "blueman"
     "conky"
     "noto-fonts"
     "font-manager"

@@ -1,24 +1,37 @@
-Open a terminal and run these commands in order
 
-sudo pacman -S bluez bluez-utils
+METHOD 1: Connecting a bluetooth device via the command line:
 
-lsmod | grep btusb
+    Open a terminal and run these commands in order
 
-sudo systemctl start bluetooth.service
-sudo systemctl enable bluetooth.service
+    sudo pacman -S bluez bluez-utils
 
-bluetoothctl
+    lsmod | grep btusb
 
-power on
-agent on
-default-agent
-scan on
-devices
+    sudo systemctl start bluetooth.service
+    sudo systemctl enable bluetooth.service
 
-pair DC:F4:CA:CB:93:A1
-trust DC:F4:CA:CB:93:A1
-* Replace the code with your own device's code
+    bluetoothctl
 
-Troubleshooting:
-1. to set as default output, check the "tick" box next to AirPods in pavucontrol
-2. if the device is already paired and not connecting, use the remove command and re-pair.
+    power on
+    agent on
+    default-agent
+    scan on
+    devices
+
+    pair DC:F4:CA:CB:93:A1
+    trust DC:F4:CA:CB:93:A1
+    * Replace the code with your own device's code
+
+    Troubleshooting:
+    1. to set as default output, check the "tick" box next to the device in pavucontrol
+    2. if the device is already paired and not connecting, use the remove command and re-pair.
+
+
+METHOD 2: Connecting a bluetooth device via interface:
+    Ensure "blueman" is installed
+
+    Start & Enable the bluetooth.service:
+        sudo systemctl start bluetooth.service
+        sudo systemctl enable bluetooth.service
+
+    Search for "Bluetooth Manager"
