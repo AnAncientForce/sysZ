@@ -27,7 +27,7 @@ if [ -e "$lockfile" ]; then
 fi
 if pgrep -x "i3lock" >/dev/null; then
     echo "The screen is locked."
-    echo "The screen is locked" >"${sysZ}/log.txt"
+    echo "The screen is locked" >>"${sysZ}/log.txt"
     exit 1
 fi
 touch "$lockfile"
