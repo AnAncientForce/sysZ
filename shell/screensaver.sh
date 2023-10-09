@@ -15,7 +15,7 @@ else
 fi
 
 files=($sysZ/videos/*)
-printf "%s\n" "${files[RANDOM % ${#files[@]}]}"
+# printf "%s\n" "${files[RANDOM % ${#files[@]}]}"
 
 if pgrep -x "mpv" >/dev/null; then
     killall -9 mpv
@@ -23,9 +23,7 @@ if pgrep -x "mpv" >/dev/null; then
 fi
 
 # Run
-if [ -n "$random_mp4" ]; then
-    mpv --fs --loop --mute -no-osc --no-osd-bar printf "%s\n" "${files[RANDOM % ${#files[@]}]}" &
-fi
+mpv --fs --loop --mute -no-osc --no-osd-bar printf "%s\n" "${files[RANDOM % ${#files[@]}]}" &
 
 # Check when activity is back
 # Compare mouse position
