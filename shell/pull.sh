@@ -597,32 +597,16 @@ wm_setup_func() {
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
     i3-msg "exec copyq;"
-    # i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
+
+    if ! checkJson "disable_sfx"; then
+        i3-msg "exec sox $sysZ/sfx/Sys_Camera_SavePicture.flac -d;"
+    fi
+
     if checkJson "use_background_blur"; then
         i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf --blur-background --backend glx;'
     else
         i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf;'
     fi
-
-    #if checkJson "live_wallpaper"; then
-    #    set_live_wallpaper
-    #    cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
-    #    if [ $(echo "$cpu_usage > 50" | bc -l) -eq 1 ]; then
-    #        echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
-    #    fi
-    #else
-    #    wallpaper_path=$(checkJsonString "wallpaper_path")
-    #    if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
-    #        i3-msg "exec feh --bg-fill $wallpaper_path"
-    #    fi
-    #fi
-
-    #if ! checkJson "live_wallpaper"; then
-    #    wallpaper_path=$(checkJsonString "wallpaper_path")
-    #    if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
-    #        i3-msg "exec feh --bg-fill $wallpaper_path"
-    #    fi
-    #fi
 
     if checkJson "use_autotiling"; then
         i3-msg "exec autotiling;"
@@ -823,6 +807,15 @@ for arg in "$@"; do
     --apply-live)
         if checkJson "live_wallpaper"; then
             set_live_wallpaper
+            cpu_usage=$(top -b -n 1 | awk '/^%Cpu/{print $2}')
+            if [ $(echo "$cpu_usage > 50" | bc -l) -eq 1 ]; then
+                echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
+            fi
+        else
+            wallpaper_path=$(checkJsonString "wallpaper_path")
+            if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
+                i3-msg "exec feh --bg-fill $wallpaper_path"
+            fi
         fi
         valid_flag=true
         ;;
