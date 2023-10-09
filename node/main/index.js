@@ -998,9 +998,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   const screensaver = document.getElementById("screensaverTimeout");
-  if (helper.readJSONValue("screensaver_timeout")) {
-    screensaver.value = parseInt(helper.readJSONValue("screensaver_timeout"));
+  const jsonObject = helper.getSettings();
+  if (isNaN(jsonObject["screensaver_timeout"])) {
+    jsonObject["screensaver_timeout"] = "0";
+    helper.writeSettings(jsonObject);
+  } else {
+    // valid
+    screensaver.value = parseInt(jsonObject["screensaver_timeout"]);
   }
+
   screensaver.addEventListener("input", function () {
     const enteredValue = parseInt(screensaver.value);
     if (!isNaN(enteredValue)) {
