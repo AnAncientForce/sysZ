@@ -171,6 +171,24 @@ checkJson() {
     fi
 }
 
+checkJsonString() {
+    # Check if the file exists
+    if [ -f "$json_file" ]; then
+        # Use jq to read the JSON content and check if the provided key exists
+        if jq -e ". | has(\"$1\")" "$json_file" >/dev/null; then
+            # Use jq to retrieve the value of the key and remove surrounding quotes if it's a string
+            value=$(jq -r ".$1" "$json_file")
+            echo "$value"
+            return 0 # Key exists
+        else
+            return 1 # Key does not exist
+        fi
+    else
+        echo "JSON file not found: $json_file"
+        return 2 # File not found
+    fi
+}
+
 function is_package_installed() {
     local package_name="$1"
     yay -Qs "$package_name" &>/dev/null
@@ -217,15 +235,19 @@ download_wallpapers_func() {
 }
 
 set_live_wallpaper() {
-    kill_wallpaper_handler
-    killall -9 feh xwinwrap mpv wallpaper_handler.sh
-    sleep 0.1
-    xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/saved/vid.mp4
+    live_wallpaper_path=$(checkJsonString "live_wallpaper_path")
+    if [ $? -eq 0 ] && [ -n "$live_wallpaper_path" ]; then
+        kill_wallpaper_handler
+        killall -9 feh xwinwrap mpv wallpaper_handler.sh
+        sleep 0.1
+        xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $live_wallpaper_path
+        sh $sysZ/shell/wallpaper_handler.sh >/dev/null 2>&1 &
+        store_pid "$temp_dir/wallpaper_handler_pid.txt"
+    fi
+    # xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio $sysZ/saved/vid.mp4
     # --input-ipc-server=/tmp/mpvsocket
     # Save process id to kill later
     # sh $sysZ/shell/wallpaper_handler.sh &
-    sh $sysZ/shell/wallpaper_handler.sh >/dev/null 2>&1 &
-    store_pid "$temp_dir/wallpaper_handler_pid.txt"
 }
 
 kill_wallpaper_handler() {
@@ -838,7 +860,10 @@ quick_refresh_func() {
             echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
         fi
     else
-        i3-msg "exec feh --bg-fill $sysZ/saved/bg;"
+        wallpaper_path=$(checkJsonString "wallpaper_path")
+        if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
+            i3-msg "exec feh --bg-fill $wallpaper_path"
+        fi
     fi
     i3-msg "reload"
 }
@@ -864,7 +889,8 @@ wm_setup_func() {
             echo -e "\n[!] Caution: CPU usage may significantly increase while using Live Wallpaper\n"
         fi
     else
-        i3-msg "exec feh --bg-fill $sysZ/saved/bg;"
+        # i3-msg "exec feh --bg-fill $sysZ/saved/bg;"
+        i3-msg "exec feh --bg-fill $checkJson "wallpaper_path""
     fi
     #if ! checkJson "live_wallpaper"; then
     #    i3-msg "exec feh --bg-fill $sysZ/bg;"
