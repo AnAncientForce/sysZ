@@ -617,12 +617,12 @@ wm_setup_func() {
     #    fi
     #fi
 
-    if ! checkJson "live_wallpaper"; then
-        wallpaper_path=$(checkJsonString "wallpaper_path")
-        if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
-            i3-msg "exec feh --bg-fill $wallpaper_path"
-        fi
-    fi
+    #if ! checkJson "live_wallpaper"; then
+    #    wallpaper_path=$(checkJsonString "wallpaper_path")
+    #    if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
+    #        i3-msg "exec feh --bg-fill $wallpaper_path"
+    #    fi
+    #fi
 
     if checkJson "use_autotiling"; then
         i3-msg "exec autotiling;"
