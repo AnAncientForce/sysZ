@@ -6,6 +6,7 @@ pacman_packages=(
     "adobe-source-han-sans-jp-fonts"
     "adobe-source-han-sans-otc-fonts"
     "adobe-source-han-serif-otc-fonts"
+    "noto-fonts-emoji"
     "alacritty"
     "ark"
     "brightnessctl"
