@@ -610,9 +610,9 @@ wm_setup_func() {
         i3-msg "exec xset -dpms;"
     fi
     if checkJson "enable_bluetooth"; then
-        alacritty -e bash -c "sudo systemctl start bluetooth.service; sudo systemctl enable bluetooth.service; $SHELL"
+        alacritty -e bash -c "sudo systemctl start bluetooth.service; sudo systemctl enable bluetooth.service;"
     else
-        alacritty -e bash -c "sudo systemctl stop bluetooth.service; sudo systemctl disable bluetooth.service; $SHELL"
+        alacritty -e bash -c "sudo systemctl stop bluetooth.service; sudo systemctl disable bluetooth.service;"
     fi
     if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
         i3-msg "exec sh $user_home/.config/sysZ/autostart.sh;"
