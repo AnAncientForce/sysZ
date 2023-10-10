@@ -606,18 +606,18 @@ wm_setup_func() {
     if checkJson "use_autotiling"; then
         i3-msg "exec autotiling;"
     fi
-    if checkJson "prevent_sleeping"; then
-        i3-msg "exec xset -dpms;"
-    fi
+    #if checkJson "prevent_sleeping"; then
+    #    i3-msg "exec xset -dpms;"
+    #fi
 
     if checkJson "enable_bluetooth"; then
         if [ "$(systemctl is-enabled bluetooth.service)" = "disabled" ]; then
-            echo -e ${BBlue}"\n[!] Requesting authentication to change bluetooth state > enabled" ${Color_Off}
+            echo -e ${BRed}"\n[!] Requesting authentication to change bluetooth state > enabled" ${Color_Off}
             alacritty -e bash -c "sudo systemctl start bluetooth.service; sudo systemctl enable bluetooth.service;"
         fi
     else
         if [ "$(systemctl is-enabled bluetooth.service)" = "enabled" ]; then
-            echo -e ${BBlue}"\n[!] Requesting authentication to change bluetooth state > disabled" ${Color_Off}
+            echo -e ${BRed}"\n[!] Requesting authentication to change bluetooth state > disabled" ${Color_Off}
             alacritty -e bash -c "sudo systemctl stop bluetooth.service; sudo systemctl disable bluetooth.service;"
         fi
     fi
