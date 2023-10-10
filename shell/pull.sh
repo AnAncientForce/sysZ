@@ -610,16 +610,6 @@ wm_setup_func() {
         i3-msg "exec xset -dpms;"
     fi
 
-    if [ "$(systemctl is-enabled bluetooth.service)" = "enabled" ]; then
-        echo "Bluetooth service is enabled."
-    fi
-
-    if [ "$(systemctl is-enabled bluetooth.service)" = "disabled" ]; then
-        echo "Bluetooth service is disabled."
-    else
-        echo "Bluetooth service is enabled or in a static state."
-    fi
-
     if checkJson "enable_bluetooth"; then
         if [ "$(systemctl is-enabled bluetooth.service)" = "disabled" ]; then
             echo -e ${BBlue}"\n[!] Requesting authentication to change bluetooth state > enabled" ${Color_Off}
