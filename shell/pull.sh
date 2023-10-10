@@ -595,9 +595,9 @@ wm_setup_func() {
         i3-msg "exec sox $sysZ/sfx/M_UI_00000040.flac -d;"
     fi
 
-    if checkJson "prevent_sleeping"; then
-        xset -dpms
-    fi
+    #if checkJson "prevent_sleeping"; then
+    #    xset -dpms
+    #fi
 
     if checkJson "use_background_blur"; then
         i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf --blur-background --backend glx;'

@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
           `i3-msg 'exec sh ${sysZ}/shell/pull.sh --apply-live;'`
         );
         if (helper.readJSONValue("prevent_sleeping")) {
-          helper.executeCommand("i3-msg 'exec xset -dpms;'");
+          helper.executeCommand("i3-msg 'exec xset s off;'");
         }
         if (helper.readJSONValue("show_resources_monitor")) {
           helper.executeCommand("i3-msg 'exec killall -9 conky ; conky -d;'");
