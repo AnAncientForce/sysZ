@@ -886,6 +886,7 @@ function validateMissingKeys() {
     { key: "show_resources_monitor", type: "boolean" },
     { key: "use_autotiling", type: "boolean" },
     { key: "disable_sfx", type: "boolean" },
+    { key: "prevent_sleeping", type: "boolean" },
     { key: "wallpaper_path", type: "string" },
     { key: "live_wallpaper_path", type: "string" },
     { key: "screensaver_timeout", type: "string" },

@@ -63,6 +63,7 @@ pacman_packages=(
     "arandr"
     "python-pipx"
     "htop"
+    "linux-headers"
 )
 # Disable "FreeMono"
 yay_packages=(
@@ -77,6 +78,8 @@ yay_packages=(
     "ttf-font-awesome-4"
     "tty-clock"
     "pipes.sh"
+    "ungoogled-chromium-bin"
+    "droidcam"
 )
 wallpapers=(
     "https://images6.alphacoders.com/131/1317292.jpeg"
@@ -584,6 +587,10 @@ wm_setup_func() {
     killall -9 polybar picom
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
 
+    if ! pgrep -x "copyq" >/dev/null; then
+        i3-msg "exec copyq;"
+    fi
+
     if ! checkJson "disable_sfx"; then
         i3-msg "exec sox $sysZ/sfx/M_UI_00000040.flac -d;"
     fi
@@ -599,7 +606,9 @@ wm_setup_func() {
     if checkJson "use_autotiling"; then
         i3-msg "exec autotiling;"
     fi
-
+    if checkJson "prevent_sleeping"; then
+        i3-msg "exec xset -dpms;"
+    fi
     if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
         i3-msg "exec sh $user_home/.config/sysZ/autostart.sh;"
     fi
