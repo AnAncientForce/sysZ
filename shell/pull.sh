@@ -614,14 +614,14 @@ wm_setup_func() {
     if checkJson "enable_bluetooth"; then
         if [ "$(systemctl is-enabled bluetooth.service)" = "disabled" ]; then
             echo -e ${BRed}"\n[!] Requesting authentication to change bluetooth state > enabled" ${Color_Off}
-            sudo systemctl start bluetooth.service
             sudo systemctl enable bluetooth.service
+            sudo systemctl start bluetooth.service
         fi
     else
         if [ "$(systemctl is-enabled bluetooth.service)" = "enabled" ]; then
             echo -e ${BRed}"\n[!] Requesting authentication to change bluetooth state > disabled" ${Color_Off}
-            sudo systemctl stop bluetooth.service
             sudo systemctl disable bluetooth.service
+            sudo systemctl stop bluetooth.service
         fi
     fi
     if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
