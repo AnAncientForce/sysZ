@@ -605,6 +605,11 @@ wm_setup_func() {
         i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf;'
     fi
 
+    if checkJson "prevent_sleeping"; then
+        xset s off
+        xset -dpms
+    fi
+
     screensaver_func
 
     if checkJson "use_autotiling"; then
