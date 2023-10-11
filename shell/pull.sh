@@ -585,19 +585,17 @@ wm_setup_func() {
     echo "wm-refresh" >>"${sysZ}/log.txt"
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
     killall -9 polybar picom
+    echo -e ${BBlue}"\n[*] Starting polybar" ${Color_Off}
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
 
     if ! pgrep -x "copyq" >/dev/null; then
+        echo -e ${BBlue}"\n[*] Enabling clipboard" ${Color_Off}
         i3-msg "exec copyq;"
     fi
 
     if ! checkJson "disable_sfx"; then
         i3-msg "exec sox $sysZ/sfx/M_UI_00000040.flac -d;"
     fi
-
-    #if checkJson "prevent_sleeping"; then
-    #    xset -dpms
-    #fi
 
     if checkJson "use_background_blur"; then
         i3-msg 'exec picom -b --config ~/sysZ/conf/picom.conf --blur-background --backend glx;'
@@ -606,6 +604,7 @@ wm_setup_func() {
     fi
 
     if checkJson "prevent_sleeping"; then
+        echo -e ${BBlue}"\n[*] Preventing sleep" ${Color_Off}
         xset s off
         xset -dpms
     fi
@@ -613,12 +612,9 @@ wm_setup_func() {
     screensaver_func
 
     if checkJson "use_autotiling"; then
+        echo -e ${BBlue}"\n[*] Enabling autotiling" ${Color_Off}
         i3-msg "exec autotiling;"
     fi
-    #if checkJson "prevent_sleeping"; then
-    #    i3-msg "exec xset -dpms;"
-    #fi
-    # alacritty -e bash -c "sudo systemctl start bluetooth.service; sudo systemctl enable bluetooth.service;"
 
     if checkJson "enable_bluetooth"; then
         if [ "$(systemctl is-enabled bluetooth.service)" = "disabled" ]; then
@@ -635,6 +631,8 @@ wm_setup_func() {
     fi
     if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
         i3-msg "exec sh $user_home/.config/sysZ/autostart.sh;"
+    else
+        echo -e ${BBlue}"\n[!] Autostart file not found" ${Color_Off}
     fi
 
     i3-msg "reload"
