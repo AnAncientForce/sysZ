@@ -21,6 +21,13 @@ fi
 temp_dir="$user_home/tmp"
 
 lockfile="$temp_dir/screensaver.lock"
+
+leave() {
+    killall -9 mpv
+    rm -f "$lockfile"
+    exit 0
+}
+
 if [ -e "$lockfile" ]; then
     echo "Instance is already running. Exiting."
     exit 1
@@ -36,9 +43,7 @@ files=($sysZ/videos/*)
 # printf "%s\n" "${files[RANDOM % ${#files[@]}]}"
 
 if pgrep -x "mpv" >/dev/null; then
-    killall -9 mpv
-    rm -f "$lockfile"
-    exit 0
+    leave
 fi
 
 # Run
@@ -59,18 +64,14 @@ while true; do
     else
         echo "not same!"
         if pgrep -x "mpv" >/dev/null; then
-            killall -9 mpv
-        # exit 0
+            leave
         fi
-        rm -f "$lockfile"
-        exit 0
     fi
 
     cpu_temp=$(sensors | grep "Core 0" | awk '{print $3}' | cut -c 2-3)
     if [ "$cpu_temp" -ge 85 ]; then
         echo "Temperature is dangerously high, so the screensaver was stopped." >>"${sysZ}/log.txt"
-        rm -f "$lockfile"
-        exit 0
+        leave
     fi
 
 done
