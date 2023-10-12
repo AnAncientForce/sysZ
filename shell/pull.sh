@@ -826,11 +826,17 @@ for arg in "$@"; do
             sudo cp "/etc/X11/xorg.conf.d/70-synaptics.conf" "$user_home/.config/emergency-restore/70-synaptics.conf"
 
             if [ "$choice" = "y" ]; then
-                # sudo cp "$sysZ/conf/30-touchpad.conf" "/etc/X11/xorg.conf.d/30-touchpad.conf"
-                sudo cp "$sysZ/conf/70-synaptics.conf" "/etc/X11/xorg.conf.d/70-synaptics.conf"
+                read -p "30-touchpad or 70-synaptics (30/70): " choice
+                if [ "$choice" = "30" ]; then
+                    sudo rm "/etc/X11/xorg.conf.d/70-synaptics.conf"
+                    sudo cp "$sysZ/conf/30-touchpad.conf" "/etc/X11/xorg.conf.d/30-touchpad.conf"
+                elif [ "$choice" = "70" ]; then
+                    sudo rm "/etc/X11/xorg.conf.d/30-synaptics.conf"
+                    sudo cp "$sysZ/conf/70-synaptics.conf" "/etc/X11/xorg.conf.d/70-synaptics.conf"
+                fi
                 echo -e "${BGreen}[*] Installed\n${Color_Off}"
             elif [ "$choice" = "n" ]; then
-                # sudo rm "/etc/X11/xorg.conf.d/30-touchpad.conf"
+                sudo rm "/etc/X11/xorg.conf.d/30-touchpad.conf"
                 sudo rm "/etc/X11/xorg.conf.d/70-synaptics.conf"
                 echo -e "${BGreen}[*] Removed\n${Color_Off}"
             else
