@@ -38,7 +38,7 @@ if [ "$choice" = "t" ]; then
         echo -e "${BRed}[*] Invalid choice. Please enter 'y' to install or 'n' to uninstall.\n${Color_Off}"
     fi
 elif [ "$choice" = "p" ]; then
-    sudo cp "/etc/pacman.conf" "$user_home/.config/emergency-restore/70-synaptics.conf"
+    sudo cp "/etc/pacman.conf" "$user_home/.config/emergency-restore/pacman.conf"
     sudo cp "$sysZ/conf/pacman.conf" "/etc/pacman.conf"
     echo -e "${BGreen}[*] Installed\n${Color_Off}"
 else
