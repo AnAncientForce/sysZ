@@ -816,7 +816,9 @@ for arg in "$@"; do
         # https://wiki.archlinux.org/title/Touchpad_Synaptics
         # https://archlinux.org/pacman/pacman.conf.5.html
 
+        echo -e "${BPurple}[*] Checking backup directory has been created\n${Color_Off}"
         mkdir -p "$user_home/.config/emergency-restore"
+        echo -e "${BBlue}[*] What would you like to do? Please choose an option.\n${Color_Off}"
         read -p "t = touchpad, p = pacman (t/p): " choice
 
         if [ "$choice" = "t" ]; then
@@ -833,6 +835,7 @@ for arg in "$@"; do
                 echo -e "${BGreen}[*] Removed\n${Color_Off}"
             else
                 echo -e "${BRed}[*] Invalid choice. Please enter 'y' to install or 'n' to uninstall.\n${Color_Off}"
+                exit 0
             fi
 
         elif [ "$choice" = "p" ]; then
@@ -841,7 +844,9 @@ for arg in "$@"; do
             echo -e "${BGreen}[*] Installed\n${Color_Off}"
         else
             echo -e "${BRed}[*] Invalid choice\n${Color_Off}"
+            exit 0
         fi
+        echo -e "${BGreen}[*] Success\n${Color_Off}"
         exit 0
         ;;
     *) ;;
