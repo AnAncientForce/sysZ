@@ -823,6 +823,7 @@ for arg in "$@"; do
 
         if [ "$choice" = "t" ]; then
             read -p "y = install, n = uninstall (y/n): " choice
+            sudo cp "/etc/X11/xorg.conf.d/30-synaptics.conf" "$user_home/.config/emergency-restore/30-synaptics.conf"
             sudo cp "/etc/X11/xorg.conf.d/70-synaptics.conf" "$user_home/.config/emergency-restore/70-synaptics.conf"
 
             if [ "$choice" = "y" ]; then
