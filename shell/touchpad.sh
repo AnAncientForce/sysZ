@@ -11,12 +11,16 @@ else
     user_home="/home/$(whoami)"
 fi
 
+# https://wiki.archlinux.org/title/Touchpad_Synaptics
+
 read -p "y = install, n = uninstall (y/n): " choice
 
 if [ "$choice" = "y" ]; then
+    # sudo cp "$sysZ/conf/30-touchpad.conf" "/etc/X11/xorg.conf.d/30-touchpad.conf"
     sudo cp "$sysZ/conf/70-synaptics.conf" "/etc/X11/xorg.conf.d/70-synaptics.conf"
     echo "Installed"
 elif [ "$choice" = "n" ]; then
+    # sudo rm "/etc/X11/xorg.conf.d/30-touchpad.conf"
     sudo rm "/etc/X11/xorg.conf.d/70-synaptics.conf"
     echo "Removed"
 else
