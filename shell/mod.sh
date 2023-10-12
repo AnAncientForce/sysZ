@@ -18,10 +18,13 @@ fi
 # https://wiki.archlinux.org/title/Touchpad_Synaptics
 # https://archlinux.org/pacman/pacman.conf.5.html
 
+mkdir -p "$user_home/.config/emergency-restore"
+
 read -p "t = touchpad, p = pacman (t/p): " choice
 
 if [ "$choice" = "t" ]; then
     read -p "y = install, n = uninstall (y/n): " choice
+    sudo cp "/etc/X11/xorg.conf.d/70-synaptics.conf" "$user_home/.config/emergency-restore/70-synaptics.conf"
 
     if [ "$choice" = "y" ]; then
         # sudo cp "$sysZ/conf/30-touchpad.conf" "/etc/X11/xorg.conf.d/30-touchpad.conf"
@@ -35,6 +38,7 @@ if [ "$choice" = "t" ]; then
         echo -e "${BRed}[*] Invalid choice. Please enter 'y' to install or 'n' to uninstall.\n${Color_Off}"
     fi
 elif [ "$choice" = "p" ]; then
+    sudo cp "/etc/pacman.conf" "$user_home/.config/emergency-restore/70-synaptics.conf"
     sudo cp "$sysZ/conf/pacman.conf" "/etc/pacman.conf"
     echo -e "${BGreen}[*] Installed\n${Color_Off}"
 else
