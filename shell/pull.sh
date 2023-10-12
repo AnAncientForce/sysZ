@@ -64,6 +64,7 @@ pacman_packages=(
     "python-pipx"
     "htop"
     "linux-headers"
+    "xf86-input-synaptics"
 )
 # Disable "FreeMono"
 yay_packages=(
