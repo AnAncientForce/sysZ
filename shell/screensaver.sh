@@ -65,6 +65,9 @@ while true; do
         echo "not same!"
         if pgrep -x "mpv" >/dev/null; then
             leave
+        else
+            echo "? The mpv was not running. You shouldn't see this... ever" >>"${sysZ}/log.txt"
+            leave
         fi
     fi
 
