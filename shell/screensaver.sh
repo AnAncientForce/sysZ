@@ -66,4 +66,11 @@ while true; do
         exit 0
     fi
 
+    cpu_temp=$(sensors | grep "Core 0" | awk '{print $3}' | cut -c 2-3)
+    if [ "$cpu_temp" -ge 85 ]; then
+        echo "Temperature is dangerously high, so the screensaver was stopped." >>"${sysZ}/log.txt"
+        rm -f "$lockfile"
+        exit 0
+    fi
+
 done

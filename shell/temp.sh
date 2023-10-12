@@ -6,7 +6,7 @@ while true; do
 
     echo "$cpu_temp"
 
-    if [ "$cpu_temp" -ge 60 ]; then
+    if [ "$cpu_temp" -ge 80 ]; then
         echo "Warning"
     fi
 
