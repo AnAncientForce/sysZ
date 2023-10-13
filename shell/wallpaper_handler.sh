@@ -76,7 +76,7 @@ cleanup() {
     if [ -n "$xwinwrap_pid" ]; then
         kill "$xwinwrap_pid"
     fi
-    killall -9 xwinwrap
+    pkill -f "xwinwrap"
     pkill -f "mpv --input-ipc-server=$ipc_socket"
     rm -f "$ipc_socket"
     exit 0
