@@ -276,6 +276,9 @@ textarea {
 #xscale {
   animation: dropInAnimation 0.5s ease-out; /* Apply animation to #xscale only */
 }
+#screensaver {
+  animation: dropInAnimation 0.5s ease-out;
+}
 
 
 /* ================================================== */
