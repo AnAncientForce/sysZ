@@ -812,6 +812,22 @@ for arg in "$@"; do
         auto_sysZ_install=true
         valid_flag=true
         ;;
+    --store-pid)
+        if [ -z "$2" ]; then
+            echo -e "${BRed}\n[!] Invalid operation (no option specified)\n${Color_Off}"
+            exit 2
+        fi
+        store_pid "$temp_dir/$2.txt"
+        exit 0
+        ;;
+    --kill-pid)
+        if [ -z "$2" ]; then
+            echo -e "${BRed}\n[!] Invalid operation (no option specified)\n${Color_Off}"
+            exit 2
+        fi
+        kill_pid "$temp_dir/$2.txt"
+        exit 0
+        ;;
     --mod)
         # https://wiki.archlinux.org/title/Touchpad_Synaptics
         # https://archlinux.org/pacman/pacman.conf.5.html

@@ -23,7 +23,8 @@ temp_dir="$user_home/tmp"
 lockfile="$temp_dir/screensaver.lock"
 
 leave() {
-    killall -9 mpv
+    # killall -9 mpv
+    sh $sysZ/shell/pull.sh --kill-pid spawned_live_wallpaper_pid
     rm -f "$lockfile"
     exit 0
 }
@@ -48,6 +49,7 @@ fi
 
 # Run
 mpv --fs --loop --mute -no-osc --no-osd-bar "${files[RANDOM % ${#files[@]}]}" &
+sh $sysZ/shell/pull.sh --store-pid spawned_live_wallpaper_pid
 
 # Check when activity is back
 # Compare mouse position
