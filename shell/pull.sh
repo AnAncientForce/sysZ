@@ -577,7 +577,7 @@ help() {
     echo -e ${BGreen}"[*] -r            : Refreshes sysZ" ${Color_Off}
     echo -e ${BGreen}"[*] --auto        : Automatically installs sysZ" ${Color_Off}
     echo -e ${BGreen}"[*] --mod         : Additional configuration settings that aren't shown in the main interface." ${Color_Off}
-    echo -e ${BBlue}"[?]\nFor a general overview of how to navigate the system, press [SUPER + i] to open the main interface.\nOnce opened, click [Guides], then click [Global Shortcuts]" ${Color_Off}
+    echo -e ${BBlue}"\n[?] For a general overview of how to navigate the system, press [SUPER + i] to open the main interface.\n Once opened, click [Guides], then click [Global Shortcuts]" ${Color_Off}
     exit 0
 }
 
