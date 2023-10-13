@@ -389,7 +389,7 @@ auto_sysZ_install_func() {
     sudo sh $sysZ/shell/root.sh
 
     # set default wallpaper
-    cp -v $sysZ/wallpapers/sysz-default-bg.png $sysZ/saved/bg
+    # cp -v $sysZ/wallpapers/sysz-default-bg.png $sysZ/saved/bg
     saveJson "live_wallpaper" "false"
 
     # render lockscreen
