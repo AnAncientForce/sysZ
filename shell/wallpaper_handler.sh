@@ -23,6 +23,17 @@ live_wallpaper_path=$(checkJsonString "live_wallpaper_path")
 rm -f "$lockfile"
 xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio "$live_wallpaper_path"
 xwinwrap_pid=$!
+
+cleanup() {
+    rm -f "$lockfile"
+    if [ -n "$xwinwrap_pid" ]; then
+        kill "$xwinwrap_pid"
+    fi
+    pkill -f "xwinwrap"
+    pkill -f "mpv --input-ipc-server=$ipc_socket"
+    rm -f "$ipc_socket"
+    exit 0
+}
 #
 
 window_names=("$(whoami)@$HOSTNAME:" "Alacritty" "i3")
@@ -71,14 +82,4 @@ while true; do
     sleep 5
 done
 
-cleanup() {
-    rm -f "$lockfile"
-    if [ -n "$xwinwrap_pid" ]; then
-        kill "$xwinwrap_pid"
-    fi
-    pkill -f "xwinwrap"
-    pkill -f "mpv --input-ipc-server=$ipc_socket"
-    rm -f "$ipc_socket"
-    exit 0
-}
 trap cleanup EXIT
