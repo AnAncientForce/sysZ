@@ -49,7 +49,7 @@ fi
 
 # Run
 mpv --fs --loop --mute -no-osc --no-osd-bar "${files[RANDOM % ${#files[@]}]}" &
-sh $sysZ/shell/pull.sh --store-pid spawned_live_wallpaper_pid.txt
+sh $sysZ/shell/pull.sh --store-pid "spawned_live_wallpaper_pid.txt"
 
 # Check when activity is back
 # Compare mouse position
