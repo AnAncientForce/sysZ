@@ -145,35 +145,6 @@ validate_keys() {
     echo -e ${BPurple}"[*] Please open the main interface to automatically validate json keys\n" ${Color_Off}
 }
 
-function is_package_installed() {
-    local package_name="$1"
-    yay -Qs "$package_name" &>/dev/null
-}
-
-store_pid() {
-    local custom_file="$1"
-    local pid=$!
-    mkdir -p "$(dirname "$custom_file")"
-    echo "$pid" >"$custom_file"
-}
-
-kill_pid() {
-    local pid_file="$1"
-    if [ -f "$pid_file" ]; then
-        local pid=$(cat "$pid_file")
-        if [ -n "$pid" ]; then
-            kill -9 "$pid"
-            echo "Process with PID $pid has been terminated"
-        else
-            echo "PID not found in the file $pid_file"
-        fi
-        # Clean up the PID file
-        rm "$pid_file"
-    else
-        echo "PID file $pid_file not found"
-    fi
-}
-
 download_wallpapers_func() {
     echo -e "${BYellow}[*] Downloading wallpapers. This may take a while.\n${Color_Off}"
     mkdir -p "$sysZ/wallpapers"
@@ -187,10 +158,6 @@ download_wallpapers_func() {
         fi
     done
     echo -e "${BGreen}[*] Download successful\n${Color_Off}"
-}
-
-kill_wallpaper_handler() {
-    kill_pid "$temp_dir/wallpaper_handler_pid.txt"
 }
 
 repo_pull() {
@@ -492,7 +459,7 @@ wallpaper_management_func() {
     if checkJson "live_wallpaper"; then
         live_wallpaper_path=$(checkJsonString "live_wallpaper_path")
         if [ $? -eq 0 ] && [ -n "$live_wallpaper_path" ]; then
-            kill_wallpaper_handler
+            kill_pid "$temp_dir/wallpaper_handler_pid.txt"
             killall feh xwinwrap mpv wallpaper_handler.sh
             sleep 0.1
             # xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio "$live_wallpaper_path"
@@ -737,7 +704,7 @@ for arg in "$@"; do
         ;;
     -k)
         echo -e ${BRed}"kill_wallpaper_handler\n" ${Color_Off}
-        kill_wallpaper_handler
+        kill_pid "$temp_dir/wallpaper_handler_pid.txt"
         exit 0
         ;;
     -a)

@@ -22,6 +22,37 @@ file_exists() {
     fi
 }
 
+function is_package_installed() {
+    local package_name="$1"
+    yay -Qs "$package_name" &>/dev/null
+}
+
+store_pid() {
+    local custom_file="$1"
+    local pid=$!
+    mkdir -p "$(dirname "$custom_file")"
+    echo "$pid" >"$custom_file"
+}
+
+kill_pid() {
+    local pid_file="$1"
+    if [ -f "$pid_file" ]; then
+        local pid=$(cat "$pid_file")
+        if [ -n "$pid" ]; then
+            kill -9 "$pid"
+            echo "Process with PID $pid has been terminated"
+        else
+            echo "PID not found in the file $pid_file"
+        fi
+        # Clean up the PID file
+        rm "$pid_file"
+    else
+        echo "PID file $pid_file not found"
+    fi
+}
+
+# JSON ================================================================================
+
 saveJson() {
     local key="$1"
     local value="$2"
