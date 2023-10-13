@@ -24,7 +24,7 @@ lockfile="$temp_dir/screensaver.lock"
 
 leave() {
     # killall -9 mpv
-    sh $sysZ/shell/pull.sh --kill-pid spawned_live_wallpaper_pid.txt
+    sh $sysZ/shell/pull.sh --kill-pid "$mpv_pid"
     rm -f "$lockfile"
     exit 0
 }
