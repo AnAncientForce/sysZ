@@ -888,6 +888,7 @@ function validateMissingKeys() {
     { key: "disable_sfx", type: "boolean" },
     { key: "prevent_sleeping", type: "boolean" },
     { key: "enable_bluetooth", type: "boolean" },
+    { key: "disable_autostart_file", type: "boolean" },
     { key: "wallpaper_path", type: "string" },
     { key: "live_wallpaper_path", type: "string" },
     { key: "screensaver_timeout", type: "string" },

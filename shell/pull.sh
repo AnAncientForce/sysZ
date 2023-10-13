@@ -542,10 +542,12 @@ wm_setup_func() {
             sudo systemctl stop bluetooth.service
         fi
     fi
-    if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
-        i3-msg "exec sh $user_home/.config/sysZ/autostart.sh;"
-    else
-        echo -e ${BBlue}"\n[!] Autostart file not found" ${Color_Off}
+    if ! checkJson "disable_autostart_file"; then
+        if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
+            i3-msg "exec sh $user_home/.config/sysZ/autostart.sh;"
+        else
+            echo -e ${BBlue}"\n[!] Autostart file not found" ${Color_Off}
+        fi
     fi
 
     i3-msg "reload"
@@ -565,7 +567,7 @@ trap "trap_ctrlc" 2
 # echo -e ${BRed}"[!] F\n" ${Color_Off}
 
 # ----------------------------- Flag Logic
-gap="    "
+gap="   "
 help() {
     # echo -e ${BPurple}"Usage\n" ${Color_Off}
     # echo -e ${BBlue}"[>] sysz -h\n" ${Color_Off}
