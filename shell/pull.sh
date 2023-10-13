@@ -214,14 +214,14 @@ kill_pid() {
         local pid=$(cat "$pid_file")
         if [ -n "$pid" ]; then
             kill -9 "$pid"
-            echo "Process with PID $pid has been terminated."
+            echo "Process with PID $pid has been terminated"
         else
-            echo "PID not found in the file $pid_file."
+            echo "PID not found in the file $pid_file"
         fi
         # Clean up the PID file
         rm "$pid_file"
     else
-        echo "PID file $pid_file not found."
+        echo "PID file $pid_file not found"
     fi
 }
 

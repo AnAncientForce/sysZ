@@ -24,7 +24,10 @@ lockfile="$temp_dir/screensaver.lock"
 
 leave() {
     # killall -9 mpv
-    sh $sysZ/shell/pull.sh --kill-pid "$mpv_pid"
+    # sh $sysZ/shell/pull.sh --kill-pid "$mpv_pid"
+    if [ -n "$mpv_pid" ]; then
+        kill "$mpv_pid"
+    fi
     rm -f "$lockfile"
     exit 0
 }
@@ -43,14 +46,14 @@ touch "$lockfile"
 files=($sysZ/videos/*)
 # printf "%s\n" "${files[RANDOM % ${#files[@]}]}"
 
-if pgrep -x "mpv" >/dev/null; then
-    leave
-fi
+#if pgrep -x "mpv" >/dev/null; then
+#    leave
+#fi
 
 # Run
 mpv --fs --loop --mute -no-osc --no-osd-bar "${files[RANDOM % ${#files[@]}]}" &
 mpv_pid=$!
-sh $sysZ/shell/pull.sh --store-pid "$mpv_pid"
+# sh $sysZ/shell/pull.sh --store-pid "$mpv_pid"
 
 # Check when activity is back
 # Compare mouse position
