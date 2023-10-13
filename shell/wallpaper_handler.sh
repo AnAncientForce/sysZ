@@ -14,27 +14,10 @@ else
     json_file="/home/$(whoami)/.config/sysZ/config.json"
     user_home="/home/$(whoami)"
 fi
+source "$sysZ/shell/common.sh"
 temp_dir="$user_home/tmp"
 lockfile="$temp_dir/live_wallpaper_state.lock"
 ipc_socket="/tmp/mpvsocket"
-
-checkJsonString() {
-    # Check if the file exists
-    if [ -f "$json_file" ]; then
-        # Use jq to read the JSON content and check if the provided key exists
-        if jq -e ". | has(\"$1\")" "$json_file" >/dev/null; then
-            # Use jq to retrieve the value of the key and remove surrounding quotes if it's a string
-            value=$(jq -r ".$1" "$json_file")
-            echo "$value"
-            return 0 # Key exists
-        else
-            return 1 # Key does not exist
-        fi
-    else
-        echo "JSON file not found: $json_file"
-        return 2 # File not found
-    fi
-}
 
 live_wallpaper_path=$(checkJsonString "live_wallpaper_path")
 xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio "$live_wallpaper_path"
