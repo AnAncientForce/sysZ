@@ -589,7 +589,7 @@ wm_setup_func() {
     echo -e ${BBlue}"\n[*] Starting polybar" ${Color_Off}
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
 
-    if ! pgrep -x "copyq" >/dev/null; then
+    if pgrep -x "copyq" >/dev/null; then
         echo -e ${BBlue}"\n[*] Enabling clipboard" ${Color_Off}
         i3-msg "exec copyq;"
     fi
