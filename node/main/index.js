@@ -170,7 +170,7 @@ function hideAllExceptCurrent(caArgs) {
 
 function changeSection(newSection, caArgs) {
   document
-    .querySelectorAll(".square-button, #xscale img")
+    .querySelectorAll(".square-button, #xscale img, #screensaver img")
     .forEach((element) => {
       element.remove();
     });
@@ -247,7 +247,7 @@ function page_home() {
   // for (let i = 0; i < 16; i++) {}
   // requestShellScriptExecution("~/sysZ/shell/pull.sh -u");
 }
-
+// ============================== CONTROL PANEL ==============================
 function page_control_panel() {
   changeSection("section-control-panel");
   const parent = "section-control-panel-btns";
