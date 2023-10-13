@@ -575,7 +575,8 @@ help() {
     echo -e ${BGreen}"[*] -h            : Lists all available flags" ${Color_Off}
     echo -e ${BGreen}"[*] -u            : Updates sysZ (automatically installs required dependencies)" ${Color_Off}
     echo -e ${BGreen}"[*] -r            : Refreshes sysZ" ${Color_Off}
-    echo -e ${BGreen}"[*] --auto        : Automatically installs sysZ" ${Color_Off}
+    echo -e ${BRed}"[*] --auto        : Automatically installs sysZ" ${Color_Off}
+    echo -e ${BRed}"[*] --mod         : Additional configuration settings that aren't shown in the main interface." ${Color_Off}
     echo -e ${BBlue}"[?] For a general overview of how things work, press [SUPER + i] to open the control centre. Once opened, click [Guides]" ${Color_Off}
     exit 0
 }
