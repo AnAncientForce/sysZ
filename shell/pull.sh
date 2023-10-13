@@ -567,20 +567,20 @@ trap "trap_ctrlc" 2
 # ----------------------------- Flag Logic
 
 help() {
-    echo -e ${BPurple}"Usage\n" ${Color_Off}
-    echo -e ${BBlue}"[>] sysz -h\n" ${Color_Off}
-    echo -e ${BPurple}"Available flags\n" ${Color_Off}
+    # echo -e ${BPurple}"Usage\n" ${Color_Off}
+    # echo -e ${BBlue}"[>] sysz -h\n" ${Color_Off}
+    # echo -e ${BGreen}"[*] --set         : sysZ settings | Usage: --set [w _KEY _BOOL, r]" ${Color_Off}
+    # echo -e ${BGreen}"[*] -l            : Lock Workstation" ${Color_Off}
+    echo -e ${BPurple}"Available flags (Example Usage: sysz -u)\n" ${Color_Off}
     echo -e ${BGreen}"[*] -h            : Lists all available flags" ${Color_Off}
-    echo -e ${BGreen}"[*] -u            : Updates sysZ (automatically installs dependencies)" ${Color_Off}
-    echo -e ${BGreen}"[*] -l            : Lock Workstation" ${Color_Off}
-    echo -e ${BGreen}"[*] -r            : Refreshes i3-wm" ${Color_Off}
+    echo -e ${BGreen}"[*] -u            : Updates sysZ (automatically installs required dependencies)" ${Color_Off}
+    echo -e ${BGreen}"[*] -r            : Refreshes sysZ" ${Color_Off}
     echo -e ${BGreen}"[*] --auto        : Automatically installs sysZ" ${Color_Off}
-    echo -e ${BGreen}"[*] --set         : sysZ settings | Usage: --set [w _KEY _BOOL, r]" ${Color_Off}
-    echo -e ${BBlue}"[?] For a general overview of how things work, press [SUPER + i] to open the control centre. Next, click [Guides]" ${Color_Off}
+    echo -e ${BBlue}"[?] For a general overview of how things work, press [SUPER + i] to open the control centre. Once opened, click [Guides]" ${Color_Off}
     exit 0
 }
 
-echo -e ${BPurple}"[*] sysZ\n" ${Color_Off}
+echo -e ${BBlue}"sysZ\n" ${Color_Off}
 if [ "$1" = "-h" ]; then
     help
 fi
