@@ -43,21 +43,21 @@ if pgrep -x "i3lock" >/dev/null; then
 fi
 touch "$lockfile"
 
+# Check if any mpv instances are currently playing systemwide
 if pgrep -x "mpv" >/dev/null; then
-
     playing_mpv_instances=()
 
+    # Get a list of active mpv instances
     while read -r pid; do
-        mpv_status=$(mpv --input-ipc-server=/tmp/mpvsocket-"$pid" --get-property pause 2>/dev/null)
+        mpv_status=$(mpv --input-ipc-server="/tmp/mpvsocket-$pid" get_property pause | grep "false")
 
-        if [ "$mpv_status" == "no" ]; then
+        if [ -n "$mpv_status" ]; then
             playing_mpv_instances+=("$pid")
         fi
     done < <(pgrep -x "mpv")
 
     if [ "${#playing_mpv_instances[@]}" -gt 0 ]; then
         echo "There are active mpv instances playing systemwide."
-        leave
     else
         echo "No active mpv instances found playing systemwide."
     fi
