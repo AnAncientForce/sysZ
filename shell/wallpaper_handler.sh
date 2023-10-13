@@ -1,14 +1,17 @@
 #!/bin/bash
 
 user_home=""
+json_file=""
 sysZ=""
 temp_dir=""
 
 if [ "$EUID" -eq 0 ]; then
     sysZ="/home/$SUDO_USER/sysZ"
+    json_file="/home/$SUDO_USER/.config/sysZ/config.json"
     user_home="/home/$SUDO_USER"
 else
     sysZ="/home/$(whoami)/sysZ"
+    json_file="/home/$(whoami)/.config/sysZ/config.json"
     user_home="/home/$(whoami)"
 fi
 temp_dir="$user_home/tmp"
