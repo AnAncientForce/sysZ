@@ -54,6 +54,11 @@ while true; do
             echo "paused" >"$lockfile"
         fi
     fi
+    cpu_temp=$(sensors | grep "Core 0" | awk '{print $3}' | cut -c 2-3)
+    if [ "$cpu_temp" -ge 85 ]; then
+        echo "Temperature is dangerously high, so the LIVE_WALLPAPER was stopped." >>"${sysZ}/log.txt"
+        exit 0
+    fi
     sleep 5
 done
 
