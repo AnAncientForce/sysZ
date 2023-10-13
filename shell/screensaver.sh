@@ -54,16 +54,13 @@ fi
 
 files=($sysZ/videos/*)
 # printf "%s\n" "${files[RANDOM % ${#files[@]}]}"
-
 #if pgrep -x "mpv" >/dev/null; then
 #    leave
 #fi
-
 # Run
 mpv --fs --loop --mute -no-osc --no-osd-bar "${files[RANDOM % ${#files[@]}]}" &
 mpv_pid=$!
 # sh $sysZ/shell/pull.sh --store-pid "$mpv_pid"
-
 # Check when activity is back
 # Compare mouse position
 while true; do

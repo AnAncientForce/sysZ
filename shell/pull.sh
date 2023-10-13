@@ -544,7 +544,7 @@ wallpaper_management_func() {
         live_wallpaper_path=$(checkJsonString "live_wallpaper_path")
         if [ $? -eq 0 ] && [ -n "$live_wallpaper_path" ]; then
             kill_wallpaper_handler
-            killall -9 feh xwinwrap mpv wallpaper_handler.sh
+            killall feh xwinwrap mpv wallpaper_handler.sh
             sleep 0.1
             # xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio "$live_wallpaper_path"
             sh $sysZ/shell/wallpaper_handler.sh >/dev/null 2>&1 &
@@ -558,7 +558,7 @@ wallpaper_management_func() {
     else
         wallpaper_path=$(checkJsonString "wallpaper_path")
         if [ $? -eq 0 ] && [ -n "$wallpaper_path" ]; then
-            killall -9 feh
+            killall feh
             i3-msg "exec feh --bg-fill $wallpaper_path"
         fi
     fi
@@ -576,7 +576,7 @@ screensaver_func() {
     if [ "$screensaver_timeout" -gt 0 ]; then
         # echo "Screensaver: Enabled"
         kill_pid "$temp_dir/screensaver_launcher_pid.txt"
-        killall -9 xidlehook screensaver_launcher.sh
+        killall xidlehook screensaver_launcher.sh
         sh $sysZ/shell/screensaver_launcher.sh $screensaver_timeout >/dev/null 2>&1 &
         store_pid "$temp_dir/screensaver_launcher_pid.txt"
     fi
@@ -585,7 +585,7 @@ screensaver_func() {
 wm_setup_func() {
     echo "wm-refresh" >>"${sysZ}/log.txt"
     echo -e ${BBlue}"\n[*] wm-refresh" ${Color_Off}
-    killall -9 polybar picom
+    killall polybar picom
     echo -e ${BBlue}"\n[*] Starting polybar" ${Color_Off}
     i3-msg "exec polybar -c $sysZ/conf/polybar.ini;"
 

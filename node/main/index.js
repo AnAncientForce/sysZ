@@ -693,7 +693,7 @@ function setupWallpaperSelection(type) {
           jsonObject["live_wallpaper"] = false;
           jsonObject["wallpaper_path"] = filePath;
           helper.writeSettings(jsonObject);
-          executeCommand(`killall -9 mpv`);
+          executeCommand(`killall mpv`);
           executeCommand(`feh --bg-fill ${filePath}`);
           /*
           executeCommand(`cp -v ${filePath} ${sysZ}/saved/bg`);

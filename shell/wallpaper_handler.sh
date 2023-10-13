@@ -16,6 +16,7 @@ else
 fi
 temp_dir="$user_home/tmp"
 lockfile="$temp_dir/live_wallpaper_state.lock"
+ipc_socket="/tmp/mpvsocket"
 
 checkJsonString() {
     # Check if the file exists
@@ -88,6 +89,10 @@ done
 
 cleanup() {
     rm -f "$lockfile"
+    pkill -f "xwinwrap"
+    pkill -f "mpv --input-ipc-server=$ipc_socket"
+    rm -f "$ipc_socket"
+    echo "Resources released and processes stopped."
     if [ -n "$mpv_pid" ]; then
         kill "$mpv_pid"
     fi
