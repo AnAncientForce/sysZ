@@ -542,12 +542,12 @@ wm_setup_func() {
             sudo systemctl stop bluetooth.service
         fi
     fi
-    if ! checkJson "disable_autostart_file"; then
-        if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
+    if [ -f "$user_home/.config/sysZ/autostart.sh" ]; then
+        if ! checkJson "disable_autostart_file"; then
             i3-msg "exec sh $user_home/.config/sysZ/autostart.sh;"
-        else
-            echo -e ${BBlue}"\n[!] Autostart file not found" ${Color_Off}
         fi
+    else
+        echo -e ${BBlue}"\n[!] Autostart file not found" ${Color_Off}
     fi
 
     i3-msg "reload"
@@ -577,8 +577,10 @@ help() {
     echo -e ${BGreen}"[*] -h            : Lists all available flags" ${Color_Off}
     echo -e ${BGreen}"[*] -u            : Updates sysZ (automatically installs required dependencies)" ${Color_Off}
     echo -e ${BGreen}"[*] -r            : Refreshes sysZ" ${Color_Off}
-    echo -e ${BGreen}"[*] --auto        : Automatically installs sysZ" ${Color_Off}
-    echo -e ${BGreen}"[*] --mod         : Additional configuration settings that aren't shown in the main interface." ${Color_Off}
+    echo -e ${BGreen}"[*] -l            : Lock Workstation" ${Color_Off}
+    echo -e ${BYellow}"[*] --auto        : Automatically installs sysZ" ${Color_Off}
+    echo -e ${BRed}"[*] --set         : Manually edit settings | Usage: --set [w _KEY _BOOL, r]" ${Color_Off}
+    echo -e ${BRed}"[*] --mod         : Additional configuration settings that aren't shown in the main interface." ${Color_Off}
     echo -e ${BBlue}"\n[?] For a general overview of how to navigate the system, press [SUPER + i] to open the main interface.\n$gap Once opened, click [Guides], then click [Global Shortcuts]" ${Color_Off}
     exit 0
 }
