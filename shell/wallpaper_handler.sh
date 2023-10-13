@@ -18,8 +18,9 @@ source "$sysZ/shell/common.sh"
 temp_dir="$user_home/tmp"
 lockfile="$temp_dir/live_wallpaper_state.lock"
 ipc_socket="/tmp/mpvsocket"
-
 live_wallpaper_path=$(checkJsonString "live_wallpaper_path")
+
+rm -f "$lockfile"
 xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio "$live_wallpaper_path"
 xwinwrap_pid=$!
 #
@@ -75,7 +76,7 @@ cleanup() {
     if [ -n "$xwinwrap_pid" ]; then
         kill "$xwinwrap_pid"
     fi
-    pkill -f "xwinwrap"
+    killall -9 xwinwrap
     pkill -f "mpv --input-ipc-server=$ipc_socket"
     rm -f "$ipc_socket"
     exit 0
