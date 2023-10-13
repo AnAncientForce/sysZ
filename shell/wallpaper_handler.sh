@@ -1,5 +1,21 @@
 #!/bin/bash
 
+user_home=""
+sysZ=""
+temp_dir=""
+
+if [ "$EUID" -eq 0 ]; then
+    sysZ="/home/$SUDO_USER/sysZ"
+    user_home="/home/$SUDO_USER"
+else
+    sysZ="/home/$(whoami)/sysZ"
+    user_home="/home/$(whoami)"
+fi
+temp_dir="$user_home/tmp"
+lockfile="$temp_dir/live_wallpaper_state.lock"
+
+#
+
 window_names=("$(whoami)@$HOSTNAME:" "Alacritty" "i3")
 
 is_window_focused() {
@@ -26,13 +42,22 @@ while true; do
         playerctl -p mpv status | grep -q "Playing"
         if [[ $? -ne 0 ]]; then
             send_pause_command
+            touch "$lockfile"
+            echo "playing" >"$lockfile"
         fi
     else
         echo "not in focus"
         playerctl -p mpv status | grep -q "Paused"
         if [[ $? -ne 0 ]]; then
             send_pause_command
+            touch "$lockfile"
+            echo "paused" >"$lockfile"
         fi
     fi
     sleep 5
 done
+
+cleanup() {
+    rm -f "$lockfile"
+}
+trap cleanup EXIT
