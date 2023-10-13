@@ -1,10 +1,10 @@
 i3-wm
-Only mentions the most important features, not everything is listed here.
+A majority of the shortcuts are mapped from Windows 10. This is simply to make the workflow easier to adapt to.
 
 Close Window
     Super + Q
 
-Rofi search menu (d menu)
+Search
     Super + D
 
 End session / log out
