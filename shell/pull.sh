@@ -817,7 +817,7 @@ for arg in "$@"; do
             echo -e "${BRed}\n[!] Invalid operation (no option specified)\n${Color_Off}"
             exit 2
         fi
-        store_pid "$temp_dir/$2.txt"
+        store_pid "$temp_dir/$2"
         exit 0
         ;;
     --kill-pid)
@@ -825,7 +825,7 @@ for arg in "$@"; do
             echo -e "${BRed}\n[!] Invalid operation (no option specified)\n${Color_Off}"
             exit 2
         fi
-        kill_pid "$temp_dir/$2.txt"
+        kill_pid "$temp_dir/$2"
         exit 0
         ;;
     --mod)
