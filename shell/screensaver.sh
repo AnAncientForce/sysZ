@@ -43,6 +43,15 @@ if pgrep -x "i3lock" >/dev/null; then
 fi
 touch "$lockfile"
 
+live_wallpaper_state="$temp_dir/live_wallpaper_state.lock"
+if [ -f "$live_wallpaper_state" ]; then
+    lockfile_content=$(<"$live_wallpaper_state")
+    if [ "$lockfile_content" == "playing" ]; then
+        echo "The live wallpaper is currently playing, so the screensaver did not proceed." >>"${sysZ}/log.txt"
+        leave
+    fi
+fi
+
 files=($sysZ/videos/*)
 # printf "%s\n" "${files[RANDOM % ${#files[@]}]}"
 

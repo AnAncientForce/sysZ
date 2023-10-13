@@ -16,6 +16,9 @@ lockfile="$temp_dir/live_wallpaper_state.lock"
 
 #
 
+xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio "$live_wallpaper_path"
+mpv_pid=$!
+
 window_names=("$(whoami)@$HOSTNAME:" "Alacritty" "i3")
 
 is_window_focused() {
@@ -57,12 +60,16 @@ while true; do
     cpu_temp=$(sensors | grep "Core 0" | awk '{print $3}' | cut -c 2-3)
     if [ "$cpu_temp" -ge 85 ]; then
         echo "Temperature is dangerously high, so the LIVE_WALLPAPER was stopped." >>"${sysZ}/log.txt"
-        exit 0
+        cleanup
     fi
     sleep 5
 done
 
 cleanup() {
     rm -f "$lockfile"
+    if [ -n "$mpv_pid" ]; then
+        kill "$mpv_pid"
+    fi
+    exit 0
 }
 trap cleanup EXIT
