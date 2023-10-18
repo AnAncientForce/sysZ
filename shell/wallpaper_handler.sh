@@ -92,23 +92,28 @@ while true; do
                     echo "paused" >"$lockfile"
                 fi
             fi
-            cpu_temp=$(sensors | grep "Core 0" | awk '{print $3}' | cut -c 2-3)
-            if [ "$cpu_temp" -ge 85 ]; then
-                echo "Temperature is dangerously high." >>"${sysZ}/log.txt"
-                if [ -f "$lockfile" ]; then
-                    lockfile_content=$(<"$lockfile")
-                    if [ "$lockfile_content" == "playing" ]; then
-                        # suspend live wallpaper
-                        echo "The LIVE_WALLPAPER was paused and cannot resume until system has reached a safe temperature." >>"${sysZ}/log.txt"
-                        send_pause_command
-                        touch "$lockfile"
-                        echo "suspended" >"$lockfile"
-                    fi
-                fi
-
-                # cleanup
-            fi
         fi
+        cpu_temp=$(sensors | grep "Core 0" | awk '{print $3}' | cut -c 2-3)
+        if [ "$cpu_temp" -ge 85 ]; then
+            echo "Temperature is dangerously high." >>"${sysZ}/log.txt"
+            if [ -f "$lockfile" ]; then
+                lockfile_content=$(<"$lockfile")
+                if [ "$lockfile_content" == "playing" ]; then
+                    # suspend live wallpaper
+                    echo "The LIVE_WALLPAPER was paused and cannot resume until system has reached a safe temperature." >>"${sysZ}/log.txt"
+                    send_pause_command
+                    touch "$lockfile"
+                    echo "suspended" >"$lockfile"
+                fi
+            fi
+        else
+            echo "System has reached a safe temperature; LIVE_WALLPAPER has been unsuspended." >>"${sysZ}/log.txt"
+            touch "$lockfile"
+            echo "paused" >"$lockfile"
+        fi
+    else
+        echo "wallpaper_handler.sh ? no lock file found" >>"${sysZ}/log.txt"
+        cleanup
     fi
     sleep 5
 
