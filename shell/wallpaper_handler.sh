@@ -57,29 +57,49 @@ while [ ! -e /tmp/mpvsocket ]; do
 done
 
 while true; do
-    if is_window_focused; then
-        echo "in focus"
-        playerctl -p mpv status | grep -q "Playing"
-        if [[ $? -ne 0 ]]; then
-            send_pause_command
-            touch "$lockfile"
-            echo "playing" >"$lockfile"
+
+    if [ -f "$lockfile" ]; then
+        lockfile_content=$(<"$lockfile")
+        if ! [ "$lockfile_content" != "suspended" ]; then
+            # Proceed if not in 'suspended' state
+
+            if is_window_focused; then
+                echo "in focus"
+                playerctl -p mpv status | grep -q "Playing"
+                if [[ $? -ne 0 ]]; then
+                    send_pause_command
+                    touch "$lockfile"
+                    echo "playing" >"$lockfile"
+                fi
+            else
+                echo "not in focus"
+                playerctl -p mpv status | grep -q "Paused"
+                if [[ $? -ne 0 ]]; then
+                    send_pause_command
+                    touch "$lockfile"
+                    echo "paused" >"$lockfile"
+                fi
+            fi
+            cpu_temp=$(sensors | grep "Core 0" | awk '{print $3}' | cut -c 2-3)
+            if [ "$cpu_temp" -ge 85 ]; then
+                echo "Temperature is dangerously high." >>"${sysZ}/log.txt"
+                if [ -f "$lockfile" ]; then
+                    lockfile_content=$(<"$lockfile")
+                    if ! [ "$lockfile_content" == "playing" ]; then
+                        # suspend live wallpaper
+                        echo "The LIVE_WALLPAPER was paused and cannot resume until system has reached a safe temperature." >>"${sysZ}/log.txt"
+                        send_pause_command
+                        touch "$lockfile"
+                        echo "suspended" >"$lockfile"
+                    fi
+                fi
+
+                # cleanup
+            fi
         fi
-    else
-        echo "not in focus"
-        playerctl -p mpv status | grep -q "Paused"
-        if [[ $? -ne 0 ]]; then
-            send_pause_command
-            touch "$lockfile"
-            echo "paused" >"$lockfile"
-        fi
-    fi
-    cpu_temp=$(sensors | grep "Core 0" | awk '{print $3}' | cut -c 2-3)
-    if [ "$cpu_temp" -ge 85 ]; then
-        echo "Temperature is dangerously high, so the LIVE_WALLPAPER was stopped." >>"${sysZ}/log.txt"
-        cleanup
     fi
     sleep 5
+
 done
 
 trap cleanup EXIT

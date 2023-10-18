@@ -81,6 +81,21 @@ yay_packages=(
     "ungoogled-chromium-bin"
     "droidcam"
 )
+removed_packages=(
+    "xidlehook"
+    "vimix-gtk-themes"
+    "vimix-cursors"
+    "vimix-icon-theme"
+    "cava-git"
+    "librewolf-bin"
+    "picom-simpleanims-git"
+    "autotiling"
+    "ttf-font-awesome-4"
+    "tty-clock"
+    "pipes.sh"
+    "ungoogled-chromium-bin"
+    "droidcam"
+)
 wallpapers=(
     "https://images6.alphacoders.com/131/1317292.jpeg"
     "https://images2.alphacoders.com/131/1317287.png"
