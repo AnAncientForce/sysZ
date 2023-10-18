@@ -34,6 +34,7 @@ leave() {
 
 if [ -e "$lockfile" ]; then
     echo "Instance is already running. Exiting."
+    # i3-msg 'exec dunstify -t 5000 "Warning: Instance of screensaver.sh is already running. Exiting.";'
     exit 1
 fi
 if pgrep -x "i3lock" >/dev/null; then
