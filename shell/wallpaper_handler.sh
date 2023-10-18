@@ -21,6 +21,9 @@ ipc_socket="/tmp/mpvsocket"
 live_wallpaper_path=$(checkJsonString "live_wallpaper_path")
 
 rm -f "$lockfile"
+touch "$lockfile"
+echo "playing" >"$lockfile"
+# ^ default state would be 'playing', hence when the mpv is spawned
 xwinwrap -fs -ov -ni -nf -un -s -d -o 1.0 -debug -- mpv --input-ipc-server=/tmp/mpvsocket -wid WID --loop --no-audio "$live_wallpaper_path"
 xwinwrap_pid=$!
 
