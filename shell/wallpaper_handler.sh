@@ -20,6 +20,11 @@ lockfile="$temp_dir/live_wallpaper_state.lock"
 ipc_socket="/tmp/mpvsocket"
 live_wallpaper_path=$(checkJsonString "live_wallpaper_path")
 
+if [ -e "$lockfile" ]; then
+    echo "Instance is already running. Exiting."
+    exit 1
+fi
+
 rm -f "$lockfile"
 touch "$lockfile"
 echo "playing" >"$lockfile"
@@ -34,6 +39,7 @@ cleanup() {
     fi
     pkill -f "xwinwrap"
     pkill -f "mpv --input-ipc-server=$ipc_socket"
+    pkill wallpaper_handler.sh
     rm -f "$ipc_socket"
     exit 0
 }
