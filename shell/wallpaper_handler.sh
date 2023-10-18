@@ -60,7 +60,7 @@ while true; do
 
     if [ -f "$lockfile" ]; then
         lockfile_content=$(<"$lockfile")
-        if ! [ "$lockfile_content" != "suspended" ]; then
+        if [ "$lockfile_content" != "suspended" ]; then
             # Proceed if not in 'suspended' state
 
             if is_window_focused; then
@@ -85,7 +85,7 @@ while true; do
                 echo "Temperature is dangerously high." >>"${sysZ}/log.txt"
                 if [ -f "$lockfile" ]; then
                     lockfile_content=$(<"$lockfile")
-                    if ! [ "$lockfile_content" == "playing" ]; then
+                    if [ "$lockfile_content" == "playing" ]; then
                         # suspend live wallpaper
                         echo "The LIVE_WALLPAPER was paused and cannot resume until system has reached a safe temperature." >>"${sysZ}/log.txt"
                         send_pause_command
